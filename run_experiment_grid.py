@@ -394,12 +394,20 @@ class ExperimentRunner:
             self.log(proc.stdout.rstrip())
 
     def build_jobs(self):
-        return [
+        # Schedule noise-ascending, then partial, then semantics-interleaved.
+        # Rationale (audit): the previous semantics-outermost order starved GRD
+        # (it sat at the tail of every worker queue and never ran). Ordering by
+        # ascending noise runs the cheap noise=0 cells first across ALL semantics
+        # (so every semantics makes early progress and any cell-level failure
+        # surfaces within minutes), with the expensive high-noise cells last.
+        jobs = [
             (semantics, partial, noise)
             for semantics in self.semantics_list
             for partial in self.partials
             for noise in self.noises
         ]
+        jobs.sort(key=lambda j: (j[2], j[1], self.semantics_list.index(j[0])))
+        return jobs
 
     def results_dir_for_job(self, semantics: str, partial: float, noise: float) -> Path:
         dirname = self.results_dir_template.format(
@@ -495,13 +503,20 @@ class ExperimentRunner:
                 )
                 if proc.returncode != 0:
                     failed += 1
-                    self.stop_requested.set()
+                    # Record-and-continue (audit defect #7). A single bad cell must
+                    # NOT abort a multi-day campaign: previously this set
+                    # stop_requested and broke ALL workers, after which the watchdog
+                    # RED-halted on a deterministic poison cell. Now we log+record
+                    # the failure and move on to the next assigned job. run() still
+                    # returns non-zero at the end if any cell failed, so the
+                    # operator still sees the failure list. External SIGTERM still
+                    # stops cleanly via the stop_requested check at the loop top.
                     self.log(
-                        f"[FAIL] [W{worker_id}] {semantics} partial={partial} noise={noise} rc={proc.returncode}"
+                        f"[SKIP] [W{worker_id}] {semantics} partial={partial} noise={noise} rc={proc.returncode} (recorded, continuing)"
                     )
                     with self.failure_lock:
                         self.failures.append((worker_id, semantics, partial, noise, proc.returncode, str(worker_log)))
-                    break
+                    continue
                 ran += 1
                 self.log(f"[W{worker_id}] [OK  ] {semantics} partial={partial} noise={noise}")
         self.log(f"[W{worker_id}] done (ran={ran}, failed={failed})")
