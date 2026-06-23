@@ -1,0 +1,15 @@
+{
+    "semantics": ["PRF"],
+    "partials": [1.0, 0.8, 0.6],
+    "noise_values": [0.0, 0.1, 0.2, 0.3, 0.4],
+    "iterations": 10,
+    "f_values": [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+    "input_dir": "aafs",
+    "base_output_dir": "labelled",
+    "train_dir": "train",
+    "train_output_dir": "train_output",
+    "results_dir": "results",
+    "asp_dir": "ASPARTIX",
+    "allow_empty": true
+  }
+  

@@ -1,0 +1,54 @@
+# Local environments
+/.venv/
+/.venv311/
+/.vscode/
+
+# Python cache
+/__pycache__/
+*.py[cod]
+
+# OS noise
+.DS_Store
+
+# Generated artifact roots
+/artifacts/
+/backup/
+/logs/
+/plots/
+/results/
+/train/
+/train_output/
+/tmp/
+/_old_results/
+/benchmarks/
+/aafs/
+/labelled/
+
+# Archived/generated bundles
+/results.zip
+/satisfaction_results.txt
+
+# Ad hoc generated experiment trees
+/results_stb_ratio_sweep/
+/results_stb_ratio_sweep_w5_20260226_035338/
+/train_stb_ratio_sweep/
+/train_stb_ratio_sweep_w5_20260226_035338/
+/train_output_stb_ratio_sweep/
+/train_output_stb_ratio_sweep_w5_20260226_035338/
+/tmp_rng_check_20260228_143044/
+/tmp_rng_check_20260228_143055/
+
+# Packaging noise
+/arglas.egg-info/
+
+# Global python cache (any subdir)
+__pycache__/
+
+# Real_World_Examples: ignore regenerable run outputs / scratch / lock files only.
+# NOTE: asp_files/, ilasp_tasks/, learned_encodings/, neg_generator/ are committed
+# on purpose -- they are a hand-curated, not-yet-reproducible dataset (see audit),
+# so they are treated as source until the Exp2 rebuild is made reproducible.
+/Real_World_Examples/runs/
+/Real_World_Examples/_tmp_extract_*/
+/Real_World_Examples/~$*.xlsx
+~$*.xlsx
