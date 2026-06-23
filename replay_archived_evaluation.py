@@ -61,6 +61,22 @@ def resolve_archive_path(archive_root, raw_path):
         return None
     candidate = Path(raw)
     if candidate.is_absolute():
+        if candidate.exists():
+            return candidate
+        # Stale absolute path (e.g. recorded from a moved/renamed checkout such
+        # as the old FabioExperimentsMacM4_codex tree). Re-anchor onto the local
+        # archive_root by matching the run-directory name that archive_root ends
+        # with, taking its FIRST occurrence (the artifacts/<run> level) so a
+        # train_output/<gen> segment whose name repeats the run id is preserved.
+        anchor = archive_root.name
+        parts = candidate.parts
+        if anchor in parts:
+            idx = parts.index(anchor)
+            suffix = Path(*parts[idx + 1:]) if idx + 1 < len(parts) else Path("")
+            remapped = archive_root / suffix
+            if remapped.exists():
+                return remapped
+            return remapped
         return candidate
     return archive_root / candidate
 
@@ -272,34 +288,18 @@ def replay_condition(
                 tn += add_tn
                 fn += add_fn
         else:
+            # Failed training has NO learned model and therefore NO generalization
+            # measurement. Do NOT fabricate confusion counts: the previous code
+            # scored the whole NEG class as TN, pinning failed rows at a spurious
+            # 0.5 accuracy / 0.0 F1 floor (audit defect #3). Leave
+            # tp=fp=tn=fn=correct=0 and rely on the ILASP_TRAIN_SUCCEEDED=0 flag;
+            # downstream aggregation must filter on that flag. We also skip the
+            # ground-truth solves here (no learned side to compare against), which
+            # keeps re-scoring of failed cells instant. Only PAR2 penalty
+            # bookkeeping is retained for the runtime columns.
             penalty_per_test = par2_factor * test_timeout_seconds
             par2_ilasp_test_seconds = total * penalty_per_test
-            for tf in test_files:
-                test_path = input_dir / tf
-                start = time.perf_counter()
-                gt_models = run_ground_truth_with_api(
-                    str(asp_file),
-                    str(test_path),
-                    str(ground_truth_background_file) if ground_truth_background_file else None,
-                    clingo_args=ground_truth_clingo_args,
-                    completion_rules=ground_truth_completion_rules,
-                    show_predicates=ground_truth_show_predicates,
-                )
-                elapsed = time.perf_counter() - start
-                par2_aspartix_seconds += par2_score_seconds(
-                    elapsed, test_timeout_seconds, par2_factor
-                )
-                is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
-                    [],
-                    gt_models,
-                    eval_match_policy,
-                )
-                if is_correct:
-                    correct += 1
-                tp += add_tp
-                fp += add_fp
-                tn += add_tn
-                fn += add_fn
+            par2_aspartix_seconds = total * penalty_per_test
 
         accuracy = correct / total if total else 0.0
         precision = safe_div(tp, tp + fp)

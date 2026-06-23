@@ -13,7 +13,7 @@
     },
     "completion_rules": {
       "label_generation": false,
-      "train_test_learned": false,
+      "train_test_learned": true,
       "train_test_ground_truth": false
     },
     "show_predicates": {
