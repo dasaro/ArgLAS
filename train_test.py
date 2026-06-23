@@ -173,6 +173,88 @@ def build_fixed_balanced_holdout_files(
     selected_neg = stable_sample(all_neg, test_examples_per_class, seed_parts + ["NEG"])
     return sorted(selected_pos + selected_neg)
 
+
+def aaf_group_id(filename):
+    """Source-AAF identity (N, i) from aaf_<N>_<i>_<SEM>_<POS|NEG>_<k>.lp."""
+    m = re.match(r"aaf_(\d+)_(\d+)_", filename)
+    if not m:
+        return None
+    return (int(m.group(1)), int(m.group(2)))
+
+
+def build_grouped_folds(input_dir, k, fold_seed=0):
+    """Partition the source-AAFs in input_dir into k GROUP-DISJOINT CV folds,
+    stratified by AAF size N. Returns a list of k (train_aafs, test_aafs) pairs
+    of (N, i) tuples: fold j's test AAFs tile the population exactly once and
+    train = population - test, so a given source-AAF is NEVER in both the train
+    and test side of the same fold (this is the fix for AAF-level leakage,
+    audit defect #2). The per-size shuffle seed depends ONLY on (fold_seed, N)
+    -- not on os.path.abspath(input_dir) and not on the semantics -- so folds
+    are reproducible across checkouts (fixing the path-dependent-seed wart) and
+    identical across semantics for paired cross-semantics comparison."""
+    if k < 2:
+        raise ValueError("grouped_kfold requires k >= 2 folds.")
+    ids_by_size = {}
+    for f in os.listdir(input_dir):
+        if not f.endswith(".lp"):
+            continue
+        gid = aaf_group_id(f)
+        if gid is None:
+            continue
+        ids_by_size.setdefault(gid[0], set()).add(gid[1])
+    if not ids_by_size:
+        raise ValueError(f"No parseable source-AAFs found in '{input_dir}'.")
+    test_aafs = [set() for _ in range(k)]
+    all_aafs = set()
+    for size in sorted(ids_by_size):
+        ids = sorted(ids_by_size[size])
+        for i in ids:
+            all_aafs.add((size, i))
+        rng = random.Random(stable_seed_from_parts("grouped_folds", fold_seed, size))
+        rng.shuffle(ids)
+        n = len(ids)
+        for j in range(k):
+            lo = (j * n) // k
+            hi = ((j + 1) * n) // k
+            for i in ids[lo:hi]:
+                test_aafs[j].add((size, i))
+    return [(all_aafs - test_aafs[j], test_aafs[j]) for j in range(k)]
+
+
+def build_grouped_balanced_test(input_dir, test_aafs, test_per_class, fold_seed, fold_index):
+    """Balanced (equal POS/NEG) hold-out drawn ONLY from the given test AAFs.
+    Caps at the smaller class so the result stays balanced; seed is
+    path-independent (fold_seed, fold_index)."""
+    test_set = set(test_aafs)
+    pos = sorted(
+        f for f in os.listdir(input_dir)
+        if f.endswith(".lp") and "_POS_" in f and aaf_group_id(f) in test_set
+    )
+    neg = sorted(
+        f for f in os.listdir(input_dir)
+        if f.endswith(".lp") and "_NEG_" in f and aaf_group_id(f) in test_set
+    )
+    per_class = min(test_per_class, len(pos), len(neg))
+    if per_class <= 0:
+        raise ValueError(
+            f"Grouped fold {fold_index} has no balanced test examples in '{input_dir}' "
+            f"(POS={len(pos)}, NEG={len(neg)})."
+        )
+    seed_parts = ["grouped_balanced_test", fold_seed, fold_index]
+    selected_pos = stable_sample(pos, per_class, seed_parts + ["POS"])
+    selected_neg = stable_sample(neg, per_class, seed_parts + ["NEG"])
+    return sorted(selected_pos + selected_neg)
+
+
+def build_grouped_train_manifest(input_dir, train_aafs):
+    """All labelled files whose source-AAF is in the fold's training AAF set."""
+    train_set = set(train_aafs)
+    return sorted(
+        f for f in os.listdir(input_dir)
+        if f.endswith(".lp") and aaf_group_id(f) in train_set
+    )
+
+
 def get_train_test_sets(
     input_dir,
     train_files,
@@ -880,6 +962,21 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
         with open(allowed_training_examples_manifest, "w", encoding="utf-8") as f:
             for name in allowed_training_examples:
                 f.write(name + "\n")
+
+    grouped_kfold = test_set_policy == "grouped_kfold"
+    grouped_folds = None
+    if grouped_kfold:
+        if effective_test_examples_per_class is None:
+            effective_test_examples_per_class = (
+                test_examples_per_class if test_examples_per_class is not None else 50
+            )
+        grouped_folds = build_grouped_folds(input_dir, iterations, fold_seed=test_sampling_seed)
+        fold_counts = [(len(tr), len(te)) for tr, te in grouped_folds]
+        print(
+            f"[Config] grouped_kfold: K={iterations} group-disjoint folds over source-AAFs "
+            f"(train/test AAF counts per fold: {fold_counts}); "
+            f"test_per_class={effective_test_examples_per_class}"
+        )
     print(
         f"[Config] test_set_policy={test_set_policy} | "
         f"test_examples_per_class="
@@ -911,6 +1008,29 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     f"♻️  Resuming iteration {iteration}: existing file has "
                     f"{existing_rows}/{expected_rows_per_iteration} rows."
                 )
+
+        # Per-fold (grouped_kfold) hold-out + training manifest. The fold index IS
+        # the `iteration` counter, so the per-iteration results files and resume
+        # logic carry over unchanged (the ITERATION column now records the fold).
+        # For non-grouped policies, reuse the global hold-out/manifest.
+        if grouped_kfold:
+            fold_train_aafs, fold_test_aafs = grouped_folds[iteration - 1]
+            iter_holdout_files = build_grouped_balanced_test(
+                input_dir,
+                fold_test_aafs,
+                effective_test_examples_per_class,
+                fold_seed=test_sampling_seed,
+                fold_index=iteration,
+            )
+            iter_manifest = os.path.join(
+                train_dir, f"allowed_training_examples_{prefix}_fold{iteration}.txt"
+            )
+            with open(iter_manifest, "w", encoding="utf-8") as mf:
+                for name in build_grouped_train_manifest(input_dir, fold_train_aafs):
+                    mf.write(name + "\n")
+        else:
+            iter_holdout_files = fixed_holdout_files
+            iter_manifest = allowed_training_examples_manifest
 
         for n_pos, n_neg in sample_pairs:
             for n in n_values:
@@ -949,7 +1069,7 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     negative_flip_k=negative_flip_k,
                     semantics=semantics,
                     semantics_config_path=semantics_config_path,
-                    allowed_examples_manifest=allowed_training_examples_manifest,
+                    allowed_examples_manifest=iter_manifest,
                     seed=stable_seed_from_parts(
                         "task_sampling",
                         task_sampling_seed_base,
@@ -965,7 +1085,11 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                 train_files, test_files, test_set_meta = get_train_test_sets(
                     input_dir=input_dir,
                     train_files=train_files,
-                    test_set_policy=test_set_policy,
+                    # grouped_kfold reuses the fixed_balanced_holdout branch (which
+                    # returns the supplied hold-out as the test set and enforces the
+                    # train/test disjointness guard) but with the per-fold,
+                    # AAF-disjoint hold-out built above.
+                    test_set_policy=("fixed_balanced_holdout" if grouped_kfold else test_set_policy),
                     test_examples_per_class=effective_test_examples_per_class,
                     test_sampling_seed=test_sampling_seed,
                     semantics=semantics,
@@ -974,8 +1098,10 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     n_pos=n_pos,
                     n_neg=n_neg,
                     noise=n,
-                    fixed_holdout_files=fixed_holdout_files,
+                    fixed_holdout_files=iter_holdout_files,
                 )
+                if grouped_kfold:
+                    test_set_meta["test_set_policy"] = "grouped_kfold"
                 synth_neg_legal = 0
                 synth_neg_total = 0
                 if negative_policy != "oracle_neg":
@@ -1079,39 +1205,16 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                         f"[Warning] Skipping learned-model inference because ILASP failed "
                         f"(exit_code={train_exit_code}, timed_out={int(train_timed_out)})."
                     )
+                    # Failed training => no learned model => NO generalization
+                    # measurement. Do NOT score the NEG class as TN (audit defect
+                    # #3, which pinned failed rows at a spurious 0.5 accuracy /
+                    # 0.0 F1 floor). Leave tp=fp=tn=fn=correct=0; the row is flagged
+                    # by ILASP_TRAIN_SUCCEEDED=0 and must be excluded from accuracy/
+                    # F1 aggregation. Ground-truth solves are skipped (nothing to
+                    # compare against), keeping failed cells cheap.
                     penalty_per_test = effective_par2_factor * effective_test_par_timeout_seconds
                     par2_ilasp_test_seconds = total * penalty_per_test
-
-                    # Compute ground-truth runtimes and confusion metrics against "no prediction".
-                    for tf in test_files:
-                        test_path = os.path.join(input_dir, tf)
-                        start = time.perf_counter()
-                        gt_models = run_ground_truth_with_api(
-                            asp_file,
-                            test_path,
-                            ground_truth_background_file,
-                            clingo_args=ground_truth_clingo_args,
-                            completion_rules=ground_truth_completion_rules,
-                            show_predicates=ground_truth_show_predicates,
-                        )
-                        aspartix_elapsed = time.perf_counter() - start
-                        par2_aspartix_seconds += par2_score_seconds(
-                            aspartix_elapsed,
-                            effective_test_par_timeout_seconds,
-                            effective_par2_factor
-                        )
-
-                        is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
-                            [],
-                            gt_models,
-                            eval_match_policy,
-                        )
-                        if is_correct:
-                            correct += 1
-                        tp += add_tp
-                        fp += add_fp
-                        tn += add_tn
-                        fn += add_fn
+                    par2_aspartix_seconds = total * penalty_per_test
 
                 acc = correct / total if total > 0 else 0
                 precision = safe_div(tp, tp + fp)
@@ -1240,13 +1343,16 @@ def build_parser(add_help=True):
     )
     parser.add_argument(
         "--test_set_policy",
-        choices=("fixed_balanced_holdout", "balanced_remaining", "all_remaining"),
+        choices=("grouped_kfold", "fixed_balanced_holdout", "balanced_remaining", "all_remaining"),
         default="fixed_balanced_holdout",
         help=(
-            "Testing policy. 'fixed_balanced_holdout' reserves one deterministic, class-balanced "
-            "hold-out pool per labelled dataset and samples training only from the complement; "
-            "'balanced_remaining' preserves the earlier balanced-on-remainder behavior; "
-            "'all_remaining' preserves the legacy behavior."
+            "Testing policy. 'grouped_kfold' (recommended) runs K group-disjoint CV folds over "
+            "source-AAFs (K = --iterations): train and test never share a source-AAF, removing "
+            "AAF-level leakage, and the K folds give honest generalization CIs. "
+            "'fixed_balanced_holdout' reserves one deterministic, class-balanced hold-out pool per "
+            "labelled dataset and samples training only from the complement (note: file-level "
+            "disjoint but NOT AAF-disjoint -> leaks); 'balanced_remaining' preserves the earlier "
+            "balanced-on-remainder behavior; 'all_remaining' preserves the legacy behavior."
         )
     )
     parser.add_argument(
