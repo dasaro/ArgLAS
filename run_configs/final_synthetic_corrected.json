@@ -1,7 +1,7 @@
 {
   "run_name": "final_synthetic_corrected",
   "display_name": "Final synthetic grid (corrected: grouped K-fold, fixed eval)",
-  "semantics": ["ADM", "CMP", "STB", "GRD"],
+  "semantics": ["ADM", "CMP", "STB"],
   "partials": [0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
   "noises": [0.0, 0.1, 0.2],
   "f_values": [10, 20, 30, 40, 50],

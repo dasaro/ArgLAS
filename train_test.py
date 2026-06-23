@@ -16,6 +16,7 @@ from solver_policy import (
     get_background_file,
     get_clingo_args,
     get_completion_rules_enabled,
+    get_eval_on_bare_aaf,
     get_semantics_entry,
     get_show_predicates,
     load_semantics_config,
@@ -851,11 +852,12 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
         else None
     )
     learned_completion_rules = get_completion_rules_enabled(
-        semantics_config, stage="train_test_learned"
+        semantics_config, stage="train_test_learned", semantics=semantics
     )
     ground_truth_completion_rules = get_completion_rules_enabled(
-        semantics_config, stage="train_test_ground_truth"
+        semantics_config, stage="train_test_ground_truth", semantics=semantics
     )
+    eval_on_bare_aaf = get_eval_on_bare_aaf(semantics_config, semantics)
     learned_show_predicates = get_show_predicates(
         semantics_config, stage="train_test_learned"
     )
@@ -1154,6 +1156,22 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                 if train_succeeded:
                     for tf in test_files:
                         test_path = os.path.join(input_dir, tf)
+                        if eval_on_bare_aaf:
+                            # Strip the test file's label atoms and compare on the
+                            # BARE AAF. Required for grounded: grounded.lp is a
+                            # definite program (no integrity constraints), so it can
+                            # never reject an injected non-grounded labelling, which
+                            # makes the labelled-instance comparison meaningless on
+                            # negative instances. Comparing the computed unique
+                            # extension on the bare AAF is the correct test.
+                            bare_lines = [
+                                ln.strip()
+                                for ln in open(test_path, "r", encoding="utf-8")
+                                if ln.strip().startswith(("arg(", "att("))
+                            ]
+                            test_path = os.path.join(train_dir, "_bare_eval_instance.lp")
+                            with open(test_path, "w", encoding="utf-8") as bf:
+                                bf.write("\n".join(bare_lines) + "\n")
 
                         start = time.perf_counter()
                         ilasp_models = run_learned_model_with_api(

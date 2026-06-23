@@ -48,8 +48,15 @@
   },
   "GRD": {
     "file": "ASPARTIX/grounded.lp",
-    "clingo_args": [],
-    "learn_heuristics": false
+    "clingo_args": [
+      "--heuristic=Domain",
+      "--enum=domRec"
+    ],
+    "learn_heuristics": true,
+    "completion_rules": {
+      "train_test_learned": false
+    },
+    "eval_on_bare_aaf": true
   },
   "PRF": {
     "file": "ASPARTIX/preferred.lp",

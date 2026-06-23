@@ -39,16 +39,23 @@ cp -R artifacts/final_synthetic_main_20260309_214128/labelled "$FABIO_ARTIFACTS_
 python3 -m arglas benchmark run --config run_configs/prf_probe.json
 #    -> inspect train times; if acceptable, add "PRF" to semantics in the corrected config.
 
-# 2) The corrected 4-semantics grid (ADM/CMP/STB/GRD), reduced noise {0,0.1,0.2}:
+# 2) The corrected 3-semantics grid (ADM/CMP/STB), reduced noise {0,0.1,0.2}.
+#    GRD is EXCLUDED: grounded needs minimality heuristics (slow) AND minimality-forcing
+#    negatives (not yet implemented) AND a bare-AAF eval (done); see docs below / memory.
 python3 -m arglas benchmark run   --config run_configs/final_synthetic_corrected.json   # launcher
 python3 -m arglas benchmark watch --config run_configs/final_synthetic_corrected.json   # watchdog (separate shell/term)
 ```
 
 ## Budget (M4 Pro, 12 cores / 24 GB; ~2.8 GB peak RSS per ILASP → 7 workers)
 
-- Corrected 4-sem grid: 72 cells × (K=5 folds × 5 f-sizes) = 1,800 ILASP runs ≈ **~1.9 CPU-days → ~7–9 wall-hours** at 7 workers.
+- Corrected 3-sem grid (ADM/CMP/STB): 54 cells × (K=5 folds × 5 f-sizes) = 1,350 ILASP runs ≈ **~1.4 CPU-days → ~5–7 wall-hours** at 7 workers.
 - + PRF: measure with the probe first; estimated +0.5–1 wall-day.
+- + GRD: excluded pending minimality-forcing negatives + a higher GRD train timeout (heuristic learning runs 80–200s+/cell, not 4s).
 - Full noise {0..0.4} instead of {0,0.1,0.2}: roughly doubles wall-clock.
+
+## GRD (grounded) — known-not-ready
+
+GRD is configured for the correct approach (`learn_heuristics` + `--heuristic=Domain --enum=domRec` + per-semantics `completion_rules.train_test_learned=false` + `eval_on_bare_aaf=true`) and CAN recover grounded perfectly when ILASP learns the right rule+heuristic (`in(V1):-arg(V1),not not_defended(V1).` + `#heuristic in(V1).[1@1,false]` → 30/30). But it is **not reliable**: the random-relabel negatives don't pin grounded's defense/minimality, so ILASP often learns a wrong theory (acc 0.0), and `--learn-heuristics` is slow. Fix path: minimality-forcing negatives (complete-but-not-grounded labellings as hard negatives) + a much higher GRD train timeout. Grounded is PTIME-computable directly, so a small paper-style demonstration may be preferable to the full grid.
 
 ## Caveats
 

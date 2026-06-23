@@ -104,7 +104,26 @@ def get_background_file(config, stage=None):
     return value
 
 
-def get_completion_rules_enabled(config, stage):
+def get_completion_rules_enabled(config, stage, semantics=None):
+    # A per-semantics completion_rules block (bool or {stage: bool}) overrides the
+    # global setting for that semantics+stage. Needed because grounded.lp is a sparse
+    # least-fixpoint oracle (undecided args unlabelled), so forcing the learned side
+    # total via completion would mismatch it -- whereas the total ADM/STB/CMP oracles
+    # require completion=true. Default (semantics=None) preserves the global behavior.
+    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
+        sem_entry = config.get(semantics, {})
+        if isinstance(sem_entry, dict) and "completion_rules" in sem_entry:
+            sem_cfg = sem_entry["completion_rules"]
+            if isinstance(sem_cfg, bool):
+                return sem_cfg
+            if isinstance(sem_cfg, dict) and stage in sem_cfg:
+                value = sem_cfg.get(stage)
+                if not isinstance(value, bool):
+                    raise ValueError(
+                        f"Invalid {semantics}.completion_rules['{stage}']: expected bool."
+                    )
+                return value
+
     cfg = config.get("global", {}).get("completion_rules", True)
     if isinstance(cfg, bool):
         return cfg
@@ -116,6 +135,20 @@ def get_completion_rules_enabled(config, stage):
             )
         return value
     raise ValueError("Invalid global.completion_rules in semantics config.")
+
+
+def get_eval_on_bare_aaf(config, semantics):
+    # When true, the learned-vs-oracle comparison for this semantics is done on the
+    # BARE AAF (args+atts only), stripping the test file's label atoms. This is the
+    # correct evaluation for a UNIQUE-extension semantics whose oracle is a definite
+    # program (e.g. grounded.lp, which has no integrity constraints and therefore can
+    # never reject an injected non-valid labelling -- making the inject-labelling-as-
+    # facts comparison meaningless on negative instances).
+    sem_entry = get_semantics_entry(config, semantics)
+    value = sem_entry.get("eval_on_bare_aaf", False)
+    if not isinstance(value, bool):
+        raise ValueError(f"Invalid eval_on_bare_aaf for '{semantics}': expected bool.")
+    return value
 
 
 def get_show_predicates(config, stage):
