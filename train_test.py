@@ -812,6 +812,17 @@ def append_result_row(results_file, row):
             reader = csv.reader(csvfile, delimiter=';')
             header = next(reader, None)
             if header:
+                # Refuse to append into a file written under a DIFFERENT schema:
+                # silently padding/truncating to the old width would misalign every
+                # column (e.g. a stale 39-col PAR2-era CSV vs the current 45-col one).
+                # A fresh run_name always gets a fresh RESULTS_HEADER file, so this
+                # only fires when re-running into an incompatible results directory.
+                if len(header) != len(RESULTS_HEADER):
+                    raise ValueError(
+                        f"Results file '{results_file}' has {len(header)} columns but the "
+                        f"current schema has {len(RESULTS_HEADER)}; refusing to append "
+                        f"(would misalign columns). Use a fresh results dir / run_name."
+                    )
                 header_len = len(header)
     if len(row) > header_len:
         row = row[:header_len]

@@ -80,6 +80,7 @@ def aggregate_rows(rows):
             "rows": 0,
             "accuracy": math.nan,
             "f1": math.nan,
+            "mcc": math.nan,
             "fp": math.nan,
             "fn": math.nan,
             "timeout_rate": math.nan,
@@ -124,6 +125,7 @@ def write_summary_csv(path: Path, summary_rows: list[dict]):
         "rows",
         "accuracy",
         "f1",
+        "mcc",
         "fp",
         "fn",
         "timeout_rate",
@@ -175,6 +177,7 @@ def plot_overall_lines(output_dir: Path, semantics_values: list[str], totals: li
     for metric, title, ylim in [
         ("accuracy", "Accuracy vs Total", (0.0, 1.0)),
         ("f1", "F1 vs Total", (0.0, 1.0)),
+        ("mcc", "MCC vs Total", (-1.0, 1.0)),
         ("fp", "False Positives vs Total", None),
         ("fn", "False Negatives vs Total", None),
     ]:
@@ -249,6 +252,7 @@ def main(argv=None):
                         "rows": agg["rows"],
                         "accuracy": agg["accuracy"],
                         "f1": agg["f1"],
+                        "mcc": agg["mcc"],
                         "fp": agg["fp"],
                         "fn": agg["fn"],
                         "timeout_rate": agg["timeout_rate"],

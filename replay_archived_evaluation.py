@@ -235,7 +235,8 @@ def replay_condition(
         )
 
         total = len(test_files)
-        par2_factor = safe_float(row.get("PAR2_FACTOR"), 2.0)
+        # Archived rows use the OLD column name TEST_PAR_TIMEOUT_SECONDS for the test
+        # budget; read it here to re-score them (output is written under the new schema).
         test_timeout_seconds = safe_int(row.get("TEST_PAR_TIMEOUT_SECONDS"), 1200)
         train_succeeded = safe_int(row.get("ILASP_TRAIN_SUCCEEDED"), 1) == 1 and model_file.exists()
 
