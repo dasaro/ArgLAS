@@ -15,9 +15,20 @@ and the Phase-0 fixes. See the `fix/audit-corrections` branch commits for the ch
 | Poison cell halts whole campaign (HIGH) | worker_loop record-and-continue (no fail-fast) | `4a88aec` |
 | GRD never scheduled | `build_jobs` noise-ascending, semantics-interleaved | `4a88aec` |
 | Absurd timeouts | train 1000s, test 20s (calibrated from the cost model) | `4a88aec` |
+| Fabricated PAR2 penalty on failed rows + challenge-specific metric | dropped the 3 PAR2 columns → raw `TEST_LEARNED_/TEST_ORACLE_{TOTAL,MEAN,MAX}_SECONDS` + `ANY_TEST_TIMED_OUT`; added **MCC** (paper metric) and **RUN_SEED** (per-fold reproducibility); failed rows leave timing empty | `5b51d4a` |
+| Thin fold could silently shrink the test set | `build_grouped_balanced_test` min-example guard: fail-fast if a fold can't supply `test_examples_per_class` | `5b51d4a` |
+| Stale-schema CSV corruption | `append_result_row` refuses to append a 45-col row into an old 39-col file; plots aggregate quality over `ILASP_TRAIN_SUCCEEDED==1` rows only, surface MCC | `5b51d4a`,`9f10427` |
 
 Eval fix validated: re-scoring ADM partial=1.0 noise=0 gives acc 0.96–1.00 vs the buggy
 ~0.58. Grouped split validated: folds are train∩test-disjoint and tile all 500 AAFs once.
+
+**Launch-readiness verification (2026-06-24, 5-way parallel, 4 PASS / 1 WARN-no-bug):**
+end-to-end smoke produces the 45-col schema with MCC/raw-timing/RUN_SEED correctly
+populated (MCC recomputed exact); replay re-scores under the new schema; **every
+(ADM/CMP/STB × partial {0.5,0.7,1.0} × fold) clears test/class=100** (global min balanced
+test = 179, STB fold-5; min train pool/class = 771), so the guard never fires; config
+constructs to 18 cells / 360 runs noise-ascending; adversarial diff review found the
+45-col header↔row alignment, MCC formula+guard, and replay key-mapping all correct.
 
 ## Launch procedure (campaign is NOT auto-launched)
 
@@ -29,29 +40,44 @@ cd /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude
 export FABIO_ARTIFACTS_ROOT="$PWD/artifacts/final_synthetic_corrected_20260624"
 mkdir -p "$FABIO_ARTIFACTS_ROOT"
 
-# (optional, faster) reuse the verified-sound AAFs + ADM/CMP/STB/GRD labelling from the
-# old run instead of regenerating (identical by seed; just saves the relabel pass):
-cp -R artifacts/final_synthetic_main_20260309_214128/aafs     "$FABIO_ARTIFACTS_ROOT/"
-cp -R artifacts/final_synthetic_main_20260309_214128/labelled "$FABIO_ARTIFACTS_ROOT/"
+# Reuse the verified-sound AAFs + ADM/CMP/STB labelling from the old run. SAFE to symlink:
+# ensure_aafs sees 500 (seed 20260309) and ensure_labelled sees POS/NEG >> 50, so both
+# SKIP regeneration and never write into the source. (cp -R also works if you prefer copies.)
+ln -s "$PWD/artifacts/final_synthetic_main_20260309_214128/aafs"     "$FABIO_ARTIFACTS_ROOT/aafs"
+ln -s "$PWD/artifacts/final_synthetic_main_20260309_214128/labelled" "$FABIO_ARTIFACTS_ROOT/labelled"
 
-# 1) PRF cost probe first (PRF was never run; it is the cost wildcard: subset-maximal +
-#    --heuristic=Domain --enum=domRec + --learn-heuristics). Labels PRF, runs 12 cells.
-python3 -m arglas benchmark run --config run_configs/prf_probe.json
-#    -> inspect train times; if acceptable, add "PRF" to semantics in the corrected config.
-
-# 2) The corrected 3-semantics grid (ADM/CMP/STB), reduced noise {0,0.1,0.2}.
-#    GRD is EXCLUDED: grounded needs minimality heuristics (slow) AND minimality-forcing
-#    negatives (not yet implemented) AND a bare-AAF eval (done); see docs below / memory.
+# The corrected 3-semantics grid (ADM/CMP/STB): partials {0.5,0.7,1.0}, noise {0,0.1},
+# f {10,20,30,40}, K=5, test/class=100, oracle_neg. 18 cells / 360 ILASP runs.
+# GRD is EXCLUDED (grounded needs minimality-forcing negatives — not yet implemented).
 python3 -m arglas benchmark run   --config run_configs/final_synthetic_corrected.json   # launcher
-python3 -m arglas benchmark watch --config run_configs/final_synthetic_corrected.json   # watchdog (separate shell/term)
+python3 -m arglas benchmark watch --config run_configs/final_synthetic_corrected.json   # watchdog (separate term)
+
+# OPTIONAL, separately: PRF cost probe (PRF is the cost wildcard: subset-maximal +
+# --heuristic=Domain --enum=domRec + --learn-heuristics). Run before adding "PRF":
+# python3 -m arglas benchmark run --config run_configs/prf_probe.json
 ```
 
 ## Budget (M4 Pro, 12 cores / 24 GB; ~2.8 GB peak RSS per ILASP → 7 workers)
 
-- Corrected 3-sem grid (ADM/CMP/STB): 54 cells × (K=5 folds × 5 f-sizes) = 1,350 ILASP runs ≈ **~1.4 CPU-days → ~5–7 wall-hours** at 7 workers.
+- Corrected 3-sem grid (ADM/CMP/STB): **18 cells × (K=5 folds × 4 f-sizes) = 360 ILASP runs**.
+  Split 180 noise-0 (≈8–15 s/run) + 180 noise-0.1 (soft optimisation, ≈100–400 s/run).
+  ≈ **5–21 CPU-hours → ~1–4.4 wall-hours** at 7 workers; noise-0.1 is ≥95% of the cost and
+  runs last (noise-ascending schedule). `train_timeout=1000s` gives ~2.5× headroom over the
+  observed noisy-soft max (~400 s). Re-check after the first 2–3 noise-0.1 cells report.
 - + PRF: measure with the probe first; estimated +0.5–1 wall-day.
-- + GRD: excluded pending minimality-forcing negatives + a higher GRD train timeout (heuristic learning runs 80–200s+/cell, not 4s).
-- Full noise {0..0.4} instead of {0,0.1,0.2}: roughly doubles wall-clock.
+- + GRD: excluded pending minimality-forcing negatives + a higher GRD train timeout.
+- Widening noise (add 0.2) or partials roughly scales the noise-fraction cost linearly.
+
+## Output schema (45 columns, per fold-iteration row)
+
+Quality: `MCC` (primary, paper metric), `ACCURACY`, `PRECISION`/`RECALL`/`F1`, `TP/FP/TN/FN`.
+Aggregate over `ILASP_TRAIN_SUCCEEDED==1` rows only; the K=5 folds per (sem,partial,noise)
+give the CI: mean ± t_{K-1}/√K · s. Timing: `RUNNING_TIME_ILASP_TRAIN_SECONDS` (train),
+`TEST_{LEARNED,ORACLE}_{TOTAL,MEAN,MAX}_SECONDS` (raw eval solve times), `ANY_TEST_TIMED_OUT`
+(post-hoc "exceeded budget", not a kill). Reproducibility: `RUN_SEED` (per-row task seed).
+Failure: `ILASP_TRAIN_SUCCEEDED`, `ILASP_TRAIN_TIMED_OUT`, `ILASP_TRAIN_EXIT_CODE`. The old
+PAR2 columns are gone; `plot_benchmark_progress.py` writes `summary.csv` with the same
+quality/MCC means + `train_success_rate`/`timeout_rate`.
 
 ## GRD (grounded) — known-not-ready
 
