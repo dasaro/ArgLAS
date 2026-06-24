@@ -464,6 +464,21 @@ def ensure_text_output(value):
         return value.decode("utf-8", errors="replace")
     return str(value)
 
+def _final_verdict_unsat(output_text):
+    """ILASP signals genuine unsatisfiability by printing 'UNSATISFIABLE' as its
+    FINAL solver verdict. Treat the task as UNSAT only when the last meaningful
+    (non-comment, non-blank) line is exactly UNSATISFIABLE -- so an intermediate
+    'UNSATISFIABLE' emitted during ILASP's iterative counterexample search,
+    followed by further output or a learned hypothesis, is NOT misread as failure.
+    Noisy/penalised tasks always have the empty-hypothesis fallback and so should
+    never end UNSATISFIABLE; this avoids the prior bare-substring false positives."""
+    meaningful = [
+        ln.strip() for ln in output_text.splitlines()
+        if ln.strip() and not ln.strip().startswith("%")
+    ]
+    return bool(meaningful) and meaningful[-1] == "UNSATISFIABLE"
+
+
 def run_ilasp(task_file, output_file, extra_args, timeout_seconds, retry_on_exit_code_minus_11):
     start = time.perf_counter()
     command = ["ILASP", "--version=4"] + extra_args + ["-d", task_file]
@@ -511,7 +526,7 @@ def run_ilasp(task_file, output_file, extra_args, timeout_seconds, retry_on_exit
             output_text = partial_output + ensure_text_output(remaining_output)
 
         output_text = ensure_text_output(output_text)
-        unsat = (not timed_out) and ("UNSATISFIABLE" in output_text)
+        unsat = (not timed_out) and _final_verdict_unsat(output_text)
 
         if output_text:
             sys.stdout.write(output_text)
