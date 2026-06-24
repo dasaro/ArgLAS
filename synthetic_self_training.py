@@ -27,8 +27,8 @@ BG = resolve_repo_path("background_knowledge.lp")
 MODES = resolve_repo_path("mode_declarations.las")
 
 
-def write_task(path, examples):
-    lines = [build_ilasp_directive(eid, lf, af, isp, 0.0, True, 100)[0] for (eid, lf, af, isp) in examples]
+def write_task(path, examples, deterministic=True):
+    lines = [build_ilasp_directive(eid, lf, af, isp, 0.0, deterministic, 100)[0] for (eid, lf, af, isp) in examples]
     body = open(BG).read() + "\n" + open(MODES).read()
     with open(path, "w") as f:
         f.write("\n".join(lines) + "\n" + body + "\n")
