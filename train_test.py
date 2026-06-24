@@ -1308,7 +1308,7 @@ def build_parser(add_help=True):
     )
     parser.add_argument(
         "--negative_policy",
-        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix"),
+        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix", "nce_sample", "reliable_negative"),
         default="oracle_neg",
         help="Negative generation policy for ILASP task construction."
     )

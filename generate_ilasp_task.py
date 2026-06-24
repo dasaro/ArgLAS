@@ -45,7 +45,10 @@ def build_parser(add_help=True):
     parser.add_argument("--noise_factor", default=100, type=int, help="Penalty for noisy examples.")
     parser.add_argument(
         "--negative_policy",
-        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix"),
+        choices=(
+            "oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix",
+            "nce_sample", "reliable_negative",
+        ),
         default="oracle_neg",
         help=(
             "Negative generation strategy: "
@@ -54,7 +57,11 @@ def build_parser(add_help=True):
             "flip_k flips k in/out labels from sampled positives; "
             "full_relabel relabels all observed labels from sampled positives; "
             "rn_hardmix mines candidate synthetic negatives, taking a reliable subset "
-            "and filling with harder near-positive negatives."
+            "and filling with harder near-positive negatives; "
+            "nce_sample relabels each arg independently from the global accept "
+            "marginal (noise-contrastive); "
+            "reliable_negative keeps the relabelling farthest from the source positive "
+            "(PU density-based)."
         ),
     )
     parser.add_argument(
@@ -138,7 +145,7 @@ def render_label_facts(labels):
     return [f"{status}({arg})" for arg, status in ordered]
 
 
-def build_synthetic_negative(labels, policy, flip_k=1):
+def build_synthetic_negative(labels, policy, flip_k=1, p_in=0.5, n_candidates=8):
     mutated = dict(labels)
     if policy in {"flip_one", "flip_k"}:
         required_k = 1 if policy == "flip_one" else int(flip_k)
@@ -159,6 +166,32 @@ def build_synthetic_negative(labels, policy, flip_k=1):
             alternatives = [status for status in STATUSES if status != current]
             mutated[arg] = random.choice(alternatives)
         return mutated
+
+    if policy == "nce_sample":
+        # Noise-contrastive (word2vec-style): relabel each argument INDEPENDENTLY
+        # from the global accept marginal p_in, deliberately breaking the joint
+        # structure of real extensions so the result is unlikely to be a valid
+        # labelling. Oracle-free.
+        if not mutated:
+            return None
+        for arg in mutated:
+            mutated[arg] = "in" if random.random() < p_in else "out"
+        return mutated
+
+    if policy == "reliable_negative":
+        # PU reliable-negative (density-based): among several random relabellings,
+        # keep the one FARTHEST (Hamming) from the source positive -> a low-density,
+        # high-confidence negative. Oracle-free. (Far-from-source is a per-example
+        # proxy for far-from-all-positives.)
+        if not mutated:
+            return None
+        best, best_dist = None, -1
+        for _ in range(max(1, int(n_candidates))):
+            cand = {arg: ("in" if random.random() < 0.5 else "out") for arg in mutated}
+            dist = sum(1 for arg in mutated if cand[arg] != labels.get(arg))
+            if dist > best_dist:
+                best_dist, best = dist, cand
+        return best
 
     raise ValueError(f"Unsupported policy: {policy}")
 
@@ -365,6 +398,17 @@ def main(argv=None):
         if key not in parsed_cache:
             parsed_cache[key] = parse_lp_instance(key)
         return parsed_cache[key]
+
+    # Global accept marginal P(in) over the sampled positives' labelled in/out
+    # arguments -- the noise distribution used by the nce_sample policy.
+    _pin_num = _pin_den = 0
+    for _pf in selected_pos:
+        _, _lbls = get_parsed(_pf)
+        for _st in _lbls.values():
+            if _st in ("in", "out"):
+                _pin_den += 1
+                _pin_num += 1 if _st == "in" else 0
+    p_in_marginal = (_pin_num / _pin_den) if _pin_den else 0.5
 
     oracle_interpretation_is_legal = None
     oracle_neg_validity_cache = {}
@@ -587,7 +631,10 @@ def main(argv=None):
                     occurrence = source_counts[src_file]
 
                     af_facts, labels = get_parsed(src_file)
-                    mutated_labels = build_synthetic_negative(labels, negative_policy, flip_k=flip_k)
+                    mutated_labels = build_synthetic_negative(
+                        labels, negative_policy, flip_k=flip_k,
+                        p_in=p_in_marginal, n_candidates=max(8, rn_candidates_per_source),
+                    )
                     if mutated_labels is None:
                         continue
 
