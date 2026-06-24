@@ -90,6 +90,31 @@ def generate_negative_examples(
             invalid.append(ext)
     return invalid
 
+
+def in_set_of(model_symbols):
+    return frozenset(str(atom) for atom in model_symbols if atom.name == "in")
+
+
+def generate_minimality_negatives(input_file, complete_runtime, target_models, max_neg=8):
+    """Hard negatives that FORCE a minimality/maximality selection (grounded =
+    subset-minimal complete, preferred = subset-maximal complete): the complete
+    extensions of the AAF whose in-set is NOT a target extension. These are valid
+    base-semantics (complete) labellings that the target semantics rejects, so they
+    pin exactly the selection that random non-extension negatives cannot teach.
+    Returns full (un-thinned) in/out labellings. Empty when the AAF has a unique
+    complete extension (target == complete, nothing to discriminate) -- callers
+    should fall back to random negatives in that case."""
+    complete_models = run_clingo(input_file, complete_runtime)
+    target_insets = {in_set_of(m) for m in target_models}
+    negatives = []
+    for cm in complete_models:
+        if in_set_of(cm) in target_insets:
+            continue
+        negatives.append([f"{atom}." for atom in cm if atom.name in ("in", "out")])
+        if len(negatives) >= max_neg:
+            break
+    return negatives
+
 def generate_labelled_aafs(
     input_dir,
     output_dir,
@@ -97,6 +122,8 @@ def generate_labelled_aafs(
     runtime,
     p_partial,
     generate_empty_extensions,
+    neg_mode="random",
+    complete_runtime=None,
 ):
     os.makedirs(output_dir, exist_ok=True)
 
@@ -142,6 +169,15 @@ def generate_labelled_aafs(
             p_partial,
             precomputed_models=models,
         )
+        if neg_mode == "complete_not_target" and complete_runtime is not None:
+            # Augment the random (force-completeness) negatives with hard
+            # minimality/maximality negatives (force-selection), so a minimality
+            # semantics (GRD/PRF) is pinned. No-op when the AAF has a unique
+            # complete extension.
+            min_negs = generate_minimality_negatives(input_path, complete_runtime, models)
+            neg_extensions = neg_extensions + min_negs
+            if min_negs:
+                print(f"[NEG+min] {filename}: +{len(min_negs)} complete-not-target negatives")
         for i, neg in enumerate(neg_extensions):
             output_file = f"aaf_{size}_{id_}_{semantics}_NEG_{i + 1}.lp"
             with open(os.path.join(output_dir, output_file), "w") as f:
@@ -170,6 +206,22 @@ def build_parser(add_help=True):
     )
     parser.add_argument("--p_partial", type=float, default=0.3, help="Probability to include atoms in partial ext.")
     parser.add_argument("--allow_empty", action="store_true", help="Include empty extensions.")
+    parser.add_argument(
+        "--neg_mode",
+        choices=("random", "complete_not_target"),
+        default="random",
+        help=(
+            "Negative generation. 'random' (default) draws random non-extension "
+            "labellings. 'complete_not_target' ALSO adds complete extensions that "
+            "are not the target as hard negatives -- forces the minimality/maximality "
+            "selection for GRD/PRF (uses the CMP/complete oracle)."
+        ),
+    )
+    parser.add_argument(
+        "--complete_semantics",
+        default="CMP",
+        help="Semantics key for the complete-extension oracle used by complete_not_target.",
+    )
     parser.add_argument(
         "--seed",
         type=int,
@@ -209,6 +261,18 @@ def main(argv=None):
         args.semantics,
         stage="label_generation",
     )
+    complete_runtime = None
+    if args.neg_mode == "complete_not_target":
+        if args.complete_semantics not in semantics_names:
+            raise ValueError(
+                f"complete_semantics '{args.complete_semantics}' not in config; "
+                f"available: {', '.join(semantics_names)}"
+            )
+        complete_runtime = build_semantics_runtime(
+            semantics_config,
+            args.complete_semantics,
+            stage="label_generation",
+        )
     generate_labelled_aafs(
         input_dir=input_dir,
         output_dir=output_dir,
@@ -216,6 +280,8 @@ def main(argv=None):
         runtime=runtime,
         p_partial=args.p_partial,
         generate_empty_extensions=args.allow_empty,
+        neg_mode=args.neg_mode,
+        complete_runtime=complete_runtime,
     )
     return 0
 
