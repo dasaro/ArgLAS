@@ -140,7 +140,11 @@ def main():
     ap.add_argument("--q_values", default="0.0,0.1,0.2")
     ap.add_argument("--K", type=int, default=3)
     ap.add_argument("--train_timeout", type=int, default=120)
+    ap.add_argument("--policies", default=",".join(POLICIES))
+    ap.add_argument("--n_pos", type=int, default=30)
+    ap.add_argument("--n_neg", type=int, default=30)
     args = ap.parse_args()
+    pols = [p.strip() for p in args.policies.split(",") if p.strip()]
     cfg = load_semantics_config(resolve_repo_path("semantics_config.json"))
     qs = [float(x) for x in args.q_values.split(",")]
     rows = []
@@ -156,8 +160,8 @@ def main():
             resolve_ilasp_args(semantics=sem),
         )
         for q in qs:
-            for policy in POLICIES:
-                rows += run_cell(sem, q, policy, cfg, ctx, K=args.K, train_timeout=args.train_timeout)
+            for policy in pols:
+                rows += run_cell(sem, q, policy, cfg, ctx, n_pos=args.n_pos, n_neg=args.n_neg, K=args.K, train_timeout=args.train_timeout)
     with open(args.out_csv, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["SEM", "Q", "POLICY", "FOLD", "SUCC", "ACC", "F1", "MCC", "WRONG_NEG"])
         w.writeheader(); w.writerows(rows)
