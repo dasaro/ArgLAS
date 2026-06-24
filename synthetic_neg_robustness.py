@@ -143,12 +143,14 @@ def main():
     ap.add_argument("--policies", default=",".join(POLICIES))
     ap.add_argument("--n_pos", type=int, default=30)
     ap.add_argument("--n_neg", type=int, default=30)
+    ap.add_argument("--semantics", default="ADM,CMP,STB")
     args = ap.parse_args()
     pols = [p.strip() for p in args.policies.split(",") if p.strip()]
+    sems = [s.strip() for s in args.semantics.split(",") if s.strip()]
     cfg = load_semantics_config(resolve_repo_path("semantics_config.json"))
     qs = [float(x) for x in args.q_values.split(",")]
     rows = []
-    for sem in ("ADM", "CMP", "STB"):
+    for sem in sems:
         asp = resolve_repo_path(SEM_ASP[sem])
         bg = resolve_repo_path(get_background_file(cfg, stage="train_test_learned"))
         ctx = (
