@@ -85,12 +85,19 @@ def aggregate_rows(rows):
             "timeout_rate": math.nan,
             "train_success_rate": math.nan,
         }
+    # Quality metrics are aggregated over SUCCEEDED rows only: a failed-training row
+    # has no learned model (acc/F1/MCC are 0 sentinels, not a measurement), so
+    # including it would bias the means downward. Failure is reported separately via
+    # timeout_rate / train_success_rate over ALL rows.
+    succ = [r for r in rows if safe_int(r.get("ILASP_TRAIN_SUCCEEDED")) == 1]
+    quality = succ if succ else rows
     return {
         "rows": len(rows),
-        "accuracy": float(np.nanmean([safe_float(r.get("ACCURACY")) for r in rows])),
-        "f1": float(np.nanmean([safe_float(r.get("F1")) for r in rows])),
-        "fp": float(np.nanmean([safe_float(r.get("FP")) for r in rows])),
-        "fn": float(np.nanmean([safe_float(r.get("FN")) for r in rows])),
+        "accuracy": float(np.nanmean([safe_float(r.get("ACCURACY")) for r in quality])),
+        "f1": float(np.nanmean([safe_float(r.get("F1")) for r in quality])),
+        "mcc": float(np.nanmean([safe_float(r.get("MCC")) for r in quality])),
+        "fp": float(np.nanmean([safe_float(r.get("FP")) for r in quality])),
+        "fn": float(np.nanmean([safe_float(r.get("FN")) for r in quality])),
         "timeout_rate": float(np.nanmean([safe_int(r.get("ILASP_TRAIN_TIMED_OUT")) for r in rows])),
         "train_success_rate": float(np.nanmean([safe_int(r.get("ILASP_TRAIN_SUCCEEDED")) for r in rows])),
     }

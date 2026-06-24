@@ -18,7 +18,7 @@ from train_test import (
     format_noise_token,
     get_train_test_sets,
     load_completed_keys,
-    par2_score_seconds,
+    matthews_corrcoef,
     resolve_balanced_test_examples_per_class,
     run_ground_truth_with_api,
     run_learned_model_with_api,
@@ -241,8 +241,9 @@ def replay_condition(
 
         tp = fp = tn = fn = 0
         correct = 0
-        par2_ilasp_test_seconds = 0.0
-        par2_aspartix_seconds = 0.0
+        learned_test_times = []
+        oracle_test_times = []
+        any_test_timed_out = 0
 
         if train_succeeded:
             for tf in test_files:
@@ -258,9 +259,9 @@ def replay_condition(
                     show_predicates=learned_show_predicates,
                 )
                 elapsed = time.perf_counter() - start
-                par2_ilasp_test_seconds += par2_score_seconds(
-                    elapsed, test_timeout_seconds, par2_factor
-                )
+                learned_test_times.append(elapsed)
+                if elapsed >= test_timeout_seconds:
+                    any_test_timed_out = 1
 
                 start = time.perf_counter()
                 gt_models = run_ground_truth_with_api(
@@ -272,9 +273,9 @@ def replay_condition(
                     show_predicates=ground_truth_show_predicates,
                 )
                 elapsed = time.perf_counter() - start
-                par2_aspartix_seconds += par2_score_seconds(
-                    elapsed, test_timeout_seconds, par2_factor
-                )
+                oracle_test_times.append(elapsed)
+                if elapsed >= test_timeout_seconds:
+                    any_test_timed_out = 1
 
                 is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
                     ilasp_models,
@@ -295,16 +296,21 @@ def replay_condition(
             # tp=fp=tn=fn=correct=0 and rely on the ILASP_TRAIN_SUCCEEDED=0 flag;
             # downstream aggregation must filter on that flag. We also skip the
             # ground-truth solves here (no learned side to compare against), which
-            # keeps re-scoring of failed cells instant. Only PAR2 penalty
-            # bookkeeping is retained for the runtime columns.
-            penalty_per_test = par2_factor * test_timeout_seconds
-            par2_ilasp_test_seconds = total * penalty_per_test
-            par2_aspartix_seconds = total * penalty_per_test
+            # keeps re-scoring of failed cells instant. No test solves ran, so the
+            # test-timing columns stay empty (0) rather than a fabricated penalty.
+            pass
 
         accuracy = correct / total if total else 0.0
         precision = safe_div(tp, tp + fp)
         recall = safe_div(tp, tp + fn)
         f1 = safe_div(2 * precision * recall, precision + recall)
+        mcc = matthews_corrcoef(tp, fp, tn, fn)
+        learned_total = sum(learned_test_times)
+        learned_mean = safe_div(learned_total, len(learned_test_times))
+        learned_max = max(learned_test_times) if learned_test_times else 0.0
+        oracle_total = sum(oracle_test_times)
+        oracle_mean = safe_div(oracle_total, len(oracle_test_times))
+        oracle_max = max(oracle_test_times) if oracle_test_times else 0.0
 
         learned_heuristic_rules = count_heuristic_directives(str(model_file))
         learned_has_heuristic = int(learned_heuristic_rules > 0)
@@ -323,15 +329,19 @@ def replay_condition(
             "TEST_SET_SIZE": total,
             "EVAL_MATCH_POLICY": eval_match_policy,
             "RUNNING_TIME_ILASP_TRAIN_SECONDS": row.get("RUNNING_TIME_ILASP_TRAIN_SECONDS", ""),
-            "PAR2_SCORE_ILASP_TEST_SECONDS": par2_ilasp_test_seconds,
-            "PAR2_SCORE_ASPARTIX_SECONDS": par2_aspartix_seconds,
+            "TEST_LEARNED_TOTAL_SECONDS": learned_total,
+            "TEST_LEARNED_MEAN_SECONDS": learned_mean,
+            "TEST_LEARNED_MAX_SECONDS": learned_max,
+            "TEST_ORACLE_TOTAL_SECONDS": oracle_total,
+            "TEST_ORACLE_MEAN_SECONDS": oracle_mean,
+            "TEST_ORACLE_MAX_SECONDS": oracle_max,
+            "ANY_TEST_TIMED_OUT": any_test_timed_out,
             "ILASP_TRAIN_TIMED_OUT": row.get("ILASP_TRAIN_TIMED_OUT", ""),
             "ILASP_TRAIN_SUCCEEDED": int(train_succeeded),
             "ILASP_TRAIN_EXIT_CODE": row.get("ILASP_TRAIN_EXIT_CODE", ""),
             "ILASP_TRAIN_RETRIES_USED": row.get("ILASP_TRAIN_RETRIES_USED", ""),
             "TRAIN_TIMEOUT_SECONDS": row.get("TRAIN_TIMEOUT_SECONDS", ""),
-            "TEST_PAR_TIMEOUT_SECONDS": test_timeout_seconds,
-            "PAR2_FACTOR": par2_factor,
+            "TEST_TIMEOUT_SECONDS": test_timeout_seconds,
             "LEARNED_MODEL_FILENAME": str(model_file.relative_to(repo_root)),
             "LEARNED_HEURISTIC_RULES": learned_heuristic_rules,
             "LEARNED_HAS_HEURISTIC": learned_has_heuristic,
@@ -346,7 +356,9 @@ def replay_condition(
             "PRECISION": precision,
             "RECALL": recall,
             "F1": f1,
+            "MCC": mcc,
             "ACCURACY": accuracy,
+            "RUN_SEED": row.get("RUN_SEED", ""),
             "ITERATION": iteration,
         }
         append_result_row(str(results_file), build_row(replay_row))

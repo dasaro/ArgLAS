@@ -34,15 +34,17 @@ RESULTS_HEADER = [
     "ILASP_TASK_FILENAME", "NFILES_POS", "NFILES_NEG", "NOISE", "NEGATIVE_POLICY", "NEGATIVE_FLIP_K", "P_PARTIAL",
     "TEST_SET_POLICY", "TEST_SET_TARGET_PER_CLASS", "TEST_SET_POS", "TEST_SET_NEG",
     "TEST_SET_SIZE", "EVAL_MATCH_POLICY",
-    "RUNNING_TIME_ILASP_TRAIN_SECONDS", "PAR2_SCORE_ILASP_TEST_SECONDS",
-    "PAR2_SCORE_ASPARTIX_SECONDS", "ILASP_TRAIN_TIMED_OUT",
+    "RUNNING_TIME_ILASP_TRAIN_SECONDS",
+    "TEST_LEARNED_TOTAL_SECONDS", "TEST_LEARNED_MEAN_SECONDS", "TEST_LEARNED_MAX_SECONDS",
+    "TEST_ORACLE_TOTAL_SECONDS", "TEST_ORACLE_MEAN_SECONDS", "TEST_ORACLE_MAX_SECONDS",
+    "ANY_TEST_TIMED_OUT", "ILASP_TRAIN_TIMED_OUT",
     "ILASP_TRAIN_SUCCEEDED", "ILASP_TRAIN_EXIT_CODE", "ILASP_TRAIN_RETRIES_USED",
-    "TRAIN_TIMEOUT_SECONDS", "TEST_PAR_TIMEOUT_SECONDS", "PAR2_FACTOR",
+    "TRAIN_TIMEOUT_SECONDS", "TEST_TIMEOUT_SECONDS",
     "LEARNED_MODEL_FILENAME",
     "LEARNED_HEURISTIC_RULES", "LEARNED_HAS_HEURISTIC",
     "SYNTH_NEG_TOTAL", "SYNTH_NEG_ORACLE_LEGAL", "SYNTH_NEG_ORACLE_LEGAL_RATE", "SYNTH_NEG_ORACLE_REJECT_RATE",
-    "TP", "FP", "TN", "FN", "PRECISION", "RECALL", "F1",
-    "ACCURACY", "ITERATION"
+    "TP", "FP", "TN", "FN", "PRECISION", "RECALL", "F1", "MCC",
+    "ACCURACY", "RUN_SEED", "ITERATION"
 ]
 
 ILASP_EXAMPLE_RE = re.compile(
@@ -235,12 +237,16 @@ def build_grouped_balanced_test(input_dir, test_aafs, test_per_class, fold_seed,
         f for f in os.listdir(input_dir)
         if f.endswith(".lp") and "_NEG_" in f and aaf_group_id(f) in test_set
     )
-    per_class = min(test_per_class, len(pos), len(neg))
-    if per_class <= 0:
+    # Min-example guard: fail fast if this fold cannot supply a full balanced test
+    # set, instead of silently shrinking to an under-powered/unbalanced one.
+    if min(len(pos), len(neg)) < test_per_class:
         raise ValueError(
-            f"Grouped fold {fold_index} has no balanced test examples in '{input_dir}' "
-            f"(POS={len(pos)}, NEG={len(neg)})."
+            f"Grouped fold {fold_index} cannot reach test_examples_per_class="
+            f"{test_per_class} in '{input_dir}': only POS={len(pos)}, NEG={len(neg)} "
+            f"available among the fold's test AAFs. Lower test_examples_per_class, "
+            f"raise the AAF count, or reduce K."
         )
+    per_class = test_per_class
     seed_parts = ["grouped_balanced_test", fold_seed, fold_index]
     selected_pos = stable_sample(pos, per_class, seed_parts + ["POS"])
     selected_neg = stable_sample(neg, per_class, seed_parts + ["NEG"])
@@ -361,6 +367,13 @@ def par2_score_seconds(elapsed_seconds, timeout_seconds, par2_factor):
 
 def safe_div(numerator, denominator):
     return numerator / denominator if denominator else 0.0
+
+def matthews_corrcoef(tp, fp, tn, fn):
+    # MCC = (TP*TN - FP*FN) / sqrt((TP+FP)(TP+FN)(TN+FP)(TN+FN)); 0.0 when any
+    # marginal is 0 (degenerate single-class fold) to avoid div-by-zero/NaN.
+    import math
+    denom = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+    return ((tp * tn) - (fp * fn)) / denom if denom else 0.0
 
 def canonical_model_set(models):
     return set(map(frozenset, models))
@@ -1076,6 +1089,16 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     print(f"[DRY RUN] Would generate and run task: {task_file}")
                     continue
 
+                run_seed = stable_seed_from_parts(
+                    "task_sampling",
+                    task_sampling_seed_base,
+                    semantics,
+                    partial,
+                    iteration,
+                    n_pos,
+                    n_neg,
+                    noise_key,
+                )
                 generate_ilasp_task(
                     n_pos,
                     n_neg,
@@ -1087,16 +1110,7 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     semantics=semantics,
                     semantics_config_path=semantics_config_path,
                     allowed_examples_manifest=iter_manifest,
-                    seed=stable_seed_from_parts(
-                        "task_sampling",
-                        task_sampling_seed_base,
-                        semantics,
-                        partial,
-                        iteration,
-                        n_pos,
-                        n_neg,
-                        noise_key,
-                    ),
+                    seed=run_seed,
                 )
                 train_files = extract_train_files(task_file)
                 train_files, test_files, test_set_meta = get_train_test_sets(
@@ -1159,8 +1173,9 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
 
                 correct = 0
                 total = len(test_files)
-                par2_ilasp_test_seconds = 0.0
-                par2_aspartix_seconds = 0.0
+                learned_test_times = []
+                oracle_test_times = []
+                any_test_timed_out = 0
                 tp = 0
                 fp = 0
                 tn = 0
@@ -1198,11 +1213,9 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                             show_predicates=learned_show_predicates,
                         )
                         ilasp_test_elapsed = time.perf_counter() - start
-                        par2_ilasp_test_seconds += par2_score_seconds(
-                            ilasp_test_elapsed,
-                            effective_test_par_timeout_seconds,
-                            effective_par2_factor
-                        )
+                        learned_test_times.append(ilasp_test_elapsed)
+                        if ilasp_test_elapsed >= effective_test_par_timeout_seconds:
+                            any_test_timed_out = 1
 
                         start = time.perf_counter()
                         gt_models = run_ground_truth_with_api(
@@ -1214,11 +1227,9 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                             show_predicates=ground_truth_show_predicates,
                         )
                         aspartix_elapsed = time.perf_counter() - start
-                        par2_aspartix_seconds += par2_score_seconds(
-                            aspartix_elapsed,
-                            effective_test_par_timeout_seconds,
-                            effective_par2_factor
-                        )
+                        oracle_test_times.append(aspartix_elapsed)
+                        if aspartix_elapsed >= effective_test_par_timeout_seconds:
+                            any_test_timed_out = 1
 
                         is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
                             ilasp_models,
@@ -1244,15 +1255,23 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     # 0.0 F1 floor). Leave tp=fp=tn=fn=correct=0; the row is flagged
                     # by ILASP_TRAIN_SUCCEEDED=0 and must be excluded from accuracy/
                     # F1 aggregation. Ground-truth solves are skipped (nothing to
-                    # compare against), keeping failed cells cheap.
-                    penalty_per_test = effective_par2_factor * effective_test_par_timeout_seconds
-                    par2_ilasp_test_seconds = total * penalty_per_test
-                    par2_aspartix_seconds = total * penalty_per_test
+                    # compare against), keeping failed cells cheap. No test solves ran,
+                    # so test-timing columns stay empty (0) rather than a fabricated
+                    # penalty; the failure is flagged by ILASP_TRAIN_SUCCEEDED=0 and
+                    # ILASP_TRAIN_TIMED_OUT.
+                    pass
 
                 acc = correct / total if total > 0 else 0
                 precision = safe_div(tp, tp + fp)
                 recall = safe_div(tp, tp + fn)
                 f1 = safe_div(2 * precision * recall, precision + recall)
+                mcc = matthews_corrcoef(tp, fp, tn, fn)
+                learned_total = sum(learned_test_times)
+                learned_mean = safe_div(learned_total, len(learned_test_times))
+                learned_max = max(learned_test_times) if learned_test_times else 0.0
+                oracle_total = sum(oracle_test_times)
+                oracle_mean = safe_div(oracle_total, len(oracle_test_times))
+                oracle_max = max(oracle_test_times) if oracle_test_times else 0.0
                 row = [
                     task_file,
                     n_pos,
@@ -1268,15 +1287,19 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     total,
                     eval_match_policy,
                     train_runtime_seconds,
-                    par2_ilasp_test_seconds,
-                    par2_aspartix_seconds,
+                    learned_total,
+                    learned_mean,
+                    learned_max,
+                    oracle_total,
+                    oracle_mean,
+                    oracle_max,
+                    any_test_timed_out,
                     int(train_timed_out),
                     int(train_succeeded),
                     train_exit_code if train_exit_code is not None else "",
                     train_retries_used,
                     effective_train_timeout_seconds,
                     effective_test_par_timeout_seconds,
-                    effective_par2_factor,
                     output_file,
                     learned_heuristic_rules,
                     learned_has_heuristic,
@@ -1291,7 +1314,9 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     precision,
                     recall,
                     f1,
+                    mcc,
                     acc,
+                    run_seed,
                     iteration,
                 ]
                 append_result_row(results_file, row)
