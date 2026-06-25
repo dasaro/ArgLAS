@@ -57,16 +57,33 @@ partial=0.75 labels are generated into the copy, not the source (0.5/full are re
 ```bash
 cd /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude
 SRC="$PWD/artifacts/final_synthetic_main_20260309_214128"
-export FABIO_ARTIFACTS_ROOT="$PWD/artifacts/final_synthetic_corrected_20260625"
+export FABIO_ARTIFACTS_ROOT="$PWD/artifacts/final_synthetic_corrected_$(date +%Y%m%d)"
 mkdir -p "$FABIO_ARTIFACTS_ROOT"
 ln -s "$SRC/aafs"     "$FABIO_ARTIFACTS_ROOT/aafs"     # verified 500 AAFs (read-only)
 cp -R "$SRC/labelled" "$FABIO_ARTIFACTS_ROOT/labelled" # reuse 0.5/full; 0.75 generated into the copy
 
-# One config, K=5. Resumable: re-run the SAME command after any interruption — finished rows
-# are skipped (row granularity), a stale lock from a kill is auto-cleared.
-python3 -m arglas benchmark run   --config run_configs/final_synthetic_corrected.json
-python3 -m arglas benchmark watch --config run_configs/final_synthetic_corrected.json  # auto-restart + plots
+# Launch DETACHED so it survives logout (overnight). 'watch' starts the run, auto-restarts
+# it on failure, plots hourly, and exits when all 27 cells are complete.
+nohup python3 -m arglas benchmark watch \
+  --config run_configs/final_synthetic_corrected.json \
+  > "$FABIO_ARTIFACTS_ROOT/campaign.out" 2>&1 &
+echo "campaign PID $! · root $FABIO_ARTIFACTS_ROOT"
 ```
+
+Resumable: if it dies or the machine reboots, re-run the same `watch` command — finished
+rows are skipped (row granularity) and a stale lock is auto-cleared. **Monitor anytime**
+(same or a new terminal) with a live progress bar:
+
+```bash
+python3 -m arglas benchmark progress \
+  --config run_configs/final_synthetic_corrected.json \
+  --artifacts_root "$FABIO_ARTIFACTS_ROOT" --watch 30
+```
+
+It prints overall completion (rows + cells), per-noise breakdown, run health
+(ok / timed-out / failed) and rolling accuracy/MCC, refreshing every 30 s (omit `--watch`
+for a one-shot snapshot). It reuses the watchdog's own completion logic, so the bar and the
+supervisor always agree on "done".
 
 ## Budget (M4 Pro, 12 cores / 24 GB; ~2.8 GB peak RSS per ILASP → 7 workers)
 

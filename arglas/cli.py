@@ -9,6 +9,7 @@ import generate_aafs
 import generate_extensions
 import generate_ilasp_task
 import replay_archived_evaluation
+import campaign_progress
 import run_experiment_grid
 import train_test
 import validate_config
@@ -202,6 +203,14 @@ def build_parser() -> argparse.ArgumentParser:
     benchmark_replay_parser.add_argument("args", nargs=argparse.REMAINDER)
     benchmark_replay_parser.set_defaults(handler=lambda ns: run_wrapped(replay_archived_evaluation.main, ns.args, "arglas benchmark replay"))
 
+    benchmark_progress_parser = benchmark_subparsers.add_parser(
+        "progress",
+        help="Show a progress bar for a benchmark grid (add --watch N for a live bar).",
+        add_help=False,
+    )
+    benchmark_progress_parser.add_argument("args", nargs=argparse.REMAINDER)
+    benchmark_progress_parser.set_defaults(handler=lambda ns: run_wrapped(campaign_progress.main, ns.args, "arglas benchmark progress"))
+
     batch_parser = subparsers.add_parser(
         "batch",
         help="Run the legacy batch-config pipeline through the CLI.",
@@ -270,6 +279,7 @@ def main(argv=None) -> int:
                 "run": run_experiment_grid.main,
                 "watch": watch_experiment_grid.main,
                 "replay": replay_archived_evaluation.main,
+                "progress": campaign_progress.main,
             }
             if argv[1] in benchmark_commands:
                 return run_wrapped(benchmark_commands[argv[1]], argv[2:], f"arglas benchmark {argv[1]}")
