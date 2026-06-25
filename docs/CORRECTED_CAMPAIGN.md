@@ -27,28 +27,25 @@ Eval fix validated: re-scoring ADM partial=1.0 noise=0 gives acc 0.96–1.00 vs 
 exact); replay re-scores under it; adversarial diff review found header↔row alignment +
 MCC formula + replay keys all correct. (2) Resume PROVEN: SIGKILL mid-cell then re-run the
 same command skips finished rows (row granularity), auto-clears the stale lock, no dups.
-(3) PRF stress: 0/9 folds finished even at the cheapest cell → excluded. (4) Asymmetric-K:
-test/class=100 ceiling is exactly K=8 (STB 102 at K=8, 92 at K=9); partial=0.75 auto-labels
-end-to-end; partial=0.5+noise converges at ~400–800 s under 3500 s. End-to-end smoke of the
-final params (STB, partial 0.75, K=8) ran all 8 folds at POS=NEG=100 with the guard intact.
+(3) PRF stress: 0/9 folds finished even at the cheapest cell → excluded. (4) Fold-count:
+test/class=100 stays feasible up to K=8 (STB 102 at K=8, 92 at K=9) — the chosen **K=5** is
+well clear (STB 179/class); partial=0.75 auto-labels end-to-end; partial=0.5+noise converges at
+~400–800 s under 3500 s. End-to-end smoke (STB, partial 0.75) ran every fold at POS=NEG=100 with
+the guard intact, and an interrupt+resume re-ran skipped all finished rows with no duplicates.
 
-## Grid design (noise-stratified, asymmetric CV folds)
+## Grid design (single config, uniform K=5)
 
 semantics {ADM, CMP, STB}; partials {0.5, 0.75, 1.0}; noise {0, 0.1, 0.2}; f = f_neg
-{10, 20, 30, 40}; oracle_neg; eval `full_exact_model`; test/class = 100; train_timeout
-**3500s**; 7 workers. CV is **noise-sensitive (asymmetric K)**: more folds where noise makes
-the estimate noisier — **K=5 @ noise 0, K=8 @ noise 0.1, K=8 @ noise 0.2**. K is capped at
-**8** by the test/class=100 hard ceiling: STB is POS-limited (989 POS) and a fold's balanced
-test = min(POS,NEG) drops to 102/class at K=8 and **92 at K=9** → the min-example guard would
-fire. K=10 would force test/class to 87 (breaks comparability, under-powers the noisiest eval)
-for only ~1 extra wall-hour — not worth it; if you ever want >8 folds at noise 0.2, lower
-test/class to ≤92 explicitly. GRD and PRF are EXCLUDED (both blow the budget unlearnably as
-configured — PRF did not finish a single fold even at the cheapest cell).
+{10, 20, 30, 40}; oracle_neg; eval `full_exact_model`; test/class = 100; **K = 5** grouped CV
+folds; train_timeout **3500s**; 7 workers. → **27 cells × (K=5 × 4 f-sizes) = 540 runs**, run
+noise-ascending so the cheap clean cells report first.
 
-Implemented as **three single-noise configs** sharing one artifact root, each with its own K.
-Results are keyed by `(semantics, partial, noise)` (no run_name/timestamp), so the three write
-to disjoint `noise_{token}` cells and **merge into one grid** for plotting/analysis; each keeps
-its own lock + row-granular resume.
+K is uniform at **5** — chosen as the most reviewer-defensible choice (standard 5-fold CV).
+test/class=100 has comfortable margin here (the binding semantics STB gives a balanced test of
+179/class at K=5; the hard ceiling is K=8 at 102/class, so K=5 is well clear of the guard).
+GRD and PRF are EXCLUDED (both blow the budget unlearnably as configured — PRF did not finish a
+single fold even at the cheapest cell). A single config suffices (uniform K); results key on
+`(semantics, partial, noise)` so the whole grid lands in one `results/` tree.
 
 ## Launch procedure (campaign is NOT auto-launched)
 
@@ -60,25 +57,21 @@ partial=0.75 labels are generated into the copy, not the source (0.5/full are re
 ```bash
 cd /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude
 SRC="$PWD/artifacts/final_synthetic_main_20260309_214128"
-export FABIO_ARTIFACTS_ROOT="$PWD/artifacts/final_synthetic_corrected_20260624"
+export FABIO_ARTIFACTS_ROOT="$PWD/artifacts/final_synthetic_corrected_20260625"
 mkdir -p "$FABIO_ARTIFACTS_ROOT"
 ln -s "$SRC/aafs"     "$FABIO_ARTIFACTS_ROOT/aafs"     # verified 500 AAFs (read-only)
 cp -R "$SRC/labelled" "$FABIO_ARTIFACTS_ROOT/labelled" # reuse 0.5/full; 0.75 generated into the copy
 
-# Run the three noise tiers SEQUENTIALLY (each spawns 7 workers; do not overlap them).
-# Each is independently resumable: re-run the SAME command after any interruption — finished
-# rows are skipped (row granularity), a stale lock from a kill is auto-cleared.
-python3 -m arglas benchmark run --config run_configs/final_synthetic_corrected_n0.json   # noise 0,  K=5
-python3 -m arglas benchmark run --config run_configs/final_synthetic_corrected_n01.json  # noise 0.1, K=8
-python3 -m arglas benchmark run --config run_configs/final_synthetic_corrected_n02.json  # noise 0.2, K=8
-# (use 'benchmark watch --config ...' instead of 'run' for auto-restart + periodic plots)
+# One config, K=5. Resumable: re-run the SAME command after any interruption — finished rows
+# are skipped (row granularity), a stale lock from a kill is auto-cleared.
+python3 -m arglas benchmark run   --config run_configs/final_synthetic_corrected.json
+python3 -m arglas benchmark watch --config run_configs/final_synthetic_corrected.json  # auto-restart + plots
 ```
 
 ## Budget (M4 Pro, 12 cores / 24 GB; ~2.8 GB peak RSS per ILASP → 7 workers)
 
-- Full grid = **756 ILASP runs**: n0 180 (K=5) + n0.1 288 (K=8) + n0.2 288 (K=8), each
-  ×(3 sem × 3 partials × 4 f-sizes). **≈ 50–69 CPU-hours → ~7–9 wall-hours** at 7 workers —
-  one overnight run.
+- Full grid = **540 ILASP runs** (27 cells × K=5 × 4 f-sizes), 180 per noise tier.
+  **≈ 35–50 CPU-hours → ~5–7 wall-hours** at 7 workers — one overnight run.
 - Cost is **partial-driven**, not noise-driven: partial=0.5+noise dominates (converges at
   ~400–800 s/run under clean CPU; peak observed 791 s = STB). partial=0.75 ≈ 180–400 s,
   partial=1.0 ≈ 70–100 s, noise-0 ≈ 5 s.

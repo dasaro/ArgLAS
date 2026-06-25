@@ -1,9 +1,9 @@
 {
-  "run_name": "final_synthetic_corrected_n0",
-  "display_name": "Corrected synthetic grid — noise 0.0 (K=5, clean baseline)",
+  "run_name": "final_synthetic_corrected",
+  "display_name": "Corrected synthetic grid (grouped K=5 CV, noise 0/0.1/0.2)",
   "semantics": ["ADM", "CMP", "STB"],
   "partials": [0.5, 0.75, 1.0],
-  "noises": [0.0],
+  "noises": [0.0, 0.1, 0.2],
   "f_values": [10, 20, 30, 40],
   "f_neg_values": [10, 20, 30, 40],
   "workers": 7,
@@ -23,11 +23,11 @@
   "label_seed_base": 20260310,
   "master_seed": 20260309,
   "allow_empty": true,
-  "rows_per_iteration": 4,
+  "rows_per_iteration": 12,
   "ratio_token": "1",
   "results_dir_template": "{semantics}_partial_{partial_token}_noise_{noise_token}_ratio_{ratio_token}",
-  "train_run_dir_prefix": "final_synthetic_corrected_n0",
-  "train_output_run_dir_prefix": "final_synthetic_corrected_n0",
+  "train_run_dir_prefix": "final_synthetic_corrected",
+  "train_output_run_dir_prefix": "final_synthetic_corrected",
   "labelled_requirements": {
     "default": {"min_pos": 50, "min_neg": 50}
   },
