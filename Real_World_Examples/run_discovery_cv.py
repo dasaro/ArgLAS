@@ -30,11 +30,13 @@ def _write(path, obj):
 def cmd_run(a):
     versions = [x.strip() for x in a.versions.split(",") if x.strip()]
     D.PHASE = PHASES[a.phase]
+    D.GRAPH = a.graph
     os.makedirs(a.out, exist_ok=True)
     prog_path = os.path.join(a.out, "progress.json")
     res_path = os.path.join(a.out, "results.json")
     folds = a.folds
-    st = {"versions": versions, "folds": folds, "phase": a.phase, "ilasp_timeout": a.ilasp_timeout,
+    st = {"versions": versions, "folds": folds, "phase": a.phase, "graph": a.graph,
+          "reading": a.reading, "ilasp_timeout": a.ilasp_timeout,
           "total": len(versions) * folds, "done": 0, "current": None, "results": {},
           "start": time.time(), "status": "running"}
     _write(prog_path, st)
@@ -55,8 +57,8 @@ def cmd_run(a):
         st["done"] = base
         _write(prog_path, st)
         _write(res_path, st["results"])
-        lm = r.get("learned", {})
-        print(f"[done] {v} in {r['wall_seconds']}s · learned macroF1={lm.get('macroF1','?')}", flush=True)
+        lm = r.get("learned", {}).get(a.reading, {})
+        print(f"[done] {v} in {r['wall_seconds']}s · learned({a.reading}) macroF1={lm.get('macroF1','?')}", flush=True)
     st["status"] = "done"
     st["current"] = None
     _write(prog_path, st)
@@ -89,7 +91,8 @@ def cmd_watch(a):
         eta = _dur((total - done) / rate) if rate > 0 and done < total else ("done" if done >= total else "—")
         if a.interval:
             sys.stdout.write("\033[2J\033[H")
-        print(f"Discovery CV · phase={st['phase']} · ilasp_timeout={st['ilasp_timeout']}s · {st['folds']} folds")
+        print(f"Discovery CV · graph={st.get('graph','own')} phase={st['phase']} reading={st.get('reading','credulous')}"
+              f" · ilasp_timeout={st['ilasp_timeout']}s · {st['folds']} folds")
         print(f"[{_bar(done / total if total else 0)}] {done}/{total} folds ({(done / total * 100) if total else 0:.0f}%) "
               f"· {st.get('current') or '—'} · elapsed {_dur(el)} · ETA ~{eta}")
         for v in st["versions"]:
@@ -100,8 +103,9 @@ def cmd_watch(a):
             elif "error" in r:
                 print(f"  {v}: ERROR {r['error'][:70]}")
             else:
-                lm = r.get("learned", {})
-                best = max(((k, r[k]["macroF1"]) for k in D.TEXTBOOK), key=lambda x: x[1])
+                rd = st.get("reading", "credulous")
+                lm = r.get("learned", {}).get(rd, {})
+                best = max(((k, r[k][rd]["macroF1"]) for k in D.TEXTBOOK), key=lambda x: x[1])
                 to = r.get("ilasp_timeouts", 0)
                 tag = f"  ⚠ {to} ILASP timeout(s)" if to else ""
                 print(f"  {v}: learned macroF1={lm.get('macroF1', float('nan')):.3f} commit={lm.get('commit_rate', float('nan')):.2f}"
@@ -124,6 +128,8 @@ def main():
     r.add_argument("--versions", default="A,B,C,D,E,F,G")
     r.add_argument("--folds", type=int, default=5)
     r.add_argument("--phase", default="first", choices=tuple(PHASES))
+    r.add_argument("--graph", default="own", choices=("own", "gold"))
+    r.add_argument("--reading", default="credulous", choices=D.READINGS)
     r.add_argument("--ilasp-timeout", type=int, default=1800)
     r.add_argument("--out", default="/tmp/cvrun")
     r.set_defaults(fn=cmd_run)

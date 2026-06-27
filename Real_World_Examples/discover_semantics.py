@@ -35,6 +35,15 @@ BG = open(os.path.join(REPO, "background_knowledge.lp")).read().strip()
 MODES = open(os.path.join(REPO, "mode_declarations.las")).read().strip()
 EXTRACT = os.path.join(HERE, "_tmp_extract_all2")
 PHASE = "att_first__lab_first"  # headline = first-individual (most between-participant variance)
+GRAPH = "own"                   # "own" = each participant's drawn graph; "gold" = canonical stimulus
+
+# Canonical GOLD BaseAF per condition, from PART_A EXPECTED (verified 0-ambiguity in the
+# audit). att(X,Y) = X attacks Y. Gold track attaches every participant's labels to this
+# shared graph, so a learned theory's commitments transfer across participants.
+_FLOAT = (["a", "b", "c", "d"], [("b", "a"), ("c", "b"), ("c", "d"), ("d", "b"), ("d", "c")])
+_SIMPLE = (["a", "b", "c"], [("b", "a"), ("c", "b")])
+_CYCLE = (["a", "b", "c", "d", "e"], [("b", "a"), ("c", "b"), ("c", "d"), ("d", "b"), ("d", "e"), ("e", "b"), ("e", "c")])
+GOLD = {"A": _FLOAT, "B": _FLOAT, "C": _FLOAT, "D": _SIMPLE, "E": _SIMPLE, "F": _SIMPLE, "G": _CYCLE}
 ASPARTIX = {s: os.path.join(REPO, "ASPARTIX", f"{s}.lp")
             for s in ("grounded", "preferred", "stable", "complete", "cf2")}
 TEXTBOOK = ("grounded", "preferred", "stable", "complete", "cf2")
@@ -56,8 +65,12 @@ def committed(labels):
 
 def load_version(v):
     recs = []
+    gargs, gatt = GOLD[v] if GRAPH == "gold" else (None, None)
     for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", PHASE, "p*.lp"))):
         args, attacks, labels = parse_lp(f)
+        if GRAPH == "gold":
+            args, attacks = gargs, gatt
+            labels = {a: labels.get(a) for a in gargs}  # participant's labels on the shared gold graph
         c = committed(labels)
         if c:
             recs.append({"pid": os.path.basename(f)[:-3], "args": args, "attacks": attacks,
@@ -166,21 +179,37 @@ def textbook_labellings(kind, args, attacks):
     return labs
 
 
-def skeptical_project(labs, args):
-    """Same cautious reading for EVERY predictor (kills the evaluation asymmetry): an
-    argument is predicted in/out only if all labellings agree, else undecided."""
+READINGS = ("skeptical", "credulous", "grounded")
+_ORDER = {"in": 0, "out": 1, "undec": 2}
+
+
+def project(labs, args, reading):
+    """Turn a set of labellings into one predicted labelling. Applied SYMMETRICALLY to
+    learned and textbook predictors. Three readings:
+      - skeptical : commit only where ALL extensions agree (cautious; under-commits).
+      - credulous : plurality label across extensions, ties broken toward commitment
+                    (in/out over undec) -- matches the credulous human reasoning mode.
+      - grounded  : the labelling of the subset-MINIMAL in-set (grounded-of-learned;
+                    a single deterministic, more-committal-than-skeptical extension)."""
     if not labs:
         return {a: "undec" for a in args}
+    if reading == "grounded":
+        lab = min(labs, key=lambda l: (sum(1 for a in args if l.get(a) == "in"),
+                                       tuple(sorted(a for a in args if l.get(a) == "in"))))
+        return {a: lab.get(a, "undec") for a in args}
     pred = {}
     for a in args:
-        vals = {l.get(a, "undec") for l in labs}
-        pred[a] = next(iter(vals)) if len(vals) == 1 else "undec"
+        vals = [l.get(a, "undec") for l in labs]
+        if reading == "skeptical":
+            pred[a] = vals[0] if len(set(vals)) == 1 else "undec"
+        else:  # credulous: plurality, ties toward commitment then 'in'
+            cnt = Counter(vals)
+            pred[a] = max(cnt, key=lambda x: (cnt[x], -_ORDER[x]))
     return pred
 
 
-def predict(kind, args, attacks, rules=None):
-    labs = learned_labellings(rules, args, attacks) if kind == "learned" else textbook_labellings(kind, args, attacks)
-    return skeptical_project(labs, args), len(labs)
+def predict_labellings(kind, args, attacks, rules=None):
+    return learned_labellings(rules, args, attacks) if kind == "learned" else textbook_labellings(kind, args, attacks)
 
 
 CLASSES = ("in", "out", "undec")
@@ -229,11 +258,12 @@ def discover(v, ilasp_timeout=300):
     recs = load_version(v)
     task, npos, nneg = build_task(recs)
     rules = run_ilasp(task, timeout=ilasp_timeout)
-    args, attacks = modal_aaf(recs)
-    pred, n_ext = predict("learned", args, attacks, rules)
-    n_commit = sum(1 for a in args if pred[a] in ("in", "out"))
+    args, attacks = (GOLD[v] if GRAPH == "gold" else modal_aaf(recs))
+    labs = predict_labellings("learned", args, attacks, rules)
+    cred = project(labs, args, "credulous")
+    n_commit = sum(1 for a in args if cred[a] in ("in", "out"))
     return {"v": v, "n_part": len(recs), "npos": npos, "nneg": nneg, "rules": rules,
-            "n_ext": n_ext, "skeptical_commit": f"{n_commit}/{len(args)}", "modal_attacks": attacks}
+            "n_ext": len(labs), "credulous_commit": f"{n_commit}/{len(args)}", "graph": GRAPH}
 
 
 def make_folds(recs, k, seed=20260627):
@@ -250,7 +280,7 @@ def cv(v, k=5, ilasp_timeout=300, on_progress=None):
         k = max(2, len(recs))
     folds = make_folds(recs, k)
     preds = ("learned",) + TEXTBOOK
-    conf = {p: Counter() for p in preds}
+    conf = {(p, rd): Counter() for p in preds for rd in READINGS}
     timeouts = 0
     for fi in range(k):
         test = folds[fi]
@@ -261,13 +291,14 @@ def cv(v, k=5, ilasp_timeout=300, on_progress=None):
                 timeouts += 1
             for r in test:
                 for kind in preds:
-                    pred, _ = predict(kind, r["args"], r["attacks"], rules if kind == "learned" else None)
-                    conf[kind] += score(pred, r["labels"])
+                    labs = predict_labellings(kind, r["args"], r["attacks"], rules if kind == "learned" else None)
+                    for rd in READINGS:
+                        conf[(kind, rd)] += score(project(labs, r["args"], rd), r["labels"])
         if on_progress:
             on_progress(fi + 1, k)
     res = {"v": v, "k": k, "n_part": len(recs), "ilasp_timeouts": timeouts}
     for kind in preds:
-        res[kind] = metrics_from_conf(conf[kind])
+        res[kind] = {rd: metrics_from_conf(conf[(kind, rd)]) for rd in READINGS}
     return res
 
 
@@ -279,24 +310,31 @@ def main(argv=None):
     ap.add_argument("--phase", choices=("first", "final", "group"), default="first",
                     help="response phase: first-individual (headline), final-individual, or group.")
     ap.add_argument("--ilasp-timeout", type=int, default=1800, help="per-fold ILASP timeout (s).")
+    ap.add_argument("--graph", choices=("own", "gold"), default="own",
+                    help="own = each participant's drawn graph; gold = shared canonical stimulus.")
+    ap.add_argument("--reading", choices=READINGS, default="credulous",
+                    help="reading shown in the cv table (all three are computed regardless).")
     args = ap.parse_args(argv)
-    global PHASE
+    global PHASE, GRAPH
     PHASE = {"first": "att_first__lab_first", "final": "att_final__lab_final", "group": "att_group__lab_group"}[args.phase]
+    GRAPH = args.graph
     versions = [x.strip() for x in args.versions.split(",") if x.strip()]
     if args.mode == "discover":
         for v in versions:
             r = discover(v, ilasp_timeout=args.ilasp_timeout)
-            print(f"\n===== Condition {v}  (n={r['n_part']} participants; {r['npos']} pos / {r['nneg']} hard-neg) =====")
-            print(f"  tightness: {r['n_ext']} extensions on modal AAF; skeptical commits {r['skeptical_commit']} args")
+            print(f"\n===== Condition {v}  (n={r['n_part']} participants; {r['npos']} pos / {r['nneg']} hard-neg; graph={r['graph']}) =====")
+            print(f"  tightness: {r['n_ext']} extensions; credulous commits {r['credulous_commit']} args")
             print("  DISCOVERED AXIOMS:")
             for rule in (r["rules"] or ["(empty)"]):
                 print(f"    {rule}")
     else:
+        rd = args.reading
+        print(f"graph={GRAPH} phase={args.phase} reading={rd} (macroF1 / commit_rate)")
         print(f"{'cond':<5}{'predictor':<11}{'macroF1':<9}{'acc3':<8}{'commit':<8}{'MCC_io':<8}")
         for v in versions:
             r = cv(v, args.folds, ilasp_timeout=args.ilasp_timeout)
             for kind in ("learned",) + TEXTBOOK:
-                m = r[kind]
+                m = r[kind][rd]
                 print(f"{v:<5}{kind:<11}{m['macroF1']:<9.3f}{m['acc3']:<8.3f}{m['commit_rate']:<8.3f}{m['mcc_committed']:<8.3f}")
             print()
     return 0
