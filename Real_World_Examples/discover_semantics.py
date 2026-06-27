@@ -63,6 +63,28 @@ def committed(labels):
     return {a: s for a, s in labels.items() if s in ("in", "out")}
 
 
+def load_recs(v, graph="gold", label_phase="final"):
+    """Decoupled loader for the 2022-faithful comparison. graph selects the AF the
+    semantics is applied to: 'gold' = the intended BaseAF, 'ind' = the participant's own
+    final Part-A drawing (IndAF, att_final), 'group' = the group's Part-A drawing (GroupAF,
+    att_group). label_phase selects the Part-B response (first/group/final). Keeps every
+    participant with at least one label (incl. all-undecided), matching the paper's
+    response-level counting."""
+    asrc = "group" if graph == "group" else "final"
+    gargs, gatt = GOLD[v]
+    recs = []
+    for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", f"att_{asrc}__lab_{label_phase}", "p*.lp"))):
+        args, attacks, labels = parse_lp(f)
+        if graph == "gold":
+            args, attacks = list(gargs), [tuple(e) for e in gatt]
+            labels = {a: labels.get(a) for a in gargs}
+        lab = {a: s for a, s in labels.items() if s in CLASSES}
+        if lab:
+            recs.append({"pid": os.path.basename(f)[:-3], "args": args, "attacks": attacks,
+                         "commit": committed(labels), "labels": lab})
+    return recs
+
+
 def load_version(v):
     recs = []
     gargs, gatt = GOLD[v] if GRAPH == "gold" else (None, None)
@@ -172,6 +194,11 @@ def textbook_labellings(kind, args, attacks):
     """Standard complete labelling of each textbook extension (in-set): out = attacked
     by in, undec = rest. (ASPARTIX encodings emit only in/1.)"""
     insets = [m["in"] for m in _solve(open(ASPARTIX[kind]).read(), args, attacks, ("in",))]
+    if kind == "preferred":
+        # preferred.lp needs --heuristic=Domain --enum=domRec for subset-maximality; under
+        # plain clingo it returns the COMPLETE extensions (incl. {}), which makes skeptical-
+        # preferred collapse to grounded. Recover preferred = the subset-MAXIMAL in-sets.
+        insets = [s for s in insets if not any(s < t for t in insets)]
     labs = []
     for s in insets:
         att_out = {y for (x, y) in attacks if x in s}
