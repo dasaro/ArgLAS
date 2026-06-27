@@ -34,8 +34,10 @@ REPO = os.path.dirname(HERE)
 BG = open(os.path.join(REPO, "background_knowledge.lp")).read().strip()
 MODES = open(os.path.join(REPO, "mode_declarations.las")).read().strip()
 EXTRACT = os.path.join(HERE, "_tmp_extract_all2")
-ASPARTIX = {s: os.path.join(REPO, "ASPARTIX", f"{f}.lp")
-            for s, f in [("grounded", "grounded"), ("preferred", "preferred"), ("stable", "stable")]}
+PHASE = "att_first__lab_first"  # headline = first-individual (most between-participant variance)
+ASPARTIX = {s: os.path.join(REPO, "ASPARTIX", f"{s}.lp")
+            for s in ("grounded", "preferred", "stable", "complete", "cf2")}
+TEXTBOOK = ("grounded", "preferred", "stable", "complete", "cf2")
 
 
 def parse_lp(path):
@@ -54,12 +56,12 @@ def committed(labels):
 
 def load_version(v):
     recs = []
-    for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", "att_final__lab_final", "p*.lp"))):
+    for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", PHASE, "p*.lp"))):
         args, attacks, labels = parse_lp(f)
         c = committed(labels)
         if c:
-            recs.append({"pid": os.path.basename(f)[:-3], "args": args,
-                         "attacks": attacks, "commit": c})
+            recs.append({"pid": os.path.basename(f)[:-3], "args": args, "attacks": attacks,
+                         "commit": c, "labels": {a: s for a, s in labels.items() if s in CLASSES}})
     return recs
 
 
@@ -130,57 +132,90 @@ def run_ilasp(task_text, timeout=300):
     return rules
 
 
-def enumerate_insets(program, args, attacks, show="in"):
+def _solve(program, args, attacks, shows):
     facts = "".join(f"arg({a}). " for a in args) + "".join(f"att({s},{t}). " for s, t in attacks)
     ctl = clingo.Control(["0", "--warn=none"])
-    ctl.add("base", [], program + "\n" + facts + f"\n#show {show}/1.\n")
+    ctl.add("base", [], program + "\n" + facts + "\n" + "".join(f"#show {s}/1.\n" for s in shows))
     ctl.ground([("base", [])])
     models = []
-    ctl.solve(on_model=lambda m: models.append(
-        frozenset(str(s.arguments[0]) for s in m.symbols(shown=True) if s.name == show)))
+    def on_model(m):
+        d = {s: frozenset(str(x.arguments[0]) for x in m.symbols(shown=True) if x.name == s) for s in shows}
+        models.append(d)
+    ctl.solve(on_model=on_model)
     return models
 
 
-def labelling_from_inset(inset, args, attacks):
-    """Standard complete labelling of an in-set: out = attacked by in; undec = rest."""
-    out = {y for (x, y) in attacks if x in inset}
-    return {a: ("in" if a in inset else "out" if a in out else "undec") for a in args}
+def learned_labellings(rules, args, attacks):
+    """Full labellings of BG+learned theory, using the theory's OWN in AND out atoms
+    (the predictor fix: do NOT re-derive out from attacks). undec = neither."""
+    prog = BG + "\n" + "\n".join(rules) + "\n"
+    labs = []
+    for m in _solve(prog, args, attacks, ("in", "out")):
+        labs.append({a: ("in" if a in m["in"] else "out" if a in m["out"] else "undec") for a in args})
+    return labs
 
 
-def skeptical(insets, args, attacks):
-    if not insets:
+def textbook_labellings(kind, args, attacks):
+    """Standard complete labelling of each textbook extension (in-set): out = attacked
+    by in, undec = rest. (ASPARTIX encodings emit only in/1.)"""
+    insets = [m["in"] for m in _solve(open(ASPARTIX[kind]).read(), args, attacks, ("in",))]
+    labs = []
+    for s in insets:
+        att_out = {y for (x, y) in attacks if x in s}
+        labs.append({a: ("in" if a in s else "out" if a in att_out else "undec") for a in args})
+    return labs
+
+
+def skeptical_project(labs, args):
+    """Same cautious reading for EVERY predictor (kills the evaluation asymmetry): an
+    argument is predicted in/out only if all labellings agree, else undecided."""
+    if not labs:
         return {a: "undec" for a in args}
-    labs = [labelling_from_inset(s, args, attacks) for s in insets]
     pred = {}
     for a in args:
-        vals = {l[a] for l in labs}
-        pred[a] = vals.pop() if len(vals) == 1 else "undec"
+        vals = {l.get(a, "undec") for l in labs}
+        pred[a] = next(iter(vals)) if len(vals) == 1 else "undec"
     return pred
 
 
-def predictor_program(kind, theory_rules=None):
-    if kind == "learned":
-        return BG + "\n" + "\n".join(theory_rules) + "\n"
-    return open(ASPARTIX[kind]).read()
+def predict(kind, args, attacks, rules=None):
+    labs = learned_labellings(rules, args, attacks) if kind == "learned" else textbook_labellings(kind, args, attacks)
+    return skeptical_project(labs, args), len(labs)
 
 
-def score(pred_labels, human_commit):
-    tp = fp = tn = fn = commit = total = 0
-    for a, h in human_commit.items():
-        total += 1
-        p = pred_labels.get(a, "undec")
-        if p in ("in", "out"):
-            commit += 1
-            if p == "in" and h == "in": tp += 1
-            elif p == "in" and h == "out": fp += 1
-            elif p == "out" and h == "out": tn += 1
-            elif p == "out" and h == "in": fn += 1
-    return tp, fp, tn, fn, commit, total
+CLASSES = ("in", "out", "undec")
+
+
+def score(pred, human_labels):
+    """3-valued confusion over ALL human-labelled args (in/out/undec), Counter[(h,p)]."""
+    conf = Counter()
+    for a, h in human_labels.items():
+        conf[(h, pred.get(a, "undec"))] += 1
+    return conf
 
 
 def mcc(tp, fp, tn, fn):
     d = math.sqrt((tp+fp)*(tp+fn)*(tn+fp)*(tn+fn))
     return ((tp*tn-fp*fn)/d) if d else float("nan")
+
+
+def metrics_from_conf(conf):
+    total = sum(conf.values())
+    acc3 = sum(conf[(c, c)] for c in CLASSES) / total if total else float("nan")
+    f1s = []
+    for c in CLASSES:
+        tp = conf[(c, c)]
+        fp = sum(conf[(h, c)] for h in CLASSES if h != c)
+        fn = sum(conf[(c, p)] for p in CLASSES if p != c)
+        prec = tp / (tp + fp) if tp + fp else 0.0
+        rec = tp / (tp + fn) if tp + fn else 0.0
+        f1s.append(2 * prec * rec / (prec + rec) if prec + rec else 0.0)
+    io_total = sum(conf[(h, p)] for h in ("in", "out") for p in CLASSES)
+    committed = sum(conf[(h, p)] for h in ("in", "out") for p in ("in", "out"))
+    return {"acc3": acc3, "macroF1": sum(f1s) / len(f1s),
+            "commit_rate": committed / io_total if io_total else float("nan"),
+            "mcc_committed": mcc(conf[("in", "in")], conf[("out", "in")], conf[("out", "out")], conf[("in", "out")]),
+            "n_args": total}
 
 
 def modal_aaf(recs):
@@ -190,16 +225,15 @@ def modal_aaf(recs):
     return args, attacks
 
 
-def discover(v):
+def discover(v, ilasp_timeout=300):
     recs = load_version(v)
     task, npos, nneg = build_task(recs)
-    rules = run_ilasp(task)
+    rules = run_ilasp(task, timeout=ilasp_timeout)
     args, attacks = modal_aaf(recs)
-    insets = enumerate_insets(predictor_program("learned", rules), args, attacks)
-    pred = skeptical(insets, args, attacks)
+    pred, n_ext = predict("learned", args, attacks, rules)
     n_commit = sum(1 for a in args if pred[a] in ("in", "out"))
     return {"v": v, "n_part": len(recs), "npos": npos, "nneg": nneg, "rules": rules,
-            "n_ext": len(insets), "skeptical_commit": f"{n_commit}/{len(args)}", "modal_attacks": attacks}
+            "n_ext": n_ext, "skeptical_commit": f"{n_commit}/{len(args)}", "modal_attacks": attacks}
 
 
 def make_folds(recs, k, seed=20260627):
@@ -210,34 +244,30 @@ def make_folds(recs, k, seed=20260627):
     return folds
 
 
-def cv(v, k=5):
+def cv(v, k=5, ilasp_timeout=300, on_progress=None):
     recs = load_version(v)
     if len(recs) < k:
         k = max(2, len(recs))
     folds = make_folds(recs, k)
-    acc = {p: [0, 0, 0, 0, 0, 0] for p in ("learned", "grounded", "preferred", "stable")}
+    preds = ("learned",) + TEXTBOOK
+    conf = {p: Counter() for p in preds}
+    timeouts = 0
     for fi in range(k):
         test = folds[fi]
         train = [r for j, f in enumerate(folds) if j != fi for r in f]
-        if not train or not test:
-            continue
-        task, _, _ = build_task(train)
-        rules = run_ilasp(task)
-        for r in test:
-            for kind in acc:
-                prog = predictor_program("learned", rules) if kind == "learned" else predictor_program(kind)
-                insets = enumerate_insets(prog, r["args"], r["attacks"])
-                pred = skeptical(insets, r["args"], r["attacks"])
-                tp, fp, tn, fn, commit, total = score(pred, r["commit"])
-                a = acc[kind]
-                a[0] += tp; a[1] += fp; a[2] += tn; a[3] += fn; a[4] += commit; a[5] += total
-    res = {"v": v, "k": k, "n_part": len(recs)}
-    for kind, a in acc.items():
-        tp, fp, tn, fn, commit, total = a
-        correct = tp + tn
-        res[kind] = {"acc_on_committed": (correct / commit) if commit else float("nan"),
-                     "MCC": mcc(tp, fp, tn, fn),
-                     "commit_rate": (commit / total) if total else float("nan")}
+        if train and test:
+            rules = run_ilasp(build_task(train)[0], timeout=ilasp_timeout)
+            if rules == ["% TIMEOUT"]:
+                timeouts += 1
+            for r in test:
+                for kind in preds:
+                    pred, _ = predict(kind, r["args"], r["attacks"], rules if kind == "learned" else None)
+                    conf[kind] += score(pred, r["labels"])
+        if on_progress:
+            on_progress(fi + 1, k)
+    res = {"v": v, "k": k, "n_part": len(recs), "ilasp_timeouts": timeouts}
+    for kind in preds:
+        res[kind] = metrics_from_conf(conf[kind])
     return res
 
 
@@ -246,23 +276,29 @@ def main(argv=None):
     ap.add_argument("--versions", default="A,B,C,D,E,F,G")
     ap.add_argument("--mode", choices=("discover", "cv"), default="discover")
     ap.add_argument("--folds", type=int, default=5)
+    ap.add_argument("--phase", choices=("first", "final", "group"), default="first",
+                    help="response phase: first-individual (headline), final-individual, or group.")
+    ap.add_argument("--ilasp-timeout", type=int, default=1800, help="per-fold ILASP timeout (s).")
     args = ap.parse_args(argv)
+    global PHASE
+    PHASE = {"first": "att_first__lab_first", "final": "att_final__lab_final", "group": "att_group__lab_group"}[args.phase]
     versions = [x.strip() for x in args.versions.split(",") if x.strip()]
     if args.mode == "discover":
         for v in versions:
-            r = discover(v)
+            r = discover(v, ilasp_timeout=args.ilasp_timeout)
             print(f"\n===== Condition {v}  (n={r['n_part']} participants; {r['npos']} pos / {r['nneg']} hard-neg) =====")
             print(f"  tightness: {r['n_ext']} extensions on modal AAF; skeptical commits {r['skeptical_commit']} args")
             print("  DISCOVERED AXIOMS:")
             for rule in (r["rules"] or ["(empty)"]):
                 print(f"    {rule}")
     else:
-        print(f"{'cond':<5}{'pred':<11}{'acc/committed':<15}{'MCC':<9}{'commit_rate':<12}")
+        print(f"{'cond':<5}{'predictor':<11}{'macroF1':<9}{'acc3':<8}{'commit':<8}{'MCC_io':<8}")
         for v in versions:
-            r = cv(v, args.folds)
-            for kind in ("learned", "grounded", "preferred", "stable"):
+            r = cv(v, args.folds, ilasp_timeout=args.ilasp_timeout)
+            for kind in ("learned",) + TEXTBOOK:
                 m = r[kind]
-                print(f"{v:<5}{kind:<11}{m['acc_on_committed']:<15.3f}{m['MCC']:<9.3f}{m['commit_rate']:<12.3f}")
+                print(f"{v:<5}{kind:<11}{m['macroF1']:<9.3f}{m['acc3']:<8.3f}{m['commit_rate']:<8.3f}{m['mcc_committed']:<8.3f}")
+            print()
     return 0
 
 
