@@ -70,18 +70,26 @@ def load_recs(v, graph="gold", label_phase="final"):
     att_group). label_phase selects the Part-B response (first/group/final). Keeps every
     participant with at least one label (incl. all-undecided), matching the paper's
     response-level counting."""
-    asrc = "group" if graph == "group" else "final"
     gargs, gatt = GOLD[v]
-    recs = []
-    for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", f"att_{asrc}__lab_{label_phase}", "p*.lp"))):
-        args, attacks, labels = parse_lp(f)
-        if graph == "gold":
-            args, attacks = list(gargs), [tuple(e) for e in gatt]
-            labels = {a: labels.get(a) for a in gargs}
-        lab = {a: s for a, s in labels.items() if s in CLASSES}
-        if lab:
-            recs.append({"pid": os.path.basename(f)[:-3], "args": args, "attacks": attacks,
-                         "commit": committed(labels), "labels": lab})
+    recs, seen = [], set()
+    # gold: labels are att-source-independent and the AF is fixed, so UNION across att dirs
+    # (so participants whose att_final drawing is all-NA are still counted -> pools all 500
+    # responses, matching the paper). ind/group legitimately depend on the drawing.
+    asrcs = ("final", "group", "first") if graph == "gold" else (("group",) if graph == "group" else ("final",))
+    for asrc in asrcs:
+        for f in sorted(glob.glob(os.path.join(EXTRACT, f"version{v}", f"att_{asrc}__lab_{label_phase}", "p*.lp"))):
+            pid = os.path.basename(f)[:-3]
+            if pid in seen:
+                continue
+            args, attacks, labels = parse_lp(f)
+            if graph == "gold":
+                args, attacks = list(gargs), [tuple(e) for e in gatt]
+                labels = {a: labels.get(a) for a in gargs}
+            lab = {a: s for a, s in labels.items() if s in CLASSES}
+            if lab:
+                seen.add(pid)
+                recs.append({"pid": pid, "args": args, "attacks": attacks,
+                             "commit": committed(labels), "labels": lab})
     return recs
 
 

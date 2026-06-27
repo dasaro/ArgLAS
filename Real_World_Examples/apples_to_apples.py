@@ -207,20 +207,23 @@ def cmd_learned(a):
             rr = tb_rows[s]
             k = sum(1 for (h, p) in rr if h == p)
             out["tb_" + s] = {"pct": 100.0 * k / len(rr) if rr else float("nan"), "k": k, "n": len(rr)}
-        # McNemar: learned_credulous vs best textbook
+        # McNemar vs the best textbook, computed for BOTH learned readings (skeptical is the
+        # like-for-like apples-to-apples test; credulous is the favorable one-step-past read).
         best = max(PAPER_TB, key=lambda s: out["tb_" + s]["pct"])
-        lc = rows["learned_credulous"]
         ts = tb_rows[best]
-        b = sum(1 for i in range(len(lc)) if lc[i][0] == lc[i][1] and ts[i][0] != ts[i][1])
-        c = sum(1 for i in range(len(lc)) if lc[i][0] != lc[i][1] and ts[i][0] == ts[i][1])
-        out["mcnemar_vs_" + best] = {"learned_only_correct": b, "textbook_only_correct": c, "p": mcnemar(b, c)}
+        out["best_textbook"] = best
+        for rd in ("learned_skeptical", "learned_credulous"):
+            lc = rows[rd]
+            b = sum(1 for i in range(len(lc)) if lc[i][0] == lc[i][1] and ts[i][0] != ts[i][1])
+            c = sum(1 for i in range(len(lc)) if lc[i][0] != lc[i][1] and ts[i][0] == ts[i][1])
+            out[f"mcnemar_{rd}"] = {"learned_only_correct": b, "textbook_only_correct": c, "p": mcnemar(b, c)}
         results[v] = out
         st["done"] += 1
         json.dump(st, open(prog, "w"))
         json.dump(results, open(os.path.join(a.out, "results.json"), "w"))
-        lc_pct = out["learned_credulous"]["pct"]
-        print(f"[done] {v} cells={out['n_cells']} learned(cred)={lc_pct:.1f}% best-tb {best}={out['tb_'+best]['pct']:.1f}% "
-              f"McNemar p={out['mcnemar_vs_'+best]['p']:.3f}", flush=True)
+        print(f"[done] {v} cells={out['n_cells']} | learned skep={out['learned_skeptical']['pct']:.1f}% "
+              f"cred={out['learned_credulous']['pct']:.1f}% vs best-tb {best}={out['tb_'+best]['pct']:.1f}% "
+              f"| McNemar(skep) p={out['mcnemar_learned_skeptical']['p']:.3f} (cred) p={out['mcnemar_learned_credulous']['p']:.3f}", flush=True)
     st["status"] = "done"
     json.dump(st, open(prog, "w"))
     print("ALL DONE")
