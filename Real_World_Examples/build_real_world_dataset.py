@@ -372,6 +372,7 @@ def build_negative_from_positive(
     policy: str,
     flip_k: int = 2,
     rn_reliable_fraction: float = 0.7,
+    n_candidates: int = 8,
 ) -> Optional[ParsedAAF]:
     labels = dict(parsed.labels)
 
@@ -416,6 +417,26 @@ def build_negative_from_positive(
         for arg in rng.sample(flippable, k_value):
             labels[arg] = "out" if labels[arg] == "in" else "in"
         return ParsedAAF(args=list(parsed.args), attacks=list(parsed.attacks), labels=labels)
+
+    if policy == "reliable_negative":
+        # PU reliable-negative (density-based, oracle-free): among n_candidates random
+        # relabellings of the in/out commitments, keep the one FARTHEST (Hamming) from
+        # the source positive -> a low-density, high-confidence negative. Mirrors
+        # generate_ilasp_task.build_synthetic_negative; the noisy-data winner in the Exp1
+        # calibration (its negatives don't inherit a noisy positive's errors). undec left
+        # unchanged, consistent with the other policies here.
+        flippable = [arg for arg in parsed.args if labels.get(arg) in {"in", "out"}]
+        if not flippable:
+            return None
+        best, best_dist = None, -1
+        for _ in range(max(1, int(n_candidates))):
+            cand = dict(labels)
+            for arg in flippable:
+                cand[arg] = "in" if rng.random() < 0.5 else "out"
+            dist = sum(1 for arg in flippable if cand[arg] != labels[arg])
+            if dist > best_dist:
+                best_dist, best = dist, cand
+        return ParsedAAF(args=list(parsed.args), attacks=list(parsed.attacks), labels=best)
 
     raise ValueError(f"Unsupported negative policy: {policy}")
 
@@ -496,13 +517,17 @@ def main() -> None:
     parser.add_argument("--negative-ratio", type=float, default=1.0, help="Target n_neg / n_pos ratio.")
     parser.add_argument(
         "--negative-policy",
-        choices=("full_relabel", "flip_one", "flip_k", "rn_hardmix"),
-        default="full_relabel",
+        choices=("reliable_negative", "full_relabel", "flip_one", "flip_k", "rn_hardmix"),
+        default="reliable_negative",
         help=(
             "Negative generation policy. "
+            "reliable_negative keeps, of n_candidates random relabellings, the one farthest "
+            "(Hamming) from the positive (PU density-based, oracle-free; calibration winner under "
+            "noise) and leaves undec unchanged; "
             "flip_one swaps exactly one argument label in<->out and leaves undec unchanged; "
             "flip_k swaps exactly k argument labels in<->out and leaves undec unchanged; "
-            "rn_hardmix mixes reliable (multi-flip) and hard (single-flip) negatives."
+            "rn_hardmix mixes reliable (multi-flip) and hard (single-flip) negatives; "
+            "full_relabel re-draws every label (deprecated: worst recovery in calibration)."
         ),
     )
     parser.add_argument(
@@ -516,6 +541,12 @@ def main() -> None:
         type=float,
         default=0.7,
         help="Fraction of rn_hardmix negatives generated with multi-flip reliable mutations.",
+    )
+    parser.add_argument(
+        "--n-candidates",
+        type=int,
+        default=8,
+        help="reliable_negative: number of random relabellings to draw before keeping the farthest.",
     )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--weight-mode", choices=("constant", "confidence_linear"), default="constant")
@@ -757,6 +788,7 @@ def main() -> None:
                 policy=args.negative_policy,
                 flip_k=args.negative_flip_k,
                 rn_reliable_fraction=args.rn_reliable_fraction,
+                n_candidates=args.n_candidates,
             )
             if parsed_neg is None:
                 # Defensive guard: should be unreachable because source_pool already filters this.
