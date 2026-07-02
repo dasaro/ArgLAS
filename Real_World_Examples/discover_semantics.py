@@ -24,7 +24,7 @@ Usage:
   python3 discover_semantics.py --versions A,B,C,D,E,F,G --mode discover
   python3 discover_semantics.py --versions A,B,C,D,E,F,G --mode cv --folds 5
 """
-import argparse, glob, os, re, subprocess, sys, math, tempfile
+import argparse, glob, os, random, re, subprocess, sys, math, tempfile
 from collections import defaultdict, Counter
 
 import clingo
@@ -141,22 +141,23 @@ def hard_shell(commit):
     return out
 
 
-def build_task(recs, weight=100):
+def build_task(recs, weight=100, max_neg=None):
     pos_keys = {(tuple(sorted(r["attacks"])), tuple(sorted(r["commit"].items()))) for r in recs}
-    lines = []
-    for i, r in enumerate(recs):
-        lines.append(render_example("pos", f"p{i}", r.get("weight", weight), r["args"], r["attacks"], r["commit"]))
+    pos = [render_example("pos", f"p{i}", r.get("weight", weight), r["args"], r["attacks"], r["commit"])
+           for i, r in enumerate(recs)]
     seen = set()
-    j = 0
+    negs = []
     for r in recs:
         for neg in hard_shell(r["commit"]):
             key = (tuple(sorted(r["attacks"])), tuple(sorted(neg.items())))
             if key in pos_keys or key in seen:
                 continue
             seen.add(key)
-            lines.append(render_example("neg", f"n{j}", None, r["args"], r["attacks"], neg))  # HARD boundary
-            j += 1
-    return "\n".join(lines) + "\n\n" + BG + "\n\n" + MODES + "\n", len(recs), j
+            negs.append((r["args"], r["attacks"], neg))
+    if max_neg and len(negs) > max_neg:  # deterministic sample to keep ILASP tractable
+        negs = [negs[i] for i in sorted(random.Random(20260627).sample(range(len(negs)), max_neg))]
+    neg_lines = [render_example("neg", f"n{j}", None, ar, at, ng) for j, (ar, at, ng) in enumerate(negs)]
+    return "\n".join(pos + neg_lines) + "\n\n" + BG + "\n\n" + MODES + "\n", len(recs), len(neg_lines)
 
 
 def run_ilasp(task_text, timeout=300):

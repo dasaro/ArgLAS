@@ -266,9 +266,19 @@ def cmd_pooled(a):
     json.dump(st, open(prog, "w"))
     for fi in range(len(folds)):
         test = folds[fi]
-        train = [r for j, f in enumerate(folds) if j != fi for r in f if r["commit"]]
+        train_raw = [r for j, f in enumerate(folds) if j != fi for r in f if r["commit"]]
+        # dedup identical (graph, commit-labelling) examples into one weighted positive
+        # (identical examples add no constraint to ILASP; weight = summed confidence mass).
+        # Shrinks the task ~2x -> tractable, same learned theory.
+        cellw = {}
+        for r in train_raw:
+            key = (tuple(sorted(r["attacks"])), tuple(sorted(r["commit"].items())))
+            if key not in cellw:
+                cellw[key] = {"args": r["args"], "attacks": r["attacks"], "commit": r["commit"], "weight": 0}
+            cellw[key]["weight"] += r["weight"]
+        train = list(cellw.values())
         if train and test:
-            rules = D.run_ilasp(D.build_task(train)[0], timeout=a.ilasp_timeout)
+            rules = D.run_ilasp(D.build_task(train, max_neg=a.max_neg)[0], timeout=a.ilasp_timeout)
             for r in test:
                 labs = D.learned_labellings(rules, r["args"], r["attacks"])
                 sk = D.project(labs, r["args"], "skeptical")
@@ -325,6 +335,7 @@ def main():
     pl.add_argument("--phase", default="final", choices=("first", "group", "final"))
     pl.add_argument("--folds", type=int, default=5)
     pl.add_argument("--ilasp-timeout", type=int, default=2400)
+    pl.add_argument("--max-neg", type=int, default=100, help="cap on sampled hard-negative shell per fold.")
     pl.add_argument("--no-confidence", action="store_true", help="uniform weights (ablation).")
     pl.add_argument("--out", default="/tmp/ata_pooled")
     pl.set_defaults(fn=cmd_pooled)
