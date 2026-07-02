@@ -29,6 +29,7 @@ import time
 from collections import Counter, defaultdict
 
 import discover_semantics as D
+from extract_labeled_aafs import read_xlsx_sheet
 
 VERSIONS = ["A", "B", "C", "D", "E", "F", "G"]
 TB = ["grounded", "preferred", "stable", "complete", "cf2"]
@@ -229,10 +230,104 @@ def cmd_learned(a):
     print("ALL DONE")
 
 
+# ---- POOLED own-graph (IndAF), cross-condition, confidence-weighted, cell-level CV ----
+def pooled_cell_folds(recs, k, seed=20260627):
+    cells = defaultdict(list)
+    for r in recs:
+        cells[(tuple(sorted(r["attacks"])), tuple(sorted(r["labels"].items())))].append(r)
+    keys = sorted(cells)
+    k = min(k, len(keys))
+    folds = [[] for _ in range(k)]
+    for i, key in enumerate(keys):
+        folds[(i * 7 + seed) % k].extend(cells[key])
+    return [f for f in folds if f]
+
+
+def cmd_pooled(a):
+    os.makedirs(a.out, exist_ok=True)
+    prog = os.path.join(a.out, "progress.json")
+    conf_lut = {(x["VERSION"], str(x["PARTICIPANT"]), x["ITEM"].strip().lower()): x["2ND_CONFIDENCE"]
+                for x in read_xlsx_sheet("Raw_Data_original.xlsx", "PART_B")}
+    recs = []
+    for v in VERSIONS:
+        for r in D.load_recs(v, "ind", a.phase):  # ind = participant's own drawn graph (IndAF)
+            part = r["pid"][1:]
+            cs = [int(conf_lut[(v, part, arg)]) for arg in r["commit"]
+                  if str(conf_lut.get((v, part, arg), "NA")) not in ("NA", "")]
+            mc = (sum(cs) / len(cs)) if cs else 2.5
+            r["version"] = v
+            r["weight"] = 100 if a.no_confidence else max(1, int(round(100 * mc / 4.0)))
+            recs.append(r)
+    folds = pooled_cell_folds(recs, a.folds)
+    preds = ("learned_skeptical", "learned_credulous") + tuple(TB)
+    responses = []
+    st = {"mode": "pooled", "phase": a.phase, "confidence": not a.no_confidence, "n_examples": len(recs),
+          "total": len(folds), "done": 0, "start": time.time(), "status": "running"}
+    json.dump(st, open(prog, "w"))
+    for fi in range(len(folds)):
+        test = folds[fi]
+        train = [r for j, f in enumerate(folds) if j != fi for r in f if r["commit"]]
+        if train and test:
+            rules = D.run_ilasp(D.build_task(train)[0], timeout=a.ilasp_timeout)
+            for r in test:
+                labs = D.learned_labellings(rules, r["args"], r["attacks"])
+                sk = D.project(labs, r["args"], "skeptical")
+                cr = D.project(labs, r["args"], "credulous")
+                tbst = {s: textbook_status(s, r["args"], r["attacks"]) for s in TB}
+                for arg, h in r["labels"].items():
+                    responses.append({"cond": r["version"], "h": h,
+                                      "learned_skeptical": sk.get(arg, "undec"),
+                                      "learned_credulous": cr.get(arg, "undec"),
+                                      **{s: tbst[s].get(arg, "undec") for s in TB}})
+            print(f"[fold {fi+1}/{len(folds)}] trained on {len(train)} examples; {len(test)} held-out", flush=True)
+        st["done"] += 1
+        json.dump(st, open(prog, "w"))
+        json.dump(responses, open(os.path.join(a.out, "responses.json"), "w"))
+
+    def conf_of(rows, pred):
+        c = Counter()
+        for r in rows:
+            c[(r["h"], r[pred])] += 1
+        return c
+    table = {p: {**D.metrics_from_conf(conf_of(responses, p))} for p in preds}
+    best = max(TB, key=lambda s: table[s]["acc3"])
+    out = {"n_examples": len(recs), "n_cells": len(folds), "n_responses": len(responses),
+           "phase": a.phase, "confidence": not a.no_confidence, "best_textbook": best,
+           "pooled": {p: {"pct_correct": table[p]["acc3"] * 100, "macroF1": table[p]["macroF1"],
+                          "commit": table[p]["commit_rate"]} for p in preds}}
+    for rd in ("learned_skeptical", "learned_credulous"):
+        b = sum(1 for r in responses if r["h"] == r[rd] and r["h"] != r[best])
+        c = sum(1 for r in responses if r["h"] != r[rd] and r["h"] == r[best])
+        out[f"mcnemar_{rd}_vs_{best}"] = {"learned_only": b, "textbook_only": c, "p": mcnemar(b, c)}
+    out["by_condition"] = {v: {p: D.metrics_from_conf(conf_of([r for r in responses if r["cond"] == v], p))["acc3"] * 100
+                               for p in preds} for v in VERSIONS if any(r["cond"] == v for r in responses)}
+    json.dump(out, open(os.path.join(a.out, "results.json"), "w"))
+    st["status"] = "done"
+    json.dump(st, open(prog, "w"))
+    print(f"\n=== POOLED own-graph (IndAF) · phase={a.phase} · confidence={'on' if not a.no_confidence else 'off'} ===")
+    print(f"examples={len(recs)}  cells={len(folds)}  held-out responses={len(responses)}")
+    print(f"{'predictor':<20}{'%correct':<10}{'macroF1':<9}{'commit':<8}")
+    for p in preds:
+        t = out["pooled"][p]
+        print(f"{p:<20}{t['pct_correct']:<10.1f}{t['macroF1']:<9.3f}{t['commit']:<8.2f}")
+    print(f"best textbook = {best} ({out['pooled'][best]['pct_correct']:.1f}%)")
+    for rd in ("learned_credulous", "learned_skeptical"):
+        m = out[f"mcnemar_{rd}_vs_{best}"]
+        print(f"McNemar {rd} vs {best}: p={m['p']:.3f} (learned-only {m['learned_only']}, tb-only {m['textbook_only']})")
+    print("ALL DONE")
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("reproduce").set_defaults(fn=cmd_reproduce)
+    pl = sub.add_parser("pooled")
+    pl.add_argument("--phase", default="final", choices=("first", "group", "final"))
+    pl.add_argument("--folds", type=int, default=5)
+    pl.add_argument("--ilasp-timeout", type=int, default=2400)
+    pl.add_argument("--no-confidence", action="store_true", help="uniform weights (ablation).")
+    pl.add_argument("--out", default="/tmp/ata_pooled")
+    pl.set_defaults(fn=cmd_pooled)
     lr = sub.add_parser("learned")
     lr.add_argument("--graph", default="gold", choices=("gold", "ind", "group"))
     lr.add_argument("--phase", default="final", choices=("first", "group", "final"))

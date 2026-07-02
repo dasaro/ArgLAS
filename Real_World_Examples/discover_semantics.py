@@ -145,7 +145,7 @@ def build_task(recs, weight=100):
     pos_keys = {(tuple(sorted(r["attacks"])), tuple(sorted(r["commit"].items()))) for r in recs}
     lines = []
     for i, r in enumerate(recs):
-        lines.append(render_example("pos", f"p{i}", weight, r["args"], r["attacks"], r["commit"]))
+        lines.append(render_example("pos", f"p{i}", r.get("weight", weight), r["args"], r["attacks"], r["commit"]))
     seen = set()
     j = 0
     for r in recs:
