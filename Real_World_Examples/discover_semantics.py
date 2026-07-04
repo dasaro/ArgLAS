@@ -33,6 +33,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 BG = open(os.path.join(REPO, "background_knowledge.lp")).read().strip()
 MODES = open(os.path.join(REPO, "mode_declarations.las")).read().strip()
+# AGNOSTIC mode-bias enrichment (opt-in via env ARGLAS_ENRICH). The base vocabulary
+# {in,out,arg,att,defeated,not_defended,supported} provably CANNOT express cf2-like behaviour on
+# cyclic AFs (needs SCC/reachability). Two enrichment levers, both agnostic (structural graph
+# properties, not semantics); off by default so the baseline is unaffected:
+#   ARGLAS_ENRICH=cycle  -> add the UNARY derived predicate in_cycle(X) := X lies on a directed
+#                           att-cycle (reach(X,X)). Cheap: one unary modeb (like defeated), tiny
+#                           search-space growth, and it is exactly the SCC signal cf2 keys on
+#                           (odd cycles commit). PREFERRED.
+#   ARGLAS_ENRICH=reach  -> expose the full BINARY reach/2. Maximally expressive but explodes the
+#                           search space (~2.4x) and TIMES OUT on the study conditions; kept only
+#                           for reference. reach/2 stays in the background either way.
+_enr = os.environ.get("ARGLAS_ENRICH", "")
+if "cycle" in _enr or "reach" in _enr:
+    BG += "\nreach(X, Y) :- att(X, Y).\nreach(X, Z) :- att(X, Y), reach(Y, Z)."
+if "cycle" in _enr:
+    BG += "\nin_cycle(X) :- reach(X, X)."
+    MODES += "\n#modeb(in_cycle(var(arg)))."
+if "reach" in _enr:
+    MODES += "\n#modeb(reach(var(arg), var(arg)))."
+# Prediction-time BG WITHOUT the 0{in}1/0{out}1 choice rules. Those choice rules are needed in
+# the ILASP LEARNING task (so hypotheses can generate in/out), but at PREDICTION time they let
+# clingo freely guess in/out -- inflating a learned theory's extension set (a grounded theory
+# returns 3-15 labellings instead of 1) and fabricating conflicting credulous labellings. Solving
+# the learned rules against BG_PREDICT makes the theory's entailed in/out/undec match the ASPARTIX
+# encodings exactly (verified 38/38 graphs, all readings). Agnostic: embeds no textbook prior.
+BG_PREDICT = "\n".join(ln for ln in BG.splitlines()
+                       if "0{ in(X) }1" not in ln and "0{ out(X) }1" not in ln)
 EXTRACT = os.path.join(HERE, "_tmp_extract_all2")
 PHASE = "att_first__lab_first"  # headline = first-individual (most between-participant variance)
 GRAPH = "own"                   # "own" = each participant's drawn graph; "gold" = canonical stimulus
@@ -141,7 +168,12 @@ def hard_shell(commit):
     return out
 
 
-def build_task(recs, weight=100, max_neg=None):
+def build_task(recs, weight=100, neg_weight=100, max_neg=None):
+    # neg_weight=100 (soft) is the AGNOSTIC default: the Hamming-1 shell is a PENALTY, not a hard
+    # exclusion, so a correct semantics that happens to re-derive one boundary labelling pays a
+    # cost instead of being made UNSAT. Pass neg_weight=None to restore the old (contaminating)
+    # hard negatives. On known-grounded synthetic data this lifts recovery under noise from ~0.27
+    # (hard) back to ~0.80 (soft), matching an oracle that peeks at the truth.
     pos_keys = {(tuple(sorted(r["attacks"])), tuple(sorted(r["commit"].items()))) for r in recs}
     pos = [render_example("pos", f"p{i}", r.get("weight", weight), r["args"], r["attacks"], r["commit"])
            for i, r in enumerate(recs)]
@@ -156,7 +188,7 @@ def build_task(recs, weight=100, max_neg=None):
             negs.append((r["args"], r["attacks"], neg))
     if max_neg and len(negs) > max_neg:  # deterministic sample to keep ILASP tractable
         negs = [negs[i] for i in sorted(random.Random(20260627).sample(range(len(negs)), max_neg))]
-    neg_lines = [render_example("neg", f"n{j}", None, ar, at, ng) for j, (ar, at, ng) in enumerate(negs)]
+    neg_lines = [render_example("neg", f"n{j}", neg_weight, ar, at, ng) for j, (ar, at, ng) in enumerate(negs)]
     return "\n".join(pos + neg_lines) + "\n\n" + BG + "\n\n" + MODES + "\n", len(recs), len(neg_lines)
 
 
@@ -190,13 +222,17 @@ def _solve(program, args, attacks, shows):
 
 
 def learned_labellings(rules, args, attacks):
-    """Full labellings of BG+learned theory, using the theory's OWN in AND out atoms
-    (the predictor fix: do NOT re-derive out from attacks). undec = neither."""
-    prog = BG + "\n" + "\n".join(rules) + "\n"
-    labs = []
-    for m in _solve(prog, args, attacks, ("in", "out")):
-        labs.append({a: ("in" if a in m["in"] else "out" if a in m["out"] else "undec") for a in args})
-    return labs
+    """Full labellings entailed by the learned theory, using its OWN in/out atoms; undec=neither.
+    Solves against BG_PREDICT (no free in/out guessing) so the entailed labellings match the
+    ASPARTIX convention rather than being inflated by BG's choice rules. Fallback: a constraint-
+    only theory that RELIES on guessing (e.g. ':- supported(X), not in(X).' with no in-rule) is
+    UNSAT without the choice rules -- there we solve against full BG plus conflict-freeness, which
+    still drops the spurious in-attacks-in extensions the raw choice rules inject."""
+    body = "\n".join(rules)
+    models = _solve(BG_PREDICT + "\n" + body + "\n", args, attacks, ("in", "out"))
+    if not models:
+        models = _solve(BG + "\n:- in(X), in(Y), att(X, Y).\n" + body + "\n", args, attacks, ("in", "out"))
+    return [{a: ("in" if a in m["in"] else "out" if a in m["out"] else "undec") for a in args} for m in models]
 
 
 def textbook_labellings(kind, args, attacks):
@@ -272,12 +308,14 @@ def metrics_from_conf(conf):
         tp = conf[(c, c)]
         fp = sum(conf[(h, c)] for h in CLASSES if h != c)
         fn = sum(conf[(c, p)] for p in CLASSES if p != c)
+        if tp + fp + fn == 0:  # class absent from BOTH gold and prediction -> not scorable; excluding
+            continue           # it avoids deflating macroF1 (e.g. all-committed data with no undec)
         prec = tp / (tp + fp) if tp + fp else 0.0
         rec = tp / (tp + fn) if tp + fn else 0.0
         f1s.append(2 * prec * rec / (prec + rec) if prec + rec else 0.0)
     io_total = sum(conf[(h, p)] for h in ("in", "out") for p in CLASSES)
     committed = sum(conf[(h, p)] for h in ("in", "out") for p in ("in", "out"))
-    return {"acc3": acc3, "macroF1": sum(f1s) / len(f1s),
+    return {"acc3": acc3, "macroF1": (sum(f1s) / len(f1s)) if f1s else float("nan"),
             "commit_rate": committed / io_total if io_total else float("nan"),
             "mcc_committed": mcc(conf[("in", "in")], conf[("out", "in")], conf[("out", "out")], conf[("in", "out")]),
             "n_args": total}
