@@ -52,3 +52,19 @@ __pycache__/
 /Real_World_Examples/_tmp_extract_*/
 /Real_World_Examples/~$*.xlsx
 ~$*.xlsx
+
+# Campaign runtime log (live output of run_v2_campaign.sh)
+/v2_campaign.out
+
+# GRD/PRF lab: deterministic-regenerable pools + e2e scratch (generators are committed)
+analysis/grd_prf_lab/**/pools/
+analysis/grd_prf_lab/**/pool_*/
+analysis/grd_prf_lab/**/labelled_*/
+
+# FastLAS lab noise
+Real_World_Examples/fastlas_exp/__pycache__/
+Real_World_Examples/fastlas_exp/*.log
+Real_World_Examples/fastlas_exp/results/*.partial_bak
+Real_World_Examples/fastlas_exp/paper/*.aux
+Real_World_Examples/fastlas_exp/paper/*.log
+Real_World_Examples/fastlas_exp/paper/page-*.png
