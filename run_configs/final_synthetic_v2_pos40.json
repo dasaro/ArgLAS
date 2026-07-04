@@ -1,0 +1,73 @@
+{
+  "run_name": "final_synthetic_v2_pos40",
+  "display_name": "v2 grid pos40: 5 semantics, totals 20-160, 40% positive examples",
+  "semantics": [
+    "ADM",
+    "CMP",
+    "STB",
+    "GRD",
+    "PRF"
+  ],
+  "partials": [
+    1.0,
+    0.75,
+    0.5
+  ],
+  "noises": [
+    0.0,
+    0.1,
+    0.2
+  ],
+  "f_values": [
+    8,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "f_neg_values": [
+    12,
+    24,
+    36,
+    48,
+    72,
+    96
+  ],
+  "workers": 7,
+  "iterations": 5,
+  "watch_interval_seconds": 3600,
+  "plot_interval_seconds": 3600,
+  "train_timeout_seconds": 3500,
+  "test_par_timeout_seconds": 20,
+  "par2_factor": 2.0,
+  "negative_policy": "oracle_neg",
+  "negative_flip_k": 1,
+  "eval_match_policy": "full_exact_model",
+  "test_set_policy": "grouped_kfold",
+  "test_examples_per_class": 100,
+  "test_sampling_seed": 20260312,
+  "task_sampling_seed_base": 20260311,
+  "label_seed_base": 20260310,
+  "master_seed": 20260309,
+  "allow_empty": true,
+  "rows_per_iteration": 6,
+  "ratio_token": "40pos",
+  "results_dir_template": "{semantics}_partial_{partial_token}_noise_{noise_token}_ratio_{ratio_token}",
+  "train_run_dir_prefix": "final_synthetic_v2_pos40",
+  "train_output_run_dir_prefix": "final_synthetic_v2_pos40",
+  "labelled_requirements": {
+    "default": {
+      "min_pos": 50,
+      "min_neg": 50
+    }
+  },
+  "aaf_generation": {
+    "nmin": 4,
+    "nmax": 8,
+    "count_per_size": 100,
+    "seed": 20260309
+  },
+  "max_consecutive_restarts": 5,
+  "max_worker_shortfall_checks": 4
+}
