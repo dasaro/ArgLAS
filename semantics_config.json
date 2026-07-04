@@ -48,15 +48,16 @@
   },
   "GRD": {
     "file": "ASPARTIX/grounded.lp",
-    "clingo_args": [
-      "--heuristic=Domain",
-      "--enum=domRec"
-    ],
-    "learn_heuristics": true,
+    "clingo_args": [],
+    "learn_heuristics": false,
     "completion_rules": {
       "train_test_learned": false
     },
-    "eval_on_bare_aaf": true
+    "eval_on_bare_aaf": true,
+    "learn_background_file": "bg_nochoice_grd.lp",
+    "background_file": {
+      "train_test_learned": "bg_nochoice_grd.lp"
+    }
   },
   "PRF": {
     "file": "ASPARTIX/preferred.lp",
@@ -64,6 +65,20 @@
       "--heuristic=Domain",
       "--enum=domRec"
     ],
-    "learn_heuristics": true
+    "learn_heuristics": false,
+    "completion_rules": {
+      "train_test_learned": false
+    },
+    "background_file": {
+      "train_test_learned": "bg_prf_learned.lp"
+    },
+    "show_predicates": {
+      "train_test_learned": [
+        "in/1"
+      ],
+      "train_test_ground_truth": [
+        "in/1"
+      ]
+    }
   }
 }

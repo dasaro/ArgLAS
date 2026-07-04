@@ -83,7 +83,27 @@ def get_clingo_args(config, semantics, stage):
     return dedupe_keep_order(args)
 
 
-def get_background_file(config, stage=None):
+def get_background_file(config, stage=None, semantics=None):
+    # A per-semantics background_file block (string or {stage: string|null}) overrides
+    # the global setting for that semantics+stage. Needed for GRD (the learned side must
+    # use the NO-CHOICE background: with 0{in}1/0{out}1 the unique-model grounded eval is
+    # degenerate) and PRF (the learned side appends the fixed subset-maximality
+    # #heuristic directive). Default (semantics=None) preserves the global behavior.
+    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
+        sem_entry = config.get(semantics, {})
+        if isinstance(sem_entry, dict) and "background_file" in sem_entry:
+            sem_cfg = sem_entry["background_file"]
+            if isinstance(sem_cfg, str):
+                return sem_cfg if sem_cfg.strip() else None
+            if isinstance(sem_cfg, dict) and stage in sem_cfg:
+                stage_value = sem_cfg.get(stage)
+                if stage_value is None or stage_value == "":
+                    return None
+                if not isinstance(stage_value, str) or not stage_value.strip():
+                    raise ValueError(
+                        f"Invalid {semantics}.background_file['{stage}'] in semantics config."
+                    )
+                return stage_value
     value = config.get("global", {}).get("background_file", DEFAULT_BACKGROUND_FILE)
     if isinstance(value, dict):
         if stage is None:
@@ -151,8 +171,22 @@ def get_eval_on_bare_aaf(config, semantics):
     return value
 
 
-def get_show_predicates(config, stage):
+def get_show_predicates(config, stage, semantics=None):
     defaults = DEFAULT_SHOW_PREDICATES.get(stage, ["in/1"])
+    # Per-semantics override ({stage: [preds]}), e.g. PRF projects in/1 only at both
+    # train_test stages (ASPARTIX preferred.lp itself shows only in/1; the learned side
+    # must be projected identically for full_exact_model symmetry).
+    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
+        sem_entry = config.get(semantics, {})
+        if isinstance(sem_entry, dict) and "show_predicates" in sem_entry:
+            sem_cfg = sem_entry["show_predicates"]
+            if isinstance(sem_cfg, dict) and stage in sem_cfg:
+                value = sem_cfg.get(stage)
+                if not isinstance(value, list) or any(not isinstance(x, str) for x in value):
+                    raise ValueError(
+                        f"Invalid {semantics}.show_predicates['{stage}']: expected list[str]."
+                    )
+                return value if value else defaults
     cfg = config.get("global", {}).get("show_predicates", {})
     if not isinstance(cfg, dict):
         return defaults

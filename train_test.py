@@ -44,7 +44,17 @@ RESULTS_HEADER = [
     "LEARNED_HEURISTIC_RULES", "LEARNED_HAS_HEURISTIC",
     "SYNTH_NEG_TOTAL", "SYNTH_NEG_ORACLE_LEGAL", "SYNTH_NEG_ORACLE_LEGAL_RATE", "SYNTH_NEG_ORACLE_REJECT_RATE",
     "TP", "FP", "TN", "FN", "PRECISION", "RECALL", "F1", "MCC",
-    "ACCURACY", "RUN_SEED", "ITERATION"
+    "ACCURACY", "RUN_SEED", "ITERATION",
+    # Complete-information test surface (audit fix): the SAME learned model scored on a
+    # test set drawn from the labelled_<SEM>_full pool (same fold AAFs/seeds). At p=1.0
+    # these duplicate the matched-regime columns; empty when the full pool is unavailable.
+    "TEST_FULL_SET_POS", "TEST_FULL_SET_NEG",
+    "TP_FULL", "FP_FULL", "TN_FULL", "FN_FULL", "MCC_FULL", "ACCURACY_FULL",
+    "TEST_FULL_TOTAL_SECONDS",
+    # Explicit failure taxonomy (disjoint): TIMED_OUT = hit the train cap; UNSAT = ILASP
+    # reported unsatisfiable (exit code sentinel -2); ERROR = crashed/nonzero exit that is
+    # neither of the above. SUCCEEDED=1 implies all three are 0.
+    "ILASP_TRAIN_UNSAT", "ILASP_TRAIN_ERROR",
 ]
 
 ILASP_EXAMPLE_RE = re.compile(
@@ -64,6 +74,7 @@ def generate_ilasp_task(
     semantics_config_path="semantics_config.json",
     allowed_examples_manifest=None,
     seed=None,
+    learn_background=None,
 ):
     print(f"Generating ILASP task for POS={n_pos}, NEG={n_neg}, NOISE={noise}, NEG_POLICY={negative_policy}, FLIP_K={negative_flip_k}...")
     script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "generate_ilasp_task.py")
@@ -86,6 +97,8 @@ def generate_ilasp_task(
         command.append(f"--allowed_examples_manifest={allowed_examples_manifest}")
     if seed is not None:
         command.append(f"--seed={int(seed)}")
+    if learn_background:
+        command.append(f"--learn_background={learn_background}")
     if noise != 0 or negative_policy != "oracle_neg":
         command.append("--noise_factor=100")
     subprocess.run(command, check=True)
@@ -494,7 +507,13 @@ def _final_verdict_unsat(output_text):
 
 def run_ilasp(task_file, output_file, extra_args, timeout_seconds, retry_on_exit_code_minus_11):
     start = time.perf_counter()
-    command = ["ILASP", "--version=4"] + extra_args + ["-d", task_file]
+    # Per-semantics ILASP version: an explicit --version=... in extra_args (from
+    # ilasp_config.json, e.g. GRD -> 2i) replaces the default. Needed because ILASP 4.4.1
+    # returns a spurious UNSATISFIABLE on ~1/6 no-choice GRD tasks (minimal repro:
+    # analysis/grd_prf_lab/g1_definite_core/tasks/_diag_core.las); --version=2i solves them.
+    version_args = [a for a in extra_args if a.startswith("--version")]
+    base = ["ILASP"] if version_args else ["ILASP", "--version=4"]
+    command = base + extra_args + ["-d", task_file]
 
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
@@ -875,10 +894,10 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
         semantics_config, semantics, stage="train_test_ground_truth"
     )
     learned_background_file_cfg = get_background_file(
-        semantics_config, stage="train_test_learned"
+        semantics_config, stage="train_test_learned", semantics=semantics
     )
     ground_truth_background_file_cfg = get_background_file(
-        semantics_config, stage="train_test_ground_truth"
+        semantics_config, stage="train_test_ground_truth", semantics=semantics
     )
     learned_background_file = (
         resolve_repo_path(learned_background_file_cfg)
@@ -898,10 +917,10 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
     )
     eval_on_bare_aaf = get_eval_on_bare_aaf(semantics_config, semantics)
     learned_show_predicates = get_show_predicates(
-        semantics_config, stage="train_test_learned"
+        semantics_config, stage="train_test_learned", semantics=semantics
     )
     ground_truth_show_predicates = get_show_predicates(
-        semantics_config, stage="train_test_ground_truth"
+        semantics_config, stage="train_test_ground_truth", semantics=semantics
     )
     ground_truth_runtime = build_semantics_runtime(
         semantics_config,
@@ -1073,6 +1092,40 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
             iter_holdout_files = fixed_holdout_files
             iter_manifest = allowed_training_examples_manifest
 
+        # COMPLETE-INFORMATION test set (audit fix, defect: p-axis confound). At p<1 the
+        # matched-regime test items are themselves partially labelled, which conflates the
+        # learning limit with a harder test-item type (rescoring identical models on
+        # complete items raised MCC +0.13..+0.28). Every run is therefore ALSO scored on a
+        # test set drawn from the sibling complete-information pool (labelled_<SEM>_full),
+        # same fold AAFs, same sampling seeds -> the *_FULL result columns. At p=1.0 the
+        # pools coincide and the FULL columns duplicate the matched ones.
+        iter_holdout_files_full = None
+        input_dir_full = None
+        if grouped_kfold:
+            base = os.path.basename(os.path.normpath(input_dir))
+            m_full = re.match(r"(labelled_[A-Za-z0-9]+)_", base)
+            if m_full:
+                candidate = os.path.join(os.path.dirname(os.path.normpath(input_dir)),
+                                         f"{m_full.group(1)}_full")
+                if os.path.normpath(candidate) == os.path.normpath(input_dir):
+                    input_dir_full = input_dir  # p=1.0: full == matched
+                    iter_holdout_files_full = iter_holdout_files
+                elif os.path.isdir(candidate):
+                    try:
+                        iter_holdout_files_full = build_grouped_balanced_test(
+                            candidate,
+                            fold_test_aafs,
+                            effective_test_examples_per_class,
+                            fold_seed=test_sampling_seed,
+                            fold_index=iteration,
+                        )
+                        input_dir_full = candidate
+                    except ValueError as exc:
+                        print(f"[Full-info test] unavailable ({exc}); *_FULL columns will be empty.")
+                else:
+                    print(f"[Full-info test] no complete-information pool at {candidate}; "
+                          f"*_FULL columns will be empty.")
+
         for n_pos, n_neg in sample_pairs:
             for n in n_values:
                 noise_key = format_noise_token(n)
@@ -1122,6 +1175,7 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     semantics_config_path=semantics_config_path,
                     allowed_examples_manifest=iter_manifest,
                     seed=run_seed,
+                    learn_background=semantics_entry.get("learn_background_file"),
                 )
                 train_files = extract_train_files(task_file)
                 train_files, test_files, test_set_meta = get_train_test_sets(
@@ -1272,6 +1326,53 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     # ILASP_TRAIN_TIMED_OUT.
                     pass
 
+                # Second surface: score the SAME learned model on the complete-information
+                # test set (see iter_holdout_files_full above). At p=1.0 the sets coincide,
+                # so the matched counts are copied instead of re-solving.
+                tp_full = fp_full = tn_full = fn_full = 0
+                full_pos = full_neg = ""
+                full_eval_start = time.perf_counter()
+                if iter_holdout_files_full is not None:
+                    full_pos = sum(1 for x in iter_holdout_files_full if "_POS_" in x)
+                    full_neg = sum(1 for x in iter_holdout_files_full if "_NEG_" in x)
+                    if train_succeeded and input_dir_full == input_dir:
+                        tp_full, fp_full, tn_full, fn_full = tp, fp, tn, fn
+                    elif train_succeeded:
+                        for tf in iter_holdout_files_full:
+                            test_path_full = os.path.join(input_dir_full, tf)
+                            if eval_on_bare_aaf:
+                                bare_lines = [
+                                    ln.strip()
+                                    for ln in open(test_path_full, "r", encoding="utf-8")
+                                    if ln.strip().startswith(("arg(", "att("))
+                                ]
+                                test_path_full = os.path.join(train_dir, "_bare_eval_instance_full.lp")
+                                with open(test_path_full, "w", encoding="utf-8") as bf:
+                                    bf.write("\n".join(bare_lines) + "\n")
+                            pred_models_full = run_learned_model_with_api(
+                                output_file,
+                                test_path_full,
+                                learned_background_file,
+                                clingo_args=learned_clingo_args,
+                                completion_rules=learned_completion_rules,
+                                show_predicates=learned_show_predicates,
+                            )
+                            gt_models_full = run_ground_truth_with_api(
+                                asp_file,
+                                test_path_full,
+                                ground_truth_background_file,
+                                clingo_args=ground_truth_clingo_args,
+                                completion_rules=ground_truth_completion_rules,
+                                show_predicates=ground_truth_show_predicates,
+                            )
+                            _, a_f, b_f, c_f, d_f = evaluate_model_sets(
+                                pred_models_full, gt_models_full, eval_match_policy
+                            )
+                            tp_full += a_f
+                            fp_full += b_f
+                            tn_full += c_f
+                            fn_full += d_f
+
                 acc = correct / total if total > 0 else 0
                 precision = safe_div(tp, tp + fp)
                 recall = safe_div(tp, tp + fn)
@@ -1329,6 +1430,21 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     acc,
                     run_seed,
                     iteration,
+                    full_pos,
+                    full_neg,
+                    tp_full,
+                    fp_full,
+                    tn_full,
+                    fn_full,
+                    matthews_corrcoef(tp_full, fp_full, tn_full, fn_full)
+                    if iter_holdout_files_full is not None else "",
+                    safe_div(tp_full + tn_full, tp_full + fp_full + tn_full + fn_full)
+                    if iter_holdout_files_full is not None else "",
+                    round(time.perf_counter() - full_eval_start, 3)
+                    if iter_holdout_files_full is not None else "",
+                    int((not train_timed_out) and train_exit_code == ILASP_UNSAT_EXIT_CODE),
+                    int((not train_succeeded) and (not train_timed_out)
+                        and train_exit_code != ILASP_UNSAT_EXIT_CODE),
                 ]
                 append_result_row(results_file, row)
                 completed_keys.add(combo_key)

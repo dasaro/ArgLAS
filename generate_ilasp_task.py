@@ -116,6 +116,16 @@ def build_parser(add_help=True):
         default=None,
         help="Deterministic RNG seed for example sampling and task construction.",
     )
+    parser.add_argument(
+        "--learn_background",
+        default=None,
+        help=(
+            "Optional background file to embed in the LEARNING task instead of "
+            "background_knowledge.lp. Needed for GRD, whose task must NOT contain the "
+            "0{in}1/0{out}1 choice rules (with them the grounded task is unsatisfiable: "
+            "every labelling is an answer set and minimality is not first-order expressible)."
+        ),
+    )
     return parser
 
 
@@ -665,7 +675,8 @@ def main(argv=None):
 
     random.shuffle(ilasp_examples)
 
-    with open(resolve_repo_path("background_knowledge.lp"), "r", encoding="utf-8") as bg_file:
+    learn_bg_path = args.learn_background or "background_knowledge.lp"
+    with open(resolve_repo_path(learn_bg_path), "r", encoding="utf-8") as bg_file:
         background_knowledge = bg_file.read()
 
     with open(resolve_repo_path("mode_declarations.las"), "r", encoding="utf-8") as mode_file:

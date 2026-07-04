@@ -57,13 +57,13 @@ def solve_models(
 
 def build_semantics_runtime(semantics_config, semantics, stage="train_test_ground_truth"):
     semantics_entry = get_semantics_entry(semantics_config, semantics)
-    background_file = get_background_file(semantics_config, stage=stage)
+    background_file = get_background_file(semantics_config, stage=stage, semantics=semantics)
     return SemanticsRuntime(
         semantics_file=resolve_repo_path(semantics_entry["file"]),
         background_file=resolve_repo_path(background_file) if background_file else None,
         clingo_args=tuple(get_clingo_args(semantics_config, semantics, stage=stage)),
-        completion_rules=get_completion_rules_enabled(semantics_config, stage=stage),
-        show_predicates=tuple(get_show_predicates(semantics_config, stage=stage)),
+        completion_rules=get_completion_rules_enabled(semantics_config, stage=stage, semantics=semantics),
+        show_predicates=tuple(get_show_predicates(semantics_config, stage=stage, semantics=semantics)),
     )
 
 
