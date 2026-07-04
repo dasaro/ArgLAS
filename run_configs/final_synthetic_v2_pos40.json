@@ -1,11 +1,10 @@
 {
   "run_name": "final_synthetic_v2_pos40",
-  "display_name": "v2 grid pos40: 5 semantics, totals 20-160, 40% positive examples",
+  "display_name": "v2 grid pos40: ADM/CMP/STB/PRF, totals 20-160, 40% positive examples",
   "semantics": [
     "ADM",
     "CMP",
     "STB",
-    "GRD",
     "PRF"
   ],
   "partials": [

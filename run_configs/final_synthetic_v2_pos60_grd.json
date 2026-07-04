@@ -1,11 +1,8 @@
 {
-  "run_name": "final_synthetic_v2_pos60",
-  "display_name": "v2 grid pos60: ADM/CMP/STB/PRF, totals 20-160, 60% positive examples",
+  "run_name": "final_synthetic_v2_pos60_grd",
+  "display_name": "v2 grid pos60 GRD (noise-free only: the definite-core formulation is fragile under polarity noise \u2014 deferred to a designed follow-up)",
   "semantics": [
-    "ADM",
-    "CMP",
-    "STB",
-    "PRF"
+    "GRD"
   ],
   "partials": [
     1.0,
@@ -13,9 +10,7 @@
     0.5
   ],
   "noises": [
-    0.0,
-    0.1,
-    0.2
+    0.0
   ],
   "f_values": [
     12,
@@ -53,8 +48,8 @@
   "rows_per_iteration": 6,
   "ratio_token": "60pos",
   "results_dir_template": "{semantics}_partial_{partial_token}_noise_{noise_token}_ratio_{ratio_token}",
-  "train_run_dir_prefix": "final_synthetic_v2_pos60",
-  "train_output_run_dir_prefix": "final_synthetic_v2_pos60",
+  "train_run_dir_prefix": "final_synthetic_v2_pos60_grd",
+  "train_output_run_dir_prefix": "final_synthetic_v2_pos60_grd",
   "labelled_requirements": {
     "default": {
       "min_pos": 50,

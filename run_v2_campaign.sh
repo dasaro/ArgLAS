@@ -1,12 +1,12 @@
 #!/bin/bash
-# v2 campaign launcher: 5 semantics x p{1,.75,.5} x q{0,.1,.2} x totals{20..160} x 5 folds
-# x 3 pos/neg proportions (50/60/40% positive) = 4050 rows, dual-surface eval.
-# STOP: kill this script (or the python it runs) any time. RESUME: rerun this script —
-# completed rows, pools, and AAFs are skipped automatically; partial rows are re-run.
+# v2 campaign launcher (rev b): ADM/CMP/STB/PRF full grid + GRD noise-free column.
+# GRD x noise removed: the no-choice definite formulation is fragile under polarity
+# noise (all ILASP versions time out or learn junk) — deferred to a designed follow-up.
+# STOP: kill any time. RESUME: rerun this script; completed rows/pools/AAFs are skipped.
 set -u
 cd "$(dirname "$0")"
 export FABIO_ARTIFACTS_ROOT="${FABIO_ARTIFACTS_ROOT:-artifacts/final_synthetic_v2}"
-for cfg in pos50 pos60 pos40; do
+for cfg in pos50_grd pos50 pos60_grd pos60 pos40_grd pos40; do
   echo "===== [$(date '+%F %T')] launching final_synthetic_v2_${cfg} ====="
   python3 run_experiment_grid.py --config "run_configs/final_synthetic_v2_${cfg}.json"
   rc=$?
