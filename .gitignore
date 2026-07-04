@@ -68,3 +68,6 @@ Real_World_Examples/fastlas_exp/results/*.partial_bak
 Real_World_Examples/fastlas_exp/paper/*.aux
 Real_World_Examples/fastlas_exp/paper/*.log
 Real_World_Examples/fastlas_exp/paper/page-*.png
+
+# anthem/vampire toolchain (rebuildable; see analysis/zlatina_theorems/anthem/README.md)
+analysis/zlatina_theorems/tools/
