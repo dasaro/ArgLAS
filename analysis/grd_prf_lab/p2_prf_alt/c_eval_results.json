@@ -1,0 +1,134 @@
+{
+ "prf_f10_plain(all-AAF,f10)": {
+  "eq_all": 246,
+  "eq_test": 49,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "prf_f10_heur(all-AAF,f10)": {
+  "eq_all": 484,
+  "eq_test": 99,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "c2_default(pin-hardneg)": {
+  "eq_all": 0,
+  "eq_test": 0,
+  "mcc": 0.5465357250000211,
+  "conf": [
+   50,
+   27,
+   23,
+   0
+  ],
+  "acc": 0.73
+ },
+ "c2_ml4rl6(pin-hardneg)": {
+  "eq_all": 0,
+  "eq_test": 0,
+  "mcc": 0.3515615246553262,
+  "conf": [
+   50,
+   39,
+   11,
+   0
+  ],
+  "acc": 0.61
+ },
+ "c2_na(pin-hardneg)": {
+  "eq_all": 0,
+  "eq_test": 0,
+  "mcc": 0.5465357250000211,
+  "conf": [
+   50,
+   27,
+   23,
+   0
+  ],
+  "acc": 0.73
+ },
+ "c2_maxv3(pin-hardneg)": {
+  "eq_all": 0,
+  "eq_test": 0,
+  "mcc": 0.5465357250000211,
+  "conf": [
+   50,
+   27,
+   23,
+   0
+  ],
+  "acc": 0.73
+ },
+ "c3_default(pin-hard+rand)": {
+  "eq_all": 484,
+  "eq_test": 99,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "c3_ml4rl6(pin-hard+rand)": {
+  "eq_all": 332,
+  "eq_test": 65,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "c3_maxv3(pin-hard+rand)": {
+  "eq_all": 484,
+  "eq_test": 99,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "c4_default(pipeline-f40)": {
+  "eq_all": 484,
+  "eq_test": 99,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ },
+ "ORACLE_STB_diag(not learned)": {
+  "eq_all": 484,
+  "eq_test": 99,
+  "mcc": 1.0,
+  "conf": [
+   50,
+   0,
+   50,
+   0
+  ],
+  "acc": 1.0
+ }
+}

@@ -1,0 +1,68 @@
+===== ILASP attempt 1 (returncode=0, timed_out=0, unsat=0) =====
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_47_PRF_NEG_2T (a total of 10 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_11_PRF_POS_1T (a total of 14 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_97_PRF_NEG_3T (a total of 4 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_36_PRF_NEG_6T (a total of 3 counterexamples found) 
+%% Found hypothesis: [63] 2 
+%%  :- out(V1); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_24_PRF_NEG_5T (a total of 3 counterexamples found) 
+%% Found hypothesis: [453] 3 
+%%  :- in(V2); att(V1,V2); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_6_96_PRF_NEG_3T (a total of 2 counterexamples found) 
+%% Found hypothesis: [23, 105] 4 
+%%  :- defeated(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- defeated(V1); not not_defended(V1).
+ :- in(V1); not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.179s
+%% Conflict analysis                       : 1.678s
+%%   - Negative Examples                   : 0.893s
+%%   - Positive Examples                   : 0.784s
+%% Counterexample search                   : 0.048s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.046s
+%% Hypothesis Search                       : 1.745s
+%% Total                                   : 3.725s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

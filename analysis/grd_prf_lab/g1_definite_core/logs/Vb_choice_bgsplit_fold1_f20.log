@@ -1,0 +1,54 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.172s
+%% Conflict analysis                       : 4.812s
+%%   - Negative Examples                   : 0.359s
+%%   - Positive Examples                   : 4.453s
+%% Counterexample search                   : 0.053s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.051s
+%% Hypothesis Search                       : 2.752s
+%% Total                                   : 8.663s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_40_GRD_NEG_2T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_49_GRD_POS_1T (a total of 15 counterexamples found) 
+%% Found hypothesis: [96] 2 
+%%  :- in(V2); att(V1,V2). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_89_GRD_POS_1T (a total of 5 counterexamples found) 
+%% Found hypothesis: [725] 3 
+%%  :- in(V1); att(V2,V1); att(V1,V2). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_8_GRD_POS_1T (a total of 2 counterexamples found) 
+%% Found hypothesis: [3528] 4 
+%% in(V1) :- att(V2,V1); att(V1,V2); not in(V2). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_73_GRD_NEG_2T (a total of 9 counterexamples found) 
+%% Found hypothesis: [105, 3528] 6 
+%%  :- in(V1); not_defended(V1). 
+%% in(V1) :- att(V2,V1); att(V1,V2); not in(V2). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_5_15_GRD_POS_1T (a total of 4 counterexamples found) 
+UNSATISFIABLE

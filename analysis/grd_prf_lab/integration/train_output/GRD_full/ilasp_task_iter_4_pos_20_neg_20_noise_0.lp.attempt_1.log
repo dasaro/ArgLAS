@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_47_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(3)', 'out(2)', 'in(4)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 3).\n', 'att(3, 2).\n', 'att(4, 2).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found violating interpretation (truncated) for example  aaf_6_52_GRD_NEG_4T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'arg(5)', 'arg(6)', 'att(1,4)', 'att(1,5)', 'att(1,6)'] 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_35_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': [], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(1, 4).\n', 'att(2, 3).\n', 'att(2, 4).\n', 'att(3, 1).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.174s
+%% Conflict analysis                       : 0.164s
+%%   - Negative Examples                   : 0.164s
+%% Counterexample search                   : 0.035s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.035s
+%% Hypothesis Search                       : 1.335s
+%% Total                                   : 1.727s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

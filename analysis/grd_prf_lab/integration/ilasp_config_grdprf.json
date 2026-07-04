@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "Integration ILASP config. GRD needs ILASP --version=2i: ILASP 4.4.1 v4 has",
+    "a reproducible SPURIOUS UNSATISFIABLE on ~1/6 of no-choice GRD tasks",
+    "(minimal 2-positive core at analysis/grd_prf_lab/g1_definite_core/tasks/",
+    "_diag_core.las; likely conflict-analysis incompleteness triggered by the",
+    "conditional literal in supported/1). train_test.run_ilasp hardcodes",
+    "'ILASP --version=4' and appends these ilasp_args AFTER it; ILASP takes the",
+    "LAST --version flag (verified: the v4-UNSAT task solves correctly under",
+    "'ILASP --version=4 --version=2i'), so this injection works today. The",
+    "clean repo patch makes the version a first-class per-semantics option.",
+    "PRF uses the default v4."
+  ],
+  "global": {
+    "train_timeout_seconds": 600,
+    "test_par_timeout_seconds": 20,
+    "par2_factor": 2,
+    "retry_on_exit_code_minus_11": 1
+  },
+  "GRD": {
+    "ilasp_args": ["--version=2i"]
+  },
+  "PRF": {
+    "ilasp_args": []
+  }
+}

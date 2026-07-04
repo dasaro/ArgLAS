@@ -1,0 +1,1222 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_22_PRF_NEG_3T (a total of 10 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_64_PRF_NEG_6T (a total of 14 counterexamples found) 
+%% Found hypothesis: [1] 1 
+%%  :- arg(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_5_97_PRF_POS_2T (a total of 10 counterexamples found) 
+%% Found hypothesis: [23] 2 
+%%  :- defeated(V1); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_61_PRF_NEG_3T (a total of 4 counterexamples found) 
+%% Found hypothesis: [8] 2 
+%% out(V1) :- defeated(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_85_PRF_NEG_6T (a total of 3 counterexamples found) 
+%% Found hypothesis: [760] 3 
+%%  :- att(V1,V2); not out(V2); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_7_100_PRF_NEG_4T (a total of 2 counterexamples found) 
+%% Found hypothesis: [63, 115] 4 
+%%  :- out(V1); not not_defended(V1). 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- out(V1); not not_defended(V1).
+ :- not_defended(V1); not out(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.18s
+%% Conflict analysis                       : 1.678s
+%%   - Negative Examples                   : 0.887s
+%%   - Positive Examples                   : 0.791s
+%% Counterexample search                   : 0.05s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.049s
+%% Hypothesis Search                       : 1.544s
+%% Total                                   : 3.529s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f10_fold1", "train_seconds": 3.54, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- out(V1); not not_defended(V1).", ":- not_defended(V1); not out(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "11/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_18_PRF_NEG_4T (a total of 10 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_5_32_PRF_POS_1T (a total of 14 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_37_PRF_NEG_3T (a total of 4 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- in(V1); not supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.18s
+%% Conflict analysis                       : 1.172s
+%%   - Negative Examples                   : 0.358s
+%%   - Positive Examples                   : 0.814s
+%% Counterexample search                   : 0.026s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.026s
+%% Hypothesis Search                       : 0.741s
+%% Total                                   : 2.199s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f10_fold2", "train_seconds": 2.22, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- in(V1); not supported(V1)."], "tp": 30, "fp": 5, "tn": 25, "fn": 0, "mcc": 0.8452, "acc": 0.9167, "mismatches": ["aaf_4_60_PRF_NEG_6.lp", "aaf_6_84_PRF_NEG_1.lp", "aaf_6_9_PRF_NEG_5.lp", "aaf_7_47_PRF_NEG_4.lp", "aaf_8_9_PRF_NEG_1.lp"], "bare_aaf_exact_preferred_recovery": "1/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_47_PRF_NEG_2T (a total of 10 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_11_PRF_POS_1T (a total of 14 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_97_PRF_NEG_3T (a total of 4 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_36_PRF_NEG_6T (a total of 3 counterexamples found) 
+%% Found hypothesis: [63] 2 
+%%  :- out(V1); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_24_PRF_NEG_5T (a total of 3 counterexamples found) 
+%% Found hypothesis: [453] 3 
+%%  :- in(V2); att(V1,V2); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_6_96_PRF_NEG_3T (a total of 2 counterexamples found) 
+%% Found hypothesis: [23, 105] 4 
+%%  :- defeated(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- defeated(V1); not not_defended(V1).
+ :- in(V1); not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.179s
+%% Conflict analysis                       : 1.678s
+%%   - Negative Examples                   : 0.893s
+%%   - Positive Examples                   : 0.784s
+%% Counterexample search                   : 0.048s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.046s
+%% Hypothesis Search                       : 1.745s
+%% Total                                   : 3.725s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f10_fold3", "train_seconds": 3.74, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- defeated(V1); not not_defended(V1).", ":- in(V1); not_defended(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "25/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_16_PRF_NEG_6T (a total of 10 counterexamples found) 
+%% Found hypothesis: [1] 1 
+%%  :- arg(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_71_PRF_POS_1T (a total of 10 counterexamples found) 
+%% Found hypothesis: [116] 2 
+%%  :- in(V1); defeated(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_7_9_PRF_NEG_4T (a total of 1 counterexamples found) 
+%% Found hypothesis: [96] 2 
+%%  :- in(V2); att(V1,V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_7_PRF_POS_2T (a total of 9 counterexamples found) 
+%% Found hypothesis: [533] 3 
+%%  :- att(V1,V2); not out(V2); not att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_6_22_PRF_POS_1T (a total of 3 counterexamples found) 
+%% Found hypothesis: [53, 100] 4 
+%%  :- out(V1); not defeated(V1). 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- out(V1); not defeated(V1).
+ :- in(V1); not supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.179s
+%% Conflict analysis                       : 2.687s
+%%   - Negative Examples                   : 0.367s
+%%   - Positive Examples                   : 2.32s
+%% Counterexample search                   : 0.037s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.036s
+%% Hypothesis Search                       : 1.216s
+%% Total                                   : 4.193s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f10_fold4", "train_seconds": 4.21, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- out(V1); not defeated(V1).", ":- in(V1); not supported(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "25/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_24_PRF_NEG_3T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_25_PRF_POS_1T (a total of 28 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_37_PRF_NEG_2T (a total of 9 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_99_PRF_NEG_4T (a total of 4 counterexamples found) 
+%% Found hypothesis: [1248] 3 
+%%  :- in(V2); out(V1); not att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_43_PRF_NEG_5T (a total of 14 counterexamples found) 
+%% Found hypothesis: [521] 3 
+%%  :- att(V1,V2); not att(V2,V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_50_PRF_NEG_4T (a total of 17 counterexamples found) 
+%% Found hypothesis: [152] 3 
+%% in(V1) :- att(V2,V1); not supported(V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_80_PRF_POS_2T (a total of 18 counterexamples found) 
+%% Found hypothesis: [182] 3 
+%% out(V1) :- att(V2,V1); not not_defended(V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 8                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_54_PRF_NEG_2T (a total of 3 counterexamples found) 
+%% Found hypothesis: [63, 115] 4 
+%%  :- out(V1); not not_defended(V1). 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 9                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- out(V1); not not_defended(V1).
+ :- not_defended(V1); not out(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.013s
+%% Hypothesis Space Generation             : 0.182s
+%% Conflict analysis                       : 2.588s
+%%   - Negative Examples                   : 1.049s
+%%   - Positive Examples                   : 1.539s
+%% Counterexample search                   : 0.08s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.077s
+%% Hypothesis Search                       : 1.942s
+%% Total                                   : 4.868s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f20_fold0", "train_seconds": 4.88, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- out(V1); not not_defended(V1).", ":- not_defended(V1); not out(V1)."], "tp": 30, "fp": 2, "tn": 28, "fn": 0, "mcc": 0.9354, "acc": 0.9667, "mismatches": ["aaf_5_88_PRF_NEG_6.lp", "aaf_6_46_PRF_NEG_5.lp"], "bare_aaf_exact_preferred_recovery": "8/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_11_PRF_NEG_2T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_33_PRF_POS_1T (a total of 29 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_54_PRF_NEG_6T (a total of 9 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_46_PRF_NEG_4T (a total of 4 counterexamples found) 
+%% Found hypothesis: [3489] 4 
+%% in(V1) :- att(V2,V1); att(V1,V2); defeated(V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_15_PRF_NEG_5T (a total of 19 counterexamples found) 
+%% Found hypothesis: [63, 105] 4 
+%%  :- out(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_7_74_PRF_NEG_3T (a total of 1 counterexamples found) 
+%% Found hypothesis: [23, 105] 4 
+%%  :- defeated(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- defeated(V1); not not_defended(V1).
+ :- in(V1); not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.183s
+%% Conflict analysis                       : 1.663s
+%%   - Negative Examples                   : 0.896s
+%%   - Positive Examples                   : 0.767s
+%% Counterexample search                   : 0.065s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.063s
+%% Hypothesis Search                       : 1.4s
+%% Total                                   : 3.383s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f20_fold1", "train_seconds": 3.4, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- defeated(V1); not not_defended(V1).", ":- in(V1); not_defended(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "25/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_19_PRF_NEG_5T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_4_PRF_POS_1T (a total of 28 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_20_PRF_NEG_4T (a total of 9 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- in(V1); not supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.013s
+%% Hypothesis Space Generation             : 0.182s
+%% Conflict analysis                       : 1.128s
+%%   - Negative Examples                   : 0.354s
+%%   - Positive Examples                   : 0.774s
+%% Counterexample search                   : 0.036s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.036s
+%% Hypothesis Search                       : 0.616s
+%% Total                                   : 2.026s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f20_fold2", "train_seconds": 2.04, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- in(V1); not supported(V1)."], "tp": 30, "fp": 5, "tn": 25, "fn": 0, "mcc": 0.8452, "acc": 0.9167, "mismatches": ["aaf_4_60_PRF_NEG_6.lp", "aaf_6_84_PRF_NEG_1.lp", "aaf_6_9_PRF_NEG_5.lp", "aaf_7_47_PRF_NEG_4.lp", "aaf_8_9_PRF_NEG_1.lp"], "bare_aaf_exact_preferred_recovery": "1/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_11_PRF_NEG_3T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_6_PRF_POS_4T (a total of 24 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_38_PRF_NEG_5T (a total of 5 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_6_77_PRF_NEG_3T (a total of 3 counterexamples found) 
+%% Found hypothesis: [80] 2 
+%%  :- att(V1,V2); not att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_93_PRF_POS_1T (a total of 19 counterexamples found) 
+%% Found hypothesis: [1150] 3 
+%%  :- defeated(V2); supported(V1); not att(V1,V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_96_PRF_NEG_1T (a total of 11 counterexamples found) 
+%% Found hypothesis: [760] 3 
+%%  :- att(V1,V2); not out(V2); not not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_8_49_PRF_NEG_1T (a total of 1 counterexamples found) 
+%% Found hypothesis: [436] 3 
+%%  :- in(V2); att(V1,V2); not att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 8                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_6_85_PRF_POS_1T (a total of 6 counterexamples found) 
+%% Found hypothesis: [23, 105] 4 
+%%  :- defeated(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 9                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- defeated(V1); not not_defended(V1).
+ :- in(V1); not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.013s
+%% Hypothesis Space Generation             : 0.18s
+%% Conflict analysis                       : 3.217s
+%%   - Negative Examples                   : 0.886s
+%%   - Positive Examples                   : 2.331s
+%% Counterexample search                   : 0.083s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.081s
+%% Hypothesis Search                       : 1.919s
+%% Total                                   : 5.477s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f20_fold3", "train_seconds": 5.49, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- defeated(V1); not not_defended(V1).", ":- in(V1); not_defended(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "25/25"}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_13_PRF_NEG_2T (a total of 20 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_42_PRF_NEG_1T (a total of 26 counterexamples found) 
+%% Found hypothesis: [1] 1 
+%%  :- arg(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_4_PRF_POS_1T (a total of 20 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_7_3_PRF_NEG_2T (a total of 3 counterexamples found) 
+%% Found hypothesis: [1147] 3 
+%%  :- in(V1); defeated(V2); not att(V1,V2). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_73_PRF_POS_1T (a total of 10 counterexamples found) 
+%% Found hypothesis: [63, 105] 4 
+%%  :- out(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_93_PRF_NEG_6T (a total of 1 counterexamples found) 
+%% Found hypothesis: [23, 105] 4 
+%%  :- defeated(V1); not not_defended(V1). 
+%%  :- in(V1); not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- defeated(V1); not not_defended(V1).
+ :- in(V1); not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.183s
+%% Conflict analysis                       : 2.258s
+%%   - Negative Examples                   : 0.731s
+%%   - Positive Examples                   : 1.527s
+%% Counterexample search                   : 0.058s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.056s
+%% Hypothesis Search                       : 1.547s
+%% Total                                   : 4.124s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+{"tag": "adm_f20_fold4", "train_seconds": 4.14, "timed_out": false, "exit_code": 0, "succeeded": true, "theory": [":- defeated(V1); not not_defended(V1).", ":- in(V1); not_defended(V1)."], "tp": 30, "fp": 0, "tn": 30, "fn": 0, "mcc": 1.0, "acc": 1.0, "mismatches": [], "bare_aaf_exact_preferred_recovery": "25/25"}

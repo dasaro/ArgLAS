@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.011s
+%% Hypothesis Space Generation             : 0.172s
+%% Conflict analysis                       : 14.206s
+%%   - Negative Examples                   : 0.359s
+%%   - Positive Examples                   : 13.847s
+%% Counterexample search                   : 0.032s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.032s
+%% Hypothesis Search                       : 2.513s
+%% Total                                   : 20.441s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_7_GRD_NEG_3T (a total of 20 counterexamples found) 
+%% Found hypothesis: [1] 1 
+%%  :- arg(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_10_GRD_POS_1T (a total of 20 counterexamples found) 
+%% Found hypothesis: [7] 1 
+%%  :- defeated(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_6_11_GRD_POS_1T (a total of 2 counterexamples found) 
+%% Found hypothesis: [23] 2 
+%%  :- defeated(V1); not not_defended(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_94_GRD_NEG_3T (a total of 6 counterexamples found) 
+UNSATISFIABLE

@@ -1,0 +1,25 @@
+===== ILASP attempt 1 (returncode=0, timed_out=0, unsat=0) =====
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_25_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(2)', 'in(3)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 4).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(4, 1).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+in(V1) :- supported(V1).
+out(V1) :- not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.01s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.01s
+%% Hypothesis Search                       : 0.813s
+%% Total                                   : 1.012s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

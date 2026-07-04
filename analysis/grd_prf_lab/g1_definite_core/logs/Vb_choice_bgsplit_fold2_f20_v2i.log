@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.012s
+%% Hypothesis Space Generation             : 0.174s
+%% Conflict analysis                       : 0.651s
+%%   - Negative Examples                   : 0.651s
+%% Counterexample search                   : 0.061s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.06s
+%% Hypothesis Search                       : 1.539s
+%% Total                                   : 2.486s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found violating interpretation (truncated) for example  aaf_7_72_GRD_NEG_1T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'arg(5)', 'arg(6)', 'arg(7)', 'att(3,4)', 'att(3,5)'] 
+%% Found hypothesis with score 1 : 
+%%  :- arg(V1). 
+%% Found counterexample {'id': 'aaf_4_10_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': [], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 3).\n', 'att(1, 4).\n', 'att(2, 3).\n', 'att(2, 4).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 1 : 
+%%  :- defeated(V1). 
+%% Found counterexample {'id': 'aaf_6_11_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(6)', 'out(2)', 'out(1)', 'in(5)', 'in(4)', 'in(3)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'arg(6).\n', 'att(1, 3).\n', 'att(1, 5).\n', 'att(2, 5).\n', 'att(3, 1).\n', 'att(4, 1).\n', 'att(4, 2).\n', 'att(4, 6).\n', 'att(5, 1).\n', 'att(5, 2).\n', 'att(5, 6).\n', 'att(6, 2).\n', 'att(6, 3).\n']} 
+%% Found hypothesis with score 2 : 
+%%  :- out(V1); not defeated(V1). 
+%% Found violating interpretation (truncated) for example  aaf_4_7_GRD_NEG_3T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'att(1,2)', 'att(1,4)', 'att(2,1)', 'att(2,3)', 'att(2,4)'] 
+%% Found hypothesis with score 2 : 
+%%  :- out(V1); not not_defended(V1). 
+%% Found violating interpretation (truncated) for example  aaf_6_11_GRD_NEG_1T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'arg(5)', 'arg(6)', 'att(1,3)', 'att(1,5)', 'att(2,5)'] 
+%% Found hypothesis with score 2 : 
+%%  :- in(V1); not supported(V1). 
+%% Found violating interpretation (truncated) for example  aaf_5_94_GRD_NEG_3T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'arg(5)', 'att(1,4)', 'att(1,5)', 'att(2,1)', 'att(2,5)'] 
+UNSATISFIABLE

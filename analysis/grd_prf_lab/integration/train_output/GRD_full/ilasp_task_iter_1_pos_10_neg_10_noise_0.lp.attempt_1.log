@@ -1,0 +1,30 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_5_39_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(3)', 'in(4)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(2, 1).\n', 'att(4, 3).\n', 'att(5, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- att(V1,V2). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_8_33_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(6)', 'out(5)', 'out(2)', 'in(8)', 'in(7)', 'in(4)', 'in(3)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'arg(6).\n', 'arg(7).\n', 'arg(8).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(1, 6).\n', 'att(4, 2).\n', 'att(6, 3).\n', 'att(6, 7).\n', 'att(7, 5).\n', 'att(7, 6).\n', 'att(8, 5).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.17s
+%% Counterexample search                   : 0.016s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.016s
+%% Hypothesis Search                       : 1.296s
+%% Total                                   : 1.5s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

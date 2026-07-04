@@ -1,0 +1,57 @@
+{
+  "_comment": [
+    "Integration config for GRD (winning route G1: definite-core learning).",
+    "SEPARATE per-semantics file because solver_policy.get_background_file and",
+    "get_show_predicates are GLOBAL-only today; run train_test with",
+    "--semantics GRD --semantics_config <this file>. The learned-side background",
+    "is bg_nochoice_grd.lp = background_knowledge.lp MINUS the two choice rules",
+    "0{in(X)}1 / 0{out(X)}1, so the hypothesis must DERIVE in/out.",
+    "clingo_args are PLAIN everywhere (grounded.lp is a definite program; the",
+    "old domRec flags did nothing on the oracle and poisoned the learned side).",
+    "learn_heuristics=false (the old GRD entry had true).",
+    "NOTE: the ILASP task background is still hardcoded to background_knowledge.lp",
+    "in generate_ilasp_task.py; the integration driver strips the choice rules",
+    "from the generated task (see run_integration.py; repo patch documented there)."
+  ],
+  "global": {
+    "background_file": {
+      "label_generation": null,
+      "train_test_learned": "analysis/grd_prf_lab/integration/bg_nochoice_grd.lp",
+      "train_test_ground_truth": null
+    },
+    "clingo_args": [],
+    "stage_clingo_args": {
+      "label_generation": [],
+      "train_test_learned": [],
+      "train_test_ground_truth": []
+    },
+    "completion_rules": {
+      "label_generation": false,
+      "train_test_learned": true,
+      "train_test_ground_truth": false
+    },
+    "show_predicates": {
+      "label_generation": [
+        "in/1",
+        "out/1"
+      ],
+      "train_test_learned": [
+        "in/1",
+        "out/1"
+      ],
+      "train_test_ground_truth": [
+        "in/1",
+        "out/1"
+      ]
+    }
+  },
+  "GRD": {
+    "file": "ASPARTIX/grounded.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "completion_rules": {
+      "train_test_learned": false
+    },
+    "eval_on_bare_aaf": true
+  }
+}
