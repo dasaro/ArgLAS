@@ -1,0 +1,2 @@
+out(V0) :- defeated(V0), arg(V0).
+in(V0) :- supported(V0), arg(V0).

@@ -1,0 +1,58 @@
+{
+ "20260703_base": {
+  "seed": 20260703,
+  "aux": false,
+  "committed_only": 0.5935,
+  "skeptical_acc3": 0.4586,
+  "secs": 23
+ },
+ "20260703_aux": {
+  "seed": 20260703,
+  "aux": true,
+  "committed_only": 0.6903,
+  "skeptical_acc3": 0.4222,
+  "secs": 712
+ },
+ "424242_base": {
+  "seed": 424242,
+  "aux": false,
+  "committed_only": 0.5581,
+  "skeptical_acc3": 0.4586,
+  "secs": 9
+ },
+ "424242_aux": {
+  "seed": 424242,
+  "aux": true,
+  "committed_only": 0.6419,
+  "skeptical_acc3": 0.3859,
+  "secs": 686
+ },
+ "777_base": {
+  "seed": 777,
+  "aux": false,
+  "committed_only": 0.5581,
+  "skeptical_acc3": 0.4586,
+  "secs": 22
+ },
+ "777_aux": {
+  "seed": 777,
+  "aux": true,
+  "committed_only": 0.6323,
+  "skeptical_acc3": 0.402,
+  "secs": 798
+ },
+ "20250101_base": {
+  "seed": 20250101,
+  "aux": false,
+  "committed_only": 0.5742,
+  "skeptical_acc3": 0.4586,
+  "secs": 110
+ },
+ "20250101_aux": {
+  "seed": 20250101,
+  "aux": true,
+  "committed_only": 0.629,
+  "skeptical_acc3": 0.4121,
+  "secs": 801
+ }
+}

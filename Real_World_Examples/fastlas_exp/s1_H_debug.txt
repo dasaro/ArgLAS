@@ -1,0 +1,187 @@
+Abducing...
+
+Possibilities:
+  #pos(p0_0, {in(c)}, {out(c), out(b), in(a), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b).}).
+  #pos(p0_1, {}, {out(c), out(b), in(a), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(c).}).
+
+  #pos(p1_0, {out(b)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). in(c). att(c,b). defeat(c,b).}).
+  #pos(p1_1, {out(b), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). att(c,b). defeat(c,b).}).
+  #pos(p1_2, {out(b), in(a)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(c). att(c,b). defeat(c,b).}).
+  #pos(p1_3, {out(b), in(a), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). att(c,b). defeat(c,b).}).
+
+  #pos(p2_0, {out(b)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). in(c). att(c,b). defeat(c,b).}).
+  #pos(p2_1, {out(b), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). att(c,b). defeat(c,b).}).
+  #pos(p2_2, {out(b), in(a)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(c). att(c,b). defeat(c,b).}).
+  #pos(p2_3, {out(b), in(a), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). att(c,b). defeat(c,b).}).
+
+  #pos(p3_0, {out(b), in(a), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b).}).
+  #pos(p3_1, {out(b), in(c)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a).}).
+  #pos(p3_2, {out(b)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a). in(c).}).
+  #pos(p3_3, {out(b), in(a)}, {out(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(c).}).
+
+  #pos(p4_0, {}, {out(c), out(b), in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). in(a). att(c,b). defeat(c,b). att(b,c). defeat(b,c).}).
+  #pos(p4_1, {in(a)}, {out(c), out(b), in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(c,b). defeat(c,b). att(b,c). defeat(b,c).}).
+
+  #neg(n0_0, {out(c)}, {out(b), in(a), in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b).}).
+
+  #neg(n1_0, {out(b), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(c). att(c,b). defeat(c,b).}).
+  #neg(n1_1, {out(b), in(c), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). att(c,b). defeat(c,b).}).
+
+  #neg(n2_0, {in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). in(c). att(c,b). defeat(c,b).}).
+  #neg(n2_1, {}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). in(c). att(c,b). defeat(c,b). in(b).}).
+  #neg(n2_2, {in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). att(c,b). defeat(c,b).}).
+  #neg(n2_3, {in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). att(c,b). defeat(c,b). in(b).}).
+  #neg(n2_4, {in(a), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(c). att(c,b). defeat(c,b).}).
+  #neg(n2_5, {in(a)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(c). att(c,b). defeat(c,b). in(b).}).
+  #neg(n2_6, {in(a), in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). att(c,b). defeat(c,b).}).
+  #neg(n2_7, {in(a), in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). att(c,b). defeat(c,b). in(b).}).
+
+  #neg(n6_0, {out(c), out(b)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). att(c,b). defeat(c,b).}).
+  #neg(n6_1, {out(c), out(b), in(a)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). att(c,b). defeat(c,b).}).
+
+  #neg(n3_0, {out(c), out(b)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). in(a). att(c,b). defeat(c,b).}).
+  #neg(n3_1, {out(c), out(b), in(a)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). defeat(b,a). att(c,b). defeat(c,b).}).
+
+  #neg(n4_0, {out(b), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(c). att(c,b). defeat(c,b).}).
+  #neg(n4_1, {out(b), in(c), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). att(c,b). defeat(c,b).}).
+
+  #neg(n5_0, {in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). in(c). att(c,b). defeat(c,b).}).
+  #neg(n5_1, {}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). in(c). att(c,b). defeat(c,b). in(b).}).
+  #neg(n5_2, {in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). att(c,b). defeat(c,b).}).
+  #neg(n5_3, {in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(a). att(c,b). defeat(c,b). in(b).}).
+  #neg(n5_4, {in(a), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(c). att(c,b). defeat(c,b).}).
+  #neg(n5_5, {in(a)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). in(c). att(c,b). defeat(c,b). in(b).}).
+  #neg(n5_6, {in(a), in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). att(c,b). defeat(c,b).}).
+  #neg(n5_7, {in(a), in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(b,a). att(a,b). defeat(b,a). defeat(a,b). att(c,b). defeat(c,b). in(b).}).
+
+  #neg(n7_0, {out(b), in(c), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b).}).
+  #neg(n7_1, {out(b), out(a)}, {out(c), in(a), in(b)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(c).}).
+
+  #neg(n8_0, {in(a), in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b).}).
+  #neg(n8_1, {in(c), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a).}).
+  #neg(n8_2, {in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a). in(c).}).
+  #neg(n8_3, {}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a). in(c). in(b).}).
+  #neg(n8_4, {in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a). in(b).}).
+  #neg(n8_5, {in(a), in(b)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(c).}).
+  #neg(n8_6, {in(a)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(c). in(b).}).
+  #neg(n8_7, {in(a), in(c)}, {out(c), out(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(b).}).
+
+  #neg(n9_0, {out(c), out(b), in(a)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b).}).
+  #neg(n9_1, {out(c), out(b)}, {in(c), in(b), out(a)}, {arg(c). arg(b). arg(a). att(a,b). defeat(a,b). in(a).}).
+
+  #neg(n10_0, {out(a)}, {out(c), out(b), in(a), in(c), in(b)}, {arg(c). arg(b). arg(a). att(c,b). defeat(c,b). att(b,c). defeat(b,c).}).
+
+
+Computing SAT-sufficient subset...
+
+C^+(T):
+  [0] in(V0). {()}
+  [1] out(V0) :- att(V0,V1), att(V1,V0). {()}
+  [2] in(V0) :- att(V0,V1), att(V1,V0). {()}
+  [3] out(V0) :- att(V1,V0), in(V1). {()}
+  [4] in(V0) :- in(V1). {()}
+  [5] in(V0) :- att(V1,V0), in(V1). {()}
+  [6] out(V0) :- in(V0), att(V0,V1). {()}
+  [7] out(V0) :- in(V0), in(V1). {()}
+  [8] in(V0) :- att(V0,V1). {()}
+  [9] out(V0) :- att(V1,V0). {()}
+  [10] in(V0) :- att(V1,V0). {()}
+  [11] out(V0) :- att(V0,V1). {()}
+  [12] out(V0) :- att(V0,V1), in(V1). {()}
+  [13] in(V0) :- att(V0,V1), in(V1). {()}
+  [14] out(V0) :- in(V0), att(V1,V0). {()}
+  [15] out(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  [16] in(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  [17] out(V0) :- in(V0), att(V0,V1), att(V1,V0). {()}
+  [18] out(V0). {()}
+  [19] out(V0) :- in(V1). {()}
+  [20] out(V0) :- in(V0), att(V0,V1), in(V1). {()}
+  [21] out(V0) :- in(V0), att(V1,V0), in(V1). {()}
+  [22] out(V0) :- in(V0), att(V0,V1), att(V1,V0), in(V1). {()}
+
+
+
+C^-(T):
+  in(V0). {()}
+  out(V0) :- att(V0,V1), att(V1,V0). {()}
+  in(V0) :- att(V0,V1), att(V1,V0). {()}
+  out(V0) :- att(V1,V0), in(V1). {()}
+  in(V0) :- in(V1). {()}
+  in(V0) :- att(V1,V0), in(V1). {()}
+  out(V0) :- in(V0), att(V0,V1). {()}
+  out(V0) :- in(V0), in(V1). {()}
+  in(V0) :- att(V0,V1). {()}
+  out(V0) :- att(V1,V0). {()}
+  in(V0) :- att(V1,V0). {()}
+  out(V0) :- att(V0,V1). {()}
+  out(V0) :- att(V0,V1), in(V1). {()}
+  in(V0) :- att(V0,V1), in(V1). {()}
+  out(V0) :- in(V0), att(V1,V0). {()}
+  out(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  in(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  out(V0) :- in(V0), att(V0,V1), att(V1,V0). {()}
+  out(V0). {()}
+  out(V0) :- in(V1). {()}
+
+
+Generalising...
+
+G^+(T):
+  [0] in(V0). {(), ()}
+  [1] out(V0) :- att(V0,V1), att(V1,V0). {()}
+  [2] in(V0) :- att(V0,V1), att(V1,V0). {()}
+  [3] out(V0) :- att(V1,V0), in(V1). {()}
+  [4] in(V0) :- in(V1). {()}
+  [5] in(V0) :- att(V1,V0), in(V1). {()}
+  [6] out(V0) :- in(V0), att(V0,V1). {()}
+  [7] out(V0) :- in(V0), in(V1). {()}
+  [8] in(V0) :- att(V0,V1). {()}
+  [9] out(V0) :- att(V1,V0). {()}
+  [10] in(V0) :- att(V1,V0). {()}
+  [11] out(V0) :- att(V0,V1). {()}
+  [12] out(V0) :- att(V0,V1), in(V1). {()}
+  [13] in(V0) :- att(V0,V1), in(V1). {()}
+  [14] out(V0) :- in(V0), att(V1,V0). {()}
+  [15] out(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  [16] in(V0) :- att(V0,V1), att(V1,V0), in(V1). {()}
+  [17] out(V0) :- in(V0), att(V0,V1), att(V1,V0). {()}
+  [18] out(V0). {(), ()}
+  [19] out(V0) :- in(V1). {()}
+  [20] out(V0) :- in(V0), att(V0,V1), in(V1). {()}
+  [21] out(V0) :- in(V0), att(V1,V0), in(V1). {()}
+  [22] out(V0) :- in(V0), att(V0,V1), att(V1,V0), in(V1). {()}
+  [23] out(V0) :- in(V0). {()}
+
+
+
+Computing opt-sufficient subset...
+
+S_M:
+  out(V0) :- att(V1,V0), in(V1), arg(V0), arg(V1).
+  in(V0) :- in(V1), arg(V0), arg(V1).
+  in(V0) :- att(V1,V0), in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), att(V0,V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), in(V1), arg(V0), arg(V1).
+  out(V0) :- att(V0,V1), in(V1), arg(V0), arg(V1).
+  in(V0) :- att(V0,V1), in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), att(V1,V0), arg(V0), arg(V1).
+  out(V0) :- att(V0,V1), att(V1,V0), in(V1), arg(V0), arg(V1).
+  in(V0) :- att(V0,V1), att(V1,V0), in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), att(V0,V1), att(V1,V0), arg(V0), arg(V1).
+  out(V0) :- in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), att(V0,V1), in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), att(V1,V0), in(V1), arg(V0), arg(V1).
+  out(V0) :- in(V0), arg(V0).
+
+
+Solving...
+
+out(V0) :- att(V1,V0), in(V1), arg(V0), arg(V1).
+
+
+{
+  "Length": 3,
+  "Noisy Example Penalty": 0,
+  "Uncovered Examples": [ ],
+  "Final Semi-decomposable Representation": [ ]
+}

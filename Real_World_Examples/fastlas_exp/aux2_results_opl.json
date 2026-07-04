@@ -1,0 +1,127 @@
+{
+ "gate": {
+  "skeptical": 1.0,
+  "credulous": 0.6101010101010101,
+  "grounded": 1.0
+ },
+ "gate_passed": true,
+ "baseline_committed_only": 0.5935483870967742,
+ "baseline_skept_acc3": 0.4585858585858586,
+ "aux_committed_only": 0.6483870967741936,
+ "aux_skept_acc3": 0.38585858585858585,
+ "aux_used": true,
+ "aux_theories": [
+  [
+   "violated :- unattacked(V0), undec(V0), arg(V0).",
+   "violated :- not undec(V0), has_unattacked_attacker(V0), in_cycle(V0), arg(V0).",
+   "violated :- in(V0), not defended(V0), not in_cycle(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not in_cycle(V0), has_many_attackers(V0), undec(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not has_many_attackers(V0), in_cycle(V0), out(V0), arg(V0).",
+   "violated :- in(V0), not defended(V0), not has_many_attackers(V0), not attacked_by_in(V0), in_cycle(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not in_cycle(V0), not has_unattacked_attacker(V0), undec(V0), arg(V0).",
+   "violated :- not out(V0), not in_cycle(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- in(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- defended(V0), in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not defended(V0), not has_unattacked_attacker(V0), not has_many_attackers(V0), not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- not defended(V0), not in_cycle(V0), not has_many_attackers(V0), not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- has_unattacked_attacker(V0), defended(V0), not in(V0), arg(V0).",
+   "violated :- in(V0), not defended(V0), not has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- in(V0), attacked_by_in(V0), not in_cycle(V0), not has_unattacked_attacker(V0), arg(V0)."
+  ],
+  [
+   "violated :- undec(V0), attacked_by_in(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not defended(V0), in(V0), not has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- not in(V0), defended(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- not defended(V0), in(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- not defended(V0), in(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+   "violated :- in_cycle(V0), has_many_attackers(V0), defended(V0), arg(V0).",
+   "violated :- in_cycle(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), in(V0), arg(V0).",
+   "violated :- undec(V0), in_cycle(V0), defended(V0), arg(V0).",
+   "violated :- undec(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), out(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not defended(V0), in_cycle(V0), out(V0), not attacked_by_in(V0), not has_many_attackers(V0), arg(V0).",
+   "violated :- not out(V0), has_many_attackers(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), in(V0), not has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), in_cycle(V0), not has_many_attackers(V0), arg(V0).",
+   "violated :- undec(V0), attacked_by_in(V0), not has_unattacked_attacker(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), in_cycle(V0), out(V0), has_unattacked_attacker(V0), arg(V0)."
+  ],
+  [
+   "violated :- undec(V0), not has_unattacked_attacker(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- defended(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), in_cycle(V0), not has_many_attackers(V0), out(V0), not defended(V0), arg(V0).",
+   "violated :- not has_many_attackers(V0), not defended(V0), has_unattacked_attacker(V0), in(V0), arg(V0).",
+   "violated :- undec(V0), not has_unattacked_attacker(V0), not has_many_attackers(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- undec(V0), in_cycle(V0), not has_many_attackers(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- in_cycle(V0), not has_unattacked_attacker(V0), in(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), not in_cycle(V0), not defended(V0), in(V0), arg(V0).",
+   "violated :- undec(V0), not in_cycle(V0), has_many_attackers(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- undec(V0), defended(V0), in_cycle(V0), arg(V0).",
+   "violated :- not out(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), in_cycle(V0), not defended(V0), in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), not has_many_attackers(V0), not in_cycle(V0), out(V0), arg(V0).",
+   "violated :- undec(V0), unattacked(V0), arg(V0)."
+  ],
+  [
+   "violated :- out(V0), not has_unattacked_attacker(V0), attacked_by_in(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+   "violated :- defended(V0), in_cycle(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), in(V0), has_many_attackers(V0), arg(V0).",
+   "violated :- not defended(V0), undec(V0), not in_cycle(V0), arg(V0).",
+   "violated :- out(V0), not attacked_by_in(V0), not has_many_attackers(V0), not defended(V0), arg(V0).",
+   "violated :- not undec(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- undec(V0), unattacked(V0), arg(V0).",
+   "violated :- in_cycle(V0), not has_unattacked_attacker(V0), not out(V0), attacked_by_in(V0), arg(V0)."
+  ],
+  [
+   "violated :- out(V0), in_cycle(V0), not has_many_attackers(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- undec(V0), unattacked(V0), arg(V0).",
+   "violated :- not has_unattacked_attacker(V0), has_many_attackers(V0), not attacked_by_in(V0), undec(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not has_unattacked_attacker(V0), not has_many_attackers(V0), undec(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not has_many_attackers(V0), in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), not has_unattacked_attacker(V0), not has_many_attackers(V0), in(V0), arg(V0).",
+   "violated :- not in_cycle(V0), has_many_attackers(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- out(V0), not defended(V0), not has_unattacked_attacker(V0), not has_many_attackers(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- not in(V0), not has_many_attackers(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+   "violated :- out(V0), not defended(V0), in_cycle(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- not undec(V0), not defended(V0), in_cycle(V0), not has_many_attackers(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- attacked_by_in(V0), has_many_attackers(V0), undec(V0), has_unattacked_attacker(V0), arg(V0)."
+  ]
+ ],
+ "base_theories": [
+  [
+   "violated :- not defended(V0), not attacked_by_in(V0), in(V0), arg(V0).",
+   "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- in_cycle(V0), in(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+  ],
+  [
+   "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+   "violated :- out(V0), defended(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+   "violated :- undec(V0), defended(V0), arg(V0)."
+  ],
+  [
+   "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+   "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- defended(V0), out(V0), arg(V0).",
+   "violated :- in(V0), in_cycle(V0), not defended(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0)."
+  ],
+  [
+   "violated :- in(V0), attacked_by_in(V0), in_cycle(V0), arg(V0).",
+   "violated :- out(V0), defended(V0), arg(V0).",
+   "violated :- in(V0), not defended(V0), not attacked_by_in(V0), arg(V0).",
+   "violated :- not in_cycle(V0), undec(V0), arg(V0)."
+  ],
+  [
+   "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+   "violated :- in_cycle(V0), not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0)."
+  ]
+ ],
+ "aux_secs": 559.6,
+ "aux_timeouts": 0
+}

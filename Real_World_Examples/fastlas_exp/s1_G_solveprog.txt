@@ -1,0 +1,408 @@
+% p0
+% p0 : p0_0
+n_cov(p0_0) :- not disj(0).
+n_cov(p0_0) :- disj(0).
+n_cov(p0) :- #true, n_cov(p0_0).
+:- n_cov(p0).
+% p2
+% p2 : p2_0
+n_cov(p2_0) :- not disj(0).
+n_cov(p2_0) :- disj(0).
+% p2 : p2_1
+disj(1) :- in_h(8).
+disj(1) :- in_h(13).
+disj(1) :- in_h(14).
+disj(1) :- in_h(17).
+n_cov(p2_1) :- not disj(1).
+disj(2) :- in_h(8).
+disj(2) :- in_h(14).
+n_cov(p2_1) :- not disj(2).
+disj(3) :- in_h(8).
+disj(3) :- in_h(9).
+disj(3) :- in_h(10).
+disj(3) :- in_h(11).
+disj(3) :- in_h(12).
+disj(3) :- in_h(15).
+disj(3) :- in_h(16).
+disj(3) :- in_h(18).
+disj(3) :- in_h(19).
+disj(3) :- in_h(23).
+n_cov(p2_1) :- disj(3).
+n_cov(p2) :- #true, n_cov(p2_0), n_cov(p2_1).
+:- n_cov(p2).
+% p1
+% p1 : p1_0
+n_cov(p1_0) :- not disj(0).
+n_cov(p1_0) :- disj(0).
+% p1 : p1_1
+disj(4) :- in_h(8).
+disj(4) :- in_h(13).
+n_cov(p1_1) :- not disj(4).
+n_cov(p1_1) :- not disj(2).
+disj(5) :- in_h(8).
+disj(5) :- in_h(9).
+disj(5) :- in_h(10).
+disj(5) :- in_h(11).
+disj(5) :- in_h(12).
+disj(5) :- in_h(15).
+disj(5) :- in_h(16).
+disj(5) :- in_h(23).
+n_cov(p1_1) :- disj(5).
+n_cov(p1) :- #true, n_cov(p1_0), n_cov(p1_1).
+:- n_cov(p1).
+% p4
+% p4 : p4_0
+n_cov(p4_0) :- not disj(0).
+n_cov(p4_0) :- disj(0).
+n_cov(p4) :- #true, n_cov(p4_0).
+:- n_cov(p4).
+% p3
+% p3 : p3_0
+n_cov(p3_0) :- not disj(0).
+n_cov(p3_0) :- disj(0).
+% p3 : p3_1
+disj(6) :- in_h(8).
+n_cov(p3_1) :- not disj(6).
+n_cov(p3_1) :- not disj(2).
+disj(7) :- in_h(8).
+disj(7) :- in_h(10).
+disj(7) :- in_h(12).
+disj(7) :- in_h(15).
+disj(7) :- in_h(16).
+disj(7) :- in_h(23).
+n_cov(p3_1) :- disj(7).
+n_cov(p3) :- #true, n_cov(p3_0), n_cov(p3_1).
+:- n_cov(p3).
+% n0
+% n0 : n0_0
+n_cov(n0_0) :- not disj(0).
+n_cov(n0_0) :- disj(0).
+% n0 : n0_1
+disj(8) :- in_h(8).
+disj(8) :- in_h(10).
+disj(8) :- in_h(12).
+disj(8) :- in_h(23).
+n_cov(n0_1) :- disj(8).
+n_cov(n0) :- not n_cov(n0_0).
+n_cov(n0) :- not n_cov(n0_1).
+:- n_cov(n0).
+% n1
+% n1 : n1_0
+n_cov(n1_0) :- not disj(0).
+n_cov(n1_0) :- disj(0).
+% n1 : n1_1
+n_cov(n1_1) :- not disj(2).
+disj(9) :- in_h(11).
+disj(9) :- in_h(12).
+n_cov(n1_1) :- not disj(9).
+disj(10) :- in_h(8).
+disj(10) :- in_h(9).
+disj(10) :- in_h(10).
+disj(10) :- in_h(12).
+disj(10) :- in_h(13).
+disj(10) :- in_h(15).
+disj(10) :- in_h(16).
+disj(10) :- in_h(23).
+n_cov(n1_1) :- disj(10).
+% n1 : n1_2
+n_cov(n1_2) :- not disj(2).
+disj(11) :- in_h(8).
+disj(11) :- in_h(9).
+disj(11) :- in_h(10).
+disj(11) :- in_h(12).
+disj(11) :- in_h(13).
+disj(11) :- in_h(14).
+disj(11) :- in_h(15).
+disj(11) :- in_h(16).
+disj(11) :- in_h(20).
+disj(11) :- in_h(21).
+disj(11) :- in_h(23).
+n_cov(n1_2) :- disj(11).
+% n1 : n1_3
+n_cov(n1_3) :- not disj(6).
+disj(12) :- in_h(12).
+disj(12) :- in_h(15).
+n_cov(n1_3) :- not disj(12).
+disj(13) :- in_h(8).
+disj(13) :- in_h(10).
+disj(13) :- in_h(12).
+disj(13) :- in_h(14).
+disj(13) :- in_h(16).
+disj(13) :- in_h(23).
+n_cov(n1_3) :- disj(13).
+n_cov(n1) :- not n_cov(n1_0).
+n_cov(n1) :- not n_cov(n1_1).
+n_cov(n1) :- not n_cov(n1_2).
+n_cov(n1) :- not n_cov(n1_3).
+:- n_cov(n1).
+% n2
+% n2 : n2_0
+n_cov(n2_0) :- not disj(0).
+n_cov(n2_0) :- disj(0).
+n_cov(n2) :- not n_cov(n2_0).
+:- n_cov(n2).
+% n3
+% n3 : n3_0
+n_cov(n3_0) :- not disj(6).
+n_cov(n3_0) :- not disj(9).
+disj(14) :- in_h(8).
+disj(14) :- in_h(9).
+disj(14) :- in_h(10).
+disj(14) :- in_h(12).
+disj(14) :- in_h(13).
+disj(14) :- in_h(23).
+n_cov(n3_0) :- disj(14).
+% n3 : n3_1
+n_cov(n3_1) :- not disj(4).
+disj(15) :- in_h(8).
+disj(15) :- in_h(9).
+disj(15) :- in_h(10).
+disj(15) :- in_h(11).
+disj(15) :- in_h(12).
+disj(15) :- in_h(13).
+disj(15) :- in_h(14).
+disj(15) :- in_h(16).
+disj(15) :- in_h(20).
+disj(15) :- in_h(21).
+disj(15) :- in_h(23).
+n_cov(n3_1) :- disj(15).
+% n3 : n3_2
+n_cov(n3_2) :- not disj(0).
+n_cov(n3_2) :- disj(0).
+% n3 : n3_3
+n_cov(n3_3) :- not disj(4).
+n_cov(n3_3) :- not disj(12).
+disj(16) :- in_h(8).
+disj(16) :- in_h(9).
+disj(16) :- in_h(10).
+disj(16) :- in_h(11).
+disj(16) :- in_h(12).
+disj(16) :- in_h(14).
+disj(16) :- in_h(16).
+disj(16) :- in_h(23).
+n_cov(n3_3) :- disj(16).
+n_cov(n3) :- not n_cov(n3_0).
+n_cov(n3) :- not n_cov(n3_1).
+n_cov(n3) :- not n_cov(n3_2).
+n_cov(n3) :- not n_cov(n3_3).
+:- n_cov(n3).
+% n4
+% n4 : n4_0
+n_cov(n4_0) :- not disj(0).
+n_cov(n4_0) :- disj(0).
+% n4 : n4_1
+n_cov(n4_1) :- not disj(2).
+disj(17) :- in_h(11).
+disj(17) :- in_h(12).
+disj(17) :- in_h(15).
+disj(17) :- in_h(18).
+n_cov(n4_1) :- not disj(17).
+disj(18) :- in_h(8).
+disj(18) :- in_h(9).
+disj(18) :- in_h(10).
+disj(18) :- in_h(12).
+disj(18) :- in_h(13).
+disj(18) :- in_h(14).
+disj(18) :- in_h(15).
+disj(18) :- in_h(16).
+disj(18) :- in_h(17).
+disj(18) :- in_h(19).
+disj(18) :- in_h(23).
+n_cov(n4_1) :- disj(18).
+% n4 : n4_2
+n_cov(n4_2) :- not disj(2).
+disj(19) :- in_h(8).
+disj(19) :- in_h(9).
+disj(19) :- in_h(10).
+disj(19) :- in_h(12).
+disj(19) :- in_h(13).
+disj(19) :- in_h(14).
+disj(19) :- in_h(15).
+disj(19) :- in_h(16).
+disj(19) :- in_h(17).
+disj(19) :- in_h(19).
+disj(19) :- in_h(20).
+disj(19) :- in_h(21).
+disj(19) :- in_h(23).
+n_cov(n4_2) :- disj(19).
+% n4 : n4_3
+n_cov(n4_3) :- not disj(6).
+n_cov(n4_3) :- not disj(17).
+disj(20) :- in_h(8).
+disj(20) :- in_h(9).
+disj(20) :- in_h(10).
+disj(20) :- in_h(12).
+disj(20) :- in_h(13).
+disj(20) :- in_h(14).
+disj(20) :- in_h(16).
+disj(20) :- in_h(17).
+disj(20) :- in_h(19).
+disj(20) :- in_h(23).
+n_cov(n4_3) :- disj(20).
+n_cov(n4) :- not n_cov(n4_0).
+n_cov(n4) :- not n_cov(n4_1).
+n_cov(n4) :- not n_cov(n4_2).
+n_cov(n4) :- not n_cov(n4_3).
+:- n_cov(n4).
+% n5
+% n5 : n5_0
+n_cov(n5_0) :- not disj(0).
+n_cov(n5_0) :- disj(0).
+n_cov(n5) :- not n_cov(n5_0).
+:- n_cov(n5).
+% n6
+% n6 : n6_0
+n_cov(n6_0) :- not disj(6).
+n_cov(n6_0) :- not disj(9).
+n_cov(n6_0) :- disj(14).
+% n6 : n6_1
+n_cov(n6_1) :- not disj(1).
+disj(21) :- in_h(8).
+disj(21) :- in_h(9).
+disj(21) :- in_h(10).
+disj(21) :- in_h(11).
+disj(21) :- in_h(12).
+disj(21) :- in_h(13).
+disj(21) :- in_h(14).
+disj(21) :- in_h(15).
+disj(21) :- in_h(16).
+disj(21) :- in_h(18).
+disj(21) :- in_h(19).
+disj(21) :- in_h(20).
+disj(21) :- in_h(21).
+disj(21) :- in_h(23).
+n_cov(n6_1) :- disj(21).
+% n6 : n6_2
+n_cov(n6_2) :- not disj(0).
+n_cov(n6_2) :- disj(0).
+% n6 : n6_3
+n_cov(n6_3) :- not disj(1).
+n_cov(n6_3) :- not disj(12).
+disj(22) :- in_h(8).
+disj(22) :- in_h(9).
+disj(22) :- in_h(10).
+disj(22) :- in_h(11).
+disj(22) :- in_h(12).
+disj(22) :- in_h(14).
+disj(22) :- in_h(15).
+disj(22) :- in_h(16).
+disj(22) :- in_h(18).
+disj(22) :- in_h(19).
+disj(22) :- in_h(23).
+n_cov(n6_3) :- disj(22).
+n_cov(n6) :- not n_cov(n6_0).
+n_cov(n6) :- not n_cov(n6_1).
+n_cov(n6) :- not n_cov(n6_2).
+n_cov(n6) :- not n_cov(n6_3).
+:- n_cov(n6).
+% n7
+% n7 : n7_0
+n_cov(n7_0) :- not disj(0).
+n_cov(n7_0) :- disj(0).
+% n7 : n7_1
+n_cov(n7_1) :- not disj(6).
+n_cov(n7_1) :- not disj(12).
+n_cov(n7_1) :- disj(13).
+% n7 : n7_2
+n_cov(n7_2) :- not disj(6).
+disj(23) :- in_h(8).
+disj(23) :- in_h(9).
+disj(23) :- in_h(10).
+disj(23) :- in_h(12).
+disj(23) :- in_h(13).
+disj(23) :- in_h(14).
+disj(23) :- in_h(16).
+disj(23) :- in_h(20).
+disj(23) :- in_h(21).
+disj(23) :- in_h(23).
+n_cov(n7_2) :- disj(23).
+% n7 : n7_3
+n_cov(n7_3) :- not disj(6).
+n_cov(n7_3) :- not disj(9).
+n_cov(n7_3) :- disj(14).
+n_cov(n7) :- not n_cov(n7_0).
+n_cov(n7) :- not n_cov(n7_1).
+n_cov(n7) :- not n_cov(n7_2).
+n_cov(n7) :- not n_cov(n7_3).
+:- n_cov(n7).
+% n8
+% n8 : n8_0
+n_cov(n8_0) :- not disj(0).
+n_cov(n8_0) :- disj(0).
+n_cov(n8) :- not n_cov(n8_0).
+:- n_cov(n8).
+% n9
+% n9 : n9_0
+n_cov(n9_0) :- not disj(0).
+n_cov(n9_0) :- disj(0).
+% n9 : n9_1
+n_cov(n9_1) :- not disj(6).
+disj(24) :- in_h(12).
+n_cov(n9_1) :- not disj(24).
+n_cov(n9_1) :- disj(8).
+% n9 : n9_2
+n_cov(n9_2) :- not disj(2).
+n_cov(n9_2) :- disj(7).
+% n9 : n9_3
+n_cov(n9_3) :- not disj(2).
+n_cov(n9_3) :- not disj(24).
+n_cov(n9_3) :- disj(7).
+n_cov(n9) :- not n_cov(n9_0).
+n_cov(n9) :- not n_cov(n9_1).
+n_cov(n9) :- not n_cov(n9_2).
+n_cov(n9) :- not n_cov(n9_3).
+:- n_cov(n9).
+% n10
+% n10 : n10_0
+n_cov(n10_0) :- not disj(0).
+n_cov(n10_0) :- disj(0).
+% n10 : n10_1
+n_cov(n10_1) :- disj(8).
+n_cov(n10) :- not n_cov(n10_0).
+n_cov(n10) :- not n_cov(n10_1).
+:- n_cov(n10).
+0 {in_h(8)} 1. :~ in_h(8).[2@0, hyp(8)]
+0 {in_h(11)} 1. :~ in_h(11).[3@0, hyp(11)]
+0 {in_h(12)} 1. :~ in_h(12).[2@0, hyp(12)]
+0 {in_h(13)} 1. :~ in_h(13).[3@0, hyp(13)]
+0 {in_h(14)} 1. :~ in_h(14).[3@0, hyp(14)]
+0 {in_h(15)} 1. :~ in_h(15).[3@0, hyp(15)]
+0 {in_h(17)} 1. :~ in_h(17).[4@0, hyp(17)]
+0 {in_h(18)} 1. :~ in_h(18).[4@0, hyp(18)]
+
+
+:~ penalty(P, T).[P@0, intermediate, T]
+
+#show in_h/1.
+#show penalty/2.
+#show disj/1.
+#script (lua)
+function onModel(m)
+  atoms = m:symbols{shown=true}
+  new_model = ""
+  intermediate_penalty = 0
+
+  for i, atom in ipairs(atoms) do
+    atom_name = tostring(atom):match('([^(]+)')
+    if atom_name == "in_h" then
+      new_model = new_model.." i"..tostring(atom):sub(6,-2).."|"
+    elseif atom_name == "penalty" then
+      penalty = tostring(atom):match('[^(,]+%((-?[0-9]+),')
+      intermediate_penalty = intermediate_penalty + tonumber(penalty)
+      new_model = new_model.." p"..tostring(atom).."|"
+    elseif atom_name == "disj" then
+      new_model = new_model.." d"..tostring(atom):sub(6,-2).."|"
+    end
+  end
+  new_model = new_model.." b"..tostring(intermediate_penalty).."| ;|"
+  print(new_model)
+end
+
+function main(prg)
+  new_model = ""
+  prg:ground({{"base", {}}})
+  prg:solve{on_model=onModel}
+end
+#end.
+
+
