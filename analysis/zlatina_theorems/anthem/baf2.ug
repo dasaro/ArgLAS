@@ -1,0 +1,11 @@
+input: arg/1.
+input: att/2.
+input: support/2.
+input: supp/2.
+output: in/1.
+output: out/1.
+assumption: forall X Y (att(X,Y) -> arg(X) and arg(Y)).
+assumption: forall X Y (support(X,Y) -> arg(X) and arg(Y)).
+assumption: forall X Y (supp(X,Y) -> arg(X) and arg(Y)).
+assumption: forall X Y (support(X,Y) -> supp(X,Y)).
+assumption: forall X Y Z (supp(X,Y) and support(Y,Z) -> supp(X,Z)).
