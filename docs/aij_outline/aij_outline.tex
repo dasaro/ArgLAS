@@ -1,0 +1,225 @@
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{xcolor}
+
+\newcommand{\status}[1]{\par\smallskip\noindent\colorbox{yellow!25}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textbf{Status:} #1}}}
+\newcommand{\material}[1]{\par\smallskip\noindent{\small\textbf{Existing material:} #1}}
+\newcommand{\budget}[1]{\hfill{\small\textit{[$\sim$#1 pp.]}}}
+
+\journal{Artificial Intelligence}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Learning Argumentation Semantics, Verified:\\
+a Unifying Framework with Mechanized Correctness Proofs,\\
+Robust Recovery, and an Application to Human Reasoning\tnoteref{t1}}
+\tnotetext[t1]{\textbf{Working outline} (not a manuscript). Extends arXiv:2310.12309v2.
+Section skeletons map existing material to the planned paper; yellow boxes track status.}
+
+\author[imperial]{Zlatina Mileva}
+\author[ucl]{Antonis Bikakis}
+\author[verona]{Fabio Aurelio D'Asaro}
+\author[ilasp]{Mark Law}
+\author[imperial]{Alessandra Russo}
+\address[imperial]{Imperial College London, UK}
+\address[ucl]{University College London, UK}
+\address[verona]{University of Verona, Italy}
+\address[ilasp]{ILASP Limited, UK}
+
+\begin{abstract}
+[DRAFT] Argumentation semantics specify which arguments are acceptable in a
+framework of conflicting claims. We present a unifying framework, based on
+Learning from Answer Sets, that \emph{learns} acceptability semantics across four
+families of argumentation frameworks (abstract, assumption-based, bipolar,
+value-based) in a fully interpretable way. Three advances take this beyond prior
+work. First, correctness is \emph{mechanized}: the equivalence of every learned
+encoding with its manually engineered counterpart is verified by automated
+first-order provers (anthem/Vampire), exhaustive model checking, and
+completion-based SMT proofs --- including new theorems for bipolar frameworks and
+the machine-discovery (and repair) of a defect in the published assumption-based
+translation. Second, we move from anecdote to a science of \emph{learnability}: a
+large controlled study maps semantics recovery under partial labels, label noise,
+sample size and class imbalance for five semantics, including the first tractable
+learning of grounded and preferred semantics --- grounded, notably, as a complete
+core plus a \emph{learnable} minimality preference. Third, we demonstrate why
+learning semantics matters when the target is \emph{unknown}: applying the
+framework to human judgement data, we obtain an interpretable characterization of
+the acceptability principles people actually follow, together with a
+statistically careful comparison against the textbook catalogue. All results are
+reproducible from a pinned repository.
+\end{abstract}
+
+\begin{keyword}
+argumentation semantics \sep inductive logic programming \sep answer set
+programming \sep verification \sep human reasoning
+\end{keyword}
+\end{frontmatter}
+
+\section*{Contributions (to appear in \S1)}
+\begin{enumerate}[label=\textbf{C\arabic*.},leftmargin=2.5em]
+\item \textbf{A unifying LAS framework} for learning acceptability semantics
+across AAF, ABA, BAF and VAF, with a single background theory and hypothesis
+space that provably specializes to each framework. \emph{(From the preprint;
+simplification claims now verified.)}
+\item \textbf{Mechanized correctness.} Equivalence theorems for the learned
+stable/admissible/complete encodings (AAF \emph{and, new, BAF}), verified three
+independent ways: exhaustively on all $66\,066$ AFs with ${\le}4$ arguments;
+by Clark-completion/Fages reduction discharged in Z3; and fully automatically by
+anthem+Vampire (external program-to-program equivalence). To our knowledge the
+first machine-checked correctness proofs for \emph{learned} logic programs in
+argumentation.
+\item \textbf{A corrected ABA-to-AAF translation.} Systematic verification
+uncovered a counterexample-backed defect in the published argument-construction
+step (arguments are dropped whenever fact-derivable roots exist); we give a
+minimal counterexample and a validated fix --- a case study in why mechanized
+checking of learned/encoded programs matters.
+\item \textbf{Grounded and preferred, learnable.} Exhaustive certificates for the
+heuristic encodings ($66\,066$ AFs, zero counterexamples), plus two new
+formulations that scale: a no-choice definite core for grounded, and
+\emph{grounded as a complete core plus a learnable weak-constraint minimality
+preference} (learned from ordering examples in ${<}0.1$s, oracle-equivalent on
+all campaign frameworks).
+\item \textbf{Learnability under imperfect data.} A controlled recovery study
+(five semantics $\times$ label completeness $\times$ label noise $\times$ sample
+size $\times$ class proportions, grouped CV, dual-surface evaluation) that
+quantifies when semantics can be recovered from sampled, imperfect examples ---
+with corrected methodology (complete-information test surface) and honest failure
+taxonomy.
+\item \textbf{Learning the semantics humans use.} An audited application to human
+judgement data: an interpretable learned characterization of human acceptability
+(committal reinstatement with cycle caution and a distrust of heavily attacked
+arguments), a pre-registered statistical comparison against the textbook
+catalogue, and a test of contextual reasoning (one structure-sensitive semantics,
+not per-scenario semantics). \emph{(Scope decision pending: full section vs.\
+companion paper --- see \S\ref{sec:humans}.)}
+\item \textbf{Systems findings.} A reproducible pipeline; an ILASP 4.4.1
+spurious-\textsc{unsat} bug with minimal reproduction; and a $30$--$600\times$
+learning-time comparison with FastLAS via a verifier reformulation.
+\end{enumerate}
+
+\section{Introduction}\budget{4}
+Motivation (interpretable learning of argumentation semantics; solvers vs.\
+learners; why \emph{verified} learning), the research questions
+(\emph{learnable? correct? robust? useful when the target is unknown?}),
+contributions C1--C7, paper map.
+\material{Preprint \S1 (rewrite around the four questions); worklist item 4.}
+\status{To write; all inputs exist.}
+
+\section{Background}\budget{5}
+\subsection{Argumentation frameworks and semantics} AAF/ABA/BAF/VAF; labellings;
+the five semantics. \material{Preprint \S2.1 (as-is).}
+\subsection{Learning from Answer Sets and ILASP} CDPI tasks, mode bias, noise;
+heuristic statements and subset-minimal projection $AS^{*}$.
+\material{Preprint \S2.2; keep the (correct) subset-minimality wording.}
+\subsection{Verification of ASP programs} Tightness, Clark completion, Fages;
+external (io-program) equivalence; anthem and Vampire.
+\material{New ($\sim$1.5 pp.); sources: \texttt{analysis/zlatina\_theorems/}.}
+\status{\S2.1--2.2 exist; \S2.3 to write.}
+
+\section{A Unifying Framework for Learning Argumentation Semantics}\budget{6}
+Unified background $B$ and hypothesis space (Listings 1--2 of the preprint);
+specialization to $B_{\mathrm{AAF}}, B_{\mathrm{BAF}}, B_{\mathrm{VAF}}$
+(now verified, 1\,800 checks); learned encodings for the five semantics
+(Listings 4--8); the \emph{corrected} ABA-to-AAF translation (per-root
+minimization) with the original defect relegated to \S\ref{sec:mech} as a case
+study. \material{Preprint \S3 + \texttt{check\_unified.py} +
+\texttt{check\_aba\_transform.py} (fix).}
+\status{Mostly exists; ABA subsection needs rewriting around the fix.}
+
+\section{Correctness, Mechanized}\label{sec:mech}\budget{7}
+\subsection{Equivalence theorems} Theorem 1 (AAF: stable/admissible/complete;
+manual proof for admissible, others in appendix). \textbf{New Theorem 2 (BAF)}
+via the shared-input closure reduction (statement quantifies over every
+transitive superset; instantiation at the closure).
+\subsection{Three-level verification} (i) exhaustive: all $66\,066$ AFs
+${\le}4$ args incl.\ self-attacks $+$ campaign AAFs; (ii) Fages/completion in
+Z3; (iii) anthem+Vampire, fully automatic ($\sim$250--515\,ms per theorem).
+Grounded/preferred heuristic encodings: exhaustive certificates (no FO proof
+exists --- honest scope note).
+\subsection{Case study: the ABA defect} Minimal counterexample; why the
+published example masked it (no fact rules); the validated fix; lessons for
+verifying learned programs.
+\material{\texttt{analysis/zlatina\_theorems/} (all scripts, anthem inputs,
+READMEs); proofs from preprint appendix/thesis.}
+\status{All results exist; prose to write. This section is the paper's
+methodological novelty claim --- draft first.}
+
+\section{Learnability under Imperfect Data}\budget{8}
+\subsection{Setup} Generator, pools, grouped CV, soft examples, oracle
+negatives, dual-surface evaluation (matched vs.\ complete-information test),
+failure taxonomy. \material{\texttt{train\_test.py} (audited),
+\texttt{docs/CORRECTED\_CAMPAIGN.md}, audit reports.}
+\subsection{Recovery surfaces} Five semantics $\times$
+$p\in\{1,.75,.5\}\times q\in\{0,.1,.2\}\times f\in\{10..80\}\times$ three
+pos/neg proportions. Headlines: near-perfect recovery at full information;
+noise (amplified by partiality) is the binding constraint; partial labels
+\emph{help} grounded at small $f$ (cost-tie breaking); sample-size
+non-saturation at partial information.
+\material{v2 campaign (\emph{running}; $\sim$26\% done) + rescore analysis
+(\texttt{analysis/exp1\_complete\_info\_rescore.json}) + figs.}
+\subsection{Making grounded and preferred learnable} No-choice core;
+weak-constraint route (``grounded $=$ complete $+$ learnable minimality'');
+GRD$\times$noise fragility (documented boundary); ILASP version findings
+(spurious-\textsc{unsat} bug, minimal repro).
+\material{\texttt{analysis/grd\_prf\_lab/} + memory notes.}
+\subsection{Breadth} Generator-breadth sweep (sparse/self-attack/larger $n$)
+and BAF/ABA learning cells --- \emph{gap experiments, specified in
+\texttt{docs/gap\_experiments\_spec.md}, to run on the same infrastructure.}
+\status{Awaiting campaign completion + the two gap experiments; all analysis
+code exists.}
+
+\section{Learning the Semantics Humans Use}\label{sec:humans}\budget{7}
+Audited replication of the reference human study; unified four-arm comparison
+(textbook vs.\ ILASP vs.\ FastLAS, identical folds/examples/scoring,
+pre-registered statistics); the learned human semantics in natural language
+(committal reinstatement $+$ cycle caution $+$ ``smoke/fire'' distrust);
+auxiliary-predicate study (seed-robust $+8$pp; SCC features do \emph{not}
+help); contextual-reasoning test (\textsc{within}/\textsc{global}/\textsc{transfer};
+one structure-sensitive semantics).
+\material{\texttt{Real\_World\_Examples/fastlas\_exp/} incl.\ a complete draft
+(\texttt{paper/exp2.tex}) to be condensed.}
+\status{Exists as a standalone draft. \textbf{Open decision:} full section
+(AIJ significance payload) vs.\ trimmed section $+$ companion paper in
+Synthese/M\&M. Default for this outline: full section, condensed to
+$\sim$7pp.}
+
+\section{Comparative Evaluation}\budget{4}
+ICCMA'23 time performance vs.\ ASPARTIX (existing Fig.~1; fix numbering and the
+abstract's overclaim); data-efficiency vs.\ deep learning (AGNN); FastLAS
+comparison ($30$--$600\times$; verifier reformulation); compactness and
+interpretability. \material{Preprint \S4 + \texttt{fastlas\_exp/README.md}.}
+\status{Exists; refresh + integrate FastLAS.}
+
+\section{Related Work}\budget{3}
+Argumentation solvers; learning argumentation (AGNN and successors, 2023--26
+refresh); ILP/LAS; verification of ASP (anthem line); human-argumentation
+empirical studies. \status{Needs a fresh literature pass (worklist \S4).}
+
+\section{Conclusions and Future Work}\budget{2}
+The four questions answered; limitations (generator scope, GRD$\times$noise,
+human-study power); future: custom semantics at scale, dialogue applications.
+
+\appendix
+\section{Proofs} Full manual proofs (stable/complete; BAF reduction lemma).
+\section{Encodings and verification artifacts} All listings; anthem inputs;
+pointers to the repository (pinned commit).
+\section{Campaign details} Configs, seeds, failure taxonomy, per-cell tables.
+
+\section*{Working notes (drop before submission)}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Page budget:} $\sim$46 pp.\ main text --- within AIJ norms.
+\item \textbf{AIJ submission needs:} highlights (5 bullets $\le$85 chars),
+declarations, data statement (repository, pinned commit).
+\item \textbf{Venue cascade} (all Classe~A, 11/C2): AIJ $\rightarrow$ split:
+methods$\rightarrow$JLC (or JAR, verification-first), human
+study$\rightarrow$Synthese/Minds\&Machines.
+\item \textbf{Gating items:} v2 campaign completion; two gap experiments;
+related-work refresh; co-author sign-off on \S\ref{sec:humans} scope and the
+ILASP-bug framing (Mark).
+\end{itemize}
+
+\end{document}
