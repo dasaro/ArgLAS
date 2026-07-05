@@ -1,0 +1,55 @@
+{
+  "run_name": "final_synthetic_v3_baf",
+  "display_name": "v3 framework breadth: BAF stable/admissible/complete, clean labels, full information",
+  "semantics": [
+    "BAF_STB",
+    "BAF_ADM",
+    "BAF_CMP"
+  ],
+  "partials": [
+    1.0
+  ],
+  "noises": [
+    0.0
+  ],
+  "f_values": [
+    10,
+    20,
+    40
+  ],
+  "f_neg_values": [
+    10,
+    20,
+    40
+  ],
+  "workers": 7,
+  "iterations": 5,
+  "watch_interval_seconds": 3600,
+  "plot_interval_seconds": 3600,
+  "train_timeout_seconds": 3500,
+  "test_par_timeout_seconds": 20,
+  "par2_factor": 2.0,
+  "negative_policy": "oracle_neg",
+  "negative_flip_k": 1,
+  "eval_match_policy": "full_exact_model",
+  "test_set_policy": "grouped_kfold",
+  "test_examples_per_class": 100,
+  "test_sampling_seed": 20260312,
+  "task_sampling_seed_base": 20260311,
+  "label_seed_base": 20260310,
+  "master_seed": 20260309,
+  "allow_empty": true,
+  "rows_per_iteration": 6,
+  "ratio_token": "1",
+  "results_dir_template": "{semantics}_partial_{partial_token}_noise_{noise_token}_ratio_{ratio_token}",
+  "train_run_dir_prefix": "final_synthetic_v3_baf",
+  "train_output_run_dir_prefix": "final_synthetic_v3_baf",
+  "labelled_requirements": {
+    "default": {
+      "min_pos": 50,
+      "min_neg": 50
+    }
+  },
+  "max_consecutive_restarts": 5,
+  "max_worker_shortfall_checks": 4
+}
