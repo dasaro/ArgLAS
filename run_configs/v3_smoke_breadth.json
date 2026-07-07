@@ -27,7 +27,7 @@
   "negative_flip_k": 1,
   "eval_match_policy": "full_exact_model",
   "test_set_policy": "grouped_kfold",
-  "test_examples_per_class": 40,
+  "test_examples_per_class": 12,
   "test_sampling_seed": 20260312,
   "task_sampling_seed_base": 20260311,
   "label_seed_base": 20260310,
@@ -40,8 +40,8 @@
   "train_output_run_dir_prefix": "v3_smoke_breadth",
   "labelled_requirements": {
     "default": {
-      "min_pos": 30,
-      "min_neg": 30
+      "min_pos": 20,
+      "min_neg": 20
     }
   },
   "aaf_generation": {

@@ -11,6 +11,14 @@ evaluation and failure taxonomy.
 **Total: 555 rows** (G: 480, F: 75). Estimated wall-clock: **~3–6 days** sequential
 (F first: hours; G-sparse/self: ~0.5–1 day each; G-large: 1–2.5 days — see §6 risks).
 
+**Test-set sizing (calibrated 2026-07-07).** `test_examples_per_class` cannot be inherited
+from v2 (100): a single fold that can't supply that many balanced test examples hard-fails
+the whole config (build_grouped_balanced_test raises). Measured stable-extension yield/fold
+(STB is the binding semantics) → per-config `test_epc`: sparse/self **80** (~121/fold),
+large **60** (~97/fold, 180-AAF pool), baf **80** (BAF-STB ~118/fold), aba **15** (~32/fold
+— 56% of translated ABAs have *no* stable extension). MCC is a population quantity, so a
+smaller test set only widens CI, not bias. Verified end-to-end by the smoke run.
+
 **Ground rule:** while v2 is running, *nothing it reads may change* (grid subprocesses
 re-load `*.py`, `semantics_config.json`, `ilasp_config.json`, `background_knowledge.lp`
 at every fold). Everything staged now is inert new files; the four small patches in §4 are
