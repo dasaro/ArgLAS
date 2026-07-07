@@ -719,11 +719,13 @@ formulation preferred behaves like the other three semantics throughout.
 \subsection{Recovery surfaces}
 \label{sec:exp1surfaces}
 
-Table~\ref{tab:surface} gives the campaign's central result: mean recovery by
-semantics, noise, and sample size on the balanced ($50\%$-positive) proportion
-arm, pooled over the three completeness levels; Table~\ref{tab:pq} unpools the
-completeness axis, and the imbalance arms are analysed separately in
-Table~\ref{tab:imbalance}.
+Table~\ref{tab:surface} (visualized as a heatmap in
+Figure~\ref{fig:recovery_heatmap} and as sample-size curves in
+Figure~\ref{fig:recovery_curves}) gives the campaign's central result: mean
+recovery by semantics, noise, and sample size on the balanced ($50\%$-positive)
+proportion arm, pooled over the three completeness levels; Table~\ref{tab:pq}
+(Figure~\ref{fig:pq}) unpools the completeness axis, and the imbalance arms are
+analysed separately in Table~\ref{tab:imbalance} (Figure~\ref{fig:imbalance}).
 
 \begin{table}[t]
 \centering
@@ -759,6 +761,27 @@ $q$ & Semantics & $f{=}10$ & $20$ & $30$ & $40$ & $60$ & $80$\\
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_recovery_heatmap.pdf}
+\caption{The recovery surface of Table~\ref{tab:surface} as a heatmap (brighter
+$=$ better recovery). At clean labels ($q=0$) recovery is near-perfect from
+$f\ge30$; noise darkens the surface, and the damage is concentrated at small
+$f$ and worst for admissible/complete --- but every semantics recovers to the
+bright band as $f$ grows.}
+\label{fig:recovery_heatmap}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_recovery_curves.pdf}
+\caption{The same surface as recovery-vs-sample-size curves, one line per
+semantics. The ``noise is bought back by data'' effect (E1.2) is the upward
+slope in the $q=0.2$ panel: recovery rises from $0.48$--$0.74$ at $f=10$ to
+$0.94$--$0.96$ at $f=80$, with no plateau below clean performance.}
+\label{fig:recovery_curves}
+\end{figure}
+
 \begin{table}[t]
 \centering
 \small
@@ -779,6 +802,16 @@ $p=0.5$  & 0.988 \,(120) & 0.886 \,(116) & 0.619 \,(80)\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.5\linewidth]{figs/fig_pq_interaction.pdf}
+\caption{The completeness--noise interaction (Table~\ref{tab:pq}) as a heatmap.
+The top row (clean labels) is uniformly bright regardless of completeness; the
+bottom-right cell (half the labels missing \emph{and} noisy) is the only dark
+one --- incompleteness is free alone but multiplies the cost of noise.}
+\label{fig:pq}
+\end{figure}
 
 \noindent Three headline findings.
 
@@ -841,6 +874,15 @@ PRF & 0.912 & 0.928 & 0.908 & 0.020\\
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\linewidth]{figs/fig_imbalance.pdf}
+\caption{Class imbalance (Table~\ref{tab:imbalance}): the $40\%$, $50\%$ and
+$60\%$-positive arms sit almost on top of each other for every semantics ---
+the three markers span at most $0.026$ MCC, with no consistent ordering.}
+\label{fig:imbalance}
+\end{figure}
+
 \subsection{Cost and failure frontier}
 \label{sec:exp1cost}
 
@@ -848,7 +890,8 @@ Of $3{,}240$ runs, $3{,}120$ completed, $120$ timed out at the $3{,}500$\,s
 cap, and \emph{none} ended unsatisfiable or in error. The failure mass is
 sharply localized: zero timeouts at $q=0$, $18$ at $q=0.1$, $102$ at $q=0.2$,
 concentrated at large $f$ and low $p$ --- the same corner where median training
-time rises from seconds (clean) to hundreds of seconds (noisy): learning under
+time rises from seconds (clean) to hundreds of seconds (noisy;
+Figure~\ref{fig:time_heatmap}): learning under
 noise is an optimization over exception sets, and its cost, like its accuracy
 loss, is driven by the noise axis. The exclusions are material where E1.2's
 high-noise recovery claim lives: on the balanced arm at $q=0.2$, $55/60$ runs
@@ -859,6 +902,18 @@ from $0.937$ to $0.703$ ($f=60$) and from $0.950$ to $0.665$ ($f=80$). The
 honest reading is a joint accuracy--compute claim: \emph{within the compute
 budget, noise costs either accuracy or completions}; the taxonomy makes the
 trade explicit instead of hiding it.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_time_heatmap.pdf}
+\caption{Median ILASP training time (log colour scale; darker $=$ slower),
+same axes as Figure~\ref{fig:recovery_heatmap}. Clean cells cost seconds
+(bright); adding noise darkens the surface by \emph{orders of magnitude} --- up
+to $\sim$$570$\,s at the top-right --- so the cost frontier and the accuracy
+frontier are driven by the same noise axis. Cells that exceeded the $3{,}500$\,s
+cap are excluded from the median (Section~\ref{sec:exp1cost}).}
+\label{fig:time_heatmap}
+\end{figure}
 
 \subsection{Breadth: other generators, other frameworks}
 \label{sec:exp1breadth}
@@ -885,7 +940,8 @@ Theorem~\ref{thm:baf} as labelling oracles, we generated 500 random BAFs
 (support pairs disjoint from attacks, count uniform in $[0,n]$) and ran the
 identical pipeline with background $B_{\mathrm{BAF}}$ --- and, pointedly, the
 \emph{unchanged} AAF mode bias: the hypothesis space does not know supports
-exist; only the background interprets them. Table~\ref{tab:breadth} (left):
+exist; only the background interprets them. Table~\ref{tab:breadth} (left;
+Figure~\ref{fig:breadth}):
 all three BAF semantics are recovered at MCC $0.85$--$0.95$ from $10$ examples
 per class and $0.97$--$1.00$ from $20$, in under $9$ seconds per task (median
 $4$\,s). The unifying claim of Section~\ref{sec:framework} is thus not only
@@ -922,6 +978,17 @@ cmp & 0.848 (0.69) & 0.983 (0.94) & 0.974 (0.89) & & & &\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_breadth.pdf}
+\caption{Framework breadth (Table~\ref{tab:breadth}): recovery on bipolar
+frameworks (learned with the \emph{unchanged} AAF hypothesis space over
+$B_{\mathrm{BAF}}$) and on ABA-translated frameworks (via the corrected
+translation of Section~\ref{sec:abadefect}). Both reach near-perfect recovery by
+$f=20$--$40$, confirming that one learner serves all three families.}
+\label{fig:breadth}
+\end{figure}
 
 %=====================================================================
 \section{From Synthetic Recovery to Human Judgements: the Bridge}
