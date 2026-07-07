@@ -80,5 +80,32 @@
         "in/1"
       ]
     }
+  },
+  "BAF_STB": {
+    "file": "ASPARTIX/baf_stable.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
+  },
+  "BAF_ADM": {
+    "file": "ASPARTIX/baf_admissible.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
+  },
+  "BAF_CMP": {
+    "file": "ASPARTIX/baf_complete.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
   }
 }

@@ -300,6 +300,8 @@ class ExperimentRunner:
         nmax = int(self.aaf_generation["nmax"])
         count_per_size = int(self.aaf_generation["count_per_size"])
         seed = int(self.aaf_generation.get("seed", self.master_seed))
+        density_preset = self.aaf_generation.get("density_preset")
+        allow_self_attacks = bool(self.aaf_generation.get("allow_self_attacks"))
         existing = count_aafs(self.aaf_dir)
         expected_sizes = list(range(nmin, nmax + 1))
         if all(existing.get(n, 0) >= count_per_size for n in expected_sizes):
@@ -327,8 +329,13 @@ class ExperimentRunner:
             str(seed),
             "--quiet",
         ]
+        if density_preset:
+            cmd += ["--density-preset", str(density_preset)]
+        if allow_self_attacks:
+            cmd += ["--allow_self_attacks"]
         self.log(
-            f"[GEN ] AAFs n={nmin}..{nmax} count_per_size={count_per_size} seed={seed} -> {self.aaf_dir}"
+            f"[GEN ] AAFs n={nmin}..{nmax} count_per_size={count_per_size} seed={seed} "
+            f"density={density_preset or 'v2'} self_attacks={allow_self_attacks} -> {self.aaf_dir}"
         )
         proc = subprocess.run(
             cmd,

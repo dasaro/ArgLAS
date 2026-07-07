@@ -16,7 +16,10 @@ def extract_arguments_attacks(filepath):
     with open(filepath, 'r') as f:
         lines = f.readlines()
     arguments = [line.strip() for line in lines if line.startswith("arg(")]
-    attacks = [line.strip() for line in lines if line.startswith("att(")]
+    # "attacks" carries every non-argument framework fact, so BAF support/2 facts
+    # ride along into the labelled files (silently dropped otherwise). No effect on
+    # AAF pools, which contain no support( lines. See gap_experiments_spec.md §4.3.
+    attacks = [line.strip() for line in lines if line.startswith(("att(", "support("))]
     return arguments, attacks
 
 def run_clingo(input_file, runtime):

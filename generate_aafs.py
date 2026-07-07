@@ -4,20 +4,23 @@ import random
 
 import clingo
 
-asp_program_template = """
-arg(1..{n}).
-{{ att(X,Y) : arg(X), arg(Y), X != Y }} = {s}.
-"""
-
-def generate_random_aafs(n, M, output_dir, prefix="", seed=None, quiet=False):
-    max_att = n * (n - 1)
+def generate_random_aafs(n, M, output_dir, prefix="", seed=None, quiet=False,
+                         density_preset="v2", allow_self_attacks=False):
+    # Backward-compatible defaults (density_preset="v2", allow_self_attacks=False)
+    # reproduce the original generator byte-for-byte: same rng call sequence, same
+    # max_att and attack template. See docs/gap_experiments_spec.md §4.1.
+    neq = "" if allow_self_attacks else ", X != Y"
+    max_att = n * n if allow_self_attacks else n * (n - 1)
     unique_models = set()
     rng = random.Random(seed)
 
     for i in range(1, M + 1):
         while True:
             selected_model = None
-            s = rng.randint(n, max_att)
+            if density_preset == "sparse":
+                s = rng.randint(n, min(2 * n, max_att))
+            else:  # "v2" — unchanged default
+                s = rng.randint(n, max_att)
 
             def on_model(model):
                 nonlocal selected_model
@@ -35,7 +38,8 @@ def generate_random_aafs(n, M, output_dir, prefix="", seed=None, quiet=False):
                 f"--seed={rand_seed}"
             ])
 
-            ctl.add("base", [], asp_program_template.format(n=n, s=s))
+            program = f"arg(1..{n}).\n{{ att(X,Y) : arg(X), arg(Y){neq} }} = {s}.\n"
+            ctl.add("base", [], program)
             ctl.ground([("base", [])])
             ctl.solve(on_model=on_model)
 
@@ -62,6 +66,11 @@ def build_parser(add_help=True):
     parser.add_argument("--prefix", default="", help="Prefix for output files.")
     parser.add_argument("--seed", type=int, help="Random seed (optional).")
     parser.add_argument("--quiet", action="store_true", help="Suppress output.")
+    parser.add_argument("--density-preset", choices=["v2", "sparse"], default="v2",
+                        help="Attack-count regime: 'v2' s~U[n,max]; 'sparse' s~U[n,2n].")
+    parser.add_argument("--allow_self_attacks", "--allow-self-attacks",
+                        action="store_true", dest="allow_self_attacks",
+                        help="Permit att(X,X); widens max attacks to n*n.")
     return parser
 
 
@@ -81,7 +90,9 @@ def main(argv=None):
             output_dir=args.output_dir,
             prefix=args.prefix,
             seed=None if args.seed is None else args.seed + (n - args.Nmin) * 100000,
-            quiet=args.quiet
+            quiet=args.quiet,
+            density_preset=args.density_preset,
+            allow_self_attacks=args.allow_self_attacks,
         )
 
     if not args.quiet:
