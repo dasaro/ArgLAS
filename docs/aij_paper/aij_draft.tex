@@ -1,4 +1,4 @@
-\documentclass[preprint,12pt]{elsarticle}
+\documentclass[review,12pt]{elsarticle}
 \biboptions{authoryear}
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{booktabs}
@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{xcolor}
+\usepackage[mathlines]{lineno}   % Elsevier review-copy line numbers
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -36,13 +37,18 @@ Robust Recovery, and a Learned Account of Human Acceptance}
 
 \author[imperial]{Zlatina Mileva}
 \author[ucl]{Antonis Bikakis}
-\author[verona]{Fabio Aurelio D'Asaro}
+\author[verona]{Fabio Aurelio D'Asaro\corref{cor}}
+\ead{fabio.dasaro@univr.it}
 \author[ilasp]{Mark Law}
 \author[imperial]{Alessandra Russo}
-\address[imperial]{Imperial College London, UK}
-\address[ucl]{University College London, UK}
-\address[verona]{University of Verona, Italy}
-\address[ilasp]{ILASP Limited, UK}
+\cortext[cor]{Corresponding author.}
+\affiliation[imperial]{organization={Department of Computing, Imperial College
+London}, city={London}, country={United Kingdom}}
+\affiliation[ucl]{organization={Department of Information Studies, University
+College London}, city={London}, country={United Kingdom}}
+\affiliation[verona]{organization={Department of Human Sciences, University of
+Verona}, city={Verona}, country={Italy}}
+\affiliation[ilasp]{organization={ILASP Limited}, country={United Kingdom}}
 
 \begin{abstract}
 Argumentation semantics specify which arguments are acceptable in a framework of
@@ -81,6 +87,8 @@ programming \sep answer set programming \sep formal verification \sep human
 reasoning
 \end{keyword}
 \end{frontmatter}
+
+\linenumbers
 
 %=====================================================================
 \section{Introduction}
