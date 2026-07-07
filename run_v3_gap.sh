@@ -62,11 +62,10 @@ run_cfg() { # $1 = artifact root, $2 = config stem
   fi
 }
 
-# Fast cells first (F: hours), then the three G regimes (GRD column before main grid).
+# Fast cells first (F: hours), then the three G regimes (four semantics; grounded dropped).
 run_cfg artifacts/final_synthetic_v3_baf v3_baf
 run_cfg artifacts/final_synthetic_v3_aba v3_aba
 for regime in sparse self large; do
-  run_cfg "artifacts/final_synthetic_v3_${regime}" "v3_breadth_${regime}_grd"
   run_cfg "artifacts/final_synthetic_v3_${regime}" "v3_breadth_${regime}"
 done
 echo "===== [$(date '+%F %T')] ALL v3 GAP EXPERIMENTS DONE ====="

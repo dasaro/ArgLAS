@@ -43,9 +43,9 @@ completion-based SMT proofs --- including new theorems for bipolar frameworks an
 the machine-discovery (and repair) of a defect in the published assumption-based
 translation. Second, we move from anecdote to a science of \emph{learnability}: a
 large controlled study maps semantics recovery under partial labels, label noise,
-sample size and class imbalance for five semantics, including the first tractable
-learning of grounded and preferred semantics --- grounded, notably, as a complete
-core plus a \emph{learnable} minimality preference. Third, we demonstrate why
+sample size and class imbalance for four semantics (stable, admissible, complete,
+preferred), including the first at-scale learning of preferred semantics via an
+admissible/complete core plus a subset-maximality convention. Third, we demonstrate why
 learning semantics matters when the target is \emph{unknown}: applying the
 framework to human judgement data, we obtain an interpretable characterization of
 the acceptability principles people actually follow, together with a
@@ -77,14 +77,14 @@ uncovered a counterexample-backed defect in the published argument-construction
 step (arguments are dropped whenever fact-derivable roots exist); we give a
 minimal counterexample and a validated fix --- a case study in why mechanized
 checking of learned/encoded programs matters.
-\item \textbf{Grounded and preferred, learnable.} Exhaustive certificates for the
-heuristic encodings ($66\,066$ AFs, zero counterexamples), plus two new
-formulations that scale: a no-choice definite core for grounded, and
-\emph{grounded as a complete core plus a learnable weak-constraint minimality
-preference} (learned from ordering examples in ${<}0.1$s, oracle-equivalent on
-all campaign frameworks).
+\item \textbf{Preferred, learnable at scale.} An exhaustive certificate for the
+subset-maximal heuristic encoding ($66\,066$ AFs, zero counterexamples), plus a
+formulation that scales through the real pipeline: an admissible/complete core
+with a fixed symmetric subset-maximality convention (\texttt{\#heuristic in(X).
+[1,true]} $+$ \texttt{domRec}), recovering preferred at MCC~$0.996$ where the
+$\texttt{--learn-heuristics}$ route did not.
 \item \textbf{Learnability under imperfect data.} A controlled recovery study
-(five semantics $\times$ label completeness $\times$ label noise $\times$ sample
+(four semantics $\times$ label completeness $\times$ label noise $\times$ sample
 size $\times$ class proportions, grouped CV, dual-surface evaluation) that
 quantifies when semantics can be recovered from sampled, imperfect examples ---
 with corrected methodology (complete-information test surface) and honest failure
@@ -96,9 +96,9 @@ arguments), a pre-registered statistical comparison against the textbook
 catalogue, and a test of contextual reasoning (one structure-sensitive semantics,
 not per-scenario semantics). \emph{(Scope decision pending: full section vs.\
 companion paper --- see \S\ref{sec:humans}.)}
-\item \textbf{Systems findings.} A reproducible pipeline; an ILASP 4.4.1
-spurious-\textsc{unsat} bug with minimal reproduction; and a $30$--$600\times$
-learning-time comparison with FastLAS via a verifier reformulation.
+\item \textbf{Systems findings.} A reproducible, resume-safe pipeline (per-cell
+failure taxonomy, dual-surface evaluation) and a $30$--$600\times$ learning-time
+comparison with FastLAS via a verifier reformulation.
 \end{enumerate}
 
 \section{Introduction}\budget{4}
@@ -111,7 +111,9 @@ contributions C1--C7, paper map.
 
 \section{Background}\budget{5}
 \subsection{Argumentation frameworks and semantics} AAF/ABA/BAF/VAF; labellings;
-the five semantics. \material{Preprint \S2.1 (as-is).}
+the four studied semantics (stable, admissible, complete, preferred).
+\material{Preprint \S2.1 (as-is; grounded out of scope for the learnability study
+--- see \S\ref{sec:learn}).}
 \subsection{Learning from Answer Sets and ILASP} CDPI tasks, mode bias, noise;
 heuristic statements and subset-minimal projection $AS^{*}$.
 \material{Preprint \S2.2; keep the (correct) subset-minimality wording.}
@@ -123,8 +125,8 @@ external (io-program) equivalence; anthem and Vampire.
 \section{A Unifying Framework for Learning Argumentation Semantics}\budget{6}
 Unified background $B$ and hypothesis space (Listings 1--2 of the preprint);
 specialization to $B_{\mathrm{AAF}}, B_{\mathrm{BAF}}, B_{\mathrm{VAF}}$
-(now verified, 1\,800 checks); learned encodings for the five semantics
-(Listings 4--8); the \emph{corrected} ABA-to-AAF translation (per-root
+(now verified, 1\,800 checks); learned encodings for the four studied semantics
+(Listings 4--7); the \emph{corrected} ABA-to-AAF translation (per-root
 minimization) with the original defect relegated to \S\ref{sec:mech} as a case
 study. \material{Preprint \S3 + \texttt{check\_unified.py} +
 \texttt{check\_aba\_transform.py} (fix).}
@@ -138,8 +140,8 @@ transitive superset; instantiation at the closure).
 \subsection{Three-level verification} (i) exhaustive: all $66\,066$ AFs
 ${\le}4$ args incl.\ self-attacks $+$ campaign AAFs; (ii) Fages/completion in
 Z3; (iii) anthem+Vampire, fully automatic ($\sim$250--515\,ms per theorem).
-Grounded/preferred heuristic encodings: exhaustive certificates (no FO proof
-exists --- honest scope note).
+Preferred heuristic encoding: exhaustive certificate for the subset-maximal
+projection (no FO proof exists for heuristic semantics --- honest scope note).
 \subsection{Case study: the ABA defect} Minimal counterexample; why the
 published example masked it (no fact rules); the validated fix; lessons for
 verifying learned programs.
@@ -148,24 +150,30 @@ READMEs); proofs from preprint appendix/thesis.}
 \status{All results exist; prose to write. This section is the paper's
 methodological novelty claim --- draft first.}
 
-\section{Learnability under Imperfect Data}\budget{8}
+\section{Learnability under Imperfect Data}\label{sec:learn}\budget{8}
 \subsection{Setup} Generator, pools, grouped CV, soft examples, oracle
 negatives, dual-surface evaluation (matched vs.\ complete-information test),
 failure taxonomy. \material{\texttt{train\_test.py} (audited),
 \texttt{docs/CORRECTED\_CAMPAIGN.md}, audit reports.}
-\subsection{Recovery surfaces} Five semantics $\times$
+\subsection{Recovery surfaces} Four semantics $\times$
 $p\in\{1,.75,.5\}\times q\in\{0,.1,.2\}\times f\in\{10..80\}\times$ three
-pos/neg proportions. Headlines: near-perfect recovery at full information;
-noise (amplified by partiality) is the binding constraint; partial labels
-\emph{help} grounded at small $f$ (cost-tie breaking); sample-size
-non-saturation at partial information.
-\material{v2 campaign (\emph{running}; $\sim$26\% done) + rescore analysis
-(\texttt{analysis/exp1\_complete\_info\_rescore.json}) + figs.}
-\subsection{Making grounded and preferred learnable} No-choice core;
-weak-constraint route (``grounded $=$ complete $+$ learnable minimality'');
-GRD$\times$noise fragility (documented boundary); ILASP version findings
-(spurious-\textsc{unsat} bug, minimal repro).
-\material{\texttt{analysis/grd\_prf\_lab/} + memory notes.}
+pos/neg proportions. Headlines (all four confirmed on the completed campaign):
+near-perfect recovery ($\approx$1.00) at full information once $f\ge30$; noise
+(amplified by partiality) is the binding constraint, and its damage is bought
+back with more examples --- \emph{not} saturated by sample size alone; class
+imbalance is a null (recovery spread ${\le}0.026$ across 40/50/60\% positive);
+every training failure is a timeout under noise (0 \textsc{unsat}, 0 error), 85\%
+at $q{=}0.2$.
+\material{v2 campaign (\emph{complete}; 3510 rows, artifacts/final\_synthetic\_v2)
+$+$ rescore analysis (\texttt{analysis/exp1\_complete\_info\_rescore.json}) $+$
+figs.}
+\subsection{Making preferred learnable at scale} Why the
+$\texttt{--learn-heuristics}$ route stalls at campaign scale; the working
+formulation --- admissible/complete core $+$ a fixed symmetric subset-maximality
+convention (\texttt{\#heuristic in(X).[1,true]} with \texttt{domRec} on both
+sides) --- recovering preferred at MCC~$0.996$; stable-shortcut separation via
+divergent (preferred$\neq$stable) positives.
+\material{\texttt{analysis/grd\_prf\_lab/} (preferred track) $+$ memory notes.}
 \subsection{Breadth} Generator-breadth sweep (sparse/self-attack/larger $n$)
 and BAF/ABA learning cells --- \emph{gap experiments, specified in
 \texttt{docs/gap\_experiments\_spec.md}, to run on the same infrastructure.}
@@ -200,8 +208,12 @@ refresh); ILP/LAS; verification of ASP (anthem line); human-argumentation
 empirical studies. \status{Needs a fresh literature pass (worklist \S4).}
 
 \section{Conclusions and Future Work}\budget{2}
-The four questions answered; limitations (generator scope, GRD$\times$noise,
-human-study power); future: custom semantics at scale, dialogue applications.
+The four questions answered; limitations (generator scope, human-study power);
+future: custom semantics at scale, dialogue applications, and \emph{grounded}
+under a signal-bearing graph distribution (scoped out here: on the dense
+generator its extension is empty $\sim$69\% of the time, starving the learning
+signal, so recovery under noise is a generator-distribution question we leave to
+future work rather than a claim we make).
 
 \appendix
 \section{Proofs} Full manual proofs (stable/complete; BAF reduction lemma).
@@ -217,9 +229,9 @@ declarations, data statement (repository, pinned commit).
 \item \textbf{Venue cascade} (all Classe~A, 11/C2): AIJ $\rightarrow$ split:
 methods$\rightarrow$JLC (or JAR, verification-first), human
 study$\rightarrow$Synthese/Minds\&Machines.
-\item \textbf{Gating items:} v2 campaign completion; two gap experiments;
-related-work refresh; co-author sign-off on \S\ref{sec:humans} scope and the
-ILASP-bug framing (Mark).
+\item \textbf{Gating items:} v2 campaign \emph{done} (3510 rows); remaining ---
+two gap experiments (four semantics; grounded cells dropped), related-work
+refresh, co-author sign-off on \S\ref{sec:humans} scope.
 \end{itemize}
 
 \end{document}

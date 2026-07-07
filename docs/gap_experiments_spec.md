@@ -8,7 +8,7 @@ AAF/BAF/ABA/VAF. Designed to launch **immediately after the v2 campaign finishes
 same 7-worker infrastructure**, with the same resume/skip semantics, dual-surface
 evaluation and failure taxonomy.
 
-**Total: 615 rows** (G: 540, F: 75). Estimated wall-clock: **~3–6 days** sequential
+**Total: 555 rows** (G: 480, F: 75). Estimated wall-clock: **~3–6 days** sequential
 (F first: hours; G-sparse/self: ~0.5–1 day each; G-large: 1–2.5 days — see §6 risks).
 
 **Ground rule:** while v2 is running, *nothing it reads may change* (grid subprocesses
@@ -30,16 +30,22 @@ matched coordinates against v2, not to re-map the whole surface:
 
 | axis | values | rationale |
 |---|---|---|
-| semantics | ADM, CMP, STB, PRF (+ GRD noise-free) | as v2 (GRD×noise exclusion carries over) |
+| semantics | ADM, CMP, STB, PRF | grounded dropped from the paper (see note below) |
 | partial `p` | 1.0, 0.5 | endpoints of the v2 range |
 | noise `q` | 0.0, 0.1 | clean + the v2 "binding constraint" level |
 | examples/class `f` | 20, 60 | pre/post the v2 knee |
 | proportions | 50/50 only | proportions were second-order in v2; don't re-cross |
 | folds | K=5 grouped CV | as v2 |
 
-Rows per regime: (4·2·2·2 + 1·2·1·2) cells × 5 folds = **180**; three regimes = **540**.
+Rows per regime: 4·2·2·2 cells × 5 folds = **160**; three regimes = **480**.
 
-**Regimes** (config: `run_configs/v3_breadth_{sparse,self,large}[_grd].json`):
+> **Grounded is out of scope.** GRD was dropped from the paper: on the dense v2
+> generator its extension is empty ~69% of the time, starving the learning signal,
+> and it is fragile to label noise. The sparse regime here would in fact restore the
+> signal (empty-rate ~23%) — a natural future-work test of "grounded under a
+> signal-bearing distribution" — but we do not run or report GRD cells.
+
+**Regimes** (config: `run_configs/v3_breadth_{sparse,self,large}.json`):
 
 1. **G-sparse** — attack count `s ~ U[n, 2n]` instead of `U[n, n(n-1)]` (attack/argument
    ratio 1–2, the regime of most benchmark and human-authored graphs). Pool seed 20260801.
@@ -53,9 +59,9 @@ Sampling seeds (`test_sampling_seed` 20260312 etc.) are kept identical to v2 on 
 the pools differ by construction, and keeping the sampling machinery fixed makes regime
 deltas attributable to the generator alone.
 
-**ETA arithmetic.** Per regime, 80 rows at q=0.1 are the only slow ones (STB/PRF can hit
-the 3500 s train cap): worst case 80×3500 s / 7 workers ≈ 11 h + fast rows ≈ few hours.
-G-large adds labelling and grounding overhead (see §6, R1).
+**ETA arithmetic.** Per regime, the 40 rows at q=0.1 are the only slow ones (STB/PRF can
+hit the 3500 s train cap): worst case 40×3500 s / 7 workers ≈ 6 h + fast rows ≈ a couple
+hours. G-large adds labelling and grounding overhead (see §6, R1).
 
 **Analysis deliverable.** One Δ-table + one figure per regime: `MCC_FULL` (complete-info
 surface) at the 36 matched cells vs the v2 values, with bootstrap CIs over folds. Claim
@@ -143,7 +149,7 @@ against `check_aba_transform.py --fix` output.
 | `translate_abas.py` | random flat ABAs → corrected-translation AAF pool + sidecars | smoke-run: 8/8 OK |
 | `ASPARTIX/baf_{stable,admissible,complete}.lp` | F1 labelling oracles | ≡ verified learned encodings on smoke BAFs |
 | `bg_baf.lp` | F1 learning background (B_BAF) | formulation from verified lab |
-| `run_configs/v3_breadth_{sparse,self,large}.json` (+`_grd`) | Experiment G configs | schema = v2 configs |
+| `run_configs/v3_breadth_{sparse,self,large}.json` | Experiment G configs (four semantics) | schema = v2 configs |
 | `run_configs/v3_{baf,aba}.json` | Experiment F configs | schema = v2 configs |
 | `run_configs/v3_smoke_breadth.json` | post-patch smoke (new generator flags, 1 cell, 2 folds) | — |
 | `run_v3_gap.sh` | sequential launcher; guards + pool generation + resume | guards verified to refuse pre-patch |
@@ -243,8 +249,9 @@ side operate on `arg/in/out` and are framework-agnostic). Mode bias file: **unch
 ## 6. Risks and pre-committed responses
 
 - **R1 (G-large labelling/learning cost).** Extension enumeration (esp. ADM/PRF) and ILASP
-  grounding grow steeply with n. Mitigation: the launcher runs each regime's cheap `_grd`
-  config first — its `ensure_aafs` + labelling stage doubles as the regime's preflight. If
+  grounding grow steeply with n. Mitigation: the launcher runs each regime's cheap
+  `q=0` clean cells first — the `ensure_aafs` + labelling stage doubles as the regime's
+  preflight. If
   labelling n=12 exceeds ~2 h or ADM/PRF rows blow past the train cap wholesale, drop
   `nmax` to 11 (regenerate with the same seed; the claim "larger frameworks" survives) and
   note the boundary honestly in the paper.
