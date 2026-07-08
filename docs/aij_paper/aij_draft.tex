@@ -837,11 +837,43 @@ runs; see the survivorship accounting below). The completeness axis
 (Table~\ref{tab:pq}) sharpens this: partial labels cost \emph{nothing} on
 clean data --- if anything they help, since partial positives constrain less
 and are easier to cover --- but they multiply the damage of noise
-($0.872\to0.619$ at $q=0.2$ as $p$ falls from $1.0$ to $0.5$). Recovery is
-\emph{not} saturated by sample size alone at imperfect information --- the
-$f$-axis keeps paying off precisely when labels are partial or noisy, a
+($0.872\to0.619$ at $q=0.2$ as $p$ falls from $1.0$ to $0.5$). Figures
+\ref{fig:slice_noise} and~\ref{fig:slice_partial} make the interaction concrete
+at a single sample size ($f=20$, where all cells are complete): under
+\emph{full} labels the noise response is gentle and its fold-to-fold
+variance small, whereas under \emph{half} labels the same noise both lowers
+recovery and inflates its variance sharply (Figure~\ref{fig:slice_noise}); and
+sweeping completeness directly (Figure~\ref{fig:slice_partial}) shows the lines
+essentially flat on clean data but fanning downward once noise is present.
+Recovery is \emph{not} saturated by sample size alone at imperfect information
+--- the $f$-axis keeps paying off precisely when labels are partial or noisy, a
 correction to the ``saturation at $f\ge 30$'' reading a clean-label study
 would suggest.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.49\linewidth]{figs/fig_slice_noise_full.pdf}\hfill
+\includegraphics[width=0.49\linewidth]{figs/fig_slice_noise_partial.pdf}
+\caption{Recovery versus label noise at a fixed, fully-complete sample size
+($f=20$, balanced arm), with full labels ($p=1.0$, left) and half labels
+($p=0.5$, right). Error bars are $95\%$ confidence intervals over the five
+cross-validation folds (clipped to the valid MCC range). Partial labels turn a
+gentle, low-variance noise response into a steep, high-variance one --- the same
+noise is far more damaging when labels are also incomplete.}
+\label{fig:slice_noise}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_slice_partial.pdf}
+\caption{Recovery versus label completeness at fixed $f=20$ (balanced arm), on
+clean labels ($q=0$, left) and noisy labels ($q=0.2$, right); $95\%$
+fold-level confidence intervals. Completeness is almost irrelevant when labels
+are clean (flat lines, tight intervals) but costly and variance-inflating once
+noise is present --- the interaction of Table~\ref{tab:pq} resolved per
+semantics.}
+\label{fig:slice_partial}
+\end{figure}
 
 \textbf{(E1.3) Class imbalance is immaterial.} Matched cell-for-cell across the
 three proportion arms (Table~\ref{tab:imbalance}; $52$--$54$ matched cells per
