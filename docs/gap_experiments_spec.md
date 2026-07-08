@@ -11,13 +11,22 @@ evaluation and failure taxonomy.
 **Total: 555 rows** (G: 480, F: 75). Estimated wall-clock: **~3–6 days** sequential
 (F first: hours; G-sparse/self: ~0.5–1 day each; G-large: 1–2.5 days — see §6 risks).
 
-**Test-set sizing (calibrated 2026-07-07).** `test_examples_per_class` cannot be inherited
-from v2 (100): a single fold that can't supply that many balanced test examples hard-fails
-the whole config (build_grouped_balanced_test raises). Measured stable-extension yield/fold
-(STB is the binding semantics) → per-config `test_epc`: sparse/self **80** (~121/fold),
-large **60** (~97/fold, 180-AAF pool), baf **80** (BAF-STB ~118/fold), aba **15** (~32/fold
-— 56% of translated ABAs have *no* stable extension). MCC is a population quantity, so a
-smaller test set only widens CI, not bias. Verified end-to-end by the smoke run.
+**Test-set sizing (calibrated 2026-07-07; self corrected 2026-07-08).**
+`test_examples_per_class` cannot be inherited from v2 (100): a single fold that can't supply
+that many balanced test examples hard-fails the whole config (build_grouped_balanced_test
+raises). Measured stable-extension yield/fold (STB is the binding semantics) → per-config
+`test_epc`: sparse **80** (~121/fold), large **60** (~97/fold, 180-AAF pool), baf **80**
+(BAF-STB ~118/fold), aba **15** (~32/fold — 56% of translated ABAs have *no* stable
+extension), **self 30** (see below). MCC is a population quantity, so a smaller test set
+only widens CI, not bias.
+
+> **Self-attack STB scarcity (corrected 2026-07-08).** The self regime was mis-sized at 80:
+> a self-attacking argument can never be in a *stable* extension (it attacks itself → not
+> conflict-free), so the self-attack pool yields only ~45 STB positives/fold (225/500 AAFs),
+> far below ADM/CMP/PRF (112–274/fold). At `test_epc=80` the STB folds raised and halted the
+> launcher after the ADM/CMP/PRF cells had completed. Fix: `test_epc=30` for the whole self
+> regime (purge + rerun for a uniform test size), verified — STB cells now complete. Lesson:
+> size each regime by its *own* worst-semantics yield, not by analogy to the dense pool.
 
 **Ground rule:** while v2 is running, *nothing it reads may change* (grid subprocesses
 re-load `*.py`, `semantics_config.json`, `ilasp_config.json`, `background_knowledge.lp`

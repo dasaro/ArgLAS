@@ -34,7 +34,7 @@
   "negative_flip_k": 1,
   "eval_match_policy": "full_exact_model",
   "test_set_policy": "grouped_kfold",
-  "test_examples_per_class": 80,
+  "test_examples_per_class": 30,
   "test_sampling_seed": 20260312,
   "task_sampling_seed_base": 20260311,
   "label_seed_base": 20260310,
