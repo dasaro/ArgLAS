@@ -229,7 +229,95 @@ def fig_imbalance():
     save(fig, "fig_imbalance")
 
 
+# ---- per-cell mean + 95% CI over folds (t-corrected small-sample)
+_T95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365,
+        8: 2.306, 9: 2.262, 10: 2.228, 14: 2.145}
+
+
+def cell_ci(sem, p, q, f):
+    """mean and 95% CI half-width (t-corrected) over folds, clipped to valid MCC range."""
+    v = [float(r["MCC_FULL"]) for r in V2 if r["_arm"] == "1" and r["_sem"] == sem
+         and r["_p"] == p and r["_q"] == q and int(r["NFILES_POS"]) == f and ok(r)]
+    if not v:
+        return np.nan, 0.0, 0.0
+    if len(v) < 2:
+        return v[0], 0.0, 0.0
+    m = st.mean(v); sd = st.stdev(v); df = len(v) - 1
+    ci = _T95.get(df, 2.0) * sd / math.sqrt(len(v))
+    lo = m - max(-1.0, m - ci)           # clip lower whisker at MCC = -1
+    hi = min(1.0, m + ci) - m            # clip upper whisker at MCC = 1
+    return m, lo, hi
+
+
+def series(sem, p, q, fvals=None, ps=None, qs=None):
+    """Return (means, [lower_errs], [upper_errs]) over one swept axis."""
+    if qs is not None:
+        cells = [cell_ci(sem, p, qq, FSTAR) for qq in qs]
+    elif ps is not None:
+        cells = [cell_ci(sem, pp, q, FSTAR) for pp in ps]
+    m = [c[0] for c in cells]; lo = [c[1] for c in cells]; hi = [c[2] for c in cells]
+    return m, [lo, hi]
+
+
+QLAB = {"0.0": "0", "0.1": "0.1", "0.2": "0.2"}
+FSTAR = 20  # "interesting" balanced sample size: all cells complete (5 folds), largest noise effects
+
+
+# ============================================= FIG 7: noise sweep at fixed PARTIAL labels (p=0.5)
+def fig_slice_noise_partial():
+    fig, ax = plt.subplots(figsize=(4.4, 3.1), constrained_layout=True)
+    x = np.arange(len(QS))
+    for k, s in enumerate(SEMS):
+        m, e = series(s, "0.5", None, qs=QS)
+        ax.errorbar(x + (k - 1.5) * 0.04, m, yerr=e, fmt="-o", ms=4, lw=1.6, capsize=3,
+                    color=SEMCOL[s], label=s)
+    ax.set_xticks(x); ax.set_xticklabels([QLAB[q] for q in QS])
+    ax.set_xlabel("label noise $q$"); ax.set_ylabel("recovery (MCC)")
+    ax.set_ylim(0.20, 1.03); ax.grid(alpha=0.25, lw=0.5)
+    ax.set_title(f"Partial labels ($p=0.5$), $f={FSTAR}$ balanced")
+    ax.legend(frameon=False, fontsize=8, ncol=2, loc="lower left", columnspacing=0.8)
+    save(fig, "fig_slice_noise_partial")
+
+
+# ============================================= FIG 8: noise sweep at fixed f (full labels)
+def fig_slice_noise_full():
+    fig, ax = plt.subplots(figsize=(4.4, 3.1), constrained_layout=True)
+    x = np.arange(len(QS))
+    for k, s in enumerate(SEMS):
+        m, e = series(s, "1.0", None, qs=QS)
+        ax.errorbar(x + (k - 1.5) * 0.04, m, yerr=e, fmt="-o", ms=4, lw=1.6, capsize=3,
+                    color=SEMCOL[s], label=s)
+    ax.set_xticks(x); ax.set_xticklabels([QLAB[q] for q in QS])
+    ax.set_xlabel("label noise $q$"); ax.set_ylabel("recovery (MCC)")
+    ax.set_ylim(0.20, 1.03); ax.grid(alpha=0.25, lw=0.5)
+    ax.set_title(f"Full labels ($p=1.0$), $f={FSTAR}$ balanced")
+    ax.legend(frameon=False, fontsize=8, ncol=2, loc="lower left", columnspacing=0.8)
+    save(fig, "fig_slice_noise_full")
+
+
+# ============================================= FIG 9: completeness sweep at fixed f, clean vs noisy
+def fig_slice_partial():
+    PS = ["1.0", "0.75", "0.5"]
+    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.1), sharey=True, constrained_layout=True)
+    for ax, q in zip(axes, ["0.0", "0.2"]):
+        x = np.arange(len(PS))
+        for k, s in enumerate(SEMS):
+            m, e = series(s, None, q, ps=PS)
+            ax.errorbar(x + (k - 1.5) * 0.04, m, yerr=e, fmt="-o", ms=4, lw=1.6, capsize=3,
+                        color=SEMCOL[s], label=s)
+        ax.set_xticks(x); ax.set_xticklabels(PS)
+        ax.set_xlabel("label completeness $p$")
+        ax.set_ylim(0.20, 1.03); ax.grid(alpha=0.25, lw=0.5)
+        ax.set_title(f"noise $q={QLAB[q]}$, $f={FSTAR}$ balanced")
+    axes[0].set_ylabel("recovery (MCC)")
+    axes[1].legend(frameon=False, fontsize=8, ncol=2, loc="lower left", columnspacing=0.8)
+    save(fig, "fig_slice_partial")
+
+
 if __name__ == "__main__":
+    fig_slice_noise_partial()
+    fig_slice_noise_full()
+    fig_slice_partial()
     fig_recovery_heatmap()
     fig_time_heatmap()
     fig_recovery_curves()
