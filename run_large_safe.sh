@@ -1,9 +1,17 @@
 #!/bin/bash
 # Memory-safe runner for the v3 "large" regime (n=10-12 dense: the campaign's
-# heaviest ILASP/clingo tasks). Two crashes were caused by 7 parallel workers
-# exhausting 24 GB RAM. Safety = low concurrency (workers=2 in the config) + a
-# memory watchdog that pauses the solvers if available memory hits the danger
-# zone and resumes them once it recovers, so the machine cannot OOM.
+# heaviest ILASP tasks; a single noisy f=60 task can peak ~7-8 GB).
+#
+# Two machine crashes came from 7 parallel workers exhausting 24 GB. macOS
+# rejects ulimit -v, so the fix is:
+#   (1) workers=1 in the config -- one heavy task at a time cannot coincide with
+#       another, so peak memory ~= one task (~7-8 GB) << 24 GB. This alone makes
+#       OOM essentially impossible.
+#   (2) a KILL backstop watchdog -- if available memory ever hits a true
+#       emergency (< 1.8 GB), it SIGKILLs the largest ILASP to FREE memory (a
+#       paused process still holds its memory, so pausing would only stall; kill
+#       actually frees). A killed task is recorded as a failure and the grid
+#       continues -- it never OOMs the machine.
 # Resume-safe: rerun this script; completed rows are skipped.
 set -u
 cd "$(dirname "$0")"
@@ -11,8 +19,7 @@ ROOT=artifacts/final_synthetic_v3_large
 CFG=run_configs/v3_breadth_large.json
 rm -f "$ROOT"/logs/*.lock
 
-PAUSE_GB=2.5      # pause solvers when available memory drops below this
-RESUME_GB=4.5     # resume once it climbs back above this
+KILL_GB=1.8   # emergency floor: below this, kill the largest ILASP to free memory
 
 avail_gb() {  # macOS available memory: free+inactive+speculative+purgeable pages
   local page; page=$(sysctl -n hw.pagesize)
@@ -24,32 +31,29 @@ avail_gb() {  # macOS available memory: free+inactive+speculative+purgeable page
     END {printf "%.1f", (f+i+s+g)*p/1073741824}'
 }
 
-# --- watchdog: pause/resume clingo+ILASP under memory pressure -------------
 watchdog() {
-  local paused=0 a
   while true; do
     a=$(avail_gb)
-    if [ "$paused" -eq 0 ] && awk "BEGIN{exit !($a < $PAUSE_GB)}"; then
-      echo "[watchdog $(date '+%F %T')] available ${a}GB < ${PAUSE_GB} -- SIGSTOP solvers"
-      pkill -STOP -x ILASP 2>/dev/null; pkill -STOP -x clingo 2>/dev/null
-      paused=1
-    elif [ "$paused" -eq 1 ] && awk "BEGIN{exit !($a > $RESUME_GB)}"; then
-      echo "[watchdog $(date '+%F %T')] available ${a}GB > ${RESUME_GB} -- SIGCONT solvers"
-      pkill -CONT -x ILASP 2>/dev/null; pkill -CONT -x clingo 2>/dev/null
-      paused=0
+    if awk "BEGIN{exit !($a < $KILL_GB)}"; then
+      # free memory by killing the single largest ILASP (recorded as a failure;
+      # the grid keeps going). With workers=1 this should essentially never fire.
+      victim=$(ps -axo pid,rss,comm | awk '$3=="ILASP"{print $2,$1}' | sort -rn | head -1 | awk '{print $2}')
+      if [ -n "$victim" ]; then
+        echo "[watchdog $(date '+%F %T')] EMERGENCY avail ${a}GB < ${KILL_GB} -- SIGKILL largest ILASP pid $victim"
+        kill -9 "$victim" 2>/dev/null
+        sleep 8
+      fi
     fi
-    sleep 5
+    sleep 4
   done
 }
 watchdog & WD=$!
-# make sure a pause never outlives the watchdog, and clean up on exit
-cleanup() { kill "$WD" 2>/dev/null; pkill -CONT -x ILASP 2>/dev/null; pkill -CONT -x clingo 2>/dev/null; }
-trap cleanup EXIT INT TERM
+trap 'kill $WD 2>/dev/null' EXIT INT TERM
 
-echo "===== [$(date '+%F %T')] large regime (workers=2, watchdog pid $WD, avail $(avail_gb)GB) ====="
+echo "===== [$(date '+%F %T')] large regime (workers=1, kill-watchdog pid $WD, avail $(avail_gb)GB) ====="
 FABIO_ARTIFACTS_ROOT="$ROOT" python3 run_experiment_grid.py --config "$CFG"
 rc=$?
-cleanup
+kill "$WD" 2>/dev/null
 if [ "$rc" -eq 0 ]; then
   echo "===== [$(date '+%F %T')] ALL v3 GAP EXPERIMENTS DONE (large via memory-safe runner) ====="
 else
