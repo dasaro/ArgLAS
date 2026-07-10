@@ -1,5 +1,11 @@
 # Corrected synthetic campaign (Exp1) — runbook
 
+> **Layout note (2026-07-11):** the repository was reorganized — the core learner now
+> lives in `arglas/`, config/encoding assets in `config/`, campaign scripts and
+> `run_configs/` in `experiments/`, and the committed results in `data/`. Commands
+> below that reference root-level scripts/configs should be read with the
+> `experiments/` (scripts, configs) and `config/` (json/lp assets) prefixes.
+
 This documents the corrected Exp1 pipeline after the 2026-06-23/24 health+trust audit
 and the Phase-0 fixes. See the `fix/audit-corrections` branch commits for the changes.
 

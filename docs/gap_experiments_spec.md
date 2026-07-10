@@ -1,5 +1,11 @@
 # v3 gap experiments — generator breadth (G) + framework breadth (F)
 
+> **Layout note (2026-07-11):** the repository was reorganized — the core learner now
+> lives in `arglas/`, config/encoding assets in `config/`, campaign scripts and
+> `run_configs/` in `experiments/`, and the committed results in `data/`. Commands
+> below that reference root-level scripts/configs should be read with the
+> `experiments/` (scripts, configs) and `config/` (json/lp assets) prefixes.
+
 Two experiments that close the external-validity gaps flagged by the Exp1 bias audit and
 required by the AIJ outline (`docs/aij_outline/`, §5.4): every v2 claim currently rests on
 **one generator regime** (n=4..8, dense `s~U[n, n(n-1)]`, no self-attacks), and learning is
