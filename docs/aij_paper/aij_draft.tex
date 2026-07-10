@@ -1490,6 +1490,43 @@ classifier cannot represent the extension \emph{set} that LAS learns.}
 \label{fig:baseline_comparison}
 \end{figure}
 
+Inspecting the learned trees explains \emph{why} the gap has the shape it does
+(Figure~\ref{fig:learned_trees}). For grounded acceptance the depth-6 tree
+collapses --- after pruning branches that all predict the same class --- to three
+legible rules: reject anything not reachable from an unattacked argument; reject
+anything with an unattacked attacker; otherwise accept. This is a recognisable,
+hand-readable approximation of grounded semantics, which is exactly why grounded
+is the target the tree fits best. But it is a \emph{two-hop} approximation of a
+\emph{fixpoint}: grounded acceptance follows arbitrarily long defence chains,
+which no bounded-depth tree over local features can express, so the tree tops out
+at MCC $0.86$ rather than the LAS program's exact $1.0$. For credulous-stable
+acceptance the same top rule survives (an unattacked attacker forces rejection),
+but below it the tree dissolves into roughly twenty ad-hoc splits on degree, SCC
+size and density whose leaves mix accept and reject with no coherent structure ---
+because ``is this argument \pred{in} in \emph{some} stable extension?'' is a
+global property of the extension set that local features cannot resolve, and the
+target is a near-even split the learner ends up fitting to noise. The contrast is
+the paper's thesis in miniature: a feature classifier yields a legible rule only
+where the semantics is functional, and an incoherent threshold-tangle where it is
+not --- precisely where the generative answer-set formulation, whose answer sets
+\emph{are} the extensions, is needed and, uniquely, is provably exact.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_learned_trees.pdf}
+\caption{Two decision trees learned agnostically from structure (clean labels,
+fold~1), shown after collapsing constant subtrees.
+\textbf{(a)}~Grounded: three legible rules approximating grounded acceptance
+(reachability from the unattacked core, minus direct undefended attack), the
+target feature learners fit best.
+\textbf{(b)}~Credulous-stable: one clean rule, then a tangle of $\sim$20 splits
+whose leaves mix \pred{in}/\pred{out} with no coherent rule --- credulous stable
+acceptance is a global property of the extension \emph{set} that local features
+cannot capture. Grounded is functional (one extension), so a local heuristic gets
+close; stable is multi-extension, so it does not.}
+\label{fig:learned_trees}
+\end{figure}
+
 \paragraph{Compactness.} The learned encodings are small: two to three rules
 per semantics plus the shared background, against reference encodings of up to
 $33$ rules (preferred). Every learned theory in this paper fits --- and is

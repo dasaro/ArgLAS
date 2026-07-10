@@ -380,7 +380,65 @@ def fig_baseline_comparison():
     save(fig, "fig_baseline_comparison")
 
 
+# ============================================= FIG: two learned decision trees (contrast)
+def fig_learned_trees():
+    from matplotlib.patches import FancyBboxPatch
+    C = {"dec": ("#eceae3", "#888780", "#2c2c2a"),
+         "in": ("#cfe8dd", "#1b7837", "#0f6e56"),
+         "out": ("#f6d6d6", "#c0392b", "#a32d2d"),
+         "tan": ("#faeeda", "#ba7517", "#854f0b")}
+
+    def node(ax, cx, cy, w, h, lines, kind):
+        fc, ec, tc = C[kind]
+        ax.add_patch(FancyBboxPatch((cx - w / 2, cy - h / 2), w, h,
+                     boxstyle="round,pad=0.02,rounding_size=0.12", fc=fc, ec=ec, lw=1.2))
+        n = len(lines); step = 0.34
+        y0 = cy + (n - 1) * step / 2
+        for i, (txt, big) in enumerate(lines):
+            ax.text(cx, y0 - i * step, txt, ha="center", va="center", color=tc,
+                    fontsize=10 if big else 7.6, fontweight="medium" if big else "normal")
+
+    def edge(ax, x1, y1, x2, y2, lab=None, dashed=False):
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle="-|>", color="#888780", lw=1.2,
+                                    ls=(0, (4, 3)) if dashed else "-", shrinkA=0, shrinkB=2))
+        if lab:
+            ax.text((x1 + x2) / 2 + 0.15, (y1 + y2) / 2, lab, fontsize=7.5, color="#5f5e5a",
+                    ha="left", va="center", style="italic")
+
+    fig, (axA, axB) = plt.subplots(1, 2, figsize=(9.4, 3.7), constrained_layout=True)
+    for ax in (axA, axB):
+        ax.set_xlim(0, 10); ax.set_ylim(0.6, 10.2); ax.axis("off")
+
+    # (a) grounded — three clean rules
+    node(axA, 5, 9.2, 5.2, 1.2, [("reachable from an", False), ("unattacked argument?", False)], "dec")
+    node(axA, 2.0, 6.2, 3.0, 1.0, [("OUT", True)], "out")
+    node(axA, 7.4, 6.2, 4.3, 1.2, [("unattacked", False), ("attacker?", False)], "dec")
+    node(axA, 5.4, 3.0, 2.9, 1.0, [("OUT", True)], "out")
+    node(axA, 8.7, 3.0, 2.6, 1.0, [("IN", True)], "in")
+    edge(axA, 4.2, 8.6, 2.4, 6.7, "no")
+    edge(axA, 5.8, 8.6, 7.0, 6.8, "yes")
+    edge(axA, 6.9, 5.6, 5.6, 3.5, "yes")
+    edge(axA, 7.9, 5.6, 8.6, 3.5, "no")
+    axA.set_title("(a) grounded — 3 clean rules  (MCC 0.86)", fontsize=10)
+
+    # (b) credulous-stable — one rule then a tangle
+    node(axB, 5, 9.2, 4.3, 1.2, [("unattacked", False), ("attacker?", False)], "dec")
+    node(axB, 2.0, 6.2, 3.0, 1.0, [("OUT", True)], "out")
+    node(axB, 7.2, 6.2, 5.2, 1.5, [("~20 further splits", False), ("degree, SCC, density…", False),
+                                   ("no coherent rule", False)], "tan")
+    node(axB, 5.5, 2.7, 2.7, 1.0, [("IN", True)], "in")
+    node(axB, 8.6, 2.7, 2.7, 1.0, [("OUT", True)], "out")
+    edge(axB, 4.1, 8.6, 2.4, 6.7, "yes")
+    edge(axB, 5.9, 8.6, 6.9, 6.95, "no")
+    edge(axB, 6.9, 5.45, 5.6, 3.2, "some", dashed=True)
+    edge(axB, 7.7, 5.45, 8.5, 3.2, "other", dashed=True)
+    axB.set_title("(b) credulous-stable — 1 rule, then a tangle  (MCC 0.55)", fontsize=10)
+    save(fig, "fig_learned_trees")
+
+
 if __name__ == "__main__":
+    fig_learned_trees()
     fig_baseline_comparison()
     fig_generator_breadth()
     fig_slice_noise_partial()
