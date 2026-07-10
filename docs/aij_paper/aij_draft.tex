@@ -1450,6 +1450,46 @@ learning cannot use body features defined recursively from the learning
 target; making the labelling an \emph{input} and learning its \emph{verifier}
 removes the recursion without changing the semantics of the task.
 
+\paragraph{A non-LAS baseline.} Both learners above are LAS-family; a fair
+question is whether a simpler, different learner is competitive. The natural
+comparator outside the family is a feature-based classifier on the
+\emph{per-argument} acceptance task --- the task the deep-learning baselines
+solve (predict whether an argument is credulously/skeptically accepted), rather
+than the labelling-level extension-membership task the LAS encodings solve. We
+train a decision tree, a $200$-tree random forest, and logistic regression on
+$15$ purely structural argument features (degree, unattacked, in-a-cycle,
+reachable-from-unattacked, SCC size, $\dots$), on the \emph{same} $500$-framework
+pool under the \emph{same} grouped five-fold protocol, for all four semantics and
+the same noise axis. Because credulous acceptance coincides for
+admissible/complete/preferred, the per-semantics signal lives in the credulous
+stable, skeptical stable/preferred/complete, and shared credulous targets.
+Figure~\ref{fig:baseline_comparison} reports clean-label recovery. The strongest
+feature learner (the random forest --- so this is not a strawman) tops out at MCC
+$0.67$--$0.72$ on the multi-extension targets and $0.86$ on complete/grounded
+--- the near-functional single-extension case where local features suffice ---
+against the LAS encodings' verified exact recovery. The interpretable depth-6
+tree is lower ($0.55$--$0.82$), and under noise all degrade (e.g.\ the grounded
+tree $0.86\to0.45$ at $q{=}0.2$) where the LAS route is data-recoverable. Two
+things separate the baseline from LAS: acceptance is a \emph{global} property of
+the extension structure that local features can only approximate, and a
+per-argument classifier structurally \emph{cannot represent the set of
+extensions} at all. We considered other symbolic ILP systems as baselines
+(Popper, Aleph) but they cannot express the negation-as-failure and choice-rule
+semantics the task requires, nor learn from noisy examples --- the study's
+central axis (Section~\ref{sec:related}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figs/fig_baseline_comparison.pdf}
+\caption{A non-LAS baseline: clean-label recovery (MCC) on the per-argument
+acceptance task, over the same pool and grouped five-fold CV. A feature-based
+decision tree and the strongest feature learner (random forest / depth-12 tree)
+plateau well below the LAS encodings' verified exact recovery, and closest only
+on complete/grounded (a single-extension, near-functional target). A per-argument
+classifier cannot represent the extension \emph{set} that LAS learns.}
+\label{fig:baseline_comparison}
+\end{figure}
+
 \paragraph{Compactness.} The learned encodings are small: two to three rules
 per semantics plus the shared background, against reference encodings of up to
 $33$ rules (preferred). Every learned theory in this paper fits --- and is
@@ -1481,7 +1521,13 @@ Section~\ref{sec:theory} are submitted.}
 \paragraph{ILP / LAS.} We build directly on ILASP's context-dependent,
 noise-tolerant learning~\citep{law2016,law2018,law2019,law2018phd} and
 FastLAS~\citep{law2020}. The verifier reformulation (B4) relates to
-observational predicate learning limits discussed by \citet{law2020}.
+observational predicate learning limits discussed by \citet{law2020}. Other
+modern ILP systems --- Popper~\citep{cropper2021popper} and
+Aleph~\citep{srinivasan2001aleph} --- are not applicable baselines here: they
+learn definite/normal Prolog programs and support neither the negation-as-failure
+and choice-rule constructs the acceptability encodings require nor learning from
+noisy examples, the study's central axis; our non-LAS comparison
+(Section~\ref{sec:eval}) therefore uses feature-based classifiers instead.
 
 \paragraph{Verification of ASP.} Our completion-based level follows the
 classical Clark/Fages line~\citep{clark1978,fages1994}; the external-equivalence
@@ -1623,6 +1669,11 @@ D.~Craandijk, F.~Bex.
 Deep learning for abstract argumentation semantics.
 In \emph{Proc.\ IJCAI}, 1667--1673, 2020.
 
+\bibitem[Cropper and Morel(2021)]{cropper2021popper}
+A.~Cropper, R.~Morel.
+Learning programs by learning from failures.
+\emph{Machine Learning} 110(4):801--856, 2021.
+
 \bibitem[Cramer and Guillaume(2018)]{cramer2018}
 M.~Cramer, M.~Guillaume.
 Empirical cognitive study on abstract argumentation semantics.
@@ -1721,6 +1772,11 @@ I.~Rahwan, M.~I. Madakkatel, J.-F. Bonnefon, R.~N. Awan, S.~Abdallah.
 Behavioral experiments for assessing the abstract argumentation semantics of
 reinstatement.
 \emph{Cognitive Science} 34(8):1483--1502, 2010.
+
+\bibitem[Srinivasan(2001)]{srinivasan2001aleph}
+A.~Srinivasan.
+\emph{The Aleph Manual}.
+University of Oxford, 2001.
 
 \end{thebibliography}
 

@@ -353,7 +353,35 @@ def fig_generator_breadth():
     save(fig, "fig_generator_breadth")
 
 
+# ============================================= FIG: non-LAS baseline comparison
+def fig_baseline_comparison():
+    import json as _json
+    res = _json.load(open(os.path.join(REPO, "analysis/tree_baseline/results.json")))
+    order = ["cred_STB", "skep_STB", "cred_ADMfam", "skep_PRF", "skep_CMP"]
+    nice = {"cred_STB": "credulous\nstable", "skep_STB": "skeptical\nstable",
+            "cred_ADMfam": "credulous\nadm/cmp/prf", "skep_PRF": "skeptical\npreferred",
+            "skep_CMP": "skeptical\ncomplete"}
+    tree, best, las = [], [], []
+    for t in order:
+        b = res["tasks"][t]["by_noise"]["0.0"]
+        tree.append(b["tree"]["mcc"][0])
+        best.append(max(b[m]["mcc"][0] for m in ("tree_deep", "rf", "logreg")))
+        las.append(1.0)
+    import numpy as _np
+    x = _np.arange(len(order)); w = 0.26
+    fig, ax = plt.subplots(figsize=(7.6, 3.1), constrained_layout=True)
+    ax.bar(x - w, tree, w, label="decision tree (interpretable)", color="#888780")
+    ax.bar(x, best, w, label="best feature learner (RF/deep)", color="#2166ac")
+    ax.bar(x + w, las, w, label="LAS (verified exact)", color="#1b7837")
+    ax.set_xticks(x); ax.set_xticklabels([nice[t] for t in order], fontsize=8)
+    ax.set_ylabel("recovery (MCC), clean labels"); ax.set_ylim(0, 1.03)
+    ax.grid(axis="y", alpha=0.25, lw=0.5)
+    ax.legend(frameon=False, fontsize=8, ncol=3, loc="lower center", columnspacing=1.0)
+    save(fig, "fig_baseline_comparison")
+
+
 if __name__ == "__main__":
+    fig_baseline_comparison()
     fig_generator_breadth()
     fig_slice_noise_partial()
     fig_slice_noise_full()
