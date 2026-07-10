@@ -1,0 +1,100 @@
+# Decision tree for skep_PRF (clean, fold 0)
+# base rate accepted = 0.170
+
+|--- in_deg <= 1.50
+|   |--- n_unatt_attackers <= 0.50
+|   |   |--- reachable_from_unatt <= 0.50
+|   |   |   |--- n_defenders <= 1.50
+|   |   |   |   |--- class: 0
+|   |   |   |--- n_defenders >  1.50
+|   |   |   |   |--- mean_attacker_indeg <= 2.50
+|   |   |   |   |   |--- att_density <= 0.37
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- att_density >  0.37
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- mean_attacker_indeg >  2.50
+|   |   |   |   |   |--- att_density <= 0.48
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- att_density >  0.48
+|   |   |   |   |   |   |--- class: 1
+|   |   |--- reachable_from_unatt >  0.50
+|   |   |   |--- scc_size <= 2.50
+|   |   |   |   |--- is_unattacked <= 0.50
+|   |   |   |   |   |--- n_atts <= 6.50
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- n_atts >  6.50
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- is_unattacked >  0.50
+|   |   |   |   |   |--- att_density <= 0.19
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- att_density >  0.19
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- scc_size >  2.50
+|   |   |   |   |--- n_defenders <= 2.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- n_defenders >  2.50
+|   |   |   |   |   |--- class: 1
+|   |--- n_unatt_attackers >  0.50
+|   |   |--- class: 0
+|--- in_deg >  1.50
+|   |--- in_deg <= 2.50
+|   |   |--- mean_attacker_indeg <= 1.75
+|   |   |   |--- mean_attacker_indeg <= 1.25
+|   |   |   |   |--- in_cycle <= 0.50
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- in_cycle >  0.50
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- mean_attacker_indeg >  1.25
+|   |   |   |   |--- reachable_from_unatt <= 0.50
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- reachable_from_unatt >  0.50
+|   |   |   |   |   |--- class: 1
+|   |   |--- mean_attacker_indeg >  1.75
+|   |   |   |--- att_density <= 0.78
+|   |   |   |   |--- mean_attacker_indeg <= 2.75
+|   |   |   |   |   |--- reachable_from_unatt <= 0.50
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- reachable_from_unatt >  0.50
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- mean_attacker_indeg >  2.75
+|   |   |   |   |   |--- n_atts <= 20.50
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |   |--- n_atts >  20.50
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |--- att_density >  0.78
+|   |   |   |   |--- class: 0
+|   |--- in_deg >  2.50
+|   |   |--- att_density <= 0.83
+|   |   |   |--- mean_attacker_indeg <= 2.63
+|   |   |   |   |--- mean_attacker_indeg <= 2.29
+|   |   |   |   |   |--- att_density <= 0.34
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- att_density >  0.34
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |--- mean_attacker_indeg >  2.29
+|   |   |   |   |   |--- in_deg <= 3.50
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- in_deg >  3.50
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |--- mean_attacker_indeg >  2.63
+|   |   |   |   |--- in_deg <= 3.50
+|   |   |   |   |   |--- mean_attacker_indeg <= 4.17
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- mean_attacker_indeg >  4.17
+|   |   |   |   |   |   |--- class: 1
+|   |   |   |   |--- in_deg >  3.50
+|   |   |   |   |   |--- mean_attacker_indeg <= 5.31
+|   |   |   |   |   |   |--- class: 0
+|   |   |   |   |   |--- mean_attacker_indeg >  5.31
+|   |   |   |   |   |   |--- class: 0
+|   |   |--- att_density >  0.83
+|   |   |   |--- att_density <= 0.84
+|   |   |   |   |--- mean_attacker_indeg <= 4.82
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- mean_attacker_indeg >  4.82
+|   |   |   |   |   |--- class: 0
+|   |   |   |--- att_density >  0.84
+|   |   |   |   |--- in_deg <= 3.50
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- in_deg >  3.50
+|   |   |   |   |   |--- class: 0
