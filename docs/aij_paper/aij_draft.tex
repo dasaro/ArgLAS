@@ -1542,18 +1542,22 @@ competitions~\citep{iccma23} track the state of the art. We invert the
 direction: encodings are induced from examples and then \emph{proved}
 equivalent to the references.
 
-\paragraph{Learning and argumentation.} Approximate acceptability solvers
-learn to \emph{predict} acceptance --- AGNN~\citep{craandijkbex2020}, graph
-convolutional approaches~\citep{kuhlmann2019} --- but yield black-box
-predictors tied to a fixed known semantics. Closer to us, a recent ILP line
-learns ABA \emph{frameworks} (rules, assumptions, contraries) from examples
---- a different inverse problem: structure given a semantics, where we learn
-the semantics given structures \todo{cite Proietti \& Toni's ABA-learning line
-after the literature sweep}. Our contribution is learning the \emph{semantics}
-as an explicit logic program, with certified correctness. \todo{2023--2026
-refresh: NeSy argumentation, newer GNN solvers, ILP for argumentation
-strategies --- required before the ``first'' claims of C2 and
-Section~\ref{sec:theory} are submitted.}
+\paragraph{Learning and argumentation.} A large and growing body of work learns
+to \emph{predict} acceptance with neural networks: AGNN~\citep{craandijkbex2020},
+graph-convolutional and attention models~\citep{kuhlmann2019,cibier2024gnn},
+heterogeneous GNNs for assumption-based frameworks~\citep{gehlot2025hetgnn}, and
+the broader argumentation-and-machine-learning line surveyed by
+\citet{rago2024argml}. These yield accurate but black-box predictors tied to a
+fixed, known semantics --- the data-efficiency and interpretability gap
+Section~\ref{sec:eval} quantifies. The closest symbolic line learns argumentation
+\emph{frameworks} rather than semantics: \citet{deangelis2024aba}, building on the
+ABA-learning programme of \citet{proietti2024aba}, induce assumption-based
+framework structure (rules, assumptions, contraries) from labelled examples via
+ASP, under a fixed (brave/stable) notion of acceptance. That is the
+\emph{inverse} of our problem --- they learn the framework given a semantics; we
+learn the semantics given frameworks --- and to our knowledge no prior work
+learns the acceptability semantics itself as an explicit, reusable, and
+\emph{verified} logic program, which is our contribution.
 
 \paragraph{ILP / LAS.} We build directly on ILASP's context-dependent,
 noise-tolerant learning~\citep{law2016,law2018,law2019,law2018phd} and
@@ -1568,18 +1572,28 @@ noisy examples, the study's central axis; our non-LAS comparison
 
 \paragraph{Verification of ASP.} Our completion-based level follows the
 classical Clark/Fages line~\citep{clark1978,fages1994}; the external-equivalence
-level uses \textsc{anthem}~\citep{anthem2020,anthem2023} with
-\textsc{Vampire}~\citep{vampire}. Applying this toolchain to \emph{learned}
-programs --- and using it to falsify and repair a published encoding --- is, to
-our knowledge, new.
+level uses \textsc{anthem}~\citep{anthem2020,anthem2023}, now maintained as
+\textsc{anthem}~2.0~\citep{fandinno2025anthem2}, with \textsc{Vampire}
+\citep{vampire}. That line verifies (and refactors) \emph{hand-written} ASP
+programs against specifications; applying it to \emph{learned} programs --- and
+using it to falsify and repair a published encoding --- is, to our knowledge,
+new, and is what our C2 novelty claim refers to.
 
 \paragraph{Human argumentation.} Behavioural studies of abstract argumentation
-begin with reinstatement~\citep{rahwan2010} and culminate in the
+begin with reinstatement~\citep{rahwan2010} and develop through the
 catalogue-comparison methodology of \citet{cramer2018,guillaume2022}, which our
-Experiment~2 re-analyzes. Our contribution is methodological (a leakage-free,
-gated, calibrated ILP protocol with directional statistics) and substantive
-(the learned policy $\sigma_H$, the feature-not-policy resolution of
-contextuality, and the negative result on SCC vocabulary).
+Experiment~2 re-analyzes. A parallel strand \emph{posits} new semantics designed
+to fit human judgement --- SCF2~\citep{cramer2019scf2} and the cognitively
+motivated proposals discussed by \citet{cramer2023cognitive} --- selecting or
+hand-crafting a semantics that best matches behaviour. Our approach is
+complementary and, we believe, novel in kind: rather than positing a semantics,
+we \emph{induce} the acceptance policy as an explicit, inspectable rule set from
+the behaviour itself (Section~\ref{sec:humansem}); the ``smoke/fire'' distrust of
+heavily attacked arguments emerges as a learned rule rather than a posited
+principle. Our further contribution is methodological (a leakage-free, gated,
+calibrated ILP protocol with directional statistics) and substantive (the
+feature-not-policy resolution of contextuality and the negative result on SCC
+vocabulary).
 
 %=====================================================================
 \section{Conclusions and Future Work}
@@ -1696,6 +1710,12 @@ Bipolar abstract argumentation systems.
 In G.~Simari, I.~Rahwan (eds.), \emph{Argumentation in Artificial
 Intelligence}, 65--84. Springer, 2009.
 
+\bibitem[Cibier and Mailly(2024)]{cibier2024gnn}
+P.~Cibier, J.-G. Mailly.
+Graph convolutional networks and graph attention networks for approximating
+arguments acceptability.
+Technical report, arXiv:2404.18672, 2024.
+
 \bibitem[Clark(1978)]{clark1978}
 K.~L. Clark.
 Negation as failure.
@@ -1715,6 +1735,22 @@ Learning programs by learning from failures.
 M.~Cramer, M.~Guillaume.
 Empirical cognitive study on abstract argumentation semantics.
 In \emph{Proc.\ COMMA}, 413--424, 2018.
+
+\bibitem[Cramer and van der Torre(2019)]{cramer2019scf2}
+M.~Cramer, L.~van~der Torre.
+SCF2 --- an argumentation semantics for rational human judgments on argument
+acceptability.
+Technical report, arXiv:1908.08406, 2019.
+
+\bibitem[Cramer and van der Torre(2023)]{cramer2023cognitive}
+M.~Cramer, L.~van~der Torre.
+An argumentation semantics for rational human evaluation of arguments.
+\emph{Frontiers in Artificial Intelligence} 6:1045663, 2023.
+
+\bibitem[De Angelis et al.(2024)]{deangelis2024aba}
+E.~De Angelis, M.~Proietti, F.~Toni.
+Learning brave assumption-based argumentation frameworks via ASP.
+In \emph{Proc.\ ECAI}, 2024.
 
 \bibitem[de Moura and Bj{\o}rner(2008)]{z3}
 L.~de Moura, N.~Bj{\o}rner.
@@ -1747,10 +1783,21 @@ J.~Fandinno, Z.~Hansen, Y.~Lierler, V.~Lifschitz, N.~Temple.
 External behavior of a logic program and verification of refactoring.
 \emph{Theory and Practice of Logic Programming} 23(4):933--947, 2023.
 
+\bibitem[Fandinno et al.(2025)]{fandinno2025anthem2}
+J.~Fandinno, C.~Glinzer, Z.~Hansen, J.~Heuer, Y.~Lierler, V.~Lifschitz,
+T.~Schaub, T.~Stolzmann.
+Anthem 2.0: automated reasoning for answer set programming.
+\emph{Theory and Practice of Logic Programming} (ICLP), 2025.
+
 \bibitem[Gebser et al.(2019)]{gebser2019}
 M.~Gebser, R.~Kaminski, B.~Kaufmann, T.~Schaub.
 Multi-shot ASP solving with clingo.
 \emph{Theory and Practice of Logic Programming} 19(1):27--82, 2019.
+
+\bibitem[Gehlot et al.(2025)]{gehlot2025hetgnn}
+P.~Gehlot, A.~Rapberger, F.~Russo, F.~Toni.
+Heterogeneous graph neural networks for assumption-based argumentation.
+arXiv:2511.08982, 2025.
 
 \bibitem[Gelfond and Kahl(2014)]{gelfondkahl2014}
 M.~Gelfond, Y.~Kahl.
@@ -1803,6 +1850,16 @@ M.~Law, A.~Russo, E.~Bertino, K.~Broda, J.~Lobo.
 FastLAS: scalable inductive logic programming incorporating domain-specific
 optimisation criteria.
 In \emph{Proc.\ AAAI}, 2877--2885, 2020.
+
+\bibitem[Proietti and Toni(2024)]{proietti2024aba}
+M.~Proietti, F.~Toni.
+Learning assumption-based argumentation frameworks.
+In \emph{Proc.\ ILP 2022}, Lecture Notes in Computer Science. Springer, 2024.
+
+\bibitem[Rago et al.(2024)]{rago2024argml}
+A.~Rago, K.~{\v{C}}yras, J.~Mumford, O.~Cocarascu.
+Argumentation and machine learning.
+arXiv:2410.23724, 2024.
 
 \bibitem[Rahwan et al.(2010)]{rahwan2010}
 I.~Rahwan, M.~I. Madakkatel, J.-F. Bonnefon, R.~N. Awan, S.~Abdallah.
