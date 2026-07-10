@@ -314,7 +314,47 @@ def fig_slice_partial():
     save(fig, "fig_slice_partial")
 
 
+# ============================================= FIG: generator breadth (dense vs sparse/self/large)
+def fig_generator_breadth():
+    import numpy as _np
+    GENS = [("dense", "final_synthetic_v2", "1", "#777777"),
+            ("sparse", "final_synthetic_v3_sparse", None, "#2166ac"),
+            ("self", "final_synthetic_v3_self", None, "#e08214"),
+            ("large", "final_synthetic_v3_large", None, "#1b7837")]
+    data = {name: load(root) for name, root, _, _ in GENS}
+    F = 60  # higher-data anchor point
+
+    def mean_sem(R, sem, q, arm):
+        vals = []
+        for p in ["1.0", "0.5"]:
+            vals += [float(r["MCC_FULL"]) for r in R if r["_sem"] == sem and r["_p"] == p
+                     and r["_q"] == q and int(r["NFILES_POS"]) == F and ok(r)
+                     and (arm is None or r["_arm"] == arm)]
+        if not vals:
+            return _np.nan, 0.0
+        m = st.mean(vals)
+        e = (st.stdev(vals) / math.sqrt(len(vals))) if len(vals) > 1 else 0.0
+        return m, e
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.1), sharey=True, constrained_layout=True)
+    width = 0.20
+    x = _np.arange(len(SEMS))
+    for ax, q, title in zip(axes, ["0.0", "0.1"],
+                            [f"clean labels ($q=0$), $f={F}$", f"noisy labels ($q=0.1$), $f={F}$"]):
+        for gi, (name, root, arm, col) in enumerate(GENS):
+            ms = [mean_sem(data[name], s, q, arm)[0] for s in SEMS]
+            es = [mean_sem(data[name], s, q, arm)[1] for s in SEMS]
+            ax.bar(x + (gi - 1.5) * width, ms, width, yerr=es, capsize=2, color=col,
+                   label=name, error_kw={"lw": 0.8})
+        ax.set_xticks(x); ax.set_xticklabels(SEMS)
+        ax.set_title(title); ax.set_ylim(0.4, 1.02); ax.grid(axis="y", alpha=0.25, lw=0.5)
+    axes[0].set_ylabel("recovery (MCC)")
+    axes[1].legend(frameon=False, fontsize=8, ncol=4, loc="lower center", columnspacing=0.9)
+    save(fig, "fig_generator_breadth")
+
+
 if __name__ == "__main__":
+    fig_generator_breadth()
     fig_slice_noise_partial()
     fig_slice_noise_full()
     fig_slice_partial()

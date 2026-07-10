@@ -953,19 +953,50 @@ cap are excluded from the median (Section~\ref{sec:exp1cost}).}
 Three follow-up experiments test whether Experiment~1's conclusions are
 artifacts of its generator regime or of the AAF setting.
 
-\paragraph{Generator breadth.} Re-running an anchor slice of the grid
-($p\in\{1.0,0.5\}$, $q\in\{0,0.1\}$, $f\in\{20,60\}$) on a structurally
-different pool: \emph{sparse} frameworks (attack count uniform in $[n,2n]$ ---
-the regime of most benchmark and human-scale graphs). The clean-label sparse
-cells are complete ($10$ runs each, both completeness levels): at $f{=}20$,
-STB $0.994$, ADM $0.982$, CMP $0.934$, PRF $0.963$; at $f{=}60$, STB $0.999$,
-ADM $1.000$, CMP $0.998$, PRF $0.975$ --- within $\pm0.03$ of the dense-pool
-values at matched clean coordinates (largest deficit: CMP $-0.027$ at
-$f{=}20$), so the dense generator was not propping up the headline results.
-The noisy sparse cells, and two further regimes (self-attacking and larger
-frameworks), are still executing on the same infrastructure
-\pending{completing; the anchor-slice table will be finalized in this revision
-cycle}.
+\paragraph{Generator breadth.} We re-ran an anchor slice of the grid
+($p\in\{1.0,0.5\}$, $q\in\{0,0.1\}$, $f\in\{20,60\}$, five folds) on three
+structurally different pools: \emph{sparse} frameworks (attack count uniform in
+$[n,2n]$ --- the regime of most benchmark and human-scale graphs),
+\emph{self-attacking} frameworks (self-attacks permitted), and \emph{larger}
+frameworks ($n\in\{10,11,12\}$). Figure~\ref{fig:generator_breadth} compares
+recovery at $f=60$ against the dense pool; the finding is not a flat ``it
+reproduces everywhere'' but a sharper, regime-dependent one.
+
+\emph{Clean labels reproduce across all three regimes.} At $q=0$ every
+generator recovers every semantics at MCC $\ge 0.99$ for stable, admissible,
+and complete, and $\ge 0.97$ for preferred (bar one exception below) --- the
+learnability of the semantics does not depend on the generator, and in
+particular it \emph{scales to $n=12$}, where clean-label recovery is $0.99$--
+$1.00$ throughout. This is the core robustness claim, and it holds cleanly.
+
+\emph{Under noise the regimes separate.} Sparse tracks the dense pool closely
+(within $\pm0.03$ at matched coordinates, and \emph{better} for complete, $0.94$
+vs.\ $0.69$ at $f{=}20$ --- sparser graphs are if anything easier). Larger
+frameworks confirm scaling but with heavier censoring: $25$ of their $160$ runs
+hit the $3{,}500$\,s cap (versus $1$ for sparse), so the surviving noisy-large
+numbers are survivor-biased upward and we read them as suggestive, not
+definitive. The one genuine boundary is \emph{preferred on self-attacking
+frameworks}: PRF recovery falls to $0.71$ at $q{=}0.1,f{=}60$ (and $0.42$ at
+$f{=}20$), well below the $0.94$--$0.97$ the other regimes hold, and it is
+depressed even at clean labels ($0.87$ vs.\ $0.98$). Self-attacks complicate
+conflict-freeness and subset-maximality --- a self-attacking argument is in no
+admissible set --- so the maximality-based construction is the most fragile
+under label noise. We report this as a documented limitation of the current
+formulation, not a gap: it is a specific, mechanistically explained boundary,
+and the other three semantics remain robust across all three generators.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_generator_breadth.pdf}
+\caption{Generator breadth at $f=60$: recovery on the dense pool vs.\ sparse,
+self-attacking, and larger ($n{\le}12$) frameworks, clean (left) and noisy
+(right); bars are means over label completeness $\{1.0,0.5\}$ and five folds,
+with $\pm1$ s.e.m. Clean recovery reproduces across all generators; under noise,
+sparse and larger frameworks stay high (larger with heavier timeout censoring,
+$25/160$), while \emph{preferred on self-attacking frameworks} is the one
+regime that degrades --- a mechanistically explained boundary, not an artifact.}
+\label{fig:generator_breadth}
+\end{figure}
 
 \paragraph{Framework breadth: BAF.} Using the \emph{proved} encodings of
 Theorem~\ref{thm:baf} as labelling oracles, we generated 500 random BAFs
@@ -1480,17 +1511,23 @@ machine-checked equivalence at up to three independent levels, strong enough to
 uncover and repair a published defect; \emph{yes, within a mapped envelope} ---
 near-perfect recovery from clean data at $30$--$40$ examples per class, noise
 as the binding but data-recoverable constraint (amplified by label
-incompleteness), imbalance immaterial, and the envelope reproduced on a sparse
-generator (clean cells) and across framework families; and \emph{yes} --- on
+incompleteness), imbalance immaterial, clean-label recovery reproduced across
+sparse, self-attacking, and larger ($n{\le}12$) generators and two further
+framework families, with self-attacking preferred the one identified boundary;
+and \emph{yes} --- on
 human data the calibrated learner both confirms the CF2 ceiling under a
 stronger-than-before test and returns what the catalogue cannot: a legible
 human acceptance policy with a non-Dungian distrust of heavily attacked
 arguments, and a principled rejection of per-graph semantics.
 
-\paragraph{Limitations.} The synthetic envelope is mapped on random digraphs
-of moderate size; the noisy sparse cells and two further breadth regimes
-(self-attacks, larger $n$) are \pending{completing}, so the generator-breadth
-claim currently covers the clean sparse slice only. Grounded semantics was
+\paragraph{Limitations.} The synthetic envelope is mapped on random digraphs of
+moderate size ($n\le12$). Clean-label recovery reproduces across the sparse,
+self-attacking, and larger generators; under noise, larger frameworks carry
+heavier timeout censoring ($25/160$ runs hit the cap, so their noisy recovery is
+read as suggestive), and \emph{preferred on self-attacking frameworks} degrades
+(PRF $0.42$--$0.71$ under noise) because self-attacks break the conflict-freeness
+and subset-maximality the construction leans on --- a specific, mechanistically
+understood boundary rather than a general failure. Grounded semantics was
 scoped out of the learnability study for a diagnosed reason --- on dense pools
 its extension is empty $69\%$ of the time, starving the learner's positive
 signal --- and learning it under a signal-bearing sparse distribution is an
