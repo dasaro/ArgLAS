@@ -31,7 +31,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -499,11 +499,11 @@ def main() -> None:
     repo_root = script_dir.parent
 
     parser = argparse.ArgumentParser(description="Build and train real-world ILASP datasets end-to-end.")
-    parser.add_argument("--data-path", type=Path, default=script_dir / "Raw_Data_original.xlsx")
+    parser.add_argument("--data-path", type=Path, default=script_dir.parent / "data" / "Raw_Data_original.xlsx")
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=script_dir / f"runs/real_world_{timestamp_tag()}",
+        default=script_dir.parent / f"runs/real_world_{timestamp_tag()}",
         help="Run output directory. New run directories are recommended to avoid overwrite.",
     )
     parser.add_argument("--versions", type=str, default="A,B,C,D,E,F,G")

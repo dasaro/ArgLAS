@@ -24,7 +24,7 @@ from typing import Dict, List, Sequence, Tuple
 
 import clingo
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -148,7 +148,7 @@ def main() -> None:
             "test on held-out positives only."
         )
     )
-    parser.add_argument("--pos-root", type=Path, default=script_dir / "asp_files")
+    parser.add_argument("--pos-root", type=Path, default=script_dir.parent / "asp_files")
     parser.add_argument("--versions", type=str, default="A,B,C,D,E,F,G")
     parser.add_argument("--folds", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
@@ -182,7 +182,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=script_dir / "runs" / f"cv_pos_only_{timestamp_tag()}",
+        default=script_dir.parent / "runs" / f"cv_pos_only_{timestamp_tag()}",
     )
     args = parser.parse_args()
 

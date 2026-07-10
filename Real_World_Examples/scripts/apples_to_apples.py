@@ -247,7 +247,7 @@ def cmd_pooled(a):
     os.makedirs(a.out, exist_ok=True)
     prog = os.path.join(a.out, "progress.json")
     conf_lut = {(x["VERSION"], str(x["PARTICIPANT"]), x["ITEM"].strip().lower()): x["2ND_CONFIDENCE"]
-                for x in read_xlsx_sheet("Raw_Data_original.xlsx", "PART_B")}
+                for x in read_xlsx_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "Raw_Data_original.xlsx"), "PART_B")}
     recs = []
     for v in VERSIONS:
         for r in D.load_recs(v, "ind", a.phase):  # ind = participant's own drawn graph (IndAF)

@@ -328,13 +328,13 @@ def main() -> None:
     parser.add_argument(
         "--data-path",
         type=Path,
-        default=script_dir / "Raw_Data_original.xlsx",
+        default=script_dir.parent / "data" / "Raw_Data_original.xlsx",
         help="Path to source workbook (default: Real_World_Examples/Raw_Data_original.xlsx).",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=script_dir / "asp_files_extracted",
+        default=script_dir.parent / "asp_files_extracted",
         help="Output root directory for extracted datasets.",
     )
     parser.add_argument(

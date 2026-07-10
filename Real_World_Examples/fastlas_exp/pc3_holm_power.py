@@ -6,7 +6,8 @@ from math import comb
 # ---------- exact two-sided binomial (same convention as apples_to_apples.binom_two_sided) ----------
 import sys, os
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts")); sys.path.insert(0, HERE)
 from apples_to_apples import mcnemar, binom_two_sided
 
 # ---------- (A) Holm ----------

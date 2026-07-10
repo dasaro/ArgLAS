@@ -6,7 +6,8 @@ Also: determinism of shared_folds across calls (cache-consistency of global_theo
 import sys, os
 from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts")); sys.path.insert(0, HERE)
 import unified_compare as U
 
 VERSIONS = ("A", "B", "C", "D", "E", "F", "G")

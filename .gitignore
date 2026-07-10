@@ -51,10 +51,12 @@ __pycache__/
 /Real_World_Examples/runs/
 /Real_World_Examples/_tmp_extract_*/
 /Real_World_Examples/~$*.xlsx
+/Real_World_Examples/data/~$*.xlsx
 ~$*.xlsx
 
 # Campaign runtime log (live output of run_v2_campaign.sh)
 /v2_campaign.out
+/v3_gap*.out
 
 # GRD/PRF lab: deterministic-regenerable pools + e2e scratch (generators are committed)
 analysis/grd_prf_lab/**/pools/

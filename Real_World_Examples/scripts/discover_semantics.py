@@ -30,7 +30,8 @@ from collections import defaultdict, Counter
 import clingo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(HERE)
+RWE = os.path.dirname(HERE)
+REPO = os.path.dirname(RWE)
 BG = open(os.path.join(REPO, "config/background_knowledge.lp")).read().strip()
 MODES = open(os.path.join(REPO, "config/mode_declarations.las")).read().strip()
 # AGNOSTIC mode-bias enrichment (opt-in via env ARGLAS_ENRICH). The base vocabulary
@@ -60,7 +61,7 @@ if "reach" in _enr:
 # encodings exactly (verified 38/38 graphs, all readings). Agnostic: embeds no textbook prior.
 BG_PREDICT = "\n".join(ln for ln in BG.splitlines()
                        if "0{ in(X) }1" not in ln and "0{ out(X) }1" not in ln)
-EXTRACT = os.path.join(HERE, "_tmp_extract_all2")
+EXTRACT = os.path.join(RWE, "_tmp_extract_all2")
 PHASE = "att_first__lab_first"  # headline = first-individual (most between-participant variance)
 GRAPH = "own"                   # "own" = each participant's drawn graph; "gold" = canonical stimulus
 

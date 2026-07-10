@@ -5,7 +5,8 @@ arrays and McNemar counts independently from first principles."""
 import sys, os, hashlib, json
 from collections import Counter, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts")); sys.path.insert(0, HERE)
 import per_condition_experiment as pce
 import unified_compare as U
 import aux9_combined as A9

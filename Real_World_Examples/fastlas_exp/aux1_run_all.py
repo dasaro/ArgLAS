@@ -2,7 +2,8 @@
 """Driver: run baseline + all aux1 variants under the SAME leak-free harness, write JSON."""
 import os, sys, json, time
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts")); sys.path.insert(0, HERE)
 import aux1_scc_cycle as A
 import unified_compare as U
 

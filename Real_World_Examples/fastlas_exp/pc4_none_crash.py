@@ -3,7 +3,8 @@
 cf2 committed_only None -> TypeError crash (vals[3] has no None fallback)."""
 import sys, os
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE)); sys.path.insert(0, HERE)
+sys.path.insert(0, os.path.dirname(HERE))
+sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts")); sys.path.insert(0, HERE)
 import per_condition_experiment as pce
 
 def fake_cond(cf2_none):
