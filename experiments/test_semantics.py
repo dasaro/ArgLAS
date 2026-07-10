@@ -4,7 +4,7 @@ import clingo
 def run_clingo_with_api(semantics_file, test_file):
     """Runs Clingo using its API and returns multiple models."""
     ctl = clingo.Control(["-n", "0", "--warn=none"])
-    ctl.load("background_knowledge.lp")
+    ctl.load("config/background_knowledge.lp")
     ctl.load(semantics_file)
     ctl.load(test_file)
     ctl.add("#show in/1.")
@@ -44,6 +44,6 @@ def test_semantics(input_dir, custom_semantics, aspartix_semantics):
 if __name__ == "__main__":
     input_directory = "STB_aafs_labelled/"  # Change to your folder
     custom_semantics_file = "STB_train_output/ilasp_task_50_0.lp"  # Change to your custom semantics file
-    aspartix_semantics_file = "ASPARTIX/stable.lp"  # Change to the desired ASPARTIX semantics file
+    aspartix_semantics_file = "config/ASPARTIX/stable.lp"  # Change to the desired ASPARTIX semantics file
     
     test_semantics(input_directory, custom_semantics_file, aspartix_semantics_file)

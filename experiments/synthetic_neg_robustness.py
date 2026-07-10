@@ -5,23 +5,25 @@ noisy human judgements -- generates negatives from those noisy positives, learns
 scores RECOVERY against the CLEAN known-semantics oracle on a CLEAN held-out fold.
 Answers: which negative-generation strategy degrades least as positive-noise rises.
 ADM/CMP/STB, noise-0 synthetic training (the q is the only noise), grouped K folds."""
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse, os, glob, random, csv, math
 
-from artifact_paths import resolve_repo_path
-from generate_ilasp_task import build_synthetic_negative, render_label_facts, parse_lp_instance
+from arglas.artifact_paths import resolve_repo_path
+from arglas.generate_ilasp_task import build_synthetic_negative, render_label_facts, parse_lp_instance
 from synthetic_self_training import write_task, in_set, model_insets, model_insets_oracle
-from train_test import (
+from arglas.train_test import (
     build_grouped_folds, build_grouped_balanced_test, aaf_group_id,
     run_ilasp, run_learned_model_with_api, run_ground_truth_with_api,
     evaluate_model_sets, safe_div, stable_seed_from_parts,
 )
-from solver_policy import (
+from arglas.solver_policy import (
     load_semantics_config, get_clingo_args, get_background_file,
     get_completion_rules_enabled, get_show_predicates,
 )
-from ilasp_policy import resolve_ilasp_args
+from arglas.ilasp_policy import resolve_ilasp_args
 
-SEM_ASP = {"ADM": "ASPARTIX/admissible.lp", "CMP": "ASPARTIX/complete.lp", "STB": "ASPARTIX/stable.lp"}
+SEM_ASP = {"ADM": "config/ASPARTIX/admissible.lp", "CMP": "config/ASPARTIX/complete.lp", "STB": "config/ASPARTIX/stable.lp"}
 POLICIES = ["oracle_neg", "flip_one", "flip_k", "reliable_negative", "self_training"]
 
 
@@ -147,7 +149,7 @@ def main():
     args = ap.parse_args()
     pols = [p.strip() for p in args.policies.split(",") if p.strip()]
     sems = [s.strip() for s in args.semantics.split(",") if s.strip()]
-    cfg = load_semantics_config(resolve_repo_path("semantics_config.json"))
+    cfg = load_semantics_config(resolve_repo_path("config/semantics_config.json"))
     qs = [float(x) for x in args.q_values.split(",")]
     rows = []
     for sem in sems:

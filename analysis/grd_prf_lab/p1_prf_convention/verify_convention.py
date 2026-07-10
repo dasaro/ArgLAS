@@ -18,11 +18,11 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 LAB = os.path.join(REPO, "analysis/grd_prf_lab/p1_prf_convention")
 sys.path.insert(0, REPO)
 
-import train_test as T  # noqa: E402
-from solver_runtime import solve_models  # noqa: E402
+from arglas import train_test as T  # noqa: E402
+from arglas.solver_runtime import solve_models  # noqa: E402
 
 PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")
-BG = os.path.join(REPO, "background_knowledge.lp")
+BG = os.path.join(REPO, "config/background_knowledge.lp")
 BG_CONV = os.path.join(LAB, "bg_learned_prf.lp")
 ADM_CORE = os.path.join(LAB, "true_adm_core.lp")
 CMP_CORE = os.path.join(LAB, "true_cmp_core.lp")

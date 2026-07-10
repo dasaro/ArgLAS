@@ -17,12 +17,12 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 POOL = os.path.join(
     REPO, "artifacts/final_synthetic_corrected_20260625/labelled/labelled_GRD_full"
 )
-GROUNDED_LP = os.path.join(REPO, "ASPARTIX/grounded.lp")
+GROUNDED_LP = os.path.join(REPO, "config/ASPARTIX/grounded.lp")
 
 FACT = re.compile(r"^(arg|att|in|out|undec)\(([^)]*)\)\.\s*$")
 

@@ -14,9 +14,9 @@
 #       continues -- it never OOMs the machine.
 # Resume-safe: rerun this script; completed rows are skipped.
 set -u
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 ROOT=artifacts/final_synthetic_v3_large
-CFG=run_configs/v3_breadth_large.json
+CFG=experiments/run_configs/v3_breadth_large.json
 rm -f "$ROOT"/logs/*.lock
 
 KILL_GB=1.8   # emergency floor: below this, kill the largest ILASP to free memory
@@ -51,7 +51,7 @@ watchdog & WD=$!
 trap 'kill $WD 2>/dev/null' EXIT INT TERM
 
 echo "===== [$(date '+%F %T')] large regime (workers=1, kill-watchdog pid $WD, avail $(avail_gb)GB) ====="
-FABIO_ARTIFACTS_ROOT="$ROOT" python3 run_experiment_grid.py --config "$CFG"
+FABIO_ARTIFACTS_ROOT="$ROOT" python3 experiments/run_experiment_grid.py --config "$CFG"
 rc=$?
 kill "$WD" 2>/dev/null
 if [ "$rc" -eq 0 ]; then

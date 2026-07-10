@@ -3,8 +3,8 @@ from typing import Optional
 
 import clingo
 
-from artifact_paths import resolve_repo_path
-from solver_policy import (
+from arglas.artifact_paths import resolve_repo_path
+from arglas.solver_policy import (
     get_background_file,
     get_clingo_args,
     get_completion_rules_enabled,

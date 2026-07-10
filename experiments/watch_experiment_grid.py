@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse
 import csv
 import json
@@ -11,7 +13,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from artifact_paths import artifacts_root, repo_root, resolve_repo_path
+from arglas.artifact_paths import artifacts_root, repo_root, resolve_repo_path
 
 
 STOP = False
@@ -266,7 +268,7 @@ def generate_progress_plots(repo_root_dir: Path, artifact_root: Path, config_pat
     proc = subprocess.run(
         [
             sys.executable,
-            str(repo_root_dir / "plot_benchmark_progress.py"),
+            str(repo_root_dir / "experiments" / "plot_benchmark_progress.py"),
             "--config",
             str(config_path),
         ],

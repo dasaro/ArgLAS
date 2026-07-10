@@ -6,25 +6,27 @@ theory confidently rejects, and re-learns. Oracle-free during learning (the lear
 is its own evolving filter); the known-semantics oracle is used ONLY to score
 recovery + the wrong-negative rate. Reuses the corrected grouped-K-fold split + eval
 so results are comparable to the other policies. ADM/CMP/STB only (no heuristics)."""
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse, os, glob, random, tempfile, csv
 
-from artifact_paths import resolve_repo_path, resolve_artifact_path
-from generate_ilasp_task import build_synthetic_negative, build_ilasp_directive, render_label_facts
-from train_test import (
+from arglas.artifact_paths import resolve_repo_path, resolve_artifact_path
+from arglas.generate_ilasp_task import build_synthetic_negative, build_ilasp_directive, render_label_facts
+from arglas.train_test import (
     build_grouped_folds, build_grouped_balanced_test, build_grouped_train_manifest,
     aaf_group_id, run_ilasp, run_learned_model_with_api, run_ground_truth_with_api,
     evaluate_model_sets, canonical_model_set, safe_div,
     stable_seed_from_parts,
 )
-from generate_ilasp_task import parse_lp_instance
-from solver_policy import (
+from arglas.generate_ilasp_task import parse_lp_instance
+from arglas.solver_policy import (
     load_semantics_config, get_semantics_entry, get_clingo_args, get_background_file,
     get_completion_rules_enabled, get_show_predicates,
 )
-from ilasp_policy import resolve_ilasp_args
+from arglas.ilasp_policy import resolve_ilasp_args
 
-BG = resolve_repo_path("background_knowledge.lp")
-MODES = resolve_repo_path("mode_declarations.las")
+BG = resolve_repo_path("config/background_knowledge.lp")
+MODES = resolve_repo_path("config/mode_declarations.las")
 
 
 def write_task(path, examples, deterministic=True):
@@ -63,7 +65,7 @@ def main():
     ap.add_argument("--train_timeout", type=int, default=120)
     args = ap.parse_args()
 
-    cfg = load_semantics_config(resolve_repo_path("semantics_config.json"))
+    cfg = load_semantics_config(resolve_repo_path("config/semantics_config.json"))
     asp = resolve_repo_path(args.asp_file)
     bg = resolve_repo_path(get_background_file(cfg, stage="train_test_learned"))
     lcomp = get_completion_rules_enabled(cfg, "train_test_learned", semantics=args.semantics)

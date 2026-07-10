@@ -35,7 +35,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from ilasp_policy import resolve_ilasp_args
+from arglas.ilasp_policy import resolve_ilasp_args
 
 # Reuse authoritative extraction/parsing utilities implemented for raw workbook.
 from extract_labeled_aafs import build_pid, parse_relation_atom, read_xlsx_sheet
@@ -555,12 +555,12 @@ def main() -> None:
     parser.add_argument(
         "--background-file",
         type=Path,
-        default=repo_root / "background_knowledge.lp",
+        default=repo_root / "config/background_knowledge.lp",
     )
     parser.add_argument(
         "--mode-file",
         type=Path,
-        default=repo_root / "mode_declarations.las",
+        default=repo_root / "config/mode_declarations.las",
     )
     parser.add_argument("--train-timeout-seconds", type=int, default=1200)
     parser.add_argument(
@@ -573,12 +573,12 @@ def main() -> None:
     parser.add_argument(
         "--ilasp-config",
         type=Path,
-        default=REPO_ROOT / "ilasp_config.json",
+        default=REPO_ROOT / "config/ilasp_config.json",
     )
     parser.add_argument(
         "--semantics-config",
         type=Path,
-        default=REPO_ROOT / "semantics_config.json",
+        default=REPO_ROOT / "config/semantics_config.json",
     )
     parser.add_argument("--skip-ilasp", action="store_true")
     parser.add_argument("--allow-overwrite", action="store_true")

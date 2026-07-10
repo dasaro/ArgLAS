@@ -1,8 +1,8 @@
 import json
 import os
 
-from artifact_paths import resolve_repo_path
-from solver_policy import load_semantics_config, semantics_wants_ilasp_heuristics
+from arglas.artifact_paths import resolve_repo_path
+from arglas.solver_policy import load_semantics_config, semantics_wants_ilasp_heuristics
 
 
 def _dedupe_keep_order(values):

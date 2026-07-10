@@ -31,13 +31,13 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 import clingo  # noqa: E402
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 LAB = os.path.join(REPO, "analysis/grd_prf_lab/p2_prf_alt")
 AAF_DIR = os.path.join(REPO, "artifacts/final_synthetic_corrected_20260625/aafs")
 POOL = os.path.join(LAB, "pools/labelled_PRF_full")
-BACKGROUND = os.path.join(REPO, "background_knowledge.lp")
-PREFERRED_LP = os.path.join(REPO, "ASPARTIX/preferred.lp")
+BACKGROUND = os.path.join(REPO, "config/background_knowledge.lp")
+PREFERRED_LP = os.path.join(REPO, "config/ASPARTIX/preferred.lp")
 PRF_ARGS = ["--heuristic=Domain", "--enum=domRec"]
 SHOW = ["in/1", "out/1"]
 

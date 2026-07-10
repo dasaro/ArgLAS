@@ -4,9 +4,9 @@ import random
 import re
 
 import clingo
-from artifact_paths import resolve_artifact_path, resolve_repo_path
-from solver_runtime import build_semantics_runtime, solve_semantics_instance
-from solver_policy import (
+from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
+from arglas.solver_runtime import build_semantics_runtime, solve_semantics_instance
+from arglas.solver_policy import (
     get_semantics_entry,
     get_semantics_names,
     load_semantics_config,

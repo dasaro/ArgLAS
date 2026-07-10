@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse
 import csv
 import os
 import time
 from pathlib import Path
 
-from artifact_paths import resolve_artifact_path, resolve_repo_path
-from train_test import (
+from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
+from arglas.train_test import (
     DEFAULT_EVAL_MATCH_POLICY,
     RESULTS_HEADER,
     append_result_row,
@@ -23,7 +25,7 @@ from train_test import (
     run_ground_truth_with_api,
     run_learned_model_with_api,
 )
-from solver_policy import (
+from arglas.solver_policy import (
     get_background_file,
     get_clingo_args,
     get_completion_rules_enabled,
@@ -394,7 +396,7 @@ def build_parser(add_help=True):
         choices=("full_exact_model", "existential_acceptance"),
         default=DEFAULT_EVAL_MATCH_POLICY,
     )
-    parser.add_argument("--semantics_config", default="semantics_config.json")
+    parser.add_argument("--semantics_config", default="config/semantics_config.json")
     parser.add_argument("--max_rows_per_condition", type=int, default=None)
     return parser
 
@@ -412,7 +414,7 @@ def main(argv=None):
     output_root.mkdir(parents=True, exist_ok=True)
 
     semantics_config = load_semantics_config(
-        resolve_repo_path(args.semantics_config, "semantics_config.json")
+        resolve_repo_path(args.semantics_config, "config/semantics_config.json")
     )
     total_written = 0
     for condition_dir in iter_condition_dirs(archive_root, args.semantics, args.condition_glob):

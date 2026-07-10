@@ -10,6 +10,8 @@ supervisor always agree on what "done" means.
   one-shot:  python3 -m arglas benchmark progress --config run_configs/<cfg>.json
   live:      python3 -m arglas benchmark progress --config run_configs/<cfg>.json --watch 30
 """
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse
 import csv
 import glob
@@ -18,7 +20,7 @@ import sys
 import time
 from pathlib import Path
 
-from artifact_paths import artifacts_root
+from arglas.artifact_paths import artifacts_root
 from watch_experiment_grid import completion_snapshot, load_config, semantics_list
 
 

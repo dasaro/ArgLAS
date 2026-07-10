@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "arglas"
-version = "0.1.0"
-description = "CLI for ILASP-based abstract argumentation learning and benchmarks"
+version = "1.0.0"
+description = "Learning argumentation semantics as answer set programs with ILASP"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -17,18 +17,3 @@ arglas = "arglas.cli:main"
 
 [tool.setuptools]
 packages = ["arglas"]
-py-modules = [
-  "artifact_paths",
-  "cleanup",
-  "generate_aafs",
-  "generate_extensions",
-  "generate_ilasp_task",
-  "ilasp_policy",
-  "replay_archived_evaluation",
-  "run_experiment_grid",
-  "solver_policy",
-  "solver_runtime",
-  "train_test",
-  "validate_config",
-  "watch_experiment_grid",
-]

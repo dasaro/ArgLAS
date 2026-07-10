@@ -93,8 +93,8 @@ def main():
     print(f"train={len(train_aafs)} test={len(test_aafs)} "
           f"hard_train={len(hard_train)} picked={len(picked)}")
 
-    background = open(os.path.join(REPO, "background_knowledge.lp")).read()
-    modes = open(os.path.join(REPO, "mode_declarations.las")).read()
+    background = open(os.path.join(REPO, "config/background_knowledge.lp")).read()
+    modes = open(os.path.join(REPO, "config/mode_declarations.las")).read()
     modes3 = modes.replace("#maxv(2).", "#maxv(3).")
 
     # C-i: pipeline encoding (empty exclusions), single hard AAF is enough

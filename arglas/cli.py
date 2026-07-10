@@ -4,17 +4,24 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
-import cleanup
-import generate_aafs
-import generate_extensions
-import generate_ilasp_task
-import replay_archived_evaluation
-import campaign_progress
-import run_experiment_grid
-import train_test
-import validate_config
-import watch_experiment_grid
-from artifact_paths import resolve_repo_path
+from arglas import cleanup
+from arglas import generate_aafs
+from arglas import generate_extensions
+from arglas import generate_ilasp_task
+from arglas import train_test
+from arglas import validate_config
+from arglas import demo as demo_module
+from arglas.artifact_paths import repo_root, resolve_repo_path
+
+
+def _experiments(module_name):
+    """Lazy-import an orchestration module from experiments/ (kept outside the
+    core package; used only by the `benchmark` command group)."""
+    import importlib
+    exp_dir = str(repo_root() / "experiments")
+    if exp_dir not in sys.path:
+        sys.path.insert(0, exp_dir)
+    return importlib.import_module(module_name)
 from arglas import __version__
 
 
@@ -172,6 +179,14 @@ def build_parser() -> argparse.ArgumentParser:
     learn_parser.add_argument("args", nargs=argparse.REMAINDER)
     learn_parser.set_defaults(handler=lambda ns: run_wrapped(train_test.main, ns.args, "arglas learn"))
 
+    demo_parser = subparsers.add_parser(
+        "demo",
+        help="End-to-end mini pipeline: generate AAFs, label, build task, learn (about a minute).",
+        add_help=False,
+    )
+    demo_parser.add_argument("args", nargs=argparse.REMAINDER)
+    demo_parser.set_defaults(handler=lambda ns: run_wrapped(demo_module.main, ns.args, "arglas demo"))
+
     benchmark_parser = subparsers.add_parser(
         "benchmark",
         help="Run, watch, or replay benchmark grids.",
@@ -185,7 +200,7 @@ def build_parser() -> argparse.ArgumentParser:
         add_help=False,
     )
     benchmark_run_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_run_parser.set_defaults(handler=lambda ns: run_wrapped(run_experiment_grid.main, ns.args, "arglas benchmark run"))
+    benchmark_run_parser.set_defaults(handler=lambda ns: run_wrapped(_experiments("run_experiment_grid").main, ns.args, "arglas benchmark run"))
 
     benchmark_watch_parser = benchmark_subparsers.add_parser(
         "watch",
@@ -193,7 +208,7 @@ def build_parser() -> argparse.ArgumentParser:
         add_help=False,
     )
     benchmark_watch_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_watch_parser.set_defaults(handler=lambda ns: run_wrapped(watch_experiment_grid.main, ns.args, "arglas benchmark watch"))
+    benchmark_watch_parser.set_defaults(handler=lambda ns: run_wrapped(_experiments("watch_experiment_grid").main, ns.args, "arglas benchmark watch"))
 
     benchmark_replay_parser = benchmark_subparsers.add_parser(
         "replay",
@@ -201,7 +216,7 @@ def build_parser() -> argparse.ArgumentParser:
         add_help=False,
     )
     benchmark_replay_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_replay_parser.set_defaults(handler=lambda ns: run_wrapped(replay_archived_evaluation.main, ns.args, "arglas benchmark replay"))
+    benchmark_replay_parser.set_defaults(handler=lambda ns: run_wrapped(_experiments("replay_archived_evaluation").main, ns.args, "arglas benchmark replay"))
 
     benchmark_progress_parser = benchmark_subparsers.add_parser(
         "progress",
@@ -209,7 +224,7 @@ def build_parser() -> argparse.ArgumentParser:
         add_help=False,
     )
     benchmark_progress_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_progress_parser.set_defaults(handler=lambda ns: run_wrapped(campaign_progress.main, ns.args, "arglas benchmark progress"))
+    benchmark_progress_parser.set_defaults(handler=lambda ns: run_wrapped(_experiments("campaign_progress").main, ns.args, "arglas benchmark progress"))
 
     batch_parser = subparsers.add_parser(
         "batch",
@@ -274,15 +289,18 @@ def main(argv=None) -> int:
         }
         if argv[0] in direct_commands:
             return run_wrapped(direct_commands[argv[0]], argv[1:], f"arglas {argv[0]}")
+        if argv[0] == "demo":
+            return run_wrapped(demo_module.main, argv[1:], "arglas demo")
         if len(argv) >= 2 and argv[0] == "benchmark":
-            benchmark_commands = {
-                "run": run_experiment_grid.main,
-                "watch": watch_experiment_grid.main,
-                "replay": replay_archived_evaluation.main,
-                "progress": campaign_progress.main,
+            benchmark_modules = {
+                "run": "run_experiment_grid",
+                "watch": "watch_experiment_grid",
+                "replay": "replay_archived_evaluation",
+                "progress": "campaign_progress",
             }
-            if argv[1] in benchmark_commands:
-                return run_wrapped(benchmark_commands[argv[1]], argv[2:], f"arglas benchmark {argv[1]}")
+            if argv[1] in benchmark_modules:
+                return run_wrapped(_experiments(benchmark_modules[argv[1]]).main, argv[2:],
+                                   f"arglas benchmark {argv[1]}")
 
     parser = build_parser()
     args = parser.parse_args(argv)

@@ -28,7 +28,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from ilasp_policy import resolve_ilasp_args
+from arglas.ilasp_policy import resolve_ilasp_args
 from build_real_world_dataset import ParsedAAF, render_ilasp_example, run_ilasp
 
 
@@ -175,10 +175,10 @@ def main() -> None:
         help="Optional semantics key used to resolve central ILASP policy (e.g. PRF).",
     )
     parser.add_argument("--ilasp-extra-args", type=str, default="")
-    parser.add_argument("--ilasp-config", type=Path, default=REPO_ROOT / "ilasp_config.json")
-    parser.add_argument("--semantics-config", type=Path, default=REPO_ROOT / "semantics_config.json")
-    parser.add_argument("--background-file", type=Path, default=repo_root / "background_knowledge.lp")
-    parser.add_argument("--mode-file", type=Path, default=repo_root / "mode_declarations.las")
+    parser.add_argument("--ilasp-config", type=Path, default=REPO_ROOT / "config/ilasp_config.json")
+    parser.add_argument("--semantics-config", type=Path, default=REPO_ROOT / "config/semantics_config.json")
+    parser.add_argument("--background-file", type=Path, default=repo_root / "config/background_knowledge.lp")
+    parser.add_argument("--mode-file", type=Path, default=repo_root / "config/mode_declarations.las")
     parser.add_argument(
         "--output-dir",
         type=Path,

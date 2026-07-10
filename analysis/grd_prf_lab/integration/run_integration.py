@@ -35,7 +35,7 @@ INTEG = os.path.join(REPO, "analysis/grd_prf_lab/integration")
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 CHOICE_LINES = {"0{ in(X) }1 :- arg(X).", "0{ out(X) }1 :- arg(X)."}
 

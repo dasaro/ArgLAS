@@ -10,14 +10,15 @@ file simply carries support/2 facts in addition to arg/1 and att/2.
 Standalone pre-step for Experiment F1 (docs/gap_experiments_spec.md): populate
 <artifact_root>/aafs/ before launching a run config with no aaf_generation block.
 """
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 
 import argparse
 import os
 import random
 import re
 
-import generate_aafs
-
+from arglas import generate_aafs
 ATT_RE = re.compile(r"att\((\d+),(\d+)\)\.")
 ARG_RE = re.compile(r"arg\((\d+)\)\.")
 

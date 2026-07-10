@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse
 import csv
 import json
@@ -14,7 +16,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from artifact_paths import artifacts_root, resolve_repo_path
+from arglas.artifact_paths import artifacts_root, resolve_repo_path
 
 
 def sanitize_decimal(value) -> str:

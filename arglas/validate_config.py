@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-from solver_policy import get_semantics_names
+from arglas.solver_policy import get_semantics_names
 
 CONFIG_PATH = "batch_config.json"
 SEMANTICS_CONFIG_PATH = "semantics_config.json"

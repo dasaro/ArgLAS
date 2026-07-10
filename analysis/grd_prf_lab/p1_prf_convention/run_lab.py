@@ -11,12 +11,12 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 LAB = os.path.join(REPO, "analysis/grd_prf_lab/p1_prf_convention")
 sys.path.insert(0, REPO)
 
-import train_test as T  # noqa: E402
-from generate_ilasp_task import parse_lp_instance, render_label_facts  # noqa: E402
+from arglas import train_test as T  # noqa: E402
+from arglas.generate_ilasp_task import parse_lp_instance, render_label_facts  # noqa: E402
 
 PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")
-BG = os.path.join(REPO, "background_knowledge.lp")
-MODES = os.path.join(REPO, "mode_declarations.las")
+BG = os.path.join(REPO, "config/background_knowledge.lp")
+MODES = os.path.join(REPO, "config/mode_declarations.las")
 BG_CONV = os.path.join(LAB, "bg_learned_prf.lp")
 DOMREC = ["--heuristic=Domain", "--enum=domRec"]
 K_FOLDS = 5

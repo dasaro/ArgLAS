@@ -26,12 +26,12 @@ G1 = os.path.join(REPO, "analysis/grd_prf_lab/g1_definite_core")
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 AAF_DIR = os.path.join(REPO, "artifacts/final_synthetic_corrected_20260625/aafs")
 GRD_POOL = os.path.join(INTEG, "pools/labelled_GRD_full")
 PRF_POOL = os.path.join(INTEG, "pools/labelled_PRF_full")
-BG_NOCHOICE = os.path.join(INTEG, "bg_nochoice_grd.lp")
+BG_NOCHOICE = os.path.join(INTEG, "config/bg_nochoice_grd.lp")
 BG_PRF = os.path.join(INTEG, "bg_learned_prf.lp")
 GRD_CHECK = os.path.join(G1, "grd_check_oracle.lp")
 PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")

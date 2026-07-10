@@ -9,10 +9,10 @@ import sys
 import json
 import random
 import hashlib
-from artifact_paths import resolve_artifact_path, resolve_repo_path
-from ilasp_policy import load_ilasp_config, resolve_ilasp_args
-from solver_runtime import build_semantics_runtime, solve_models
-from solver_policy import (
+from arglas.artifact_paths import repo_root, resolve_artifact_path, resolve_repo_path
+from arglas.ilasp_policy import load_ilasp_config, resolve_ilasp_args
+from arglas.solver_runtime import build_semantics_runtime, solve_models
+from arglas.solver_policy import (
     get_background_file,
     get_clingo_args,
     get_completion_rules_enabled,
@@ -77,11 +77,11 @@ def generate_ilasp_task(
     learn_background=None,
 ):
     print(f"Generating ILASP task for POS={n_pos}, NEG={n_neg}, NOISE={noise}, NEG_POLICY={negative_policy}, FLIP_K={negative_flip_k}...")
-    script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "generate_ilasp_task.py")
     semantics_config_path = resolve_repo_path(semantics_config_path, "semantics_config.json")
     command = [
         sys.executable,
-        script_path,
+        "-m",
+        "arglas.generate_ilasp_task",
         input_dir,
         output_file,
         str(n_pos),
@@ -101,7 +101,7 @@ def generate_ilasp_task(
         command.append(f"--learn_background={learn_background}")
     if noise != 0 or negative_policy != "oracle_neg":
         command.append("--noise_factor=100")
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True, cwd=str(repo_root()))
     print(f"ILASP task saved to {output_file}")
 
 def extract_train_files(task_file):

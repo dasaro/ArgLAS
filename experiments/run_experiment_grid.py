@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse
 import hashlib
 import json
@@ -9,7 +11,7 @@ import threading
 from pathlib import Path
 from typing import Optional
 
-from artifact_paths import artifacts_root, repo_root, resolve_repo_path
+from arglas.artifact_paths import artifacts_root, repo_root, resolve_repo_path
 
 
 BOOL_TRUE = {"1", "true", "yes", "on"}

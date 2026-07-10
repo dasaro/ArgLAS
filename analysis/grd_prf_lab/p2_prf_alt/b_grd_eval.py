@@ -20,12 +20,12 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 AAF_DIR = os.path.join(REPO, "artifacts/final_synthetic_corrected_20260625/aafs")
 LAB = os.path.join(REPO, "analysis/grd_prf_lab/p2_prf_alt")
-BACKGROUND = os.path.join(REPO, "background_knowledge.lp")
-GROUNDED = os.path.join(REPO, "ASPARTIX/grounded.lp")
+BACKGROUND = os.path.join(REPO, "config/background_knowledge.lp")
+GROUNDED = os.path.join(REPO, "config/ASPARTIX/grounded.lp")
 
 GRD_ARGS = ["--heuristic=Domain", "--enum=domRec"]
 SHOW = ["in/1", "out/1"]

@@ -36,7 +36,7 @@ SEED = 20260312           # campaign test_sampling_seed, reused for fold + noise
 NOISES = [0.0, 0.1, 0.2]
 N_FOLDS = 5
 
-ENC = {s: open(os.path.join(REPO, f"ASPARTIX/{f}.lp")).read()
+ENC = {s: open(os.path.join(REPO, f"config/ASPARTIX/{f}.lp")).read()
        for s, f in [("STB", "stable"), ("ADM", "admissible"),
                     ("CMP", "complete"), ("PRF", "preferred")]}
 DOMREC = {"PRF"}          # preferred needs subset-maximal enumeration

@@ -31,8 +31,8 @@ import clingo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-BG = open(os.path.join(REPO, "background_knowledge.lp")).read().strip()
-MODES = open(os.path.join(REPO, "mode_declarations.las")).read().strip()
+BG = open(os.path.join(REPO, "config/background_knowledge.lp")).read().strip()
+MODES = open(os.path.join(REPO, "config/mode_declarations.las")).read().strip()
 # AGNOSTIC mode-bias enrichment (opt-in via env ARGLAS_ENRICH). The base vocabulary
 # {in,out,arg,att,defeated,not_defended,supported} provably CANNOT express cf2-like behaviour on
 # cyclic AFs (needs SCC/reachability). Two enrichment levers, both agnostic (structural graph

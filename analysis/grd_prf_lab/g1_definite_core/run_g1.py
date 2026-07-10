@@ -35,18 +35,18 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
-import train_test as T  # noqa: E402
-from generate_ilasp_task import parse_lp_instance, render_label_facts  # noqa: E402
+from arglas import train_test as T  # noqa: E402
+from arglas.generate_ilasp_task import parse_lp_instance, render_label_facts  # noqa: E402
 
 LAB = os.path.join(REPO, "analysis/grd_prf_lab/g1_definite_core")
 POOL = os.path.join(
     REPO, "artifacts/final_synthetic_corrected_20260625/labelled/labelled_GRD_full"
 )
-GROUNDED_LP = os.path.join(REPO, "ASPARTIX/grounded.lp")
-BG_CHOICE = os.path.join(REPO, "background_knowledge.lp")
+GROUNDED_LP = os.path.join(REPO, "config/ASPARTIX/grounded.lp")
+BG_CHOICE = os.path.join(REPO, "config/background_knowledge.lp")
 BG_NOCHOICE = os.path.join(LAB, "bg_nochoice.lp")
 GRD_CHECK = os.path.join(LAB, "grd_check_oracle.lp")
-MODES = os.path.join(REPO, "mode_declarations.las")
+MODES = os.path.join(REPO, "config/mode_declarations.las")
 SHOW = ["in/1", "out/1"]
 ILASP_TIMEOUT = 600
 ILASP_VERSION = os.environ.get("G1_ILASP_VERSION", "4")

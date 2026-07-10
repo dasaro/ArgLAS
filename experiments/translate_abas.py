@@ -18,7 +18,7 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "analysis", "zlatina_theorems"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "analysis", "zlatina_theorems"))
 from check_aba_transform import ref_arguments, ref_attacks  # noqa: E402
 
 

@@ -25,8 +25,8 @@ REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 AAF_DIR = os.path.join(REPO, "artifacts/final_synthetic_corrected_20260625/aafs")
 OUT = os.path.join(REPO, "analysis/grd_prf_lab/p2_prf_alt/a_gap_results.json")
 
-PREFERRED_LP = os.path.join(REPO, "ASPARTIX/preferred.lp")
-COMPLETE_LP = os.path.join(REPO, "ASPARTIX/complete.lp")
+PREFERRED_LP = os.path.join(REPO, "config/ASPARTIX/preferred.lp")
+COMPLETE_LP = os.path.join(REPO, "config/ASPARTIX/complete.lp")
 
 
 def solve_in_sets(files, extra_program=None, args=(), optimal_only=False):

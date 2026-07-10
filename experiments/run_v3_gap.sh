@@ -6,7 +6,7 @@
 # Usage:  ./run_v3_gap.sh smoke   # after applying the deferred patches (spec §4)
 #         nohup ./run_v3_gap.sh > v3_gap.out 2>&1 &
 set -u
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 die() { echo "[v3] FATAL: $1" >&2; exit 1; }
 
@@ -16,15 +16,15 @@ if pgrep -f "run_experiment_grid.py" >/dev/null 2>&1; then
 fi
 
 # --- guard 2: refuse to start until the deferred patches (spec §4) are applied
-grep -q "allow_self_attacks" generate_aafs.py \
+grep -q "allow_self_attacks" arglas/generate_aafs.py \
   || die "generate_aafs.py patch not applied (spec §4.1: density preset + self-attacks)"
-grep -q "density_preset" run_experiment_grid.py \
+grep -q "density_preset" experiments/run_experiment_grid.py \
   || die "run_experiment_grid.py patch not applied (spec §4.2: ensure_aafs plumbing)"
-grep -q 'support(' generate_extensions.py \
+grep -q 'support(' arglas/generate_extensions.py \
   || die "generate_extensions.py patch not applied (spec §4.3: support-fact prefix)"
 python3 - <<'PY' || die "semantics_config.json BAF entries missing (spec §4.4)"
 import json, sys
-c = json.load(open("semantics_config.json"))
+c = json.load(open("config/semantics_config.json"))
 sys.exit(0 if all(k in c for k in ("BAF_STB", "BAF_ADM", "BAF_CMP")) else 1)
 PY
 
@@ -32,7 +32,7 @@ MODE="${1:-full}"
 if [ "$MODE" = "smoke" ]; then
   echo "[v3] smoke: sparse+self-attack generator flags, 1 STB cell, 2 folds"
   FABIO_ARTIFACTS_ROOT=artifacts/v3_smoke \
-    python3 run_experiment_grid.py --config run_configs/v3_smoke_breadth.json \
+    python3 experiments/run_experiment_grid.py --config experiments/run_configs/v3_smoke_breadth.json \
     || die "smoke run failed"
   echo "[v3] SMOKE OK — launch the full run with: nohup ./run_v3_gap.sh > v3_gap.out 2>&1 &"
   exit 0
@@ -41,20 +41,20 @@ fi
 # --- Experiment F pools (pre-populated; idempotent)
 if [ -z "$(ls artifacts/final_synthetic_v3_baf/aafs/ 2>/dev/null)" ]; then
   echo "[v3] generating BAF pool (500 BAFs, n=4..8)"
-  python3 generate_bafs.py 4 8 100 \
+  python3 experiments/generate_bafs.py 4 8 100 \
     --output_dir artifacts/final_synthetic_v3_baf/aafs --seed 20260804 --quiet \
     || die "BAF pool generation failed"
 fi
 if [ -z "$(ls artifacts/final_synthetic_v3_aba/aafs/ 2>/dev/null)" ]; then
   echo "[v3] generating ABA-translated pool (300 AAFs, corrected per-root translation)"
-  python3 translate_abas.py 300 \
+  python3 experiments/translate_abas.py 300 \
     --output_dir artifacts/final_synthetic_v3_aba/aafs --seed 20260805 --quiet \
     || die "ABA translation failed"
 fi
 
 run_cfg() { # $1 = artifact root, $2 = config stem
   echo "===== [$(date '+%F %T')] launching $2 (root: $1) ====="
-  FABIO_ARTIFACTS_ROOT="$1" python3 run_experiment_grid.py --config "run_configs/$2.json"
+  FABIO_ARTIFACTS_ROOT="$1" python3 experiments/run_experiment_grid.py --config "experiments/run_configs/$2.json"
   rc=$?
   if [ $rc -ne 0 ]; then
     echo "===== $2 exited rc=$rc — rerun this script to resume ====="

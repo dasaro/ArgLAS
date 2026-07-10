@@ -7,7 +7,7 @@ def run_clingo(input_file, semantics_file):
     ctl = clingo.Control(["-n", "1"])
     ctl.load(semantics_file)
     ctl.load(input_file)
-    ctl.load("background_knowledge.lp")
+    ctl.load("config/background_knowledge.lp")
     ctl.ground()
     models = []
     
@@ -45,7 +45,7 @@ def check_satisfaction(input_dir, semantics_file, output_file):
 
 if __name__ == "__main__":
     input_directory = "Real_World_Examples/asp_files/versionE/pos/"  # Change this to the target directory
-    #semantics_file = "ASPARTIX/admissible.lp"  # Change this to the desired semantics file
+    #semantics_file = "config/ASPARTIX/admissible.lp"  # Change this to the desired semantics file
     semantics_file = "Real_World_Examples/learned_encodings/versionE_special_neg.lp"  # Change this to the desired semantics file
     output_filename = "satisfaction_results.txt"
     

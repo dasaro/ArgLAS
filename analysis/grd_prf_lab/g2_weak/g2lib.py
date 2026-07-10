@@ -25,7 +25,7 @@ COMPLETE_LP = os.path.join(REPO, "ASPARTIX", "complete.lp")
 
 sys.path.insert(0, REPO)
 os.chdir(REPO)
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 SHOW = ["in/1", "out/1"]
 

@@ -18,6 +18,8 @@ Usage:
   python3 exp1_rescore_complete_info.py                # full run (534 successful rows)
 Results: analysis/exp1_complete_info_rescore.json (incremental flush; resumable cache).
 """
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))
 import argparse, csv, glob, json, os, sys, time
 from multiprocessing import Pool
 
@@ -28,7 +30,7 @@ FOLD_SEED = 20260312
 K = 5
 PER_CLASS = 100
 sys.path.insert(0, REPO)
-import train_test as T
+from arglas import train_test as T
 
 
 def load_rows():
@@ -54,7 +56,7 @@ def load_rows():
 
 
 def make_runtimes():
-    cfgp = T.resolve_repo_path("semantics_config.json")
+    cfgp = T.resolve_repo_path("config/semantics_config.json")
     cfg = T.load_semantics_config(cfgp)
     rt = {}
     for sem in ("ADM", "CMP", "STB"):

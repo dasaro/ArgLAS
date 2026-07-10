@@ -6,7 +6,7 @@ from collections import defaultdict
 
 REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
 sys.path.insert(0, REPO)
-import train_test as T  # noqa: E402
+from arglas import train_test as T  # noqa: E402
 
 RUNS = os.path.join(REPO, "analysis/grd_prf_lab/p1_prf_convention/runs")
 
