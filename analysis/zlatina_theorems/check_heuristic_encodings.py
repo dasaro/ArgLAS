@@ -84,7 +84,7 @@ def main():
     for f, got, want in badp: print(f"    CE: {f}\n      domRec in-sets={got}  preferred={want}")
     # campaign AAFs
     camp = sorted(glob.glob(os.path.join(os.path.dirname(__file__), "..", "..",
-                  "artifacts", "final_synthetic_v2", "aafs", "*.lp")))
+                  "data", "exp1_v2", "aafs", "*.lp")))
     bg = bp = 0
     for f in camp:
         txt = open(f).read()

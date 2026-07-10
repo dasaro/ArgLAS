@@ -80,7 +80,7 @@ def main():
     # campaign AAFs (n=4..8, dense)
     import glob, re, os
     camp = sorted(glob.glob(os.path.join(os.path.dirname(__file__), "..", "..",
-                  "artifacts", "final_synthetic_v2", "aafs", "*.lp")))
+                  "data", "exp1_v2", "aafs", "*.lp")))
     for label, progs in (("manuscript", P),):
         for sem in progs:
             bad = 0; t0 = time.time()

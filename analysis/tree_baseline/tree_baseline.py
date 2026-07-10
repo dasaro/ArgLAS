@@ -28,10 +28,10 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GroupKFold
 from sklearn.metrics import matthews_corrcoef, accuracy_score, precision_recall_fscore_support
 
-REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 OUT = os.path.join(REPO, "analysis/tree_baseline")
 os.makedirs(os.path.join(OUT, "trees"), exist_ok=True)
-POOL = sorted(glob.glob(os.path.join(REPO, "artifacts/final_synthetic_v2/aafs/aaf_*.lp")))
+POOL = sorted(glob.glob(os.path.join(REPO, "data/exp1_v2/aafs/aaf_*.lp")))
 SEED = 20260312           # campaign test_sampling_seed, reused for fold + noise determinism
 NOISES = [0.0, 0.1, 0.2]
 N_FOLDS = 5

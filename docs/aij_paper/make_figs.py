@@ -13,7 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
-REPO = "/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude"
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 FIGS = os.path.join(REPO, "docs/aij_paper/figs")
 os.makedirs(FIGS, exist_ok=True)
 
@@ -30,7 +30,7 @@ QS = ["0.0", "0.1", "0.2"]
 
 def load(root):
     rows = []
-    for f in glob.glob(f"{REPO}/artifacts/{root}/results/**/results_*.csv", recursive=True):
+    for f in glob.glob(f"{REPO}/data/{root}/results/**/results_*.csv", recursive=True):
         d = os.path.basename(os.path.dirname(f))
         m = re.match(r"([A-Z_]+)_partial_([0-9_]+)_noise_([0-9_]+)_ratio_(\w+)", d)
         if not m:
@@ -53,7 +53,7 @@ def save(fig, name):
     print("wrote", name)
 
 
-V2 = [r for r in load("final_synthetic_v2") if r["_sem"] != "GRD"]
+V2 = [r for r in load("exp1_v2") if r["_sem"] != "GRD"]
 
 
 # ---- surface aggregation: balanced arm, pooled over completeness, MCC_FULL, OK
@@ -173,8 +173,8 @@ def fig_breadth():
                         pass
                 out[(s, f)] = st.mean(v) if v else np.nan
         return out
-    baf = agg("final_synthetic_v3_baf", ["BAF_STB", "BAF_ADM", "BAF_CMP"], "matched")
-    aba = agg("final_synthetic_v3_aba", ["STB", "ADM"], "full")
+    baf = agg("v3_baf", ["BAF_STB", "BAF_ADM", "BAF_CMP"], "matched")
+    aba = agg("v3_aba", ["STB", "ADM"], "full")
     fig, axes = plt.subplots(1, 2, figsize=(8.0, 2.7), constrained_layout=True, sharey=True)
     width = 0.25
     x = np.arange(3)
@@ -317,10 +317,10 @@ def fig_slice_partial():
 # ============================================= FIG: generator breadth (dense vs sparse/self/large)
 def fig_generator_breadth():
     import numpy as _np
-    GENS = [("dense", "final_synthetic_v2", "1", "#777777"),
-            ("sparse", "final_synthetic_v3_sparse", None, "#2166ac"),
-            ("self", "final_synthetic_v3_self", None, "#e08214"),
-            ("large", "final_synthetic_v3_large", None, "#1b7837")]
+    GENS = [("dense", "exp1_v2", "1", "#777777"),
+            ("sparse", "v3_sparse", None, "#2166ac"),
+            ("self", "v3_self", None, "#e08214"),
+            ("large", "v3_large", None, "#1b7837")]
     data = {name: load(root) for name, root, _, _ in GENS}
     F = 60  # higher-data anchor point
 
