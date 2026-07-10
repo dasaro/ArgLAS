@@ -1,0 +1,17 @@
+arg(1).
+arg(2).
+arg(3).
+arg(4).
+arg(5).
+arg(6).
+arg(7).
+arg(8).
+att(1,7).
+att(1,8).
+att(2,6).
+att(2,8).
+att(3,1).
+att(6,7).
+att(7,1).
+att(8,4).
+att(8,7).

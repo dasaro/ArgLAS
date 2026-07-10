@@ -1,0 +1,15 @@
+atoms: ['s0', 's1', 's2', 's3', 's4', 's5', 's6']
+assumptions: ['s1', 's3', 's4', 's5']
+rules:
+  s6 <- TRUE
+  s6 <- s0
+  s2 <- TRUE
+  s6 <- s1, s0
+contraries: {'s4': 's2', 's5': 's0', 's1': 's5', 's3': 's0'}
+arguments (id: root <- minimal support):
+  1: s1 <- ['s1']
+  2: s2 <- []
+  3: s3 <- ['s3']
+  4: s4 <- ['s4']
+  5: s5 <- ['s5']
+  6: s6 <- []
