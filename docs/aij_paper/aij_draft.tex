@@ -11,6 +11,7 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -25,14 +26,15 @@
 \newcommand{\AS}{\mathit{AS}}
 \newcommand{\ASstar}{\mathit{AS}^{*}}
 \newcommand{\Daaf}{D_{\mathrm{AAF}}}
+\newcommand{\Att}{\mathit{Att}}
 
 \journal{Artificial Intelligence}
 
 \begin{document}
 \begin{frontmatter}
 
-\title{Learning Argumentation Semantics, Verified:\\
-a Unifying Framework with Mechanized Correctness Proofs,\\
+\title{Learning Argumentation Semantics:\\
+a Unifying Framework with Correctness Proofs,\\
 Robust Recovery, and a Learned Account of Human Acceptance}
 
 \author[imperial]{Zlatina Mileva}
@@ -57,15 +59,11 @@ Answer Sets, that learns acceptability semantics across abstract, bipolar, and
 --- via a corrected translation --- assumption-based argumentation, with a
 unified background theory that also covers value-based frameworks, returning
 interpretable encodings rather than black-box predictors. First, correctness is
-\emph{mechanized}: the learned stable, admissible, and complete encodings for
-abstract frameworks are proved equivalent to their manually engineered
-counterparts at three independent levels --- exhaustive checking on all
-$66{,}066$ frameworks with at most four arguments, Clark-completion proofs
-discharged by an SMT solver, and automatic first-order proofs via
-\textsc{anthem}/\textsc{Vampire}; new equivalence theorems cover bipolar
-frameworks via a sound reduction, the preferred semantics carries an exhaustive
-certificate, and the same methodology uncovered --- and repaired --- a defect in
-a published assumption-based translation. Second, a $3{,}240$-run controlled
+\emph{proved}: the learned stable, admissible, and complete encodings are shown
+equivalent to their manually engineered counterparts on \emph{every} framework
+--- for abstract and, new, for bipolar frameworks --- the preferred construction
+is characterized exactly, and the analysis uncovered --- and repaired --- a
+defect in a published assumption-based translation. Second, a $3{,}240$-run controlled
 study maps recovery of four semantics under partial labels, label noise, sample
 size, and class imbalance: recovery from clean data is near-perfect, label
 noise is the binding constraint --- one that more data buys back --- imbalance
@@ -83,7 +81,7 @@ reproducible from a pinned repository.
 
 \begin{keyword}
 abstract argumentation \sep argumentation semantics \sep inductive logic
-programming \sep answer set programming \sep formal verification \sep human
+programming \sep answer set programming \sep program correctness \sep human
 reasoning
 \end{keyword}
 \end{frontmatter}
@@ -138,29 +136,26 @@ something the best-fit catalogue comparison cannot?
 \item \textbf{A unifying LAS framework} (Section~\ref{sec:framework}) for
 learning acceptability semantics across AAF, BAF, VAF and ABA, with a single
 background theory and hypothesis space that specializes to each family
-(validated by $1{,}800$ randomized checks; a mechanized proof of the
-specialization via the reduction of Theorem~\ref{thm:baf} is future work), and
-a \emph{corrected} ABA-to-AAF translation.
-\item \textbf{Mechanized correctness} (Section~\ref{sec:mech}). Machine-checked
-equivalence between learned and manually engineered encodings: for the AAF
-stable, admissible, and complete encodings at \emph{three independent levels}
-(exhaustive over all $66{,}066$ directed graphs with at most four vertices;
-Clark-completion/Fages reduction discharged in Z3; fully automatic
-\textsc{anthem}+\textsc{Vampire} proofs); for the BAF encodings via an
-\textsc{anthem}+\textsc{Vampire} proof of a sound shared-input reduction plus
-model checking (exhaustive at two arguments, randomized beyond); and for the
-preferred construction via an exhaustive certificate. To our knowledge these
-are the first machine-checked correctness proofs for \emph{learned} logic
-programs in argumentation.
+(Remark~\ref{rem:spec}), and a \emph{corrected} ABA-to-AAF translation.
+\item \textbf{Correctness proofs} (Section~\ref{sec:mech}). Equivalence
+theorems between learned and manually engineered encodings: for the AAF
+stable, admissible, and complete encodings on \emph{every} framework
+(Theorem~\ref{thm:aaf}), and --- new, to our knowledge --- for their bipolar
+counterparts under support-extended defeat (Theorem~\ref{thm:baf}), with the
+transitive-closure instantiation recovered by a splitting argument
+(Corollary~\ref{cor:closure}). All proofs go through a single classical route
+--- both programs are tight, so by Fages' theorem their answer sets are the
+models of their Clark completions, and the completions are shown to have
+the same models on the shared vocabulary --- with full details in
+\ref{app:proofs}.
 \item \textbf{A corrected ABA-to-AAF translation} (Section~\ref{sec:abadefect}).
-Systematic verification uncovered a counterexample-backed defect in the published
-argument-construction step --- arguments are silently dropped whenever any
-conclusion is derivable without assumptions; we give a minimal counterexample and
-a validated fix, as a case study in why mechanized checking of encodings matters.
+The published argument-construction step is incorrect: arguments are silently
+dropped whenever any conclusion is derivable without assumptions. We give a
+minimal counterexample and a corrected, definition-faithful construction.
 \item \textbf{Preferred semantics, learnable at scale}
-(Section~\ref{sec:prf}). An exhaustive certificate that a complete-labelling
-core combined with a declarative subset-optimality convention computes exactly
-the preferred labellings, plus the formulation that makes preferred learnable
+(Section~\ref{sec:prf}). A proof that subset-maximal selection over a learned
+admissible (or complete) core computes exactly the preferred extensions
+(Theorem~\ref{thm:prf}), plus the formulation that makes preferred learnable
 through a realistic pipeline.
 \item \textbf{Learnability under imperfect data} (Section~\ref{sec:exp1}). A
 controlled recovery study --- four semantics $\times$ label completeness
@@ -184,7 +179,7 @@ a directional, multiplicity-corrected test rejects per-graph semantics in favour
 of one structure-sensitive policy.
 \end{enumerate}
 
-Everything is reproducible: encodings, verification scripts, campaign
+Everything is reproducible: encodings, proof-checking scripts, campaign
 configurations with pinned seeds, and analysis notebooks are available in the
 accompanying repository.\footnote{\url{https://github.com/dasaro/ArgLAS}
 \todo{pin release commit for submission}}
@@ -252,42 +247,38 @@ sufficiently supported theory can out-vote corrupted examples.
 FastLAS~\citep{law2020} trades some expressivity for scalability and is used in
 Sections~\ref{sec:exp2} and~\ref{sec:eval}.
 
-One ASP device beyond the Dung encodings is needed. clingo's \emph{domain
-heuristics}~\citep{gebser2019} combined with the enumeration mode
-\texttt{--heuristic=Domain --enum-mode=domRec} restrict enumeration to answer
-sets that are subset-optimal in the declared heuristic atoms; we write
-$\ASstar(P)$ for this projected enumeration. The optimization is
+One operation beyond plain answer-set computation is needed. For a program $P$
+and a designated predicate $p$, write $\ASstar_p(P)$ for the answer sets of
+$P$ whose $p$-projection is \emph{subset-maximal} among the $p$-projections of
+all answer sets of $P$; modern ASP solvers compute this projection
+natively~\citep{gebser2019}. The optimization is
 subset-inclusion, \emph{not} cardinality --- a distinction essential for
 correctness, since a maximum-cardinality admissible set is preferred but not
-every preferred extension has maximum cardinality. The two concrete uses in
-this paper --- a maximize-\pred{in} convention
-(\texttt{\#heuristic in(X) : arg(X).\ [1,true]}) in the learning pipeline and a
-dual convention over \pred{out} in the certified formulation --- are stated
-explicitly where used (Sections~\ref{sec:prf} and~\ref{sec:exp1setup}) and
-certified exhaustively rather than argued from the solver documentation.
+every preferred extension has maximum cardinality. Subset-maximal selection
+over \pred{in} is used by the preferred construction (Theorem~\ref{thm:prf})
+and, symmetrically on the learned and reference sides, in the evaluation
+pipeline (Section~\ref{sec:exp1setup}).
 
-\subsection{Verification of ASP programs}
+\subsection{Proof technique: tightness and program completion}
 \label{sec:bg-verif}
 
-Our correctness results (Section~\ref{sec:mech}) rest on three independent
-verification technologies. (i)~\emph{Exhaustive model checking}: for claims
-quantified over all frameworks, checking all frameworks up to a size bound with
-clingo gives a finite certificate --- all $66{,}066$ directed graphs on at most
-four labelled vertices (self-attacks included), $\sum_{n=1}^{4}2^{n^2}$.
-(ii)~\emph{Completion-based proof}: a program that is \emph{tight} (no positive
-recursion) has answer sets coinciding with the models of its Clark
-completion~\citep{clark1978,fages1994}; equivalence of two tight programs then
-reduces to a first-order validity between their completions, which an SMT
-solver can discharge over \emph{all} domains --- we use Z3~\citep{z3}.
-(iii)~\emph{External equivalence}: the \textsc{anthem}
-toolchain~\citep{anthem2020,anthem2023} translates mini-gringo programs to
-many-sorted first-order theories and verifies, via the automated theorem prover
-\textsc{Vampire}~\citep{vampire}, that two programs have the same input/output
-behaviour with respect to declared input predicates (here $\pred{arg}/1$,
-$\pred{att}/2$) and output predicates ($\pred{in}/1$, $\pred{out}/1$), with all
-private predicates renamed apart. Level (iii) is the strongest: unlike (ii) it
-does not rely on our own tightness check or completion transcription, but on an
-independently published theory and implementation.
+The correctness results of Section~\ref{sec:mech} all go through one classical
+route. A ground logic program is \emph{tight} if its positive atom
+dependency graph --- atoms as vertices, an edge from head to body atom for
+every \emph{positive} body literal --- is acyclic; a sufficient condition,
+met by every program we compare, is acyclicity of the predicate-level positive
+dependency graph. For tight programs, answer sets
+coincide with the models of the \emph{Clark
+completion}~\citep{clark1978,fages1994,erdem2003}: the first-order theory that
+replaces each predicate's defining rules by a biconditional (the predicate
+holds iff one of its rule bodies does) and adds the program's constraints.
+Every program compared in Section~\ref{sec:mech} is tight --- the only genuinely
+recursive definition in the paper, the transitive closure of support, is
+handled separately by the splitting theorem~\citep{lifschitz1994} in
+Corollary~\ref{cor:closure}. Equivalence of two tight programs on a shared
+input vocabulary therefore reduces to their completions having the same
+models on that vocabulary, which can be established by ordinary propositional
+reasoning; this is how all the proofs in \ref{app:proofs} proceed.
 
 %=====================================================================
 \section{A Unifying Framework for Learning Argumentation Semantics}
@@ -347,12 +338,29 @@ determine \pred{in}/\pred{out}.}
 derived vocabulary plus $\pred{arg}$, $\pred{att}$, $\pred{in}$, $\pred{out}$
 in the body, with at most two variables. The unified background $B$ for all
 four framework families extends $B_{\mathrm{AAF}}$ with support-extended defeat
-(for BAF) and value-preference-disarmed defeat (for VAF); $1{,}800$ randomized
-checks (zero mismatches) validate that $B$ specializes to
-$B_{\mathrm{AAF}}$, $B_{\mathrm{BAF}}$, $B_{\mathrm{VAF}}$ when the extra input
-relations are empty, so the unified and per-family presentations are
-interchangeable in practice (a mechanized proof of the specialization is future
-work; see Section~\ref{sec:concl}). For BAF, $B_{\mathrm{BAF}}$ adds:
+(for BAF) and value-preference-disarmed defeat (for VAF).
+
+\begin{remark}[Specialization]
+\label{rem:spec}
+When the extra input relations (\pred{support}, \pred{valpref}) are empty, $B$
+specializes to $B_{\mathrm{AAF}}$ on the derived vocabulary
+$\{\pred{in},\pred{out},\pred{defeated},\pred{not\_defended}\}$: the
+support-closure rule and the two support-mediated defeat rules have
+unsatisfiable bodies and derive nothing, and the preference-disarmed rule
+$\pred{defeat}(X,Y)\leftarrow\pred{att}(X,Y),\ \neg\pred{pref}(Y,X)$ (where
+\pred{pref} is the argument-level preference derived from \pred{valpref})
+collapses to $\pred{defeat}(X,Y)\leftarrow\pred{att}(X,Y)$ --- so every such
+rule either vanishes or reduces to its $B_{\mathrm{AAF}}$ counterpart,
+immediately by inspection. The one deliberate exception is \pred{supported}/1,
+which $B$ defines in the bipolar reading (Figure~\ref{fig:bgbaf}): with empty
+\pred{support} it becomes empty rather than reverting to the AAF reading.
+The unified and per-family presentations are therefore interchangeable for
+hypotheses that do not mention \pred{supported} --- which includes every fixed
+encoding and every program a correctness theorem is stated about (cf.\ the
+caption of Figure~\ref{fig:bgbaf}).
+\end{remark}
+
+\noindent For BAF, $B_{\mathrm{BAF}}$ adds:
 
 \begin{figure}[h]
 \centering
@@ -367,10 +375,10 @@ defeat(X,Y)  :- att(X,Z), support(Z,Y).
 \end{minipage}
 \caption{$B_{\mathrm{BAF}}$: transitive support closure and support-extended
 defeat (supported and indirect attacks), replacing the first rule of
-Figure~\ref{fig:bg}. The machine-checked BAF background additionally redefines
+Figure~\ref{fig:bg}. The BAF background additionally redefines
 \pred{supported}$/1$ in the bipolar sense (``supported by an accepted
-argument''). The fixed encodings of Figure~\ref{fig:learned} and the certified
-programs of Section~\ref{sec:mech} never mention \pred{supported}, so the two
+argument''). The fixed encodings of Figure~\ref{fig:learned} and the programs
+of Section~\ref{sec:mech} never mention \pred{supported}, so the two
 readings affect no correctness theorem; campaign-learned hypotheses may (and
 do) use \pred{supported}, each under its own family's reading, and the two
 readings never co-occur in one learning task.}
@@ -409,15 +417,15 @@ out(X) :- not_defended(X).
 in(X)  :- arg(X), not out(X), not defeated(X).
 \end{verbatim}\end{minipage}\\
 preferred &
-complete-labelling core $+$ subset-optimality convention
+admissible/complete core $+$ subset-maximal \pred{in}-selection
 (Thm.~\ref{thm:prf})\\
 \bottomrule
 \end{tabular}
 \caption{The learned encodings, as induced by ILASP from curated labelled
 frameworks. Section~\ref{sec:mech} proves the stable/admissible/complete rows
 equivalent to their ASPARTIX references over the definitional context $\Daaf$
-(Theorem~\ref{thm:aaf}) and certifies the preferred construction exhaustively
-on finite frameworks (Theorem~\ref{thm:prf}). Under the sampled-data campaign
+(Theorem~\ref{thm:aaf}) and the preferred construction correct on every
+framework (Theorem~\ref{thm:prf}). Under the sampled-data campaign
 of Section~\ref{sec:exp1} the learner typically returns \emph{constraint-style}
 presentations of the same semantics over the guessing background
 (Section~\ref{sec:exp1surfaces}).}
@@ -432,18 +440,31 @@ machinery above. The translation constructs (i) the arguments --- all pairs
 $(s,\Sigma)$ with $\Sigma$ a subset-minimal assumption support deriving claim
 $s$ --- and (ii) the attacks --- $(s,\Sigma)$ attacks $(t,\Delta)$ iff
 $s=\bar a$ for some $a\in\Delta$. Step (ii) is a single ASP rule and is
-straightforwardly correct (validated on 500 random flat frameworks). Step (i)
-is where a published enumeration program is \emph{incorrect}; we present here
-the corrected construction and defer the defect analysis to
-Section~\ref{sec:abadefect}. The corrected step (i) runs one enumeration per
-candidate root $s$: assert \texttt{:- not holds(s)} to pin the root, prefer
-assumptions false via a domain heuristic over \pred{assume} alone, and
-enumerate with domRec; this enumerates the subset-minimal supports for each
-derivable claim, validated against an independent reference enumeration on 500
-random flat frameworks (zero mismatches).
+immediate from the definition. Step (i) is where a published enumeration
+program is \emph{incorrect}; we present here the corrected construction and
+defer the defect analysis to Section~\ref{sec:abadefect}. The corrected
+step (i) performs one enumeration per candidate root $s$: require $s$ to be
+derived, and enumerate the assumption sets that are subset-minimal among those
+deriving $s$ (the projection $\ASstar$ of Section~\ref{sec:bg-las}, applied to
+\pred{assume} with minimization in place of maximization).
+
+\begin{proposition}
+\label{prop:aba}
+For every flat ABA framework, the corrected step (i) returns exactly the
+arguments $(s,\Sigma)$ of the definition.
+\end{proposition}
+
+\begin{proof}
+Fix a derivable claim $s$. In the enumeration with $s$ required, the answer
+sets correspond one-to-one with the assumption sets that derive $s$; the
+subset-minimal projection over the assumption vocabulary retains precisely
+the $\subseteq$-minimal such sets, i.e.\ the supports $\Sigma$ with
+$(s,\Sigma)$ an argument. Ranging over all derivable $s$ yields all
+arguments and nothing else.
+\end{proof}
 
 %=====================================================================
-\section{Correctness, Mechanized}
+\section{Correctness of the Learned Encodings}
 \label{sec:mech}
 
 The programs of Figure~\ref{fig:learned} were \emph{learned}; nothing
@@ -451,78 +472,84 @@ guarantees a learner's output generalizes beyond its examples. This section
 shows the learned encodings are not approximately right but \emph{exactly}
 right: for stable, admissible, and complete --- on abstract and bipolar
 frameworks alike --- provably equivalent to the manually engineered ASPARTIX
-encodings on \emph{every} framework, and for the preferred construction
-certified exhaustively on a finite universe (Theorem~\ref{thm:prf} states the
-honest scope). We believe the three-level verification methodology --- exhaustive
-finite certificate, completion-based SMT proof, and independent
-external-equivalence proof --- is of interest beyond argumentation, as a
-template for certifying learned logic programs; its value is demonstrated
-concretely by the defect it uncovered (Section~\ref{sec:abadefect}). All
-verification inputs, scripts, and prover logs ship with the repository
-(\ref{app:artifacts}).
+encodings on \emph{every} framework (Theorems~\ref{thm:aaf}
+and~\ref{thm:baf}), and for the preferred construction provably correct via a
+maximality characterization (Theorem~\ref{thm:prf}). All equivalences follow
+one classical route (Section~\ref{sec:bg-verif}): both programs are tight, so
+by Fages' theorem their answer sets are the models of their Clark completions,
+and the two completions are logically equivalent. We give the statements and
+proof sketches here and the full completion computations in \ref{app:proofs}.
+The value of insisting on proofs rather than spot checks is demonstrated
+concretely by the defect analysed in Section~\ref{sec:abadefect}.
 
 \subsection{Equivalence for abstract frameworks}
 \label{sec:thm1}
 
+Throughout, an AAF $F=(A,R)$ is encoded as the facts
+$\{\pred{arg}(a): a\in A\}\cup\{\pred{att}(a,b):(a,b)\in R\}$; in particular
+every domain element is an argument and
+$\pred{att}\subseteq\pred{arg}\times\pred{arg}$.
+
 \begin{theorem}[AAF equivalence]
 \label{thm:aaf}
 For each $\sigma\in\{\text{stable},\text{admissible},\text{complete}\}$ and
-every AAF $F=(A,R)$, encoded as facts $\{\pred{arg}(a): a\in A\}\cup
-\{\pred{att}(a,b):(a,b)\in R\}$, the programs
-$P_\sigma\cup \Daaf$ and the ASPARTIX encoding $S_\sigma$ have
-identical answer sets; in particular the $\pred{in}$-projections are exactly
-the $\sigma$-extensions of $F$.
+every AAF $F=(A,R)$, the programs $P_\sigma\cup \Daaf$ and the ASPARTIX
+encoding $S_\sigma$ have the same answer sets restricted to
+$\{\pred{in},\pred{out}\}$; the correspondence is a bijection (the remaining,
+derived atoms are functionally determined by $\pred{in}$ and $\pred{att}$),
+and the $\pred{in}$-projections are exactly the $\sigma$-extensions of $F$.
 \end{theorem}
 
 Note the theorem is stated over the definitional context $\Daaf$
 (Figure~\ref{fig:defs}), not the learning background: with the choice rules of
 $B_{\mathrm{AAF}}$ present, spurious guessed labellings would be answer sets
 and the equivalence would fail (e.g.\ an unattacked argument could be guessed
-\pred{out}). The theorem was first proved manually via Gelfond--Lifschitz
-reducts in the precursor report (the admissible case is to be reproduced in
-\ref{app:proofs}). What is new here is its \emph{mechanization}, at three
-levels:
+\pred{out}).
 
-\begin{enumerate}[label=(\roman*),itemsep=2pt]
-\item \emph{Exhaustive}: on all $66{,}066$ directed graphs with $\le 4$
-labelled vertices --- self-attacks included, a case the manual proofs do not
-treat explicitly --- and additionally on all 500 frameworks of the
-Section~\ref{sec:exp1} campaign pool ($4$--$8$ arguments), the answer sets of
-learned and reference encodings coincide; zero counterexamples.
-\item \emph{Completion-based}: all six programs are tight, so by Fages'
-theorem~\citep{fages1994} their answer sets are the models of their Clark
-completions; each equivalence reduces to a first-order validity
-$\mathrm{Comp}(P_\sigma\cup \Daaf)\Leftrightarrow\mathrm{Comp}(S_\sigma)$ over
-\emph{all} domains, which Z3 proves (both directions, all three semantics) in
-milliseconds, under the theorem's encoding assumption that every domain element
-is an argument.
-\item \emph{External equivalence}: \textsc{anthem}~2 translates each pair to
-first-order theories and \textsc{Vampire} proves external equivalence with
-respect to inputs $\pred{arg}/1,\pred{att}/2$ and outputs
-$\pred{in}/1,\pred{out}/1$ under the assumption
-$\pred{att}\subseteq\pred{arg}\times\pred{arg}$, in $241$\,ms (stable),
-$277$\,ms (admissible), and $220$\,ms (complete). Since the private predicates
-(\pred{defeated}, \pred{not\_defended}) have identical definitions on both
-sides and are functionally determined by $\pred{in}$ and $\pred{att}$, output
-equivalence entails full answer-set equality.
-\end{enumerate}
+\begin{proof}[Proof sketch]
+Neither $P_\sigma\cup\Daaf$ nor $S_\sigma$ contains positive recursion:
+\pred{defeated} and \pred{not\_defended} depend positively only on input
+facts and on \pred{in}; \pred{out} depends positively only on the derived
+vocabulary (and \pred{arg}); \pred{in} depends positively only on
+\pred{arg}; every remaining dependency is through negation. So all six
+programs are tight and Fages' theorem applies:
+their answer sets are exactly the models of their Clark completions. It then
+suffices to show that the two completions have the same models on
+$\{\pred{in},\pred{out}\}$. For stable, for instance, the completion of
+$P_{\mathrm{stb}}\cup\Daaf$ says $\pred{in}(x)\leftrightarrow\neg\pred{out}(x)$
+and $\pred{out}(x)\leftrightarrow\pred{defeated}(x)$, while the completion of
+$S_{\mathrm{stb}}$ says $\pred{in}$ and $\pred{out}$ partition the arguments,
+no two \pred{in} arguments attack one another, and every \pred{out} argument
+is defeated; a short propositional argument (given in full in
+\ref{app:proofs}, together with the admissible and complete cases) shows the
+two theories have the same models on the shared vocabulary. In each direction
+the key steps are that
+$\pred{defeated}(x)\leftrightarrow\exists y\,
+(\pred{att}(y,x)\wedge\pred{in}(y))$ is the same formula on both sides, and
+that conflict-freeness is derivable from, respectively implies, the
+fixpoint-style equations of the learned side.
+\end{proof}
 
-Level (iii) is fully automatic and independent of our own tooling; levels
-(i)--(ii) provide redundancy and cover the finite pool actually used in the
-experiments. An incidental benefit of mechanization: it caught a harmless
-variant discrepancy (a learned stable program using
-\texttt{in(X) :- arg(X), not defeated(X)}), which the same pipeline
-\emph{proved} equivalent as well --- and two typos in the manual proofs.
+\begin{remark}
+The learner occasionally returns the variant stable program
+\texttt{in(X) :- arg(X), not defeated(X)} in place of the second rule of
+$P_{\mathrm{stb}}$. Its completion equation
+$\pred{in}(x)\leftrightarrow\neg\pred{defeated}(x)$ is equivalent to the pair
+$\pred{in}(x)\leftrightarrow\neg\pred{out}(x)$,
+$\pred{out}(x)\leftrightarrow\pred{defeated}(x)$, so the same argument shows
+the variant equivalent as well.
+\end{remark}
 
 \subsection{Equivalence for bipolar frameworks}
 \label{sec:thm2}
 
-The published account observed empirically that learned BAF programs agree with
-guess-style reference encodings; no theorem was claimed. We close this gap. A
-direct \textsc{anthem} proof is impossible in a principled way: the transitive
-support closure is a \emph{private recursive} predicate, outside the tight
-fragment external equivalence can handle. The following reduction circumvents
-this soundly.
+The published account observed empirically that learned BAF programs agree
+with guess-style reference encodings; no theorem was claimed. We close this
+gap. The only new ingredient relative to Theorem~\ref{thm:aaf} is the
+transitive support closure, a genuinely recursive definition that falls
+outside the tight fragment; we handle it by first proving the equivalence with
+the closure abstracted into an input relation, then recovering the recursive
+instantiation by the splitting theorem.
 
 \begin{theorem}[BAF equivalence]
 \label{thm:baf}
@@ -538,117 +565,166 @@ Figure~\ref{fig:bgbaf} (with \pred{support} replaced by $\mathit{supp}$ and the
 closure rule removed). Then for each
 $\sigma\in\{\text{stable},\text{admissible},\text{complete}\}$ the learned
 program $P_\sigma$ (over these defeat rules and the $\Daaf$-style
-\pred{defeated}/\pred{not\_defended} definitions reading \pred{defeat}) and the
-guess-style reference encoding are externally equivalent with respect to inputs
-$\pred{arg}/1,\pred{att}/2,\pred{support}/2,\mathit{supp}/2$ (the premises
-quantify over \pred{support}, so it is part of the shared input signature) and
-outputs $\pred{in}/1,\pred{out}/1$.
+\pred{defeated}/\pred{not\_defended} definitions reading \pred{defeat}) and
+the guess-style reference encoding ($S_\sigma$ with \pred{att} replaced by
+\pred{defeat} in its constraints and its \pred{defeated} rule, over the same
+defeat rules) have the same answer sets restricted to
+$\{\pred{in},\pred{out}\}$, for every input interpretation of
+$\pred{arg}/1,\pred{att}/2,\pred{support}/2,\mathit{supp}/2$ in which, as in
+Theorem~\ref{thm:aaf}, every domain element is an argument (hence
+$\pred{att},\pred{support},\mathit{supp}\subseteq
+\pred{arg}\times\pred{arg}$).
 \end{theorem}
 
-\noindent\emph{Mechanized proof.} With $\mathit{supp}$ promoted to a shared
-\emph{input} and the closure rule replaced by the two premises as first-order
-assumptions, both programs are tight; \textsc{anthem}+\textsc{Vampire} prove
-the three equivalences in $384$, $344$, and $515$\,ms
-respectively.\hfill$\square$
+\begin{proof}[Proof sketch]
+With $\mathit{supp}$ an input relation, \pred{defeat} is a non-recursive
+defined predicate with the \emph{same} three defining rules on both sides, so
+its completion equation is the same formula on both sides, and both programs
+are tight. The proof of Theorem~\ref{thm:aaf} uses the attack relation only
+through the completion equations of \pred{defeated} and \pred{not\_defended};
+substituting \pred{defeat} for \pred{att} in those equations leaves the
+propositional argument untouched. The equivalence therefore carries over
+verbatim (details in \ref{app:proofs}). Inspection shows the two premises on
+$\mathit{supp}$ are not used in this argument; they delimit the intended
+instantiations, of which the transitive closure
+(Corollary~\ref{cor:closure}) is the canonical one.
+\end{proof}
 
 \begin{corollary}
-\label{cor:baf}
-The equivalence holds at $\mathit{supp}=\pred{support}^{*}$, the transitive
-closure computed by the recursive rule of Figure~\ref{fig:bgbaf}.
+\label{cor:closure}
+The equivalence holds for the background as written in
+Figure~\ref{fig:bgbaf}, i.e.\ at $\mathit{supp}=\pred{support}^{*}$, the
+transitive closure computed in place by the recursive rule.
 \end{corollary}
 
-\noindent\emph{Proof sketch.} $\pred{support}^{*}$ satisfies both premises.
-The remaining step --- that the in-place recursive background and the
-background with $\pred{support}^{*}$ supplied as input facts have identical
-answer sets on $\pred{in}/\pred{out}$ --- follows from the splitting theorem:
-the closure rule forms a positive bottom stratum with the transitive closure as
-its unique least model. As deployment validation we additionally model-checked
-the original recursive formulation against the references exhaustively on all
-$256$ two-argument BAFs and on $3{,}000$ random BAFs with three to four
-arguments ($3{,}256$ checks in total), and the reformulation-faithfulness link
-on $2{,}400$ randomized instances --- zero counterexamples throughout.
-\hfill$\square$
+\begin{proof}
+$\pred{support}^{*}$ satisfies both premises. It remains to show that the
+recursive background and the background with $\pred{support}^{*}$ supplied as
+facts have the same answer sets. The closure rule together with the
+\pred{support} facts forms a positive bottom stratum whose atoms
+(\pred{support}) do not occur in the heads of any other rule; by the splitting
+theorem~\citep{lifschitz1994}, the answer sets of the whole program are
+obtained by taking the unique answer set of the bottom --- the least model of a
+positive program, which is exactly the transitive closure --- and evaluating
+the remainder with those atoms fixed as facts. That remainder is the program
+of Theorem~\ref{thm:baf} instantiated at $\mathit{supp}=\pred{support}^{*}$
+(identifying the closed \pred{support} atoms with the input relation
+$\mathit{supp}$, a renaming).
+\end{proof}
 
 \begin{remark}
-Theorem~\ref{thm:baf} is \emph{stronger} than the originally intended claim:
-the equivalence holds for every relation satisfying the premises --- every
-transitive superset of the support relation --- not only the closure itself, a
-small bonus of being forced into the reduction.
+Theorem~\ref{thm:baf} is \emph{stronger} than the claim
+Corollary~\ref{cor:closure} needs: the equivalence holds for every relation
+satisfying the premises --- in particular for every transitive superset of the
+support relation, not only the closure itself --- a small bonus of proving the
+statement in its abstracted form.
 \end{remark}
 
-\subsection{Preferred semantics: an exhaustive certificate}
+\subsection{Preferred semantics: correctness of the maximality construction}
 \label{sec:prf}
 
 Preferred extensions are subset-maximal admissible sets --- a second-order
-property no tight program expresses, so first-order proofs of the anthem kind
-are unavailable \emph{in principle} for constructions that reach preferred via
-the enumeration device of Section~\ref{sec:bg-las}. We therefore state the
-correctness of the preferred construction as an exhaustively certified claim
-about the exact certified program:
+property that no single tight program expresses, so the completion route of
+Theorems~\ref{thm:aaf} and~\ref{thm:baf} does not apply directly to
+constructions that reach preferred via the subset-maximal selection
+$\ASstar$ of Section~\ref{sec:bg-las}. Correctness instead follows from
+Theorem~\ref{thm:aaf} combined with a classical characterization of the
+preferred semantics.
 
-\begin{theorem}[Preferred certificate]
+\begin{proposition}
+\label{prop:prfmax}
+For every finite AAF, the following families of sets coincide:
+(a)~the preferred extensions; (b)~the $\subseteq$-maximal admissible sets;
+(c)~the $\subseteq$-maximal complete extensions.
+\end{proposition}
+
+\begin{proof}
+(a)$=$(b) is the definition of preferred~\citep{dung1995}. For (b)$\subseteq$(c):
+by Dung's fundamental lemma, if $S$ is admissible and $S$ defends $a$ then
+$S\cup\{a\}$ is admissible; a $\subseteq$-maximal admissible $S$ therefore
+already contains every argument it defends, i.e.\ it is complete. Any complete
+$T\supseteq S$ is in particular admissible, so $T=S$ by maximality of $S$
+among admissible sets; hence $S$ is maximal complete. For
+(c)$\subseteq$(b): let $S$ be $\subseteq$-maximal complete. $S$ is admissible;
+by finiteness extend it to a $\subseteq$-maximal admissible $T\supseteq S$.
+By the previous part $T$ is complete, so maximality of $S$ among complete
+extensions forces $S=T$, and $S$ is maximal admissible.
+See also the labelling-based account of \citet{caminada2009}.
+\end{proof}
+
+\begin{theorem}[Preferred construction]
 \label{thm:prf}
-Let $P_{\mathrm{prf}}$ be the program
-\begin{center}\small
-\begin{minipage}{0.78\linewidth}
-\begin{verbatim}
-in(X)  :- arg(X), not defeated(X), not not_defended(X).
-out(X) :- not_defended(X).
-#heuristic out(X) : arg(X). [1@1, false]
-\end{verbatim}
-\end{minipage}
-\end{center}
-together with $\Daaf$. For every AAF with at most four arguments (all
-$66{,}066$), and for all $500$ campaign frameworks, the
-$\pred{in}$-projections of the $\ASstar$-enumeration of $P_{\mathrm{prf}}$
-under \texttt{--heuristic=Domain --enum-mode=domRec} are exactly the preferred
+For every finite AAF (encoded as in Theorem~\ref{thm:aaf}), the
+$\pred{in}$-projections of
+$\ASstar_{\pred{in}}(P_{\mathrm{adm}}\cup\Daaf)$ --- equivalently of
+$\ASstar_{\pred{in}}(P_{\mathrm{cmp}}\cup\Daaf)$ --- are exactly the preferred
 extensions.
 \end{theorem}
 
-The rule core of $P_{\mathrm{prf}}$ characterizes complete labellings; the
-heuristic-plus-domRec convention then selects the subset-optimal ones, which
-the certificate verifies to be exactly the preferred labellings. The learning
-pipeline of Section~\ref{sec:exp1} uses the dual maximize-\pred{in} convention
-(\texttt{\#heuristic in(X) : arg(X).\ [1,true]}) over a learned
-admissible/complete core, applied \emph{symmetrically} to the learned and the
-reference side at evaluation time; on probe frameworks the two conventions
-agree, and the campaign's complete-information test provides per-run
-behavioural validation. We deliberately state the certificate over finite
-frameworks only: unlike Theorems~\ref{thm:aaf} and~\ref{thm:baf} it is a
-certificate, not a proof over all frameworks --- the honest scope boundary of
-the method.
+\begin{proof}
+By Theorem~\ref{thm:aaf}, the $\pred{in}$-projections of the answer sets of
+$P_{\mathrm{adm}}\cup\Daaf$ are exactly the admissible sets, and those of
+$P_{\mathrm{cmp}}\cup\Daaf$ exactly the complete extensions; moreover distinct
+answer sets have distinct $\pred{in}$-projections, so subset-maximality of an
+answer set's $\pred{in}$-projection is subset-maximality within the family of
+admissible (respectively complete) sets. By
+Proposition~\ref{prop:prfmax}, the $\subseteq$-maximal members of either
+family are exactly the preferred extensions.
+\end{proof}
+
+The learning pipeline of Section~\ref{sec:exp1} implements this
+construction: the learner induces an admissible or complete core from
+preferred-labelled examples, and the evaluation applies the same fixed
+subset-maximal $\pred{in}$-selection \emph{symmetrically} to the learned and
+the reference side. Theorem~\ref{thm:prf} covers the canonical cores of
+Figure~\ref{fig:learned}; campaign-learned cores are typically
+constraint-style presentations over the guessing background
+(Section~\ref{sec:exp1surfaces}), whose behaviour the campaign's
+complete-information test checks per run. This is what makes preferred behave
+like the other three semantics in the campaign --- the maximality step is
+fixed by the construction, so the learnable content is a tight core.
 
 \subsection{Case study: a defect in the published ABA translation}
 \label{sec:abadefect}
 
 The argument-enumeration step of the published ABA-to-AAF translation
-constructs candidate arguments by guessing an assumption set (preferred false,
-minimizing) and one derived root (preferred true) and enumerating with domRec
-over the mixed signature. Verifying it against an independent reference
-enumeration falsified it:
+constructs candidate arguments in a \emph{single} enumeration pass that
+couples the choice of assumption set with the choice of a derived root, and
+discards candidates dominated in a subset comparison over the coupled
+assumption-and-root vocabulary. This is incorrect: domination in the coupled
+vocabulary is not domination among the supports of any one claim, so required
+arguments are discarded. Two failure modes occur:
 
 \begin{itemize}[leftmargin=1.6em,itemsep=2pt]
-\item On 500 random flat ABA frameworks, the program dropped required
-arguments in \textbf{378 cases} ($76\%$).
 \item \emph{Minimal counterexample}: $\mathcal R=\{s_1\leftarrow\}$,
-$\mathcal A=\{s_0\}$. The assumption argument $(\,s_0,\{s_0\}\,)$ is never
-enumerated: because $s_1$ is derivable from the \emph{empty} assumption set,
-the enumeration over the mixed \pred{assume}/\pred{root} signature blocks every
-answer set that assumes anything.
-\item The published running example contains no assumption-free rule --- which
-is exactly why the defect is invisible there. Correctness had been argued by
-example; the example was benign.
+$\mathcal A=\{s_0\}$. The assumption argument $(\,s_0,\{s_0\}\,)$ is required
+by the definition but never enumerated: the assumption-free argument
+$(\,s_1,\emptyset\,)$ dominates --- in the coupled comparison --- every
+candidate that assumes anything, so all of them are discarded.
+\item Even with no assumption-free derivation anywhere, candidates sharing a
+subset-minimal assumption set but differing in claim can block one another
+through the coupled comparison. With $\mathcal R=\{s_5\leftarrow s_1\}$,
+$\mathcal A=\{s_1\}$, the published program returns only $(\,s_1,\{s_1\}\,)$
+and drops the required argument $(\,s_5,\{s_1\}\,)$.
+\item The failure is not rare: on 500 random flat ABA frameworks, the
+published program drops required arguments in \textbf{378 cases} ($76\%$) ---
+$296$ involving the first mode, $82$ the second alone.
+\item The published running example is benign: it happens to produce no
+dominated candidates, which is why the defect is invisible there.
+Correctness had been argued by example.
 \end{itemize}
 
-\noindent The corrected construction (Section~\ref{sec:abatranslation}) --- one
-domRec enumeration per pinned root, minimizing over \pred{assume} alone ---
-matches the reference enumeration on all $500/500$ frameworks. Downstream, the
-defect matters: missing AAF arguments silently change extensions, hence any
-learned or computed semantics of the translated framework. We draw the obvious
-methodological moral: encodings whose correctness is established by example ---
-\emph{a fortiori} learned encodings --- warrant mechanized verification; the
-machinery of this section made discovering, minimizing, and repairing the bug a
-matter of hours.
+\noindent The corrected construction (Section~\ref{sec:abatranslation})
+decouples the two choices --- one subset-minimal enumeration over the
+assumption vocabulary alone, per pinned root --- and is correct by
+Proposition~\ref{prop:aba}; it also agrees with an independently written
+reference enumeration on all 500 random frameworks. Downstream, the defect
+matters: missing AAF arguments silently
+change extensions, hence any learned or computed semantics of the translated
+framework. We draw the obvious methodological moral: encodings whose
+correctness is argued by example --- \emph{a fortiori} learned encodings ---
+warrant proof. The corrected translation is used throughout
+Sections~\ref{sec:exp1}--\ref{sec:exp2}.
 
 %=====================================================================
 \section{Experiment 1: Learnability under Imperfect Data}
@@ -703,18 +779,18 @@ completions). Training failures are recorded in a first-class taxonomy ---
 timeout ($3{,}500$\,s cap), unsatisfiable, error --- rather than folded into
 scores.
 
-\paragraph{Preferred at scale.} PRF cells use the dual of the convention
-certified by Theorem~\ref{thm:prf}: the learner induces an admissible/complete
-core from the ordinary guessing background (no heuristic appears in the
-learning task), and the subset-optimality convention --- the conditioned
-maximize-\pred{in} heuristic with $\ASstar$ enumeration and projection to
-$\pred{in}$ --- is applied at \emph{evaluation} time, symmetrically to the
-learned and the reference side. Training pools include frameworks whose preferred and stable
+\paragraph{Preferred at scale.} PRF cells instantiate the construction of
+Theorem~\ref{thm:prf}: the learner induces an admissible/complete core from
+the ordinary guessing background (nothing maximality-related appears in the
+learning task), and the subset-maximal $\pred{in}$-selection $\ASstar_{\pred{in}}$
+is applied at \emph{evaluation} time, symmetrically to the learned and the
+reference side. Training pools include frameworks whose preferred and stable
 extensions differ, so a stable ``shortcut'' theory cannot survive the
 negatives. The historically reported failures of preferred at scale trace to
-formulation, not to the semantics: a costly built-in heuristic-learning flag
-and, on the evaluation side, omitting the domRec convention; with the certified
-formulation preferred behaves like the other three semantics throughout.
+formulation, not to the semantics: asking the learner to induce the maximality
+step itself, and omitting the subset-maximal selection on the evaluation side;
+with the formulation of Theorem~\ref{thm:prf} preferred behaves like the other
+three semantics throughout.
 
 \subsection{Recovery surfaces}
 \label{sec:exp1surfaces}
@@ -822,7 +898,7 @@ learned theories are typically compact \emph{constraint-style} presentations
 over the guessing background rather than the definite programs of
 Figure~\ref{fig:learned} --- the most frequent clean-run stable hypothesis is
 \texttt{:- defeated(X), not out(X).}\ \texttt{:- supported(X), not in(X).},
-which over the guessing background characterizes exactly the stable
+whose total labellings over the guessing background are exactly the stable
 labellings. The exact-model test scores each learned presentation on the
 $100{+}100$ sampled held-out labellings, so rows below MCC $1.0$ correspond to
 presentations that are only approximately extensionally correct --- the test
@@ -1007,8 +1083,9 @@ exist; only the background interprets them. Table~\ref{tab:breadth} (left;
 Figure~\ref{fig:breadth}):
 all three BAF semantics are recovered at MCC $0.85$--$0.95$ from $10$ examples
 per class and $0.97$--$1.00$ from $20$, in under $9$ seconds per task (median
-$4$\,s). The unifying claim of Section~\ref{sec:framework} is thus not only
-verified but \emph{learnable}: one hypothesis space serves both families.
+$4$\,s). The unifying claim of Section~\ref{sec:framework} --- proved for AAF and
+BAF (Theorems~\ref{thm:aaf} and~\ref{thm:baf}) --- is thus also
+\emph{learnable}: one hypothesis space serves both families.
 
 \paragraph{Framework breadth: ABA.} We generated 300 random flat ABA
 frameworks, translated them with the \emph{corrected} construction of
@@ -1017,7 +1094,7 @@ translated pool (which organically contains self-attacking arguments ---
 assumptions attacking themselves via their own contrary).
 Table~\ref{tab:breadth} (right): both tested semantics reach exact recovery
 (MCC $1.0$ in every fold) by $f=40$. The end-to-end path ABA $\to$ corrected
-translation $\to$ learning $\to$ verified evaluation closes the loop the
+translation $\to$ learning $\to$ evaluation closes the loop the
 defect of Section~\ref{sec:abadefect} had broken.
 
 \begin{table}[t]
@@ -1061,7 +1138,7 @@ Experiment~1 is not only a robustness study; it is the \emph{calibration
 instrument} that makes Experiment~2's conclusions safe. Four specific licenses
 carry over.
 
-\textbf{(B1) The pipeline is not the bottleneck --- and the gate proves it in
+\textbf{(B1) The pipeline is not the bottleneck --- and the gate establishes it in
 Experiment 2's own currency.} We operationalize pipeline soundness as a hard
 \emph{synthetic gate}: every behavioural pipeline variant must first recover
 clean \emph{textbook} labels end-to-end on the very graphs of the human study,
@@ -1082,12 +1159,12 @@ behind it: at behavioural sample sizes and clean labels, recovery is
 $\ge0.92$ MCC (Table~\ref{tab:surface}, $q=0$).
 
 \textbf{(B2) Oracle-free negatives are principled.} Synthetic learning enjoys
-an oracle that certifies negatives; human data has none. A dedicated
+an oracle that verifies negatives; human data has none. A dedicated
 calibration --- injecting per-argument label-flip noise into training positives
 and comparing negative-generation policies by recovery against a clean oracle
 --- found that from $f\ge 30$ examples per class, near-miss negatives generated
 by flipping a single argument's label (Hamming-1 perturbation) matched
-oracle-certified negatives' recovery to within fold-level variation on clean
+oracle-verified negatives' recovery to within fold-level variation on clean
 positives; under rising injected noise, the density-based reliable-negative
 policy tracked the oracle ceiling best while single-flip negatives degraded
 fastest. Experiment~2 therefore pairs Hamming-1 shells with \emph{soft}
@@ -1421,7 +1498,7 @@ correcting one overclaim.} rather than re-run; the correction below is ours.
 set~\citep{iccma23}, measuring PAR-2 for computing one extension: the learned
 encodings are markedly faster than ASPARTIX for admissible and stable, at
 parity for complete, and \emph{slower} for preferred --- where ASPARTIX's
-specialized encoding outperforms our declarative subset-optimality convention.
+specialized encoding outperforms our declarative subset-maximal selection.
 We state this honestly, correcting the preliminary report's abstract-level
 claim of outperforming existing solvers: learned encodings are competitive,
 sometimes better, not uniformly dominant.
@@ -1430,7 +1507,7 @@ sometimes better, not uniformly dominant.
 AGNN~\citep{craandijkbex2020} reaches MCC $0.998$--$0.999$ for stable,
 preferred, and complete after training on $10^{6}$ labelled frameworks. As
 reported in the preliminary evaluation, the LAS route reaches MCC $=1.0$ ---
-with a \emph{verified} theory --- from $7$ (admissible), $8$ (stable,
+with a \emph{provably correct} theory --- from $7$ (admissible), $8$ (stable,
 complete), and $16$ (preferred) examples on frameworks of at most five
 arguments; conversely, capping AGNN's training set at $30$ examples collapses
 it to MCC $\le 0.31$ on the semantics studied here (stable $0.054$, complete
@@ -1465,9 +1542,15 @@ admissible/complete/preferred, the per-semantics signal lives in the credulous
 stable, skeptical stable/preferred/complete, and shared credulous targets.
 Figure~\ref{fig:baseline_comparison} reports clean-label recovery. The strongest
 feature learner (the random forest --- so this is not a strawman) tops out at MCC
-$0.67$--$0.72$ on the multi-extension targets and $0.86$ on complete/grounded
---- the near-functional single-extension case where local features suffice ---
-against the LAS encodings' verified exact recovery. The interpretable depth-6
+$0.67$--$0.72$ on the multi-extension targets and $0.86$ on
+complete/grounded\footnote{Skeptical-complete acceptance coincides with
+grounded acceptance (the grounded extension is the least complete extension),
+so grounded enters the per-argument baseline for free even though grounded
+extension-learning is outside the paper's scope (Section~\ref{sec:bg-af});
+the LAS reference on this target is the complete encoding.} --- the
+near-functional single-extension case where local features suffice ---
+against the LAS route's exact clean-label recovery on these targets
+(MCC $1.0$; Section~\ref{sec:exp1}). The interpretable depth-6
 tree is lower ($0.55$--$0.82$), and under noise all degrade (e.g.\ the grounded
 tree $0.86\to0.45$ at $q{=}0.2$) where the LAS route is data-recoverable. Two
 things separate the baseline from LAS: acceptance is a \emph{global} property of
@@ -1484,7 +1567,8 @@ central axis (Section~\ref{sec:related}).
 \caption{A non-LAS baseline: clean-label recovery (MCC) on the per-argument
 acceptance task, over the same pool and grouped five-fold CV. A feature-based
 decision tree and the strongest feature learner (random forest / depth-12 tree)
-plateau well below the LAS encodings' verified exact recovery, and closest only
+plateau well below the LAS route's exact recovery
+(Sections~\ref{sec:mech}--\ref{sec:exp1}), and closest only
 on complete/grounded (a single-extension, near-functional target). A per-argument
 classifier cannot represent the extension \emph{set} that LAS learns.}
 \label{fig:baseline_comparison}
@@ -1509,7 +1593,9 @@ target is a near-even split the learner ends up fitting to noise. The contrast i
 the paper's thesis in miniature: a feature classifier yields a legible rule only
 where the semantics is functional, and an incoherent threshold-tangle where it is
 not --- precisely where the generative answer-set formulation, whose answer sets
-\emph{are} the extensions, is needed and, uniquely, is provably exact.
+\emph{are} the extensions, is needed --- and reaches exact recovery
+(Section~\ref{sec:exp1}), with the curated encodings proved correct outright
+(Section~\ref{sec:mech}).
 
 \begin{figure}[t]
 \centering
@@ -1556,8 +1642,8 @@ framework structure (rules, assumptions, contraries) from labelled examples via
 ASP, under a fixed (brave/stable) notion of acceptance. That is the
 \emph{inverse} of our problem --- they learn the framework given a semantics; we
 learn the semantics given frameworks --- and to our knowledge no prior work
-learns the acceptability semantics itself as an explicit, reusable, and
-\emph{verified} logic program, which is our contribution.
+learns the acceptability semantics itself as an explicit, reusable logic
+program with correctness proofs, which is our contribution.
 
 \paragraph{ILP / LAS.} We build directly on ILASP's context-dependent,
 noise-tolerant learning~\citep{law2016,law2018,law2019,law2018phd} and
@@ -1569,15 +1655,6 @@ learn definite/normal Prolog programs and support neither the negation-as-failur
 and choice-rule constructs the acceptability encodings require nor learning from
 noisy examples, the study's central axis; our non-LAS comparison
 (Section~\ref{sec:eval}) therefore uses feature-based classifiers instead.
-
-\paragraph{Verification of ASP.} Our completion-based level follows the
-classical Clark/Fages line~\citep{clark1978,fages1994}; the external-equivalence
-level uses \textsc{anthem}~\citep{anthem2020,anthem2023}, now maintained as
-\textsc{anthem}~2.0~\citep{fandinno2025anthem2}, with \textsc{Vampire}
-\citep{vampire}. That line verifies (and refactors) \emph{hand-written} ASP
-programs against specifications; applying it to \emph{learned} programs --- and
-using it to falsify and repair a published encoding --- is, to our knowledge,
-new, and is what our C2 novelty claim refers to.
 
 \paragraph{Human argumentation.} Behavioural studies of abstract argumentation
 begin with reinstatement~\citep{rahwan2010} and develop through the
@@ -1604,7 +1681,8 @@ learned robustly (Q3), and used as an instrument on human data (Q4). The
 answers: \emph{yes} --- one background and hypothesis space covers AAF and BAF
 with learning experiments and theorems, ABA via a corrected translation, and
 VAF at the level of the unified background; \emph{provably} --- with
-machine-checked equivalence at up to three independent levels, strong enough to
+equivalence theorems for abstract and bipolar frameworks and an exact
+characterization of the preferred construction, an analysis sharp enough to
 uncover and repair a published defect; \emph{yes, within a mapped envelope} ---
 near-perfect recovery from clean data at $30$--$40$ examples per class, noise
 as the binding but data-recoverable constraint (amplified by label
@@ -1629,8 +1707,8 @@ scoped out of the learnability study for a diagnosed reason --- on dense pools
 its extension is empty $69\%$ of the time, starving the learner's positive
 signal --- and learning it under a signal-bearing sparse distribution is an
 open, now well-posed problem. VAF is covered by the unified background and its
-randomized specialization checks, but carries no learning experiments or
-theorems of its own here. $\sigma_H$ describes pooled behaviour on seven
+specialization (Remark~\ref{rem:spec}), but carries no learning experiments or
+equivalence theorems of its own here. $\sigma_H$ describes pooled behaviour on seven
 graphs; its two distinctive rules stabilize in $3$ of $5$ folds, its auxiliary
 vocabulary was selected on the same corpus and awaits pre-registered
 replication, and the contextual-reasoning test is well-powered only for the
@@ -1643,30 +1721,190 @@ modelling, not better features.
 semantics at scale}: the machinery is agnostic to the target; learning
 domain-specific acceptance policies (legal, medical, deliberative) from expert
 labellings is now an engineering exercise with a calibration methodology
-attached. \emph{Verified learning as a loop}: the anthem-based certification
-step can run \emph{inside} learning, rejecting hypotheses not equivalent to any
-admissible target --- a learn-verify loop for logic programs; the same
-reduction technique should also mechanize the unified-background specialization
-(C1) and the VAF case. \emph{Dialogue}: combining the learned human policy
+attached. \emph{Equivalence checking inside the loop}: because the learned
+cores are tight, hypothesis-versus-target equivalence reduces to validity of
+completion formulas (Section~\ref{sec:bg-verif}); running that check inside
+learning --- rejecting hypotheses not equivalent to any admissible target ---
+would turn the post-hoc theorems of Section~\ref{sec:mech} into a
+learn-and-prove loop, and the same route extends the equivalence theorems to
+the VAF instantiation. \emph{Dialogue}: combining the learned human policy
 $\sigma_H$ with argument-mining front ends to predict, and intervene on, real
 deliberation.
 
 %=====================================================================
 \appendix
 
-\section{Manual proof for the admissible case}
+\section{Proofs of the equivalence theorems}
 \label{app:proofs}
-\todo{port the reduct-based proof of Theorem~\ref{thm:aaf} (admissible case)
-from the precursor report; state the two errata found during mechanization.}
 
-\section{Verification artifacts}
-\label{app:artifacts}
-All verification inputs and scripts ship with the repository:
-\texttt{analysis/zlatina\_theorems/} (exhaustive checkers, Z3 completion
-proofs, \textsc{anthem} inputs and program pairs, with per-theorem prover
-logs), and the ABA defect lab (minimal counterexample and validated fix).
-Prover versions: \textsc{anthem}~2 (built from source), \textsc{Vampire}~5.0.1,
-Z3~4.16, clingo~5.x.
+\subsection{Preliminaries}
+\label{app:prelim}
+
+Fix a finite AAF $F=(A,R)$, encoded as in Theorem~\ref{thm:aaf}: facts
+$\pred{arg}(a)$ for every $a\in A$ and $\pred{att}(b,a)$ for every
+$(b,a)\in R$, and no other constants. All programs are grounded over $A$;
+input atoms ($\pred{arg}$, $\pred{att}$) are fixed by the facts and we
+partially evaluate them away, so completions are propositional theories over
+the atoms $\pred{in}(a)$, $\pred{out}(a)$, $\pred{defeated}(a)$,
+$\pred{not\_defended}(a)$ for $a\in A$. For $a\in A$ write
+$\Att(a)=\{b\in A:(b,a)\in R\}$, and read an empty disjunction as $\bot$.
+
+Every program compared below is \emph{tight}: the only \emph{positive}
+dependencies are $\pred{defeated}$ on $\pred{in}$ (and input atoms),
+$\pred{not\_defended}$ on input atoms, $\pred{out}$ on
+$\pred{defeated}$/$\pred{not\_defended}$, and $\pred{in}$ on $\pred{arg}$;
+every other dependency is through a negated literal, so the positive
+dependency graph is acyclic. By Fages'
+theorem~\citep{fages1994,erdem2003}, the answer sets of each program are
+exactly the models of its Clark completion, where the completion of an atom
+with no defining rules is its negation and constraints are added as
+implications to $\bot$.
+
+The completion of the definitional context $\Daaf$ contributes, for every
+$a\in A$:
+\begin{align}
+\pred{defeated}(a) &\;\leftrightarrow\; \textstyle\bigvee_{b\in \Att(a)}\pred{in}(b),
+\tag{D1}\\
+\pred{not\_defended}(a) &\;\leftrightarrow\; \textstyle\bigvee_{b\in \Att(a)}\neg\pred{defeated}(b).
+\tag{D2}
+\end{align}
+The ASPARTIX references $S_\sigma$ all share the guessing part, whose
+completion contributes, for every $a\in A$ (using that $\pred{arg}(a)$ is
+true):
+\begin{align}
+\pred{in}(a) \;\leftrightarrow\; \neg\pred{out}(a),
+\tag{G}
+\end{align}
+(the rule pair \texttt{in(X) :- not out(X), arg(X)} /
+\texttt{out(X) :- not in(X), arg(X)} completes to
+$\pred{in}(a)\leftrightarrow\neg\pred{out}(a)$ and
+$\pred{out}(a)\leftrightarrow\neg\pred{in}(a)$, which coincide), together
+with (D1), with (D2) where \pred{not\_defended} occurs ($\sigma\in\{$admissible,
+complete$\}$), and with the constraints
+\begin{align}
+&\neg\bigl(\pred{in}(a)\wedge\pred{in}(b)\bigr)
+&&\text{for every }(a,b)\in R,
+\tag{CF}\\
+&\pred{out}(a)\rightarrow\pred{defeated}(a)
+&&\text{for every }a\in A\ \ (\sigma=\text{stable}),
+\tag{ST}\\
+&\pred{in}(a)\rightarrow\neg\pred{not\_defended}(a)
+&&\text{for every }a\in A\ \ (\sigma\in\{\text{adm},\text{cmp}\}),
+\tag{AD}\\
+&\pred{out}(a)\rightarrow\pred{not\_defended}(a)
+&&\text{for every }a\in A\ \ (\sigma=\text{complete}).
+\tag{CO}
+\end{align}
+The learned programs $P_\sigma\cup\Daaf$ complete to (D1), (D2), and:
+\begin{align*}
+\text{stable:}&&
+\pred{out}(a)&\leftrightarrow\pred{defeated}(a), &
+\pred{in}(a)&\leftrightarrow\neg\pred{out}(a);\\
+\text{admissible:}&&
+\pred{out}(a)&\leftrightarrow\pred{defeated}(a)\vee\neg\pred{in}(a), &
+\pred{in}(a)&\leftrightarrow\neg\pred{out}(a)\wedge\neg\pred{not\_defended}(a);\\
+\text{complete:}&&
+\pred{out}(a)&\leftrightarrow\pred{not\_defended}(a), &
+\pred{in}(a)&\leftrightarrow\neg\pred{out}(a)\wedge\neg\pred{defeated}(a).
+\end{align*}
+In every model of either side, $\pred{defeated}$ and $\pred{not\_defended}$
+are determined by $\pred{in}$ via (D1)--(D2), and (as the proofs below show)
+$\pred{out}$ is determined as well; so exhibiting the same
+$\{\pred{in},\pred{out}\}$-restrictions on both sides establishes the
+bijection claimed in Theorem~\ref{thm:aaf}. ($S_{\mathrm{stb}}$ does not
+mention \pred{not\_defended}; its models extend uniquely by (D2), which we do
+tacitly.) Finally, the identification of the $\pred{in}$-projections with the
+$\sigma$-extensions is the correctness of the ASPARTIX
+references~\citep{egly2010}.
+
+\subsection{Proof of Theorem~\ref{thm:aaf}}
+
+\paragraph{Stable.}
+($\Rightarrow$) Let $M$ be a model of the learned completion. (G) is the
+learned $\pred{in}$-equation. (ST): immediate from
+$\pred{out}(a)\leftrightarrow\pred{defeated}(a)$. (CF): suppose $(a,b)\in R$,
+$\pred{in}(a)$, $\pred{in}(b)$. By (D1) $\pred{defeated}(b)$; by the learned
+$\pred{out}$-equation $\pred{out}(b)$; by (G) $\neg\pred{in}(b)$ ---
+contradiction.
+($\Leftarrow$) Let $N$ be a model of the reference completion. The learned
+$\pred{in}$-equation is (G). For
+$\pred{out}(a)\leftrightarrow\pred{defeated}(a)$: left to right is (ST); right
+to left, if $\pred{defeated}(a)$ then $\pred{in}(b)$ for some $b\in\Att(a)$
+by (D1), so $\pred{in}(a)$ would violate (CF) at $(b,a)\in R$; hence
+$\neg\pred{in}(a)$, and $\pred{out}(a)$ by (G).\hfill$\lozenge$
+
+\paragraph{Admissible.}
+($\Rightarrow$) (G): if $\pred{in}(a)$ then $\neg\pred{out}(a)$ by the learned
+$\pred{in}$-equation; if $\neg\pred{out}(a)$ then, by the learned
+$\pred{out}$-equation, $\neg\pred{defeated}(a)$ \emph{and} $\pred{in}(a)$.
+(AD): immediate from the learned $\pred{in}$-equation. (CF): if $(a,b)\in R$
+with $\pred{in}(a),\pred{in}(b)$, then $\pred{defeated}(b)$ by (D1), so
+$\pred{out}(b)$ by the learned $\pred{out}$-equation, so $\neg\pred{in}(b)$
+by (G) --- contradiction.
+($\Leftarrow$) Learned $\pred{out}$-equation
+$\pred{out}(a)\leftrightarrow\pred{defeated}(a)\vee\neg\pred{in}(a)$: right to
+left, $\neg\pred{in}(a)$ gives $\pred{out}(a)$ by (G), and
+$\pred{defeated}(a)$ gives $\neg\pred{in}(a)$ by (CF) as in the stable case;
+left to right, $\pred{out}(a)$ gives $\neg\pred{in}(a)$ by (G). Learned
+$\pred{in}$-equation
+$\pred{in}(a)\leftrightarrow\neg\pred{out}(a)\wedge\neg\pred{not\_defended}(a)$:
+left to right is (G) plus (AD); right to left, $\neg\pred{out}(a)$ already
+gives $\pred{in}(a)$ by (G).\hfill$\lozenge$
+
+\paragraph{Complete.}
+($\Rightarrow$) (G): $\pred{in}(a)\rightarrow\neg\pred{out}(a)$ is part of the
+learned $\pred{in}$-equation. Conversely let $\neg\pred{out}(a)$; then
+$\neg\pred{not\_defended}(a)$ by the learned $\pred{out}$-equation, i.e.\ by
+(D2) every $b\in\Att(a)$ has $\pred{defeated}(b)$. Suppose
+$\pred{defeated}(a)$: some $b\in\Att(a)$ has $\pred{in}(b)$, and the learned
+$\pred{in}$-equation gives $\neg\pred{defeated}(b)$ --- contradicting
+$\pred{defeated}(b)$. So $\neg\pred{defeated}(a)$, and $\pred{in}(a)$ follows
+from the learned $\pred{in}$-equation. (CF): $(a,b)\in R$ with
+$\pred{in}(a),\pred{in}(b)$ gives $\pred{defeated}(b)$ by (D1) but
+$\neg\pred{defeated}(b)$ from the learned $\pred{in}$-equation ---
+contradiction. (AD): $\pred{not\_defended}(a)$ gives $\pred{out}(a)$
+(learned $\pred{out}$-equation), gives $\neg\pred{in}(a)$ ((G), just
+established). (CO): immediate from the learned $\pred{out}$-equation.
+($\Leftarrow$) Learned $\pred{out}$-equation
+$\pred{out}(a)\leftrightarrow\pred{not\_defended}(a)$: left to right is (CO);
+right to left, $\pred{not\_defended}(a)$ gives $\neg\pred{in}(a)$ by (AD),
+gives $\pred{out}(a)$ by (G). Learned $\pred{in}$-equation: left to right,
+$\pred{in}(a)$ gives $\neg\pred{out}(a)$ by (G) and $\neg\pred{defeated}(a)$
+by (CF)+(D1) as before; right to left, $\neg\pred{out}(a)$ gives
+$\pred{in}(a)$ by (G).\hfill$\lozenge$
+
+\medskip
+\noindent In each case the two completions have the same models on
+$\{\pred{in},\pred{out}\}$, and each model is determined by its
+$\pred{in}$-part; Theorem~\ref{thm:aaf} follows.\hfill$\square$
+
+\subsection{Proof of Theorem~\ref{thm:baf}}
+
+Ground over the same finite domain, now with input relations
+$\pred{arg},\pred{att},\pred{support},\mathit{supp}$, under the standing
+stipulation of the theorem that every constant is an argument (the case
+proofs use it wherever (G) or a learned $\pred{in}$-equation is invoked).
+Both programs contain
+the \emph{same} three defining rules for \pred{defeat} (reading
+$\mathit{supp}$), so both completions contain the same equation
+\[
+\pred{defeat}(b,a)\;\leftrightarrow\;
+\pred{att}(b,a)\;\vee\;
+\textstyle\bigvee_{c}\bigl(\pred{att}(c,a)\wedge\mathit{supp}(b,c)\bigr)
+\;\vee\;
+\textstyle\bigvee_{c}\bigl(\pred{att}(b,c)\wedge\mathit{supp}(c,a)\bigr),
+\]
+whose right-hand side is a formula of \emph{input} atoms only. Hence in any
+model, on either side, \pred{defeat} denotes the same relation
+$R^{\mathit{supp}}=\{(b,a): \text{the right-hand side holds}\}$, and
+\pred{defeat} is not positively recursive, so both programs remain tight.
+The remaining rules are exactly those of the AAF case with \pred{att}
+replaced by \pred{defeat}: (D1), (D2), and (CF) now read
+$\Att(a)=\{b:(b,a)\in R^{\mathit{supp}}\}$. The three case proofs above use
+the attack relation only through (D1), (D2), and (CF) --- never through the
+input facts directly --- so they apply verbatim with $R$ replaced by
+$R^{\mathit{supp}}$. (As noted in the main text, the two premises on
+$\mathit{supp}$ are not used.)\hfill$\square$
 
 \section{Campaign details}
 \label{app:campaign}
@@ -1703,6 +1941,11 @@ An abstract, argumentation-theoretic approach to default reasoning.
 M.~Caminada.
 On the issue of reinstatement in argumentation.
 In \emph{Proc.\ JELIA}, 111--123, 2006.
+
+\bibitem[Caminada and Gabbay(2009)]{caminada2009}
+M.~Caminada, D.~M. Gabbay.
+A logical account of formal argumentation.
+\emph{Studia Logica} 93(2--3):109--145, 2009.
 
 \bibitem[Cayrol and Lagasquie-Schiex(2009)]{cayrol2009}
 C.~Cayrol, M.-C. Lagasquie-Schiex.
@@ -1752,11 +1995,6 @@ E.~De Angelis, M.~Proietti, F.~Toni.
 Learning brave assumption-based argumentation frameworks via ASP.
 In \emph{Proc.\ ECAI}, 2024.
 
-\bibitem[de Moura and Bj{\o}rner(2008)]{z3}
-L.~de Moura, N.~Bj{\o}rner.
-Z3: an efficient SMT solver.
-In \emph{Proc.\ TACAS}, 337--340, 2008.
-
 \bibitem[Dung(1995)]{dung1995}
 P.~M. Dung.
 On the acceptability of arguments and its fundamental role in nonmonotonic
@@ -1768,26 +2006,15 @@ U.~Egly, S.~A. Gaggl, S.~Woltran.
 Answer-set programming encodings for argumentation frameworks.
 \emph{Argument \& Computation} 1(2):147--177, 2010.
 
+\bibitem[Erdem and Lifschitz(2003)]{erdem2003}
+E.~Erdem, V.~Lifschitz.
+Tight logic programs.
+\emph{Theory and Practice of Logic Programming} 3(4--5):499--518, 2003.
+
 \bibitem[Fages(1994)]{fages1994}
 F.~Fages.
 Consistency of Clark's completion and existence of stable models.
 \emph{Journal of Methods of Logic in Computer Science} 1:51--60, 1994.
-
-\bibitem[Fandinno et al.(2020)]{anthem2020}
-J.~Fandinno, V.~Lifschitz, P.~L{\"u}hne, T.~Schaub.
-Verifying tight logic programs with \textsc{anthem} and \textsc{Vampire}.
-\emph{Theory and Practice of Logic Programming} 20(5):735--750, 2020.
-
-\bibitem[Fandinno et al.(2023)]{anthem2023}
-J.~Fandinno, Z.~Hansen, Y.~Lierler, V.~Lifschitz, N.~Temple.
-External behavior of a logic program and verification of refactoring.
-\emph{Theory and Practice of Logic Programming} 23(4):933--947, 2023.
-
-\bibitem[Fandinno et al.(2025)]{fandinno2025anthem2}
-J.~Fandinno, C.~Glinzer, Z.~Hansen, J.~Heuer, Y.~Lierler, V.~Lifschitz,
-T.~Schaub, T.~Stolzmann.
-Anthem 2.0: automated reasoning for answer set programming.
-\emph{Theory and Practice of Logic Programming} (ICLP), 2025.
 
 \bibitem[Gebser et al.(2019)]{gebser2019}
 M.~Gebser, R.~Kaminski, B.~Kaufmann, T.~Schaub.
@@ -1813,11 +2040,6 @@ argumentation.
 \bibitem[J{\"a}rvisalo et al.(2023)]{iccma23}
 M.~J{\"a}rvisalo, T.~Lehtonen, A.~Niskanen.
 ICCMA 2023: benchmarks and raw results. Zenodo, 2023.
-
-\bibitem[Kov{\'a}cs and Voronkov(2013)]{vampire}
-L.~Kov{\'a}cs, A.~Voronkov.
-First-order theorem proving and \textsc{Vampire}.
-In \emph{Proc.\ CAV}, 1--35, 2013.
 
 \bibitem[Kuhlmann and Thimm(2019)]{kuhlmann2019}
 I.~Kuhlmann, M.~Thimm.
@@ -1850,6 +2072,11 @@ M.~Law, A.~Russo, E.~Bertino, K.~Broda, J.~Lobo.
 FastLAS: scalable inductive logic programming incorporating domain-specific
 optimisation criteria.
 In \emph{Proc.\ AAAI}, 2877--2885, 2020.
+
+\bibitem[Lifschitz and Turner(1994)]{lifschitz1994}
+V.~Lifschitz, H.~Turner.
+Splitting a logic program.
+In \emph{Proc.\ ICLP}, 23--37. MIT Press, 1994.
 
 \bibitem[Proietti and Toni(2024)]{proietti2024aba}
 M.~Proietti, F.~Toni.
