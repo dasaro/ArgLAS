@@ -10,6 +10,9 @@ from collections import Counter
 import unified_compare as U
 import aux9_combined as A9
 import fl_discover as G
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "per_condition.json")

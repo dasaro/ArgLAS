@@ -39,7 +39,7 @@ sys.path.insert(0, REPO)
 import clingo  # noqa: E402
 from arglas.solver_runtime import solve_models  # noqa: E402
 
-PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")
+PREFERRED_LP = os.path.join(REPO, "config", "ASPARTIX", "preferred.lp")
 BG = os.path.join(REPO, "config/background_knowledge.lp")
 ADM_CORE = os.path.join(P1, "true_adm_core.lp")
 CMP_CORE = os.path.join(P1, "true_cmp_core.lp")

@@ -21,7 +21,7 @@ sys.path.insert(0, REPO)
 from arglas import train_test as T  # noqa: E402
 from arglas.generate_ilasp_task import parse_lp_instance, render_label_facts  # noqa: E402
 
-PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")
+PREFERRED_LP = os.path.join(REPO, "config", "ASPARTIX", "preferred.lp")
 BG = os.path.join(REPO, "config/background_knowledge.lp")
 MODES = os.path.join(REPO, "config/mode_declarations.las")
 BG_CONV = os.path.join(LAB, "bg_learned_prf.lp")

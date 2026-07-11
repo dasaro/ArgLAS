@@ -7,8 +7,8 @@ rolling quality (accuracy / MCC). Completion is computed via the SAME logic the
 watchdog uses (watch_experiment_grid.completion_snapshot), so the bar and the
 supervisor always agree on what "done" means.
 
-  one-shot:  python3 -m arglas benchmark progress --config run_configs/<cfg>.json
-  live:      python3 -m arglas benchmark progress --config run_configs/<cfg>.json --watch 30
+  one-shot:  python3 -m arglas benchmark progress --config experiments/run_configs/<cfg>.json
+  live:      python3 -m arglas benchmark progress --config experiments/run_configs/<cfg>.json --watch 30
 """
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..")))

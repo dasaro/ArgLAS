@@ -6,6 +6,9 @@ whether the ILASP phase=first number was a time-budget artifact or a genuine mod
 import json, os, time
 from collections import Counter
 import unified_compare as U
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D
 import fl_discover as G
 

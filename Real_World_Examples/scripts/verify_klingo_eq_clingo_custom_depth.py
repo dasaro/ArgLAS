@@ -402,7 +402,7 @@ def main() -> int:
             key = (ex.version, ex.bucket, ex.path, sem)
             if key in done_clingo:
                 continue
-            sem_lp = base / "ASPARTIX" / sem_file
+            sem_lp = base / "config" / "ASPARTIX" / sem_file
             sat, sets, answers, timed_out, elapsed = run_clingo_models(
                 clingo_bin=clingo_bin,
                 files=[str(sem_lp), ex.path],
@@ -461,7 +461,7 @@ def main() -> int:
 
     def worker(task: Tuple[Example, str, int]) -> Dict[str, str]:
         ex, sem, depth = task
-        sem_lp = base / "ASPARTIX" / SEM_FILE[sem]
+        sem_lp = base / "config" / "ASPARTIX" / SEM_FILE[sem]
         key = (ex.version, ex.bucket, ex.path, sem)
         clingo_sat, clingo_sets, clingo_elapsed = clingo_cache[key]
         sat, sets, answers, has_unknown, timed_out, elapsed, rc = run_klingo_models(

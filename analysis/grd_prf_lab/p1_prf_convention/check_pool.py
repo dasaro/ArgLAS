@@ -12,7 +12,7 @@ LAB = os.path.join(REPO, "analysis/grd_prf_lab/p1_prf_convention")
 sys.path.insert(0, REPO)
 from arglas import train_test as T  # noqa: E402
 
-PREFERRED_LP = os.path.join(REPO, "ASPARTIX", "preferred.lp")
+PREFERRED_LP = os.path.join(REPO, "config", "ASPARTIX", "preferred.lp")
 BG_CONV = os.path.join(LAB, "bg_learned_prf.lp")
 DOMREC = ["--heuristic=Domain", "--enum=domRec"]
 

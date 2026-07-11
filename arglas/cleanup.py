@@ -2,9 +2,12 @@ import shutil
 import os
 import json
 
+from arglas.artifact_paths import resolve_repo_path
+
 CONFIG_PATH = "batch_config.json"
 
 def load_config(path=CONFIG_PATH):
+    path = resolve_repo_path(path, "batch_config.json")
     with open(path, "r") as f:
         return json.load(f)
 

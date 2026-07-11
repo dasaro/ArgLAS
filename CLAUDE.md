@@ -1,4 +1,4 @@
-# AGENTS.md — working notes for coding agents
+# CLAUDE.md — working notes for coding agents
 
 ArgLAS: learning argumentation semantics as answer set programs with ILASP.
 Start with `README.md` (layout + reproduction) — this file adds agent-facing rules.

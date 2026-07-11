@@ -19,6 +19,8 @@ aaai pattern buys us and what the det/OPL formulation lacked.
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fl_build as F
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D  # noqa
 
 # ---------------------------------------------------------------------------

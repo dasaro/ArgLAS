@@ -9,6 +9,8 @@ or import verify(rules_text) -> dict.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D
 import fl_build as F
 import clingo

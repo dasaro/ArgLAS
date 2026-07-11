@@ -72,7 +72,7 @@ _FLOAT = (["a", "b", "c", "d"], [("b", "a"), ("c", "b"), ("c", "d"), ("d", "b"),
 _SIMPLE = (["a", "b", "c"], [("b", "a"), ("c", "b")])
 _CYCLE = (["a", "b", "c", "d", "e"], [("b", "a"), ("c", "b"), ("c", "d"), ("d", "b"), ("d", "e"), ("e", "b"), ("e", "c")])
 GOLD = {"A": _FLOAT, "B": _FLOAT, "C": _FLOAT, "D": _SIMPLE, "E": _SIMPLE, "F": _SIMPLE, "G": _CYCLE}
-ASPARTIX = {s: os.path.join(REPO, "ASPARTIX", f"{s}.lp")
+ASPARTIX = {s: os.path.join(REPO, "config", "ASPARTIX", f"{s}.lp")
             for s in ("grounded", "preferred", "stable", "complete", "cf2")}
 TEXTBOOK = ("grounded", "preferred", "stable", "complete", "cf2")
 

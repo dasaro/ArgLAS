@@ -17,6 +17,8 @@ Two background variants:
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D  # loaders, GOLD, textbook_labellings, project, score, metrics
 
 # ---- background variants (plain ASP, passed to clingo by FastLAS) ----

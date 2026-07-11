@@ -2,12 +2,14 @@ import json
 import os
 import sys
 from arglas.solver_policy import get_semantics_names
+from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
 
 CONFIG_PATH = "batch_config.json"
 SEMANTICS_CONFIG_PATH = "semantics_config.json"
 ILASP_CONFIG_PATH = "ilasp_config.json"
 
 def load_semantics_config(path=SEMANTICS_CONFIG_PATH):
+    path = resolve_repo_path(path, "semantics_config.json")
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Missing semantics config: {path}")
     with open(path, "r") as f:
@@ -15,6 +17,7 @@ def load_semantics_config(path=SEMANTICS_CONFIG_PATH):
 
 
 def load_batch_config(path=CONFIG_PATH):
+    path = resolve_repo_path(path, "batch_config.json")
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Missing batch config: {path}")
     with open(path, "r") as f:
@@ -22,6 +25,7 @@ def load_batch_config(path=CONFIG_PATH):
 
 
 def load_ilasp_config(path=ILASP_CONFIG_PATH):
+    path = resolve_repo_path(path, "ilasp_config.json")
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Missing ILASP config: {path}")
     with open(path, "r") as f:
@@ -83,10 +87,13 @@ def validate_config(cfg, semantics_cfg):
     if not isinstance(cfg["iterations"], int) or cfg["iterations"] < 1:
         raise ValueError("Invalid value for 'iterations' — must be positive integer")
 
-    # Check directory existence
-    for d in [cfg["input_dir"], cfg["asp_dir"]]:
-        if not os.path.isdir(d):
-            raise FileNotFoundError(f"Directory does not exist: {d}")
+    # Check directory existence: asp_dir is a repo/config asset, input_dir an
+    # artifact dir (only exists after `arglas generate-aafs`, hence a warning).
+    if not os.path.isdir(resolve_repo_path(cfg["asp_dir"])):
+        raise FileNotFoundError(f"Directory does not exist: {cfg['asp_dir']}")
+    if not os.path.isdir(resolve_artifact_path(cfg["input_dir"], "aafs")):
+        print(f"[warn] input_dir '{cfg['input_dir']}' not found under the artifacts root "
+              f"(run `arglas generate-aafs` first)")
 
     # Check semantics names and mapped ASP files
     valid_semantics = set(get_semantics_names(semantics_cfg))
@@ -99,7 +106,7 @@ def validate_config(cfg, semantics_cfg):
         if not asp_file:
             raise ValueError(f"Semantic '{sem}' has no 'file' entry in {SEMANTICS_CONFIG_PATH}")
 
-        if not os.path.isfile(asp_file):
+        if not os.path.isfile(resolve_repo_path(asp_file)):
             raise FileNotFoundError(f"Missing ASP file for semantic '{sem}': {asp_file}")
 
         if "clingo_args" in sem_entry and not isinstance(sem_entry["clingo_args"], list):

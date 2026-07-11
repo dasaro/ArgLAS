@@ -56,7 +56,7 @@ PAPER_REFERENCE = {
         "PLOS ONE (2022), doi:10.1371/journal.pone.0273225; "
         "Method sections 'Part A' and 'Part B'."
     ),
-    "paper_pdf": "Real_World_Examples/Paper/pone.0273225.pdf",
+    "paper_pdf": "Real_World_Examples/data/source_paper/pone.0273225.pdf",
     "protocol_summary": (
         "Both Part A and Part B use three phases: first individual, group, "
         "final individual."
@@ -329,7 +329,7 @@ def main() -> None:
         "--data-path",
         type=Path,
         default=script_dir.parent / "data" / "Raw_Data_original.xlsx",
-        help="Path to source workbook (default: Real_World_Examples/Raw_Data_original.xlsx).",
+        help="Path to source workbook (default: Real_World_Examples/data/Raw_Data_original.xlsx).",
     )
     parser.add_argument(
         "--output-dir",

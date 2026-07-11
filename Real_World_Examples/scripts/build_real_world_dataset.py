@@ -55,7 +55,7 @@ PAPER_GRAPH_STRUCTURE = {
 
 PAPER_REFERENCE = {
     "citation": "PLOS ONE (2022), doi:10.1371/journal.pone.0273225",
-    "paper_pdf": "Real_World_Examples/Paper/pone.0273225.pdf",
+    "paper_pdf": "Real_World_Examples/data/source_paper/pone.0273225.pdf",
     "method_note": "Part A and Part B protocols include first/group/final response phases.",
 }
 
@@ -555,12 +555,12 @@ def main() -> None:
     parser.add_argument(
         "--background-file",
         type=Path,
-        default=repo_root / "config/background_knowledge.lp",
+        default=REPO_ROOT / "config/background_knowledge.lp",
     )
     parser.add_argument(
         "--mode-file",
         type=Path,
-        default=repo_root / "config/mode_declarations.las",
+        default=REPO_ROOT / "config/mode_declarations.las",
     )
     parser.add_argument("--train-timeout-seconds", type=int, default=1200)
     parser.add_argument(

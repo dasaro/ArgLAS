@@ -148,7 +148,7 @@ def replay_condition(
             requested_per_class=test_examples_per_class,
         )
     if test_set_policy == "fixed_balanced_holdout":
-        from train_test import build_fixed_balanced_holdout_files
+        from arglas.train_test import build_fixed_balanced_holdout_files
 
         fixed_holdout_files = build_fixed_balanced_holdout_files(
             input_dir=str(input_dir),
@@ -159,7 +159,7 @@ def replay_condition(
         )
 
     semantics_entry = get_semantics_entry(semantics_config, semantics)
-    asp_file = repo_root / semantics_entry["file"]
+    asp_file = Path(resolve_repo_path(semantics_entry["file"]))
     learned_background_cfg = get_background_file(
         semantics_config, stage="train_test_learned"
     )
@@ -167,10 +167,10 @@ def replay_condition(
         semantics_config, stage="train_test_ground_truth"
     )
     learned_background_file = (
-        repo_root / learned_background_cfg if learned_background_cfg else None
+        Path(resolve_repo_path(learned_background_cfg)) if learned_background_cfg else None
     )
     ground_truth_background_file = (
-        repo_root / ground_truth_background_cfg if ground_truth_background_cfg else None
+        Path(resolve_repo_path(ground_truth_background_cfg)) if ground_truth_background_cfg else None
     )
     learned_clingo_args = get_clingo_args(
         semantics_config, semantics, stage="train_test_learned"

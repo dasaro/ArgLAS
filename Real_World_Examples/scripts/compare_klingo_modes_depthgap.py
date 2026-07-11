@@ -409,7 +409,7 @@ def main() -> int:
 
     def worker(task: Tuple[Example, str, str, int]) -> Dict[str, str]:
         ex, sem, mode, depth = task
-        sem_lp = base / "ASPARTIX" / SEM_FILE[sem]
+        sem_lp = base / "config" / "ASPARTIX" / SEM_FILE[sem]
         key = (ex.version, ex.bucket, ex.path)
         learned_sat, learned_sets = learned_cache[key]
         sat, sets, answers, has_unknown, timed_out, elapsed, rc = run_klingo_models(

@@ -18,6 +18,8 @@ Everything reuses discover_semantics for loaders / textbook / project / metrics.
 import os, sys, subprocess, tempfile, time, argparse
 from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
 import discover_semantics as D
 import clingo
 
