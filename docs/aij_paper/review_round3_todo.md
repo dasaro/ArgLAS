@@ -36,8 +36,15 @@ record over new learning runs are marked as such in their remediation text.
   contextuality phrasing) + intro bullet; "Relation to prior publication"
   paragraph added (+mileva2023prelim).
 
-**REMAINING (week 2+, needs compute or new material):** B2 calibration re-run
-(the one remaining blocker `\todo`), CF2 gate, AGNN re-run, ICCMA timing table,
+**DONE (week 2, day 1):** B2 calibration re-run — 81/81 cells succeeded
+(data/neg_calibration/ + Table tab:negcal inlined; prose adjusted to the
+numbers: oracle-free 0.06-0.09 below oracle clean, flip-one collapses only at
+q=0.2, wrong-neg mechanism quantified; blocker todo deleted). CF2 gate —
+Real_World_Examples/fastlas_exp/cf2_gate.py: credulous reading gated at 0.971
+(primitive vocab), skeptical at 0.956 (SCC vocab; primitive 0.927 = disclosed
+caveat), ILASP arity-1 fails (0.423); B1/audit/tab:act1/§8.2 updated.
+
+**REMAINING (week 2+, needs compute or new material):** AGNN re-run, ICCMA timing table,
 hard-negative test slice, cross-generator transfer, campaign-hypothesis
 exactness audit, VAF theorem, GRD appendix experiment, LOCO validation,
 consensus multi-seed stability, σ_H principle-profile audit, zero-shot external

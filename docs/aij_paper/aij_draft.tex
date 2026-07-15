@@ -1211,21 +1211,48 @@ learning machinery. Experiment~1's surface adds the sampled-data envelope
 behind it: at behavioural sample sizes and clean labels, recovery is
 $\ge0.92$ MCC (Table~\ref{tab:surface}, $q=0$).
 
-\textbf{(B2) Oracle-free negatives are principled.} Synthetic learning enjoys
-an oracle that verifies negatives; human data has none. A dedicated
-calibration --- injecting per-argument label-flip noise into training positives
-and comparing negative-generation policies by recovery against a clean oracle
---- found that from $f\ge 30$ examples per class, near-miss negatives generated
-by flipping a single argument's label (Hamming-1 perturbation) matched
-oracle-verified negatives' recovery to within fold-level variation on clean
-positives; under rising injected noise, the density-based reliable-negative
-policy tracked the oracle ceiling best while single-flip negatives degraded
-fastest. Experiment~2 therefore pairs Hamming-1 shells with \emph{soft}
-penalties --- so a wrong near-miss negative can be out-voted rather than
-enforced --- and balances negative against positive penalty mass
-(Section~\ref{sec:exp2setup}). \todo{re-run the calibration harness with a
-persisted per-fold CSV and inline the table here; qualitative conclusions
-stated per the calibration log.}
+\textbf{(B2) Oracle-free negatives are principled --- and quantified.}
+Synthetic learning enjoys an oracle that verifies negatives; human data has
+none. A dedicated calibration at Experiment~2's operating scale ($f{=}30$
+examples per class, $3$ grouped folds, pooled over STB/ADM/CMP;
+Table~\ref{tab:negcal}, per-fold record committed with the repository)
+injects per-argument label-flip noise into training positives and compares
+negative-generation policies by recovery against a clean oracle. On clean
+positives the oracle-free policies sit $0.06$--$0.09$ MCC below the oracle
+mean with overlapping fold ranges (reliable-negative $0.911$, Hamming-1
+flip-one $0.881$, oracle $0.970$). Under noise the two oracle-free policies
+separate exactly where theory predicts: flip-one matches reliable-negative up
+to $q{=}0.1$ ($0.816$ vs $0.802$) but collapses at $q{=}0.2$ ($0.574$, one
+fold below zero) while the density-based reliable-negative policy tracks the
+oracle ceiling best ($0.742$ vs oracle $0.826$). The wrong-negative-rate
+column exposes the mechanism: single-flip manufactures ``negatives'' that are
+in fact legal labellings in $14$--$22\%$ of cases --- which \emph{soft}
+penalties out-vote at low noise, but which compound with label noise ---
+whereas reliable-negative stays at $\le3\%$. Experiment~2 accordingly pairs
+Hamming-1 shells with soft penalties --- so a wrong near-miss negative can be
+out-voted rather than enforced --- and balances negative against positive
+penalty mass (Section~\ref{sec:exp2setup}).
+
+\begin{table}[t]
+\centering
+\small
+\caption{The negative-policy calibration behind B2 (per-fold record in
+\texttt{data/neg\_calibration/}): recovery (MCC, pooled over STB/ADM/CMP,
+mean over $3{\times}3$ grouped folds, fold min--max in brackets) at $f{=}30$
+examples per class, by injected per-argument label-flip noise $q$; last
+column, the fraction of generated ``negatives'' that are in fact legal
+labellings (range over $q$).}
+\label{tab:negcal}
+\begin{tabular}{lcccc}
+\toprule
+Negative policy & $q{=}0$ & $q{=}0.1$ & $q{=}0.2$ & wrong-neg.\\
+\midrule
+oracle-verified & $0.970$ {\scriptsize$[0.85,1.00]$} & $0.918$ {\scriptsize$[0.83,0.98]$} & $0.826$ {\scriptsize$[0.72,0.94]$} & $0.00$\\
+Hamming-1 flip-one & $0.881$ {\scriptsize$[0.56,1.00]$} & $0.816$ {\scriptsize$[0.63,1.00]$} & $0.574$ {\scriptsize$[-0.12,0.82]$} & $0.14$--$0.22$\\
+reliable-negative & $0.911$ {\scriptsize$[0.77,1.00]$} & $0.802$ {\scriptsize$[0.64,0.94]$} & $0.742$ {\scriptsize$[0.63,0.87]$} & $0.00$--$0.03$\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{(B3) Error decomposes --- with the interaction read the right way.}
 Reading Experiment~1's surface at coordinates matching the behavioural data
