@@ -8,6 +8,41 @@ artifacts). Verdicts: 45 confirmed (7 blocker-level, deduplicating to 4 clusters
 every finding with an implementable fix. Solutions preferring the committed `data/`
 record over new learning runs are marked as such in their remediation text.
 
+## Status (updated 2026-07-15, week-1 pass)
+
+**DONE (analysis-only, commit `week1`):**
+- Appendix C stub → real appendix: `make_appendix_tables.py` generates per-cell
+  aggregates (wide format), the failure-taxonomy ledger, and exact invocations
+  from committed `data/` (closes the App-C blocker third and the tab:surface
+  "full per-cell tables" promise).
+- E1.2 stratification: the q=0.2/f=80 compositional caveat is now in the text
+  (2/20 at p=0.5; buy-back holds uncensored at p≥0.75: 0.938/0.957).
+- Large-regime worst-case sensitivity bound added (worst cell PRF q=0.1 f=60:
+  0.945 → 0.472).
+- Uncertainty: 95% t-CI bands on fig_recovery_curves; max per-cell half-widths
+  in tab:surface caption (0.053/0.184/0.205); binomial half-widths + descriptive
+  note in tab:act1 caption.
+- Exp2 test families declared (F1/F2/F3) with Holm-adjusted p-values in §7.2/§7.3.
+- §8 baseline splice fixed (per-model noise numbers, 0.86 attributed to the
+  depth-12 tree, 0.82 for depth-6); impossibility claim scoped to one-shot
+  classifiers; Popper/Aleph dismissal rewritten around brave induction
+  (+sakama2009brave, +hocquette2024maxsynth).
+- Novelty hedged: sharpened claim + "Other learning–argumentation lines"
+  paragraph (+mozina2007, +garcez2005vaf, +riveret2016learning).
+- σ_H hedge calibrated: graded/ranking-based semantics acknowledged in §8.1,
+  fig:humansem caption, and related work (+grossi2019graded, +amgoud2013ranking,
+  +bonzon2016ranking).
+- Abstract calibrated (noise buy-back conditionality, PRF self-attack boundary,
+  contextuality phrasing) + intro bullet; "Relation to prior publication"
+  paragraph added (+mileva2023prelim).
+
+**REMAINING (week 2+, needs compute or new material):** B2 calibration re-run
+(the one remaining blocker `\todo`), CF2 gate, AGNN re-run, ICCMA timing table,
+hard-negative test slice, cross-generator transfer, campaign-hypothesis
+exactness audit, VAF theorem, GRD appendix experiment, LOCO validation,
+consensus multi-seed stability, σ_H principle-profile audit, zero-shot external
+validation, release-commit pin.
+
 ## Lens verdicts
 
 **Theory and proofs.** The theory core is sound and, for a learning-systems paper, unusually careful: I re-checked the Appendix A completion computations for all three semantics in both directions (they are correct), Proposition 2's (a)=(b)=(c) argument, the BAF abstraction-plus-splitting route, and Theorem 3's reduction — no errors found, and Theorem 3's 'equivalently' is properly discharged by Proposition 2. The paper's exposure is not correctness but COVERAGE and ANCHORING: (1) the theorems certify canonical programs while the flagship campaign learns constraint-style presentations whose correctness is asserted in prose and sample-checked only — the paper's own 'proofs, not spot checks' moral cuts against it here; (2) the 'unified background' that headlines Q1/C1 is never exhibited, its VAF fragment is internally inconsistent as described and absent from the repo, and VAF gets neither experiment nor theorem despite the theorem being an hours-cheap corollary of the Theorem 2 pattern; (3) the reference side of the equivalence chain is anchored by citation for AAF and by nothing for BAF; (4) the ABA proposition's proof rests on an unexhibited enumeration program and an undefined AS*-minimization variant; (5) Fages-with-constraints and partial evaluation of input atoms are used as folklore without lemma or pinpoint citation. Every one of these is repairable in hours to a few days, almost entirely in-paper (one optional VAF smoke experiment reuses the existing breadth pipeline). Fixing findings 1-6 would make Section 4 airtight against a logician referee; the MINOR items are statement hygiene that a thorough review would enumerate. Nothing here is a rejection-level defect, but findings 1 and 2 together (guarantees not attaching to learned artifacts; headline unified-B/VAF claim unexhibited and partly inconsistent) would likely anchor a major-revision verdict if left unaddressed.

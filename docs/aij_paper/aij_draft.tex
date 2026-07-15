@@ -3,6 +3,7 @@
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{longtable}
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
@@ -66,16 +67,21 @@ is characterized exactly, and the analysis uncovered --- and repaired --- a
 defect in a published assumption-based translation. Second, a $3{,}240$-run controlled
 study maps recovery of four semantics under partial labels, label noise, sample
 size, and class imbalance: recovery from clean data is near-perfect, label
-noise is the binding constraint --- one that more data buys back --- imbalance
+noise is the binding constraint --- one whose damage more data buys back for
+the runs that complete within the compute budget, at the price of orders-of-magnitude
+longer training and, in the noisiest cells, timeouts --- imbalance
 is immaterial, and the same learner recovers bipolar and translated
-assumption-based semantics with an unchanged hypothesis space. Third, the
+assumption-based semantics with an unchanged hypothesis space (preferred on
+self-attacking frameworks is the one mapped boundary). Third, the
 synthetic study doubles as a calibration instrument for behavioural data.
 Fourth, applied to a published human judgement study under an adversarially
 audited protocol, no learned theory beats the best catalogue semantics (CF2)
---- yet the learner recovers a legible acceptance policy that no standard
-semantics encodes (committal reinstatement, cycle caution, and a distrust of
-heavily attacked arguments), and a directional test rejects the hypothesis that
-people apply different semantics to different graphs. All results are
+--- yet the learner recovers a legible acceptance policy outside the standard
+extension-based catalogue (committal reinstatement, cycle caution, and a
+distrust of heavily attacked arguments), and a directional,
+multiplicity-corrected test finds no graph condition whose own theory beats one
+shared policy --- with the pooled contrast significantly favouring the shared
+policy. All results are
 reproducible from a pinned repository.
 \end{abstract}
 
@@ -173,11 +179,28 @@ and~\ref{sec:humansem}). An adversarially audited re-analysis of the
 \citet{guillaume2022} human study: learned theories do not beat CF2 (confirming
 the original finding under a stronger test); the learner nevertheless recovers a
 legible human acceptance policy --- committal reinstatement, cycle caution, and a
-distrust of heavily attacked arguments --- that no Dung-style semantics encodes;
+distrust of heavily attacked arguments --- that no semantics in the
+extension-based catalogue encodes;
 psychologically motivated features close roughly a third of the gap to CF2; and
-a directional, multiplicity-corrected test rejects per-graph semantics in favour
-of one structure-sensitive policy.
+a directional, multiplicity-corrected test finds no support for per-graph
+semantics, with the pooled contrast significantly favouring one
+structure-sensitive policy.
 \end{enumerate}
+
+\paragraph{Relation to prior publication.} This paper extends our preliminary
+report~\citep{mileva2023prelim}, which introduced the unifying LAS setup and
+the learned encodings of Figure~\ref{fig:learned}, and reported the ICCMA'23
+timing and AGNN data-efficiency comparisons that Section~\ref{sec:eval}
+restates (with one overclaim corrected). Everything else is new to this
+submission: the equivalence theorems and their proofs
+(Section~\ref{sec:mech}, \ref{app:proofs}), the ABA-translation defect
+analysis and corrected construction (Sections~\ref{sec:abatranslation}
+and~\ref{sec:abadefect}), the preferred-semantics maximality result
+(Section~\ref{sec:prf}), the $3{,}240$-run imperfect-data campaign and
+breadth studies (Section~\ref{sec:exp1}), the bridge methodology
+(Section~\ref{sec:bridge}), the audited human-data re-analysis
+(Sections~\ref{sec:exp2}--\ref{sec:humansem}), and the FastLAS and
+feature-baseline comparisons of Section~\ref{sec:eval}.
 
 Everything is reproducible: encodings, proof-checking scripts, campaign
 configurations with pinned seeds, and analysis notebooks are available in the
@@ -811,7 +834,11 @@ analysed separately in Table~\ref{tab:imbalance} (Figure~\ref{fig:imbalance}).
 label noise $q$, and examples per class $f$; balanced ($50\%$-positive) arm,
 pooled over label completeness --- up to $15$ runs per cell ($3$ completeness
 levels $\times$ $5$ folds; failed runs, all timeouts, excluded ---
-Section~\ref{sec:exp1cost} quantifies the exclusions).}
+Section~\ref{sec:exp1cost} quantifies the exclusions). Per-cell $95\%$
+t-corrected CI half-widths never exceed $0.053$ at $q{=}0$, $0.184$ at
+$q{=}0.1$, and $0.205$ at $q{=}0.2$ (shown as bands in
+Figure~\ref{fig:recovery_curves}); full per-cell tables with standard
+deviations are in \ref{app:campaign}.}
 \label{tab:surface}
 \begin{tabular}{llcccccc}
 \toprule
@@ -853,7 +880,8 @@ bright band as $f$ grows.}
 \centering
 \includegraphics[width=\linewidth]{figs/fig_recovery_curves.pdf}
 \caption{The same surface as recovery-vs-sample-size curves, one line per
-semantics. The ``noise is bought back by data'' effect (E1.2) is the upward
+semantics; shaded bands are $95\%$ t-corrected CIs over the completed runs
+per cell. The ``noise is bought back by data'' effect (E1.2) is the upward
 slope in the $q=0.2$ panel: recovery rises from $0.48$--$0.74$ at $f=10$ to
 $0.94$--$0.96$ at $f=80$, with no plateau below clean performance.}
 \label{fig:recovery_curves}
@@ -910,7 +938,15 @@ equivalence.
 bought back by data.} Label noise, not sample size or partiality, is what
 degrades recovery: at $q=0.2$, small-sample recovery drops to $0.48$--$0.74$,
 but every semantics climbs back to $0.94$--$0.96$ by $f=80$ (on completed
-runs; see the survivorship accounting below). The completeness axis
+runs; see the survivorship accounting below). One compositional caveat makes
+this claim sharper, not weaker: at $q=0.2$, $f=80$ the half-complete stratum
+almost never finishes ($2/20$ runs at $p=0.5$), so the pooled $f=80$ cell of
+Table~\ref{tab:surface} is effectively a $p\ge0.75$ mean. Stratifying
+confirms the buy-back where completion is total: at $p\ge0.75$ all $40/40$
+runs complete and recovery at $f=80$ is $0.938$ ($p{=}1.0$) and $0.957$
+($p{=}0.75$), i.e.\ $0.94$--$0.96$ per semantics with \emph{no} survivorship
+conditioning; at $p=0.5$ the honest statement is the joint accuracy--compute
+claim of Section~\ref{sec:exp1cost}, not a recovery number. The completeness axis
 (Table~\ref{tab:pq}) sharpens this: partial labels cost \emph{nothing} on
 clean data --- if anything they help, since partial positives constrain less
 and are easier to cover --- but they multiply the damage of noise
@@ -1052,7 +1088,11 @@ vs.\ $0.69$ at $f{=}20$ --- sparser graphs are if anything easier). Larger
 frameworks confirm scaling but with heavier censoring: $25$ of their $160$ runs
 hit the $3{,}500$\,s cap (versus $1$ for sparse), so the surviving noisy-large
 numbers are survivor-biased upward and we read them as suggestive, not
-definitive. The one genuine boundary is \emph{preferred on self-attacking
+definitive. The same worst-case sensitivity as Section~\ref{sec:exp1cost}
+(scoring every timed-out run as MCC~$0$) bounds the damage: most noisy-large
+cells drop from $0.87$--$0.99$ to $0.61$--$0.89$, with the worst cell (PRF,
+$q{=}0.1$, $f{=}60$: $5/10$ completions) falling from $0.945$ to $0.472$ ---
+the truth lies between the conditional mean and this floor. The one genuine boundary is \emph{preferred on self-attacking
 frameworks}: PRF recovery falls to $0.71$ at $q{=}0.1,f{=}60$ (and $0.42$ at
 $f{=}20$), well below the $0.94$--$0.97$ the other regimes hold, and it is
 depressed even at clean labels ($0.87$ vs.\ $0.98$). Self-attacks complicate
@@ -1242,7 +1282,18 @@ three-valued exact match under the skeptical reading of \citet{guillaume2022}
 pre-registered comparator CF2, deduplicated to one unit per (graph, labelling,
 argument) cell --- the estimand is thus \emph{distinct response patterns}, not
 participant-weighted behaviour, which removes within-cell response
-multiplicity.
+multiplicity. \emph{Test families.} We declare three confirmatory families
+and apply Holm step-down within each: (F1) the learner-versus-CF2 deficit
+tests of Section~\ref{sec:act1} (the two skeptical cell-level tests, one per
+learner, plus FastLAS's committed cell-level and committed response-level
+tests; $m=4$); (F2) the seven
+direction-gated \textsc{within}${}>{}$\textsc{global} contextuality tests of
+Section~\ref{sec:act3} ($m=7$); (F3) the two pooled
+follow-up characterizations of Section~\ref{sec:act3} (the
+\textsc{global}${}>{}$\textsc{within} reversal and the
+\textsc{within}-versus-CF2 comparison, $m=2$). F2 tests the directional
+hypothesis \textsc{within}${}>{}$\textsc{global} and F3 the opposite
+direction after F2's rejection, so the two cannot share a directional family.
 
 \paragraph{Audit.} Every reported number survives an adversarial audit:
 cross-validation folds are cut at distinct (graph, labelling) cells so no
@@ -1277,7 +1328,11 @@ rows use the pipeline's canonical fold seed ($20260703$, fixed at run time ---
 the most learner-favourable of the four seeds later used in
 Table~\ref{tab:aux}, which makes the learner-below-CF2 conclusion
 conservative). The ILASP row inherits the arity-one expressivity caveat flagged
-by the stable gate (Section~\ref{sec:bridge}, B1). Best learner and best
+by the stable gate (Section~\ref{sec:bridge}, B1). Point accuracies are
+descriptive --- $95\%$ binomial half-widths are at most $\pm0.044$ on the
+skeptical columns ($n{=}495$) and $\pm0.056$ on the committed columns
+($n{=}310$) --- and all learner-versus-CF2 conclusions rest on the paired
+McNemar tests reported in the text. Best learner and best
 overall per column in \best{bold}.}
 \label{tab:act1}
 \begin{tabular}{lcccc}
@@ -1307,7 +1362,9 @@ learner-only vs.\ $54$ CF2-only discordant cells, $p=0.004$; ILASP $14$ vs.\
 $37$, $p=0.002$); under the committed-only reading the point deficit is large
 ($0.594$ vs $0.797$) but the deduplicated cell-level test is underpowered and
 does not reach significance (FastLAS $31$ vs $35$, $p=0.71$), with the
-response-level test significant for FastLAS ($49$ vs $85$, $p=0.002$). The \citeauthor{guillaume2022} conclusion is
+response-level test significant for FastLAS ($49$ vs $85$, $p=0.002$). All
+three significant tests survive Holm correction within family F1
+(adjusted $p\le0.008$); the committed cell-level test remains null. The \citeauthor{guillaume2022} conclusion is
 thus robust not only to a second inference engine but to the far stronger test
 of whether the semantics can be \emph{learned} from the data at all. Two
 secondary findings: identical theories from FastLAS's two modes on clean
@@ -1358,9 +1415,10 @@ The strong hypothesis is \textbf{rejected} (Table~\ref{tab:act3}): under
 direction-gated, Holm-corrected McNemar tests, \emph{no} condition's own theory
 significantly beats the pooled one (both vocabularies), and pooled across
 conditions the effect significantly \emph{reverses}: $53$ \textsc{global}-only
-vs.\ $32$ \textsc{within}-only discordant units, exact McNemar $p=0.03$.
+vs.\ $32$ \textsc{within}-only discordant units, exact McNemar $p=0.03$
+(Holm-adjusted within family F3: $p=0.04$).
 Condition-specific theories also remain significantly below CF2 pooled ($33$
-vs.\ $16$ discordant units, $p=0.02$). The pooled tests run at the
+vs.\ $16$ discordant units, $p=0.02$; adjusted $p=0.04$). The pooled tests run at the
 deduplicated per-argument level --- one unit per (cell, argument) pair, finer
 than the (graph, labelling) cells counted in the table, which is why discordant
 counts can exceed the cell column. In conditions C and G the
@@ -1407,8 +1465,10 @@ rejected and a defended one accepted --- no \pred{undec} \hfill [4/5]
 \end{description}}}
 \caption{The human semantics $\sigma_H$ as learned. Rules 1--3 are
 textbook-rational --- jointly, a \emph{committal} complete semantics with cycle
-handling. Rule 4 is the psychologically distinctive hedge that no standard
-Dung-style semantics encodes.}
+handling. Rule 4 is the psychologically distinctive hedge that no
+extension-based catalogue semantics encodes (graded and ranking-based
+semantics posit such attack-load sensitivity
+axiomatically~\citep{grossi2019graded,amgoud2013ranking,bonzon2016ranking}).}
 \label{fig:humansem}
 \end{figure}
 
@@ -1421,11 +1481,18 @@ undecided-heavy semantics like grounded fit poorly on the simple conditions.
 the direction CF2 formalizes. \emph{(iii)} Rule 4 makes $\sigma_H$
 \emph{depart from every catalogue semantics}: an argument whose attackers are
 all defeated is, for humans, still tainted if the attackers were many. This
-violates the reinstatement principle that all Dung-style semantics
-share~\citep{dung1995,baroni2011} and echoes the graded weakening of
-reinstatement observed behaviourally by \citet{rahwan2010}. To our knowledge
-it is the first time this hedge has been \emph{induced} from judgement data as
-an explicit, checkable rule rather than posited.
+violates the reinstatement principle that all extension-based Dung-style
+semantics share~\citep{dung1995,baroni2011} and echoes the graded weakening of
+reinstatement observed behaviourally by \citet{rahwan2010}. Attack-load
+sensitivity is not new as a \emph{formal} principle: graded
+acceptability~\citep{grossi2019graded} parameterizes Dung's defense by the
+number of attackers and defenders precisely to weaken reinstatement, and
+cardinality precedence --- more attackers is worse --- is a core axiom of the
+ranking-based semantics programme~\citep{amgoud2013ranking,bonzon2016ranking}.
+What is distinctive here is the epistemic route: the hedge is \emph{induced}
+from judgement data as an explicit, checkable rule --- to our knowledge for
+the first time --- and it co-occurs with committal reinstatement inside a
+single learned policy, rather than being posited axiomatically.
 
 We emphasize the epistemic status of $\sigma_H$: it is a fold-stable
 \emph{description} of the pooled behaviour of $129$ participants on seven
@@ -1541,10 +1608,10 @@ pool under the \emph{same} grouped five-fold protocol, for all four semantics an
 the same noise axis. Because credulous acceptance coincides for
 admissible/complete/preferred, the per-semantics signal lives in the credulous
 stable, skeptical stable/preferred/complete, and shared credulous targets.
-Figure~\ref{fig:baseline_comparison} reports clean-label recovery. The strongest
-feature learner (the random forest --- so this is not a strawman) tops out at MCC
-$0.67$--$0.72$ on the multi-extension targets and $0.86$ on
-complete/grounded\footnote{Skeptical-complete acceptance coincides with
+Figure~\ref{fig:baseline_comparison} reports clean-label recovery. The
+strongest feature learner per target (so this is not a strawman) tops out at
+MCC $0.67$--$0.72$ on the multi-extension targets (the random forest) and
+$0.86$ on complete/grounded (the depth-12 tree)\footnote{Skeptical-complete acceptance coincides with
 grounded acceptance (the grounded extension is the least complete extension),
 so grounded enters the per-argument baseline for free even though grounded
 extension-learning is outside the paper's scope (Section~\ref{sec:bg-af});
@@ -1552,15 +1619,30 @@ the LAS reference on this target is the complete encoding.} --- the
 near-functional single-extension case where local features suffice ---
 against the LAS route's exact clean-label recovery on these targets
 (MCC $1.0$; Section~\ref{sec:exp1}). The interpretable depth-6
-tree is lower ($0.55$--$0.82$), and under noise all degrade (e.g.\ the grounded
-tree $0.86\to0.45$ at $q{=}0.2$) where the LAS route is data-recoverable. Two
-things separate the baseline from LAS: acceptance is a \emph{global} property of
-the extension structure that local features can only approximate, and a
-per-argument classifier structurally \emph{cannot represent the set of
-extensions} at all. We considered other symbolic ILP systems as baselines
-(Popper, Aleph) but they cannot express the negation-as-failure and choice-rule
-semantics the task requires, nor learn from noisy examples --- the study's
-central axis (Section~\ref{sec:related}).
+tree is lower ($0.55$--$0.82$). Under noise every feature learner loses
+ground, but unevenly: on the grounded target the depth-12 tree collapses
+($0.86\to0.45$ at $q{=}0.2$), the depth-6 tree drops $0.82\to0.65$, and even
+the most noise-robust model, logistic regression, sits at $0.76$ --- and none
+has a route back: more data does not restore the plateau, whereas the LAS
+route buys recovery back to $0.94$--$0.96$ MCC under the same noise
+(Section~\ref{sec:exp1}). Two
+things separate the baseline from LAS: acceptance is a \emph{global} property
+of the extension structure that local features can only approximate, and a
+one-shot per-argument classifier structurally \emph{cannot represent the set
+of extensions} at all (structured or autoregressive predictors could in
+principle enumerate extension sets; none would be interpretable in the
+rule-level sense sought here). We also considered single-intended-model ILP
+systems (Popper, Aleph) as baselines. Noise is not what rules them out ---
+Aleph tolerates noisy examples via its \texttt{noise}/\texttt{minacc}
+settings~\citep{srinivasan2001aleph}, and recent Popper variants learn from
+noisy data~\citep{hocquette2024maxsynth}. What rules them out is the learning
+target: a hypothesis judged by which \emph{answer sets} it has, so that the
+extensions are the answer sets themselves --- learning such programs requires
+brave induction~\citep{sakama2009brave}, which the LAS framework strictly
+generalizes~\citep{law2018phd}. The per-argument projection of the task
+\emph{is} expressible in those systems, but that projection is exactly the
+acceptance-classification task the feature baselines above already evaluate
+with a strong learner (Section~\ref{sec:related}).
 
 \begin{figure}[t]
 \centering
@@ -1583,8 +1665,9 @@ anything with an unattacked attacker; otherwise accept. This is a recognisable,
 hand-readable approximation of grounded semantics, which is exactly why grounded
 is the target the tree fits best. But it is a \emph{two-hop} approximation of a
 \emph{fixpoint}: grounded acceptance follows arbitrarily long defence chains,
-which no bounded-depth tree over local features can express, so the tree tops out
-at MCC $0.86$ rather than the LAS program's exact $1.0$. For credulous-stable
+which no bounded-depth tree over local features can express, so the tree tops
+out at MCC $0.82$ ($0.86$ for its depth-12 variant) rather than the LAS
+program's exact $1.0$. For credulous-stable
 acceptance the same top rule survives (an unattacked attacker forces rejection),
 but below it the tree dissolves into roughly twenty ad-hoc splits on degree, SCC
 size and density whose leaves mix accept and reject with no coherent structure ---
@@ -1594,9 +1677,9 @@ target is a near-even split the learner ends up fitting to noise. The contrast i
 the paper's thesis in miniature: a feature classifier yields a legible rule only
 where the semantics is functional, and an incoherent threshold-tangle where it is
 not --- precisely where the generative answer-set formulation, whose answer sets
-\emph{are} the extensions, is needed --- and reaches exact recovery
-(Section~\ref{sec:exp1}), with the curated encodings proved correct outright
-(Section~\ref{sec:mech}).
+\emph{are} the extensions, is needed --- and reaches exact clean-label
+recovery (Section~\ref{sec:exp1}), with the curated encodings proved correct
+outright (Section~\ref{sec:mech}).
 
 \begin{figure}[t]
 \centering
@@ -1643,27 +1726,45 @@ framework structure (rules, assumptions, contraries) from labelled examples via
 ASP, under a fixed (brave/stable) notion of acceptance. That is the
 \emph{inverse} of our problem --- they learn the framework given a semantics; we
 learn the semantics given frameworks --- and to our knowledge no prior work
-learns the acceptability semantics itself as an explicit, reusable logic
-program with correctness proofs, which is our contribution.
+induces the acceptability semantics itself, from labelled extensions, as an
+explicit, reusable answer-set program proved equivalent to the reference
+encodings, which is our contribution.
+
+\paragraph{Other learning--argumentation lines.} Three older strands deserve
+explicit demarcation. Argument-based machine learning~\citep{mozina2007}
+uses expert-supplied \emph{arguments} to constrain a classifier's hypothesis
+search: the argumentation semantics is fixed and nothing about it is learned.
+The neural-symbolic line of \citet{garcez2005vaf} encodes value-based
+acceptance computation in a trainable network --- closest to us in covering
+VAF, but the learned policy lives in connection weights, not in an explicit,
+inspectable program. Probabilistic and neuro-argumentative learning
+\citep{riveret2016learning} induces attack structure or acceptance
+\emph{degrees} from labellings under a fixed semantics. None of the three
+outputs the acceptability semantics itself as a logic program, and none
+proves what it learns equivalent to a reference.
 
 \paragraph{ILP / LAS.} We build directly on ILASP's context-dependent,
 noise-tolerant learning~\citep{law2016,law2018,law2019,law2018phd} and
 FastLAS~\citep{law2020}. The verifier reformulation (B4) relates to
-observational predicate learning limits discussed by \citet{law2020}. Other
-modern ILP systems --- Popper~\citep{cropper2021popper} and
-Aleph~\citep{srinivasan2001aleph} --- are not applicable baselines here: they
-learn definite/normal Prolog programs and support neither the negation-as-failure
-and choice-rule constructs the acceptability encodings require nor learning from
-noisy examples, the study's central axis; our non-LAS comparison
-(Section~\ref{sec:eval}) therefore uses feature-based classifiers instead.
+observational predicate learning limits discussed by \citet{law2020}.
+Popper~\citep{cropper2021popper} and Aleph~\citep{srinivasan2001aleph}
+learn programs evaluated in a single intended model, whereas the target here
+is a program whose stable models \emph{enumerate} the extensions --- brave
+induction~\citep{sakama2009brave}, which LAS strictly
+generalizes~\citep{law2018phd,law2019}; Section~\ref{sec:eval} explains why
+noise tolerance is not the discriminator and evaluates the per-argument
+projection of the task with strong feature-based learners instead.
 
 \paragraph{Human argumentation.} Behavioural studies of abstract argumentation
 begin with reinstatement~\citep{rahwan2010} and develop through the
 catalogue-comparison methodology of \citet{cramer2018,guillaume2022}, which our
-Experiment~2 re-analyzes. A parallel strand \emph{posits} new semantics designed
-to fit human judgement --- SCF2~\citep{cramer2019scf2} and the cognitively
-motivated proposals discussed by \citet{cramer2023cognitive} --- selecting or
-hand-crafting a semantics that best matches behaviour. Our approach is
+Experiment~2 re-analyzes. A parallel strand \emph{posits} new formalisms
+designed to fit (or normatively refine) judgement --- SCF2~\citep{cramer2019scf2},
+the cognitively motivated proposals discussed by \citet{cramer2023cognitive},
+and, on the attack-load axis specifically, graded
+acceptability~\citep{grossi2019graded} and ranking-based
+semantics~\citep{amgoud2013ranking,bonzon2016ranking} --- selecting or
+hand-crafting a formalism that best matches behaviour. Our approach is
 complementary and, we believe, novel in kind: rather than positing a semantics,
 we \emph{induce} the acceptance policy as an explicit, inspectable rule set from
 the behaviour itself (Section~\ref{sec:humansem}); the ``smoke/fire'' distrust of
@@ -1909,14 +2010,21 @@ $\mathit{supp}$ are not used.)\hfill$\square$
 
 \section{Campaign details}
 \label{app:campaign}
-Full per-cell tables (including per-completeness surfaces beyond
-Table~\ref{tab:pq}), configuration files with pinned seeds, the
-failure-taxonomy ledger, and the exact generator/labeller/learner invocations
-for Experiment~1 and the breadth experiments. \todo{inline the per-cell tables
-and the completed breadth regimes.}
+This appendix inlines the complete per-cell record behind Experiment~1 and the
+breadth experiments: per-cell aggregates (B.1, B.3), the failure-taxonomy
+ledger (B.2), and the exact seeded invocations (B.4). Every number is
+regenerated from the committed \texttt{data/} record by
+\texttt{docs/aij\_paper/make\_appendix\_tables.py}.
+
+\input{appendix_campaign}
 
 %=====================================================================
 \begin{thebibliography}{99}
+
+\bibitem[Amgoud and Ben-Naim(2013)]{amgoud2013ranking}
+L.~Amgoud, J.~Ben-Naim.
+Ranking-based semantics for argumentation frameworks.
+In \emph{Proc.\ SUM}, LNCS 8078, 134--147. Springer, 2013.
 
 \bibitem[Baroni et al.(2005)]{baroni2005}
 P.~Baroni, M.~Giacomin, G.~Guida.
@@ -1933,10 +2041,16 @@ T.~J.~M. Bench-Capon.
 Persuasion in practical argument using value-based argumentation frameworks.
 \emph{Journal of Logic and Computation} 13(3):429--448, 2003.
 
+
 \bibitem[Bondarenko et al.(1997)]{bondarenko1997}
 A.~Bondarenko, P.~M. Dung, R.~A. Kowalski, F.~Toni.
 An abstract, argumentation-theoretic approach to default reasoning.
 \emph{Artificial Intelligence} 93(1--2):63--101, 1997.
+
+\bibitem[Bonzon et al.(2016)]{bonzon2016ranking}
+E.~Bonzon, J.~Delobelle, S.~Konieczny, N.~Maudet.
+A comparative study of ranking-based semantics for abstract argumentation.
+In \emph{Proc.\ AAAI}, 914--920, 2016.
 
 \bibitem[Caminada(2006)]{caminada2006}
 M.~Caminada.
@@ -1958,7 +2072,7 @@ Intelligence}, 65--84. Springer, 2009.
 P.~Cibier, J.-G. Mailly.
 Graph convolutional networks and graph attention networks for approximating
 arguments acceptability.
-Technical report, arXiv:2404.18672, 2024.
+arXiv:2404.18672, 2024.
 
 \bibitem[Clark(1978)]{clark1978}
 K.~L. Clark.
@@ -1970,10 +2084,6 @@ D.~Craandijk, F.~Bex.
 Deep learning for abstract argumentation semantics.
 In \emph{Proc.\ IJCAI}, 1667--1673, 2020.
 
-\bibitem[Cropper and Morel(2021)]{cropper2021popper}
-A.~Cropper, R.~Morel.
-Learning programs by learning from failures.
-\emph{Machine Learning} 110(4):801--856, 2021.
 
 \bibitem[Cramer and Guillaume(2018)]{cramer2018}
 M.~Cramer, M.~Guillaume.
@@ -1984,17 +2094,28 @@ In \emph{Proc.\ COMMA}, 413--424, 2018.
 M.~Cramer, L.~van~der Torre.
 SCF2 --- an argumentation semantics for rational human judgments on argument
 acceptability.
-Technical report, arXiv:1908.08406, 2019.
+arXiv:1908.08406, 2019.
 
 \bibitem[Cramer and van der Torre(2023)]{cramer2023cognitive}
 M.~Cramer, L.~van~der Torre.
 An argumentation semantics for rational human evaluation of arguments.
 \emph{Frontiers in Artificial Intelligence} 6:1045663, 2023.
 
+\bibitem[Cropper and Morel(2021)]{cropper2021popper}
+A.~Cropper, R.~Morel.
+Learning programs by learning from failures.
+\emph{Machine Learning} 110(4):801--856, 2021.
+
+\bibitem[d'Avila Garcez et al.(2005)]{garcez2005vaf}
+A.~S. d'Avila Garcez, D.~M. Gabbay, L.~C. Lamb.
+Value-based argumentation frameworks as neural-symbolic learning systems.
+\emph{Journal of Logic and Computation} 15(6):1041--1058, 2005.
+
 \bibitem[De Angelis et al.(2024)]{deangelis2024aba}
 E.~De Angelis, M.~Proietti, F.~Toni.
 Learning brave assumption-based argumentation frameworks via ASP.
 In \emph{Proc.\ ECAI}, 2024.
+
 
 \bibitem[Dung(1995)]{dung1995}
 P.~M. Dung.
@@ -2032,11 +2153,22 @@ M.~Gelfond, Y.~Kahl.
 \emph{Knowledge Representation, Reasoning, and the Design of Intelligent
 Agents}. Cambridge University Press, 2014.
 
+\bibitem[Grossi and Modgil(2019)]{grossi2019graded}
+D.~Grossi, S.~Modgil.
+On the graded acceptability of arguments in abstract and instantiated
+argumentation.
+\emph{Artificial Intelligence} 275:138--173, 2019.
+
 \bibitem[Guillaume et al.(2022)]{guillaume2022}
 M.~Guillaume, M.~Cramer, L.~van~der Torre, C.~Schiltz.
 Reasoning on conflicting information: an empirical study of formal
 argumentation.
 \emph{PLOS ONE} 17(8):e0273225, 2022.
+
+\bibitem[Hocquette et al.(2024)]{hocquette2024maxsynth}
+C.~Hocquette, A.~Niskanen, M.~J{\"a}rvisalo, A.~Cropper.
+Learning MDL logic programs from noisy data.
+In \emph{Proc.\ AAAI}, 10553--10561, 2024.
 
 \bibitem[J{\"a}rvisalo et al.(2023)]{iccma23}
 M.~J{\"a}rvisalo, T.~Lehtonen, A.~Niskanen.
@@ -2079,6 +2211,16 @@ V.~Lifschitz, H.~Turner.
 Splitting a logic program.
 In \emph{Proc.\ ICLP}, 23--37. MIT Press, 1994.
 
+\bibitem[Mileva et al.(2023)]{mileva2023prelim}
+Z.~Mileva, A.~Bikakis, F.~A. D'Asaro, M.~Law, A.~Russo.
+A unifying framework for learning argumentation semantics.
+arXiv:2310.12309, 2023.
+
+\bibitem[Mo\v{z}ina et al.(2007)]{mozina2007}
+M.~Mo\v{z}ina, J.~\v{Z}abkar, I.~Bratko.
+Argument based machine learning.
+\emph{Artificial Intelligence} 171(10--15):922--937, 2007.
+
 \bibitem[Proietti and Toni(2024)]{proietti2024aba}
 M.~Proietti, F.~Toni.
 Learning assumption-based argumentation frameworks.
@@ -2094,6 +2236,16 @@ I.~Rahwan, M.~I. Madakkatel, J.-F. Bonnefon, R.~N. Awan, S.~Abdallah.
 Behavioral experiments for assessing the abstract argumentation semantics of
 reinstatement.
 \emph{Cognitive Science} 34(8):1483--1502, 2010.
+
+\bibitem[Riveret and Governatori(2016)]{riveret2016learning}
+R.~Riveret, G.~Governatori.
+On learning attacks in probabilistic abstract argumentation.
+In \emph{Proc.\ AAMAS}, 653--661, 2016.
+
+\bibitem[Sakama and Inoue(2009)]{sakama2009brave}
+C.~Sakama, K.~Inoue.
+Brave induction: a logical framework for learning from incomplete information.
+\emph{Machine Learning} 76(1):3--35, 2009.
 
 \bibitem[Srinivasan(2001)]{srinivasan2001aleph}
 A.~Srinivasan.

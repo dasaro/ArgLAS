@@ -115,18 +115,37 @@ def fig_time_heatmap():
     save(fig, "fig_time_heatmap")
 
 
+# ---- pooled-cell mean + 95% CI over the up-to-15 completed runs (t-corrected)
+def surf_ci(sem, q, f):
+    v = [float(r["MCC_FULL"]) for r in V2 if r["_arm"] == "1" and r["_sem"] == sem
+         and r["_q"] == q and int(r["NFILES_POS"]) == f and ok(r)]
+    if len(v) < 2:
+        return (v[0], 0.0) if v else (np.nan, 0.0)
+    m = st.mean(v); sd = st.stdev(v); df = len(v) - 1
+    ci = _T95.get(df, 2.145) * sd / math.sqrt(len(v))
+    return m, ci
+
+
 # ==================================================================== FIG 3: recovery curves (surface)
 def fig_recovery_curves():
     fig, axes = plt.subplots(1, 3, figsize=(9.2, 2.8), sharey=True, constrained_layout=True)
+    max_hw = {}
     for ax, q in zip(axes, QS):
         for s in SEMS:
-            y = [surf_mcc(s, q, f) for f in FS]
+            mc = [surf_ci(s, q, f) for f in FS]
+            y = [m for m, _ in mc]
+            lo = [max(-1.0, m - c) for m, c in mc]
+            hi = [min(1.0, m + c) for m, c in mc]
+            max_hw[q] = max(max_hw.get(q, 0.0), max(c for _, c in mc))
             ax.plot(FS, y, "-o", ms=3.5, lw=1.6, color=SEMCOL[s], label=s)
+            ax.fill_between(FS, lo, hi, color=SEMCOL[s], alpha=0.15, lw=0)
         ax.set_title(f"noise $q={q.rstrip('0').rstrip('.') or '0'}$" if q != "0.0" else "noise $q=0$")
         ax.set_xlabel("examples per class $f$")
         ax.set_ylim(0.45, 1.01); ax.grid(alpha=0.25, lw=0.5)
     axes[0].set_ylabel("recovery (MCC)")
     axes[-1].legend(frameon=False, fontsize=8, loc="lower right", ncol=2, columnspacing=0.8)
+    print("  tab:surface max per-cell 95% CI half-widths:",
+          {q: round(h, 3) for q, h in max_hw.items()})
     save(fig, "fig_recovery_curves")
 
 
