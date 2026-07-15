@@ -1,0 +1,12 @@
+[cf2_gate] base/opl: skept=0.927 cred=0.971 cells=60
+[cf2_gate] base/nopl: skept=0.927 cred=0.971 cells=60
+[cf2_gate] mutual/opl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] mutual/nopl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] long/opl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] long/nopl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] both/opl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] both/nopl: skept=0.956 cred=0.912 cells=60
+[cf2_gate] aux9/opl: skept=0.927 cred=0.971 cells=60
+[cf2_gate] aux9/nopl: skept=0.927 cred=0.971 cells=60
+[cf2_gate] ilasp_maxv1: skept=0.423 cred=0.883 timed_out=False
+wrote /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/Real_World_Examples/fastlas_exp/results/cf2_gate_results.json

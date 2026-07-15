@@ -1192,9 +1192,21 @@ stable-semantics gate, ILASP's arity-one setting reaches only $0.921$ on the
 gate metric (fail) and $0.882$ committed-only --- an expressivity ceiling of
 that restricted
 configuration on these graphs, which the ILASP rows of
-Section~\ref{sec:exp2} therefore inherit as an explicit caveat. This is the
+Section~\ref{sec:exp2} therefore inherit as an explicit caveat. We also gate
+CF2 itself --- the pre-registered comparator, and a multi-extension semantics,
+so each distinct CF2 labelling of a study graph enters as its own clean cell.
+FastLAS passes the credulous reading (the one behind committed-only accuracy)
+with the primitive vocabulary at $0.971$; on the skeptical reading the
+primitive vocabulary falls just short ($0.927$) and the SCC-cycle vocabulary
+of Section~\ref{sec:aux} crosses the threshold ($0.956$) --- so CF2 \emph{is}
+expressible in the hypothesis space on these graphs, with the skeptical-reading
+learner rows carrying a mild primitive-vocabulary caveat that the
+vocabulary-fair comparison of Table~\ref{tab:aux} discharges. ILASP's
+arity-one setting fails the CF2 gate outright ($0.423$ skeptical), extending
+its stable-gate caveat. This is the
 metric-level license: when a \emph{gated} learner trained on human labellings
-falls short of a catalogue semantics, the shortfall cannot be attributed to the
+falls short of a catalogue semantics, the shortfall --- on the gated readings
+--- cannot be attributed to the
 learning machinery. Experiment~1's surface adds the sampled-data envelope
 behind it: at behavioural sample sizes and clean labels, recovery is
 $\ge0.92$ MCC (Table~\ref{tab:surface}, $q=0$).
@@ -1300,8 +1312,9 @@ cross-validation folds are cut at distinct (graph, labelling) cells so no
 held-out response's exact training example can leak (including across
 conditions D/E/F, which share graphs); all-undecided participants are retained,
 reproducing the study's $495$-response pool exactly; each pipeline is gated on
-clean textbook labels before any human result is trusted (B1 --- including the
-disclosed ILASP stable-gate shortfall); and our textbook
+clean textbook labels before any human result is trusted (B1: grounded,
+stable, and CF2 gates --- including the
+disclosed ILASP stable- and CF2-gate shortfalls); and our textbook
 baselines reproduce the published individual-graph accuracy column to within
 $1.2$ points. We flag this prominently because our own first pass produced an
 \emph{inflated} learner-vs-catalogue gap through three pipeline artifacts
@@ -1327,8 +1340,8 @@ credulous reading. Learned theories are agnostic (no target semantics); learner
 rows use the pipeline's canonical fold seed ($20260703$, fixed at run time ---
 the most learner-favourable of the four seeds later used in
 Table~\ref{tab:aux}, which makes the learner-below-CF2 conclusion
-conservative). The ILASP row inherits the arity-one expressivity caveat flagged
-by the stable gate (Section~\ref{sec:bridge}, B1). Point accuracies are
+conservative). The ILASP row inherits the arity-one expressivity caveats
+flagged by the stable and CF2 gates (Section~\ref{sec:bridge}, B1). Point accuracies are
 descriptive --- $95\%$ binomial half-widths are at most $\pm0.044$ on the
 skeptical columns ($n{=}495$) and $\pm0.056$ on the committed columns
 ($n{=}310$) --- and all learner-versus-CF2 conclusions rest on the paired
@@ -1542,7 +1555,10 @@ $\Delta$ & $+.097$ & $+.084$ & $+.074$ & $+.055$ & \best{$+.077$}\\
 
 The identity of the winning features is itself a finding the catalogue
 comparison could not deliver: CF2's remaining edge over the learner is
-\emph{not} cycle bookkeeping (else SCC predicates would help); it is a residue
+\emph{not} cycle bookkeeping --- the CF2 gate (B1) shows the SCC family
+demonstrably suffices to express CF2 on these graphs (gate $0.956$ on the
+skeptical reading), yet on human data the learner leaves those predicates
+unused; it is a residue
 of individual variation that salience and floating-reinstatement features only
 partly capture. Combined with the contextual test of Section~\ref{sec:act3},
 the picture is: one structure-sensitive policy, keyed on salience and
