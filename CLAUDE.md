@@ -22,7 +22,9 @@ Start with `README.md` (layout + reproduction) — this file adds agent-facing r
 - `data/` — committed experimental record (results CSVs + generator pools). Do
   not regenerate into it; new runs go to `FABIO_ARTIFACTS_ROOT`.
 - `analysis/` — verification labs and figure scripts. `zlatina_theorems/` is the
-  three-level proof lab; `grd_prf_lab/` is the historical GRD/PRF formulation lab
+  equivalence-check lab (the paper presents the theorems with classical proofs;
+  do not reintroduce machine-checking language into the manuscript);
+  `grd_prf_lab/` is the historical GRD/PRF formulation lab
   (needs local legacy artifacts to re-run); `tree_baseline/` the §7 baseline.
 - `Real_World_Examples/` — Experiment 2; `data/` vs `scripts/` vs `fastlas_exp/`.
 - `docs/` — `aij_paper/` (manuscript + `make_figs.py`), specs, `references/`

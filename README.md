@@ -6,8 +6,8 @@ ILASP (Learning from Answer Sets). Given argumentation graphs encoded as ASP
 facts (`arg/1`, `att/2`, optionally `support/2`), it labels them with a
 reference semantics, builds an ILASP learning task, and induces an explicit,
 inspectable logic program — which, for the standard semantics, is provably
-equivalent to the textbook ASPARTIX encodings (machine-checked; see
-`analysis/zlatina_theorems/`).
+equivalent to the textbook ASPARTIX encodings (Theorems 1–3 of the paper,
+with full proofs in its Appendix A).
 
 The core is deliberately brief: ten Python modules in `arglas/` and a handful of
 short config and `.lp` files in `config/`.
@@ -55,7 +55,7 @@ named by `FABIO_ARTIFACTS_ROOT` (default: the repo root).
 | `config/` | semantics/ILASP configs, learning backgrounds, mode bias, ASPARTIX encodings |
 | `data/` | **committed experimental record**: all 4,065 result rows + generator pools behind the paper's synthetic experiments (see `data/README.md`) |
 | `experiments/` | everything used to run the paper's campaigns: the benchmark grid, launchers, breadth generators, calibration scripts, `run_configs/` with pinned seeds |
-| `analysis/` | machine-verification labs (`zlatina_theorems/` — exhaustive + Z3 + anthem/Vampire proofs), the non-LAS baseline (`tree_baseline/`), figure scripts |
+| `analysis/` | equivalence-check labs (`zlatina_theorems/`), the non-LAS baseline (`tree_baseline/`), figure scripts |
 | `Real_World_Examples/` | Experiment 2 (human-study re-analysis): `data/` vs `scripts/` vs `fastlas_exp/` (see its README) |
 | `docs/` | the AIJ paper (`docs/aij_paper/`), specs, references, archived planning docs |
 
@@ -69,7 +69,7 @@ named by `FABIO_ARTIFACTS_ROOT` (default: the repo root).
 python3 docs/aij_paper/make_figs.py                    # all paper figures, from data/
 python3 analysis/make_plots.py                         # Exp1/Exp2 summary plots
 python3 analysis/tree_baseline/tree_baseline.py        # §7 non-LAS baseline (~1 min)
-python3 analysis/zlatina_theorems/check_equivalence.py # Thm 1 exhaustive certificate
+python3 analysis/zlatina_theorems/check_equivalence.py # re-check the Thm 1 equivalences
 cd docs/aij_paper && pdflatex aij_draft.tex            # the manuscript
 ```
 
@@ -85,10 +85,10 @@ Both launchers are stop/resume-safe (kill anytime; rerun to resume). The
 n=10–12 regime is memory-heavy: use `experiments/run_large_safe.sh` (workers=1
 + memory watchdog).
 
-## Verification
+## Correctness
 
-Every learned encoding for stable/admissible/complete is machine-verified
-against ASPARTIX three independent ways (exhaustive over all 66,066 AFs with
-≤4 arguments, Clark-completion proofs in Z3, and anthem 2 + Vampire external
-equivalence); preferred carries an exhaustive certificate. Inputs, scripts and
-prover logs: `analysis/zlatina_theorems/`.
+The learned stable/admissible/complete encodings are proved equivalent to the
+ASPARTIX references — on abstract and bipolar frameworks — and the preferred
+construction is proved correct; statements and full proofs are in the paper
+(Section 4 and Appendix A). The scripts in `analysis/zlatina_theorems/`
+independently re-check these equivalences on finite framework pools.
