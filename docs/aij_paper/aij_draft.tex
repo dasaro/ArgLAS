@@ -200,8 +200,8 @@ structure-sensitive policy.
 \paragraph{Relation to prior publication.} This paper extends our preliminary
 report~\citep{mileva2023prelim}, which introduced the unifying LAS setup and
 the learned encodings of Figure~\ref{fig:learned}, and reported the ICCMA'23
-timing and AGNN data-efficiency comparisons that Section~\ref{sec:eval}
-restates (with one overclaim corrected). Everything else is new to this
+timing and AGNN data-efficiency comparisons that Section~\ref{sec:eval} now
+cites rather than restates (correcting one overclaim). Everything else is new to this
 submission: the equivalence theorems and their proofs
 (Section~\ref{sec:mech}, \ref{app:proofs}), the ABA-translation defect
 analysis and corrected construction (Sections~\ref{sec:abatranslation}
@@ -1997,35 +1997,38 @@ heterogeneous population.
 \section{Comparative Evaluation}
 \label{sec:eval}
 
-We close the empirical loop with the two comparisons the field most often asks
-for. Both are restated from the preliminary evaluation of this
-framework\footnote{arXiv:2310.12309; PAR-2 timings on a MacBook Pro M1
-(2020), computing one extension per instance. The comparisons were not re-run
-for this paper; we restate them with the preliminary report's own numbers,
-correcting one overclaim.} rather than re-run; the correction below is ours.
+We close the empirical loop with the comparisons the field most often asks
+for. The feature-baseline study below is run for this paper, on the
+campaign's own pool and protocol; the timing and deep-learning comparisons of
+our preliminary report~\citep{mileva2023prelim} are cited as context and
+deliberately not restated as results of this paper.
 
-\paragraph{Time performance of learned encodings.} On the ICCMA'23 benchmark
-set~\citep{iccma23}, measuring PAR-2 for computing one extension: the learned
-encodings are markedly faster than ASPARTIX for admissible and stable, at
-parity for complete, and \emph{slower} for preferred --- where ASPARTIX's
-specialized encoding outperforms our declarative subset-maximal selection.
-We state this honestly, correcting the preliminary report's abstract-level
-claim of outperforming existing solvers: learned encodings are competitive,
-sometimes better, not uniformly dominant.
+\paragraph{Timing (remark).} Runtime is not this paper's subject. For PAR-2
+timings of the learned encodings on the ICCMA'23 benchmark
+set~\citep{iccma23} we refer to the preliminary
+report~\citep{mileva2023prelim}; on its own measurements the learned
+encodings were faster than ASPARTIX for admissible and stable, at parity for
+complete, and \emph{slower} for preferred, where ASPARTIX's specialized
+encoding beats declarative subset-maximal selection --- competitive,
+sometimes better, not uniformly dominant, which corrects that report's
+abstract-level claim of outperforming existing solvers.
 
 \paragraph{Data efficiency versus deep learning.} The approximate solver
-AGNN~\citep{craandijkbex2020} reaches MCC $0.998$--$0.999$ for stable,
-preferred, and complete after training on $10^{6}$ labelled frameworks. As
-reported in the preliminary evaluation, the LAS route reaches MCC $=1.0$ ---
-with a \emph{provably correct} theory --- from $7$ (admissible), $8$ (stable,
-complete), and $16$ (preferred) examples on frameworks of at most five
-arguments; conversely, capping AGNN's training set at $30$ examples collapses
-it to MCC $\le 0.31$ on the semantics studied here (stable $0.054$, complete
-$0.213$, preferred $0.303$). The comparison is not adversarial --- AGNN
-targets amortized inference speed, not data efficiency --- but it quantifies
-the regime where interpretable learning is the only viable option: when
-labelled data is scarce, as in behavioural settings (Section~\ref{sec:exp2})
-where the \emph{entire corpus} is $495$ responses.
+AGNN~\citep{craandijkbex2020} reports MCC $0.998$--$0.999$ for stable,
+preferred, and complete after training on $10^{6}$ labelled frameworks. This
+paper's campaign supplies the interpretable side of the contrast from
+committed data: near-perfect recovery from $30$--$40$ examples per class on
+clean labels (Table~\ref{tab:surface}), with $61\%$ of clean-run theories
+exactly extension-equivalent to the target (Table~\ref{tab:exactness}) ---
+four orders of magnitude less data, for inspectable theories with
+correctness guarantees where exactness holds. (The preliminary
+report~\citep{mileva2023prelim} additionally measured AGNN's collapse when
+its training set is capped at $30$ examples, to MCC $\le 0.31$; we cite that
+result rather than restate it, not having re-run it.) The comparison is not
+adversarial --- AGNN targets amortized inference speed, not data efficiency
+--- but it delimits the regime where interpretable learning is the only
+viable option: when labelled data is scarce, as in behavioural settings
+(Section~\ref{sec:exp2}) where the \emph{entire corpus} is $495$ responses.
 
 \paragraph{ILP engines.} Within the LAS family: ILASP's full expressivity is
 required for learning \emph{generative} encodings (choice-rule hypothesis

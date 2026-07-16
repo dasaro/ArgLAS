@@ -75,9 +75,13 @@ fixes applied):**
   'not a known semantics' claim now mechanically evidenced.
 - Zero-shot Tier 0: frozen falsifiable predictions in print (§8.1).
 
-**REMAINING:** AGNN re-run (needs external code; ~1 week) or demote-to-citation
-decision, ICCMA timing table (needs benchmark instances) or cut-to-remark
-decision, zero-shot Tier 1 (external-data transcription, 1–2 weeks),
+**DONE (week 2, day 2, author decision):** AGNN demoted to citation — the
+data-efficiency contrast now rests on AGNN's published figures + this paper's
+own committed evidence (tab:surface, tab:exactness); the preliminary report's
+30-example collapse is cited, not restated. ICCMA timing cut to a remark
+citing the preliminary report (correction retained).
+
+**REMAINING:** zero-shot Tier 1 (external-data transcription, 1–2 weeks),
 release-commit pin at submission.
 
 ## Lens verdicts
