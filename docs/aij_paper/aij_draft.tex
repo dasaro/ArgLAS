@@ -62,7 +62,8 @@ unified background theory that also covers value-based frameworks, returning
 interpretable encodings rather than black-box predictors. First, correctness is
 \emph{proved}: the learned stable, admissible, and complete encodings are shown
 equivalent to their manually engineered counterparts on \emph{every} framework
---- for abstract and, new, for bipolar frameworks --- the preferred construction
+--- for abstract and, new, for bipolar and value-based frameworks --- the
+preferred construction
 is characterized exactly, and the analysis uncovered --- and repaired --- a
 defect in a published assumption-based translation. Second, a $3{,}240$-run controlled
 study maps recovery of four semantics under partial labels, label noise, sample
@@ -147,9 +148,10 @@ background theory and hypothesis space that specializes to each family
 theorems between learned and manually engineered encodings: for the AAF
 stable, admissible, and complete encodings on \emph{every} framework
 (Theorem~\ref{thm:aaf}), and --- new, to our knowledge --- for their bipolar
-counterparts under support-extended defeat (Theorem~\ref{thm:baf}), with the
-transitive-closure instantiation recovered by a splitting argument
-(Corollary~\ref{cor:closure}). All proofs go through a single classical route
+and value-based counterparts under support-extended and preference-disarmed
+defeat (Theorems~\ref{thm:baf} and~\ref{thm:vaf}), with the recursive
+closure instantiations recovered by splitting arguments
+(Corollaries~\ref{cor:closure} and~\ref{cor:vafclosure}). All proofs go through a single classical route
 --- both programs are tight, so by Fages' theorem their answer sets are the
 models of their Clark completions, and the completions are shown to have
 the same models on the shared vocabulary --- with full details in
@@ -493,10 +495,11 @@ arguments and nothing else.
 The programs of Figure~\ref{fig:learned} were \emph{learned}; nothing
 guarantees a learner's output generalizes beyond its examples. This section
 shows the learned encodings are not approximately right but \emph{exactly}
-right: for stable, admissible, and complete --- on abstract and bipolar
-frameworks alike --- provably equivalent to the manually engineered ASPARTIX
-encodings on \emph{every} framework (Theorems~\ref{thm:aaf}
-and~\ref{thm:baf}), and for the preferred construction provably correct via a
+right: for stable, admissible, and complete --- on abstract, bipolar, and
+value-based frameworks alike --- provably equivalent to the manually
+engineered ASPARTIX-style encodings on \emph{every} framework
+(Theorems~\ref{thm:aaf}, \ref{thm:baf} and~\ref{thm:vaf}), and for the
+preferred construction provably correct via a
 maximality characterization (Theorem~\ref{thm:prf}). All equivalences follow
 one classical route (Section~\ref{sec:bg-verif}): both programs are tight, so
 by Fages' theorem their answer sets are the models of their Clark completions,
@@ -642,6 +645,86 @@ Corollary~\ref{cor:closure} needs: the equivalence holds for every relation
 satisfying the premises --- in particular for every transitive superset of the
 support relation, not only the closure itself --- a small bonus of proving the
 statement in its abstracted form.
+\end{remark}
+
+\subsection{Equivalence for value-based frameworks}
+\label{sec:thmvaf}
+
+The value-based instantiation follows the same abstraction pattern. In the
+unified background, the audience's value preference is derived and closed
+transitively:
+
+\begin{figure}[h]
+\centering
+\small
+\begin{minipage}{0.72\linewidth}
+\begin{verbatim}
+valpref(X,Y) :- valpref(X,Z), valpref(Z,Y).
+pref(X,Y)    :- valpref(U,V), val(X,U), val(Y,V).
+pref(X,Y)    :- pref(X,Z), pref(Z,Y).
+defeat(X,Y)  :- att(X,Y), not pref(Y,X).
+\end{verbatim}
+\end{minipage}
+\caption{$B_{\mathrm{VAF}}$: transitive audience-preference closure and
+preference-disarmed defeat, replacing the first rule of Figure~\ref{fig:bg};
+\pred{defeated}/\pred{not\_defended} read \pred{defeat} as in
+Figure~\ref{fig:bgbaf}.}
+\label{fig:bgvaf}
+\end{figure}
+
+\begin{theorem}[VAF equivalence]
+\label{thm:vaf}
+Let \pred{pref} be \emph{any} relation, and define defeat by
+$\pred{defeat}(X,Y)\leftarrow\pred{att}(X,Y),\ \neg\pred{pref}(Y,X)$. Then
+for each $\sigma\in\{\text{stable},\text{admissible},\text{complete}\}$ the
+learned program $P_\sigma$ (over this defeat rule and the $\Daaf$-style
+definitions reading \pred{defeat}) and the guess-style reference encoding
+($S_\sigma$ with \pred{att} replaced by \pred{defeat}, over the same defeat
+rule) have the same answer sets restricted to $\{\pred{in},\pred{out}\}$, for
+every input interpretation of
+$\pred{arg}/1,\pred{att}/2,\pred{val}/2,\pred{valpref}/2,\pred{pref}/2$ in
+which, as in Theorem~\ref{thm:aaf}, every domain element is an argument.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Both sides contain the same single defining rule for \pred{defeat}, so both
+completions contain the input-only equation
+$\pred{defeat}(b,a)\leftrightarrow
+\pred{att}(b,a)\wedge\neg\pred{pref}(a,b)$; the negative \pred{pref} literal
+adds no edge to the positive dependency graph, so both programs remain tight.
+As in Theorem~\ref{thm:baf}, the case proofs of Theorem~\ref{thm:aaf} use the
+attack relation only through (D1), (D2), and (CF), and hence apply verbatim
+with $\Att(a)=\{b:\pred{att}(b,a)\wedge\neg\pred{pref}(a,b)\}$
+(\ref{app:proofs}).
+\end{proof}
+
+\begin{corollary}
+\label{cor:vafclosure}
+The equivalence holds for the background as written in
+Figure~\ref{fig:bgvaf}, i.e.\ with \pred{pref} derived from the audience's
+value ordering and closed transitively in place.
+\end{corollary}
+
+\begin{proof}
+Take as splitting set the \pred{val}, \pred{valpref}, and \pred{pref} atoms.
+The rules with heads in this set --- the input facts and the three derivation
+rules of Figure~\ref{fig:bgvaf} --- mention only atoms in the set, and no
+other rule has a head in it; the bottom is a positive program whose unique
+answer set derives exactly the closed preference. By the splitting
+theorem~\citep{lifschitz1994}, the remainder is the program of
+Theorem~\ref{thm:vaf} instantiated at that \pred{pref}.
+\end{proof}
+
+\begin{remark}
+The semantic anchor is \citet{benchcapon2003}: for a fixed audience, $X$
+defeats $Y$ iff $X$ attacks $Y$ and $Y$'s value is not preferred to $X$'s, so
+$(A,\pred{defeat})$ is exactly Bench-Capon's audience-specific reduction and
+the $\pred{in}$-projections are the audience-specific $\sigma$-extensions.
+Applying the subset-maximal $\pred{in}$-selection of Theorem~\ref{thm:prf}
+over the admissible core with the VAF defeat reading yields audience-specific
+preferred extensions by the same argument. Unlike AAF and BAF, the VAF
+instantiation carries no learning experiments in this paper
+(Section~\ref{sec:concl}).
 \end{remark}
 
 \subsection{Preferred semantics: correctness of the maximality construction}
@@ -1825,9 +1908,9 @@ We asked whether argumentation semantics can be learned (Q1), trusted (Q2),
 learned robustly (Q3), and used as an instrument on human data (Q4). The
 answers: \emph{yes} --- one background and hypothesis space covers AAF and BAF
 with learning experiments and theorems, ABA via a corrected translation, and
-VAF at the level of the unified background; \emph{provably} --- with
-equivalence theorems for abstract and bipolar frameworks and an exact
-characterization of the preferred construction, an analysis sharp enough to
+VAF with an equivalence theorem of its own; \emph{provably} --- with
+equivalence theorems for abstract, bipolar, and value-based frameworks and an
+exact characterization of the preferred construction, an analysis sharp enough to
 uncover and repair a published defect; \emph{yes, within a mapped envelope} ---
 near-perfect recovery from clean data at $30$--$40$ examples per class, noise
 as the binding but data-recoverable constraint (amplified by label
@@ -1851,9 +1934,10 @@ understood boundary rather than a general failure. Grounded semantics was
 scoped out of the learnability study for a diagnosed reason --- on dense pools
 its extension is empty $69\%$ of the time, starving the learner's positive
 signal --- and learning it under a signal-bearing sparse distribution is an
-open, now well-posed problem. VAF is covered by the unified background and its
-specialization (Remark~\ref{rem:spec}), but carries no learning experiments or
-equivalence theorems of its own here. $\sigma_H$ describes pooled behaviour on seven
+open, now well-posed problem. VAF is covered by the unified background, its
+specialization (Remark~\ref{rem:spec}), and the equivalence theorem of
+Section~\ref{sec:thmvaf}, but carries no learning experiments of its own
+here. $\sigma_H$ describes pooled behaviour on seven
 graphs; its two distinctive rules stabilize in $3$ of $5$ folds, its auxiliary
 vocabulary was selected on the same corpus and awaits pre-registered
 replication, and the contextual-reasoning test is well-powered only for the
@@ -1871,8 +1955,7 @@ cores are tight, hypothesis-versus-target equivalence reduces to validity of
 completion formulas (Section~\ref{sec:bg-verif}); running that check inside
 learning --- rejecting hypotheses not equivalent to any admissible target ---
 would turn the post-hoc theorems of Section~\ref{sec:mech} into a
-learn-and-prove loop, and the same route extends the equivalence theorems to
-the VAF instantiation. \emph{Dialogue}: combining the learned human policy
+learn-and-prove loop. \emph{Dialogue}: combining the learned human policy
 $\sigma_H$ with argument-mining front ends to predict, and intervene on, real
 deliberation.
 
@@ -2050,6 +2133,26 @@ the attack relation only through (D1), (D2), and (CF) --- never through the
 input facts directly --- so they apply verbatim with $R$ replaced by
 $R^{\mathit{supp}}$. (As noted in the main text, the two premises on
 $\mathit{supp}$ are not used.)\hfill$\square$
+
+\subsection{Proof of Theorem~\ref{thm:vaf}}
+
+Ground over the finite domain with input relations
+$\pred{arg},\pred{att},\pred{val},\pred{valpref},\pred{pref}$, under the
+standing stipulation that every constant is an argument. Both programs
+contain the same single defining rule for \pred{defeat}, so both completions
+contain the equation
+\[
+\pred{defeat}(b,a)\;\leftrightarrow\;
+\pred{att}(b,a)\wedge\neg\pred{pref}(a,b),
+\]
+whose right-hand side is a formula of input atoms only; in any model, on
+either side, \pred{defeat} denotes the same relation
+$R^{\pred{pref}}=\{(b,a):\pred{att}(b,a)\wedge\neg\pred{pref}(a,b)\}$. The
+negative \pred{pref} literal contributes no positive dependency, so both
+programs remain tight. The remaining rules are exactly those of the AAF case
+with \pred{att} replaced by \pred{defeat}; the three case proofs above use
+the attack relation only through (D1), (D2), and (CF), so they apply verbatim
+with $R$ replaced by $R^{\pred{pref}}$.\hfill$\square$
 
 \section{Campaign details}
 \label{app:campaign}
