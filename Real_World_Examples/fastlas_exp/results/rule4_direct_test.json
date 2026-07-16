@@ -1,0 +1,161 @@
+{
+ "pool": {
+  "n_participants": 129,
+  "n_units": 495,
+  "n_reinstated_abi": 96,
+  "n_reinstated_out": 109,
+  "n_many_attackers": 120
+ },
+ "abi_aux_predicate_verbatim": {
+  "response_level": {
+   "n_reinstated_units": 96,
+   "table_many_single_x_in_notin": {
+    "many_in": 1,
+    "many_notin": 0,
+    "single_in": 63,
+    "single_notin": 32
+   },
+   "rate_in_many": 1.0,
+   "rate_in_single": 0.6632,
+   "fisher_odds_ratio": null,
+   "fisher_p_two_sided": 1.0,
+   "fisher_p_one_sided_many_lower": 1.0,
+   "acceptance_by_attacker_count": {
+    "1": {
+     "n": 95,
+     "n_in": 63,
+     "rate_in": 0.6632
+    },
+    "2": {
+     "n": 1,
+     "n_in": 1,
+     "rate_in": 1.0
+    },
+    "3+": {
+     "n": 0,
+     "n_in": 0,
+     "rate_in": null
+    }
+   }
+  },
+  "cell_level": {
+   "n_reinstated_units": 47,
+   "table_many_single_x_in_notin": {
+    "many_in": 1,
+    "many_notin": 0,
+    "single_in": 31,
+    "single_notin": 15
+   },
+   "rate_in_many": 1.0,
+   "rate_in_single": 0.6739,
+   "fisher_odds_ratio": null,
+   "fisher_p_two_sided": 1.0,
+   "fisher_p_one_sided_many_lower": 1.0,
+   "acceptance_by_attacker_count": {
+    "1": {
+     "n": 46,
+     "n_in": 31,
+     "rate_in": 0.6739
+    },
+    "2": {
+     "n": 1,
+     "n_in": 1,
+     "rate_in": 1.0
+    },
+    "3+": {
+     "n": 0,
+     "n_in": 0,
+     "rate_in": null
+    }
+   }
+  },
+  "participant_clustered": {
+   "n_participants_with_both": 0,
+   "many_lower": 0,
+   "many_higher": 0,
+   "ties": 0,
+   "sign_p_two_sided": null,
+   "sign_p_one_sided_many_lower": null
+  }
+ },
+ "out_attackers_all_labelled_out": {
+  "response_level": {
+   "n_reinstated_units": 109,
+   "table_many_single_x_in_notin": {
+    "many_in": 0,
+    "many_notin": 1,
+    "single_in": 68,
+    "single_notin": 40
+   },
+   "rate_in_many": 0.0,
+   "rate_in_single": 0.6296,
+   "fisher_odds_ratio": 0.0,
+   "fisher_p_two_sided": 0.376147,
+   "fisher_p_one_sided_many_lower": 0.376147,
+   "acceptance_by_attacker_count": {
+    "1": {
+     "n": 108,
+     "n_in": 68,
+     "rate_in": 0.6296
+    },
+    "2": {
+     "n": 0,
+     "n_in": 0,
+     "rate_in": null
+    },
+    "3+": {
+     "n": 1,
+     "n_in": 0,
+     "rate_in": 0.0
+    }
+   }
+  },
+  "cell_level": {
+   "n_reinstated_units": 49,
+   "table_many_single_x_in_notin": {
+    "many_in": 0,
+    "many_notin": 1,
+    "single_in": 27,
+    "single_notin": 21
+   },
+   "rate_in_many": 0.0,
+   "rate_in_single": 0.5625,
+   "fisher_odds_ratio": 0.0,
+   "fisher_p_two_sided": 0.44898,
+   "fisher_p_one_sided_many_lower": 0.44898,
+   "acceptance_by_attacker_count": {
+    "1": {
+     "n": 48,
+     "n_in": 27,
+     "rate_in": 0.5625
+    },
+    "2": {
+     "n": 0,
+     "n_in": 0,
+     "rate_in": null
+    },
+    "3+": {
+     "n": 1,
+     "n_in": 0,
+     "rate_in": 0.0
+    }
+   }
+  },
+  "participant_clustered": {
+   "n_participants_with_both": 1,
+   "many_lower": 0,
+   "many_higher": 0,
+   "ties": 1,
+   "sign_p_two_sided": null,
+   "sign_p_one_sided_many_lower": null
+  }
+ },
+ "shell_diagnostic": {
+  "n_positives": 129,
+  "positives_fired": 1,
+  "pos_rate": 0.0078,
+  "n_h1_shell_negatives": 262,
+  "negatives_fired": 11,
+  "neg_rate": 0.042
+ }
+}

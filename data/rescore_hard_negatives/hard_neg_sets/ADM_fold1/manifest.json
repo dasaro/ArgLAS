@@ -1,0 +1,614 @@
+{
+  "semantics": "ADM",
+  "fold": 1,
+  "pool": "artifacts/final_synthetic_v2/labelled/labelled_ADM_full",
+  "test_sampling_seed": 20260312,
+  "k_folds": 5,
+  "test_per_class": 100,
+  "hard_neg_seed_tag": "hard_negative_rescore",
+  "n_positives": 100,
+  "n_hard_negatives": 100,
+  "n_flips_rejected_still_legal": 44,
+  "files": [
+    {
+      "file": "aaf_4_17_ADM_POS_3_HNEG_1.lp",
+      "source_pos": "aaf_4_17_ADM_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_25_ADM_POS_4_HNEG_2.lp",
+      "source_pos": "aaf_4_25_ADM_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_31_ADM_POS_4_HNEG_3.lp",
+      "source_pos": "aaf_4_31_ADM_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_33_ADM_POS_4_HNEG_4.lp",
+      "source_pos": "aaf_4_33_ADM_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_61_ADM_POS_1_HNEG_5.lp",
+      "source_pos": "aaf_4_61_ADM_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_66_ADM_POS_1_HNEG_6.lp",
+      "source_pos": "aaf_4_66_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_76_ADM_POS_2_HNEG_7.lp",
+      "source_pos": "aaf_4_76_ADM_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_76_ADM_POS_4_HNEG_8.lp",
+      "source_pos": "aaf_4_76_ADM_POS_4.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_80_ADM_POS_1_HNEG_9.lp",
+      "source_pos": "aaf_4_80_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_86_ADM_POS_2_HNEG_10.lp",
+      "source_pos": "aaf_4_86_ADM_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_91_ADM_POS_1_HNEG_11.lp",
+      "source_pos": "aaf_4_91_ADM_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_96_ADM_POS_2_HNEG_12.lp",
+      "source_pos": "aaf_4_96_ADM_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_98_ADM_POS_1_HNEG_13.lp",
+      "source_pos": "aaf_4_98_ADM_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_98_ADM_POS_2_HNEG_14.lp",
+      "source_pos": "aaf_4_98_ADM_POS_2.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_11_ADM_POS_4_HNEG_15.lp",
+      "source_pos": "aaf_5_11_ADM_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_19_ADM_POS_3_HNEG_16.lp",
+      "source_pos": "aaf_5_19_ADM_POS_3.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_34_ADM_POS_2_HNEG_17.lp",
+      "source_pos": "aaf_5_34_ADM_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_4_ADM_POS_2_HNEG_18.lp",
+      "source_pos": "aaf_5_4_ADM_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_55_ADM_POS_1_HNEG_19.lp",
+      "source_pos": "aaf_5_55_ADM_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_63_ADM_POS_3_HNEG_20.lp",
+      "source_pos": "aaf_5_63_ADM_POS_3.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_63_ADM_POS_7_HNEG_21.lp",
+      "source_pos": "aaf_5_63_ADM_POS_7.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_63_ADM_POS_8_HNEG_22.lp",
+      "source_pos": "aaf_5_63_ADM_POS_8.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_75_ADM_POS_1_HNEG_23.lp",
+      "source_pos": "aaf_5_75_ADM_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_75_ADM_POS_2_HNEG_24.lp",
+      "source_pos": "aaf_5_75_ADM_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_93_ADM_POS_5_HNEG_25.lp",
+      "source_pos": "aaf_5_93_ADM_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_96_ADM_POS_2_HNEG_26.lp",
+      "source_pos": "aaf_5_96_ADM_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_15_ADM_POS_4_HNEG_27.lp",
+      "source_pos": "aaf_6_15_ADM_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_15_ADM_POS_5_HNEG_28.lp",
+      "source_pos": "aaf_6_15_ADM_POS_5.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_16_ADM_POS_2_HNEG_29.lp",
+      "source_pos": "aaf_6_16_ADM_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_16_ADM_POS_4_HNEG_30.lp",
+      "source_pos": "aaf_6_16_ADM_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_16_ADM_POS_7_HNEG_31.lp",
+      "source_pos": "aaf_6_16_ADM_POS_7.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_25_ADM_POS_5_HNEG_32.lp",
+      "source_pos": "aaf_6_25_ADM_POS_5.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_37_ADM_POS_2_HNEG_33.lp",
+      "source_pos": "aaf_6_37_ADM_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_37_ADM_POS_5_HNEG_34.lp",
+      "source_pos": "aaf_6_37_ADM_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_39_ADM_POS_1_HNEG_35.lp",
+      "source_pos": "aaf_6_39_ADM_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_39_ADM_POS_4_HNEG_36.lp",
+      "source_pos": "aaf_6_39_ADM_POS_4.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_39_ADM_POS_5_HNEG_37.lp",
+      "source_pos": "aaf_6_39_ADM_POS_5.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_46_ADM_POS_1_HNEG_38.lp",
+      "source_pos": "aaf_6_46_ADM_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_46_ADM_POS_4_HNEG_39.lp",
+      "source_pos": "aaf_6_46_ADM_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_46_ADM_POS_5_HNEG_40.lp",
+      "source_pos": "aaf_6_46_ADM_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_51_ADM_POS_3_HNEG_41.lp",
+      "source_pos": "aaf_6_51_ADM_POS_3.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_51_ADM_POS_5_HNEG_42.lp",
+      "source_pos": "aaf_6_51_ADM_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_51_ADM_POS_6_HNEG_43.lp",
+      "source_pos": "aaf_6_51_ADM_POS_6.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_56_ADM_POS_2_HNEG_44.lp",
+      "source_pos": "aaf_6_56_ADM_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_58_ADM_POS_2_HNEG_45.lp",
+      "source_pos": "aaf_6_58_ADM_POS_2.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_63_ADM_POS_2_HNEG_46.lp",
+      "source_pos": "aaf_6_63_ADM_POS_2.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_63_ADM_POS_4_HNEG_47.lp",
+      "source_pos": "aaf_6_63_ADM_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_71_ADM_POS_2_HNEG_48.lp",
+      "source_pos": "aaf_6_71_ADM_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_13_ADM_POS_1_HNEG_49.lp",
+      "source_pos": "aaf_7_13_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_24_ADM_POS_1_HNEG_50.lp",
+      "source_pos": "aaf_7_24_ADM_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_2_ADM_POS_1_HNEG_51.lp",
+      "source_pos": "aaf_7_2_ADM_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_2_ADM_POS_5_HNEG_52.lp",
+      "source_pos": "aaf_7_2_ADM_POS_5.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_33_ADM_POS_4_HNEG_53.lp",
+      "source_pos": "aaf_7_33_ADM_POS_4.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_33_ADM_POS_5_HNEG_54.lp",
+      "source_pos": "aaf_7_33_ADM_POS_5.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_33_ADM_POS_6_HNEG_55.lp",
+      "source_pos": "aaf_7_33_ADM_POS_6.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_38_ADM_POS_3_HNEG_56.lp",
+      "source_pos": "aaf_7_38_ADM_POS_3.lp",
+      "flipped_arg": "6",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_39_ADM_POS_1_HNEG_57.lp",
+      "source_pos": "aaf_7_39_ADM_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_3_ADM_POS_2_HNEG_58.lp",
+      "source_pos": "aaf_7_3_ADM_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_3_ADM_POS_4_HNEG_59.lp",
+      "source_pos": "aaf_7_3_ADM_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_43_ADM_POS_10_HNEG_60.lp",
+      "source_pos": "aaf_7_43_ADM_POS_10.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_43_ADM_POS_2_HNEG_61.lp",
+      "source_pos": "aaf_7_43_ADM_POS_2.lp",
+      "flipped_arg": "6",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_47_ADM_POS_1_HNEG_62.lp",
+      "source_pos": "aaf_7_47_ADM_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_47_ADM_POS_4_HNEG_63.lp",
+      "source_pos": "aaf_7_47_ADM_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_49_ADM_POS_1_HNEG_64.lp",
+      "source_pos": "aaf_7_49_ADM_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_58_ADM_POS_2_HNEG_65.lp",
+      "source_pos": "aaf_7_58_ADM_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_63_ADM_POS_1_HNEG_66.lp",
+      "source_pos": "aaf_7_63_ADM_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_63_ADM_POS_2_HNEG_67.lp",
+      "source_pos": "aaf_7_63_ADM_POS_2.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_80_ADM_POS_7_HNEG_68.lp",
+      "source_pos": "aaf_7_80_ADM_POS_7.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_85_ADM_POS_9_HNEG_69.lp",
+      "source_pos": "aaf_7_85_ADM_POS_9.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_8_ADM_POS_3_HNEG_70.lp",
+      "source_pos": "aaf_7_8_ADM_POS_3.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_8_ADM_POS_5_HNEG_71.lp",
+      "source_pos": "aaf_7_8_ADM_POS_5.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_8_ADM_POS_6_HNEG_72.lp",
+      "source_pos": "aaf_7_8_ADM_POS_6.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_99_ADM_POS_1_HNEG_73.lp",
+      "source_pos": "aaf_7_99_ADM_POS_1.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_99_ADM_POS_3_HNEG_74.lp",
+      "source_pos": "aaf_7_99_ADM_POS_3.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_10_ADM_POS_7_HNEG_75.lp",
+      "source_pos": "aaf_8_10_ADM_POS_7.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_25_ADM_POS_11_HNEG_76.lp",
+      "source_pos": "aaf_8_25_ADM_POS_11.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_25_ADM_POS_5_HNEG_77.lp",
+      "source_pos": "aaf_8_25_ADM_POS_5.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_25_ADM_POS_9_HNEG_78.lp",
+      "source_pos": "aaf_8_25_ADM_POS_9.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_54_ADM_POS_1_HNEG_79.lp",
+      "source_pos": "aaf_8_54_ADM_POS_1.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_54_ADM_POS_4_HNEG_80.lp",
+      "source_pos": "aaf_8_54_ADM_POS_4.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_54_ADM_POS_5_HNEG_81.lp",
+      "source_pos": "aaf_8_54_ADM_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_55_ADM_POS_2_HNEG_82.lp",
+      "source_pos": "aaf_8_55_ADM_POS_2.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_55_ADM_POS_8_HNEG_83.lp",
+      "source_pos": "aaf_8_55_ADM_POS_8.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_57_ADM_POS_2_HNEG_84.lp",
+      "source_pos": "aaf_8_57_ADM_POS_2.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_59_ADM_POS_2_HNEG_85.lp",
+      "source_pos": "aaf_8_59_ADM_POS_2.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_5_ADM_POS_2_HNEG_86.lp",
+      "source_pos": "aaf_8_5_ADM_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_82_ADM_POS_3_HNEG_87.lp",
+      "source_pos": "aaf_8_82_ADM_POS_3.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_84_ADM_POS_1_HNEG_88.lp",
+      "source_pos": "aaf_8_84_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_84_ADM_POS_2_HNEG_89.lp",
+      "source_pos": "aaf_8_84_ADM_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_87_ADM_POS_1_HNEG_90.lp",
+      "source_pos": "aaf_8_87_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_87_ADM_POS_2_HNEG_91.lp",
+      "source_pos": "aaf_8_87_ADM_POS_2.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_1_HNEG_92.lp",
+      "source_pos": "aaf_8_88_ADM_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_10_HNEG_93.lp",
+      "source_pos": "aaf_8_88_ADM_POS_10.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_14_HNEG_94.lp",
+      "source_pos": "aaf_8_88_ADM_POS_14.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_3_HNEG_95.lp",
+      "source_pos": "aaf_8_88_ADM_POS_3.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_4_HNEG_96.lp",
+      "source_pos": "aaf_8_88_ADM_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_88_ADM_POS_6_HNEG_97.lp",
+      "source_pos": "aaf_8_88_ADM_POS_6.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_98_ADM_POS_7_HNEG_98.lp",
+      "source_pos": "aaf_8_98_ADM_POS_7.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_98_ADM_POS_9_HNEG_99.lp",
+      "source_pos": "aaf_8_98_ADM_POS_9.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_9_ADM_POS_3_HNEG_100.lp",
+      "source_pos": "aaf_8_9_ADM_POS_3.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    }
+  ]
+}

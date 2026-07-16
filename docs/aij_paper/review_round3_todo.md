@@ -44,11 +44,41 @@ Real_World_Examples/fastlas_exp/cf2_gate.py: credulous reading gated at 0.971
 (primitive vocab), skeptical at 0.956 (SCC vocab; primitive 0.927 = disclosed
 caveat), ILASP arity-1 fails (0.423); B1/audit/tab:act1/§8.2 updated.
 
-**REMAINING (week 2+, needs compute or new material):** AGNN re-run, ICCMA timing table,
-hard-negative test slice, cross-generator transfer, campaign-hypothesis
-exactness audit, VAF theorem, GRD appendix experiment, LOCO validation,
-consensus multi-seed stability, σ_H principle-profile audit, zero-shot external
-validation, release-commit pin.
+**DONE (week 2, day 2 — all verified by a 3-agent numbers+coherence workflow, 16
+fixes applied):**
+- Hard-negative (Hamming-1) test slice: full campaign rescore, evaluation-only
+  (analysis/hard_negative_rescore.py; data/rescore_hard_negatives/); 0.903→0.866
+  paired mean, 91.2% of ceiling runs stay at 1.0; two-surface Evaluation
+  paragraph + Table tab:hardsurface.
+- Cross-generator transfer: evaluation-only, 913 evaluations
+  (experiments/transfer_score.py; data/transfer/); density/size shifts
+  near-lossless (0.979 vs 0.983), self-attack the boundary; the ':- att(V1,V1)'
+  generator-invariant anecdote; Table tab:transfer.
+- Campaign-hypothesis exactness audit (analysis/exp1_exactness_audit/): 61% of
+  clean runs exactly extension-equivalent on all 66,066 ≤4-arg AFs, 94% among
+  perfect-scorers; Table tab:exactness; abstract clause.
+- GRD appendix (experiments/run_grd_appendix.py; data/grd_appendix/): exact
+  recovery 1.000 at f≥20 on sparse AND dense with the definite background —
+  scope-out mechanism corrected (formulational, not signal starvation).
+- VAF equivalence theorem + splitting corollary (§4.3 + App A.4;
+  check_vaf.py 11,130 pairs, 0 mismatches); Q1/C1 coverage gap closed.
+- Consensus multi-seed (20 folds) + rule-4 direct test: rules 1–3 robust
+  (20/16/15 of 20); smoke/fire DEMOTED to candidate (5/20; antecedent once in
+  corpus, labelled against) — abstract/C7/§8.1/related work/conclusions
+  re-hedged.
+- LOCO selection validation (aux10_loco_selection.py): in-corpus +7.7 gain does
+  NOT transfer (+2.6, p=.56) — §8.2 'Selection honesty' paragraph; one-third
+  claim qualified in-corpus.
+- σ_H principle profile (analysis/sigma_h_principles/): violates
+  conflict-freeness/admissibility/reinstatement/directionality and totality at
+  n=4; both headline failures rule-attributed; Table tab:sigmah — the
+  'not a known semantics' claim now mechanically evidenced.
+- Zero-shot Tier 0: frozen falsifiable predictions in print (§8.1).
+
+**REMAINING:** AGNN re-run (needs external code; ~1 week) or demote-to-citation
+decision, ICCMA timing table (needs benchmark instances) or cut-to-remark
+decision, zero-shot Tier 1 (external-data transcription, 1–2 weeks),
+release-commit pin at submission.
 
 ## Lens verdicts
 

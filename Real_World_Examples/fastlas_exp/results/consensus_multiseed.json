@@ -1,0 +1,2147 @@
+{
+ "phase": "final",
+ "seeds": [
+  20260703,
+  424242,
+  777,
+  20250101
+ ],
+ "n_folds_total": 20,
+ "final_base": {
+  "n_folds_total": 20,
+  "all_ranked": [
+   {
+    "folds_of_total": 20,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), in(V0), arg(V0).",
+    "canon": "in(V) & not attacked_by_in(V) & not defended(V)",
+    "per_seed": {
+     "20260703": 5,
+     "424242": 5,
+     "777": 5,
+     "20250101": 5
+    }
+   },
+   {
+    "folds_of_total": 16,
+    "rule": "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 4,
+     "424242": 4,
+     "777": 4,
+     "20250101": 4
+    }
+   },
+   {
+    "folds_of_total": 15,
+    "rule": "violated :- in_cycle(V0), in(V0), not defended(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not defended(V)",
+    "per_seed": {
+     "20260703": 3,
+     "424242": 4,
+     "777": 4,
+     "20250101": 4
+    }
+   },
+   {
+    "folds_of_total": 13,
+    "rule": "violated :- defended(V0), out(V0), arg(V0).",
+    "canon": "defended(V) & out(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 4,
+     "777": 4,
+     "20250101": 3
+    }
+   },
+   {
+    "folds_of_total": 10,
+    "rule": "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in(V) & not in_cycle(V)",
+    "per_seed": {
+     "20260703": 3,
+     "424242": 2,
+     "777": 2,
+     "20250101": 3
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- in_cycle(V0), in(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & in(V) & in_cycle(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+    "canon": "not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not in(V0), defended(V0), arg(V0).",
+    "canon": "defended(V) & not in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- undec(V0), defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), undec(V0), arg(V0).",
+    "canon": "defended(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- out(V0), defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in_cycle(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   }
+  ],
+  "consensus_rules": [
+   {
+    "folds_of_total": 20,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), in(V0), arg(V0).",
+    "canon": "in(V) & not attacked_by_in(V) & not defended(V)",
+    "per_seed": {
+     "20260703": 5,
+     "424242": 5,
+     "777": 5,
+     "20250101": 5
+    }
+   },
+   {
+    "folds_of_total": 16,
+    "rule": "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 4,
+     "424242": 4,
+     "777": 4,
+     "20250101": 4
+    }
+   },
+   {
+    "folds_of_total": 15,
+    "rule": "violated :- in_cycle(V0), in(V0), not defended(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not defended(V)",
+    "per_seed": {
+     "20260703": 3,
+     "424242": 4,
+     "777": 4,
+     "20250101": 4
+    }
+   },
+   {
+    "folds_of_total": 13,
+    "rule": "violated :- defended(V0), out(V0), arg(V0).",
+    "canon": "defended(V) & out(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 4,
+     "777": 4,
+     "20250101": 3
+    }
+   }
+  ]
+ },
+ "final_aux": {
+  "n_folds_total": 20,
+  "all_ranked": [
+   {
+    "folds_of_total": 11,
+    "rule": "violated :- defended(V0), in_cycle(V0), not reinstated(V0), not out(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & not out(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 3,
+     "777": 1,
+     "20250101": 5
+    }
+   },
+   {
+    "folds_of_total": 8,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), not has_unattacked_attacker(V0), in(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not has_unattacked_attacker(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 3,
+     "777": 0,
+     "20250101": 3
+    }
+   },
+   {
+    "folds_of_total": 8,
+    "rule": "violated :- not attacked_by_in(V0), reinstated(V0), not in_cycle(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not in_cycle(V) & reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 3,
+     "777": 2,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 7,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), in_cycle(V0), reinstated(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 2,
+     "20250101": 3
+    }
+   },
+   {
+    "folds_of_total": 6,
+    "rule": "violated :- defended(V0), in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "defended(V) & has_many_attackers(V) & in_cycle(V)",
+    "per_seed": {
+     "20260703": 3,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 6,
+    "rule": "violated :- in_cycle(V0), reinstated(V0), out(V0), arg(V0).",
+    "canon": "in_cycle(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 1,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 6,
+    "rule": "violated :- undec(V0), reinstated(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 1,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 6,
+    "rule": "violated :- out(V0), attacked_by_in(V0), not reinstated(V0), not has_unattacked_attacker(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_unattacked_attacker(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 2,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- reinstated(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 2,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- not in(V0), defended(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "defended(V) & has_unattacked_attacker(V) & not in(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- undec(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 0,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- reinstated(V0), attacked_by_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_many_attackers(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 1,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- defended(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "defended(V) & has_many_attackers(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 1,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- not floating(V0), not has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "not floating(V) & not has_many_attackers(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- defended(V0), reinstated(V0), out(V0), arg(V0).",
+    "canon": "defended(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 2,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- not out(V0), in_cycle(V0), floating(V0), attacked_by_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & has_many_attackers(V) & in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 2,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 5,
+    "rule": "violated :- undec(V0), not in_cycle(V0), not defended(V0), reinstated(V0), arg(V0).",
+    "canon": "not defended(V) & not in_cycle(V) & reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 3,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- not attacked_by_in(V0), not out(V0), reinstated(V0), not defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not in_cycle(V) & not out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 3,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- not attacked_by_in(V0), not out(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), in_cycle(V0), not has_many_attackers(V0), not defended(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- attacked(V0), not reinstated(V0), defended(V0), not in_cycle(V0), undec(V0), arg(V0).",
+    "canon": "attacked(V) & defended(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 4,
+    "rule": "violated :- in_cycle(V0), has_unattacked_attacker(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 2,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- out(V0), not reinstated(V0), floating(V0), not has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+    "canon": "floating(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not reinstated(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), attacked_by_in(V0), undefended_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not attacked_by_in(V0), reinstated(V0), not defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not in_cycle(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- out(V0), not reinstated(V0), floating(V0), not has_many_attackers(V0), not defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "floating(V) & not defended(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not reinstated(V0), not has_many_attackers(V0), attacked_by_in(V0), undefended_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_many_attackers(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not attacked_by_in(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not attacked_by_in(V0), in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & not attacked_by_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not attacked_by_in(V0), has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- reinstated(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not in_cycle(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not defended(V0), reinstated(V0), undec(V0), arg(V0).",
+    "canon": "not defended(V) & reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not in_cycle(V0), not floating(V0), not attacked_by_in(V0), undec(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not floating(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 2,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- not defended(V0), not has_many_attackers(V0), not attacked_by_in(V0), out(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 3,
+    "rule": "violated :- has_unattacked_attacker(V0), defended(V0), arg(V0).",
+    "canon": "defended(V) & has_unattacked_attacker(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), not out(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & in_cycle(V) & not attacked_by_in(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- floating(V0), not has_many_attackers(V0), not out(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not has_many_attackers(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), not undec(V0), floating(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- undec(V0), defended(V0), not reinstated(V0), arg(V0).",
+    "canon": "defended(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- floating(V0), attacked_by_in(V0), has_many_attackers(V0), undec(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & has_many_attackers(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), defended(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "defended(V) & has_many_attackers(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- defended(V0), undec(V0), not floating(V0), arg(V0).",
+    "canon": "defended(V) & not floating(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- out(V0), not defended(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), not attacked_by_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- in_cycle(V0), defended(V0), undec(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not undec(V0), not reinstated(V0), floating(V0), not has_many_attackers(V0), not in_cycle(V0), not defended(V0), arg(V0).",
+    "canon": "floating(V) & not defended(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 2,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- in_cycle(V0), has_many_attackers(V0), undefended_in(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_many_attackers(V) & in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- out(V0), defended(V0), attacked(V0), not reinstated(V0), not has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked(V) & defended(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), floating(V0), not has_many_attackers(V0), not in_cycle(V0), not defended(V0), arg(V0).",
+    "canon": "floating(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not in_cycle(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- defended(V0), not reinstated(V0), floating(V0), undec(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & floating(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), has_many_attackers(V0), not in_cycle(V0), floating(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not attacked_by_in(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not in(V0), has_many_attackers(V0), not in_cycle(V0), not has_unattacked_attacker(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_many_attackers(V) & not has_unattacked_attacker(V) & not in(V) & not in_cycle(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- undec(V0), attacked(V0), not reinstated(V0), defended(V0), arg(V0).",
+    "canon": "attacked(V) & defended(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), attacked_by_in(V0), not in_cycle(V0), reinstated(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not in_cycle(V) & not out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- undec(V0), not has_unattacked_attacker(V0), not floating(V0), arg(V0).",
+    "canon": "not floating(V) & not has_unattacked_attacker(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not has_many_attackers(V0), not has_unattacked_attacker(V0), not in_cycle(V0), attacked_by_in(V0), undefended_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & not in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), floating(V0), out(V0), not defended(V0), arg(V0).",
+    "canon": "floating(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not has_many_attackers(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), not in_cycle(V0), reinstated(V0), not defended(V0), arg(V0).",
+    "canon": "not defended(V) & not in_cycle(V) & not out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- out(V0), defended(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "defended(V) & has_unattacked_attacker(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not attacked_by_in(V0), not has_unattacked_attacker(V0), in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & not attacked_by_in(V) & not has_unattacked_attacker(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not reinstated(V0), not has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "not has_many_attackers(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "in_cycle(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not in_cycle(V0), reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "not in_cycle(V) & reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), in(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 2,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not has_many_attackers(V0), not has_unattacked_attacker(V0), undec(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), reinstated(V0), not defended(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not reinstated(V0), not has_many_attackers(V0), attacked_by_in(V0), floating(V0), undefended_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not has_many_attackers(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not undefended_in(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & not in_cycle(V) & not out(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 2,
+    "rule": "violated :- not out(V0), not defended(V0), not attacked_by_in(V0), not has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 2
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), floating(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undefended_in(V0), arg(V0).",
+    "canon": "undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not has_many_attackers(V0), out(V0), arg(V0).",
+    "canon": "in_cycle(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), defended(V0), not reinstated(V0), arg(V0).",
+    "canon": "defended(V) & not in(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & has_unattacked_attacker(V) & not out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undec(V0), in_cycle(V0), attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_unattacked_attacker(V) & in_cycle(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not floating(V0), out(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not floating(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), reinstated(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & in_cycle(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), undec(V0), not floating(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not floating(V) & not has_many_attackers(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), not reinstated(V0), not has_many_attackers(V0), not defended(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), floating(V0), not defended(V0), not in_cycle(V0), undec(V0), arg(V0).",
+    "canon": "floating(V) & not attacked_by_in(V) & not defended(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undec(V0), not attacked_by_in(V0), not undefended_in(V0), not in_cycle(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not in_cycle(V) & not undec(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_many_attackers(V0), attacked_by_in(V0), undec(V0), not floating(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not floating(V) & not has_many_attackers(V) & undec(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), in(V0), attacked_by_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_many_attackers(V) & in(V) & in_cycle(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), floating(V0), not out(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & in_cycle(V) & not out(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in(V0), has_many_attackers(V0), not floating(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & not floating(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- out(V0), in_cycle(V0), not floating(V0), arg(V0).",
+    "canon": "in_cycle(V) & not floating(V) & out(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), undefended_in(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not undefended_in(V0), not has_unattacked_attacker(V0), not attacked_by_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in_cycle(V) & not attacked_by_in(V) & not has_unattacked_attacker(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- attacked_by_in(V0), not undefended_in(V0), reinstated(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not undefended_in(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 1,
+     "424242": 0,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not out(V0), has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & has_unattacked_attacker(V) & not attacked_by_in(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undec(V0), not attacked_by_in(V0), in_cycle(V0), not has_many_attackers(V0), not defended(V0), reinstated(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not undec(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), defended(V0), in_cycle(V0), reinstated(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & not in(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), not reinstated(V0), floating(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not in(V) & not in_cycle(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), undec(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not has_many_attackers(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undec(V0), not attacked_by_in(V0), not has_many_attackers(V0), not defended(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), has_many_attackers(V0), in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & not attacked_by_in(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- floating(V0), not undefended_in(V0), not out(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not in_cycle(V) & not out(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), not floating(V0), not has_unattacked_attacker(V0), arg(V0).",
+    "canon": "not floating(V) & not has_unattacked_attacker(V) & not in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), in_cycle(V0), not undefended_in(V0), reinstated(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not defended(V) & not undefended_in(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undefended_in(V0), not in_cycle(V0), attacked_by_in(V0), reinstated(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not in_cycle(V) & not undefended_in(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in_cycle(V0), floating(V0), not reinstated(V0), undec(V0), arg(V0).",
+    "canon": "floating(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in(V0), attacked_by_in(V0), not has_many_attackers(V0), not reinstated(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & in(V) & not has_many_attackers(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in(V0), floating(V0), not reinstated(V0), in_cycle(V0), arg(V0).",
+    "canon": "floating(V) & in(V) & in_cycle(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in(V0), not reinstated(V0), not attacked_by_in(V0), in_cycle(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not attacked_by_in(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- attacked_by_in(V0), not has_unattacked_attacker(V0), undec(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_unattacked_attacker(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not defended(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), floating(V0), not undefended_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & in_cycle(V) & not attacked_by_in(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), not in_cycle(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not has_unattacked_attacker(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), out(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undec(V0), not in_cycle(V0), not reinstated(V0), floating(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not in_cycle(V) & not reinstated(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not in_cycle(V0), not has_unattacked_attacker(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not has_unattacked_attacker(V) & not in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- reinstated(V0), not in(V0), attacked_by_in(V0), in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & in_cycle(V) & not in(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), not in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), floating(V0), not in(V0), arg(V0).",
+    "canon": "defended(V) & floating(V) & not has_many_attackers(V) & not in(V) & not in_cycle(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not in_cycle(V0), not has_many_attackers(V0), out(V0), not defended(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not in_cycle(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), reinstated(V0), out(V0), in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 1,
+     "777": 0,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), floating(V0), undefended_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), undec(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not has_unattacked_attacker(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), in_cycle(V0), undec(V0), reinstated(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), not reinstated(V0), undec(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), floating(V0), undefended_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not attacked_by_in(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), undefended_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in_cycle(V) & not attacked_by_in(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_many_attackers(V0), has_unattacked_attacker(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not has_many_attackers(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_unattacked_attacker(V0), undefended_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not attacked_by_in(V) & not has_unattacked_attacker(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), in_cycle(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), has_many_attackers(V0), in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & in_cycle(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), floating(V0), has_many_attackers(V0), not in_cycle(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- defended(V0), out(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in_cycle(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), out(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_unattacked_attacker(V) & not in_cycle(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), not defended(V0), not attacked_by_in(V0), not reinstated(V0), not in_cycle(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not reinstated(V0), not in_cycle(V0), out(V0), attacked_by_in(V0), floating(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), has_unattacked_attacker(V0), not has_many_attackers(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_unattacked_attacker(V) & not has_many_attackers(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undefended_in(V0), has_many_attackers(V0), not in_cycle(V0), attacked_by_in(V0), floating(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & has_many_attackers(V) & not in_cycle(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not has_many_attackers(V0), not defended(V0), not floating(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not floating(V) & not has_many_attackers(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), defended(V0), floating(V0), not reinstated(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & floating(V) & not in(V) & not in_cycle(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- reinstated(V0), out(V0), not defended(V0), arg(V0).",
+    "canon": "not defended(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not floating(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not floating(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- has_many_attackers(V0), has_unattacked_attacker(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & has_unattacked_attacker(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), out(V0), not defended(V0), not reinstated(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), not has_unattacked_attacker(V0), not reinstated(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in_cycle(V) & not attacked_by_in(V) & not has_unattacked_attacker(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- floating(V0), not reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "floating(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- floating(V0), has_many_attackers(V0), in(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), attacked(V0), not has_many_attackers(V0), out(V0), not reinstated(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked(V) & not attacked_by_in(V) & not has_many_attackers(V) & not in_cycle(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not has_many_attackers(V0), out(V0), not defended(V0), arg(V0).",
+    "canon": "in_cycle(V) & not defended(V) & not has_many_attackers(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), has_unattacked_attacker(V0), in(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & in(V) & in_cycle(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), not reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "not has_unattacked_attacker(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), has_many_attackers(V0), in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & in(V) & not has_unattacked_attacker(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 1,
+     "20250101": 0
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), out(V0), reinstated(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & out(V) & reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), not floating(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not floating(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), out(V0), not floating(V0), arg(V0).",
+    "canon": "not floating(V) & not has_unattacked_attacker(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), not reinstated(V0), floating(V0), not has_many_attackers(V0), not undec(V0), arg(V0).",
+    "canon": "floating(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not reinstated(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & has_many_attackers(V) & not in_cycle(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), not has_unattacked_attacker(V0), undec(V0), not in_cycle(V0), not defended(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not defended(V) & not has_unattacked_attacker(V) & not in_cycle(V) & not reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), in(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not has_many_attackers(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not reinstated(V0), floating(V0), undefended_in(V0), arg(V0).",
+    "canon": "floating(V) & in_cycle(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- in_cycle(V0), not out(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), floating(V0), not out(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not attacked_by_in(V) & not out(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- out(V0), not attacked_by_in(V0), in_cycle(V0), floating(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & in_cycle(V) & not attacked_by_in(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), floating(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & floating(V) & not in_cycle(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not reinstated(V0), floating(V0), has_many_attackers(V0), undefended_in(V0), arg(V0).",
+    "canon": "floating(V) & has_many_attackers(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), not attacked_by_in(V0), in_cycle(V0), not has_many_attackers(V0), not undec(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not defended(V) & not has_many_attackers(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), out(V0), arg(V0).",
+    "canon": "in_cycle(V) & not defended(V) & not has_many_attackers(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), not undec(V0), arg(V0).",
+    "canon": "in_cycle(V) & not defended(V) & not has_many_attackers(V) & not reinstated(V) & not undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not defended(V0), not reinstated(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), out(V0), arg(V0).",
+    "canon": "not defended(V) & not has_many_attackers(V) & not has_unattacked_attacker(V) & not reinstated(V) & out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), in_cycle(V0), not floating(V0), arg(V0).",
+    "canon": "in_cycle(V) & not attacked_by_in(V) & not floating(V) & not out(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not has_unattacked_attacker(V0), has_many_attackers(V0), not in_cycle(V0), undefended_in(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not has_unattacked_attacker(V) & not in_cycle(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- undec(V0), reinstated(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & reinstated(V) & undec(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), reinstated(V0), undefended_in(V0), arg(V0).",
+    "canon": "not attacked_by_in(V) & not has_many_attackers(V) & reinstated(V) & undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not in(V0), not attacked_by_in(V0), not has_many_attackers(V0), has_unattacked_attacker(V0), arg(V0).",
+    "canon": "has_unattacked_attacker(V) & not attacked_by_in(V) & not has_many_attackers(V) & not in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not undefended_in(V0), not out(V0), not in_cycle(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & not in_cycle(V) & not out(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   },
+   {
+    "folds_of_total": 1,
+    "rule": "violated :- not reinstated(V0), not undefended_in(V0), not has_unattacked_attacker(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not has_unattacked_attacker(V) & not in_cycle(V) & not reinstated(V) & not undefended_in(V)",
+    "per_seed": {
+     "20260703": 0,
+     "424242": 0,
+     "777": 0,
+     "20250101": 1
+    }
+   }
+  ],
+  "consensus_rules": [
+   {
+    "folds_of_total": 11,
+    "rule": "violated :- defended(V0), in_cycle(V0), not reinstated(V0), not out(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & not out(V) & not reinstated(V)",
+    "per_seed": {
+     "20260703": 2,
+     "424242": 3,
+     "777": 1,
+     "20250101": 5
+    }
+   }
+  ]
+ }
+}

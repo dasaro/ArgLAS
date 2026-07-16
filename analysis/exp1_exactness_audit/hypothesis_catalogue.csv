@@ -1,0 +1,207 @@
+hyp_id,semantics,n_runs,exact,n_afs_checked,strict_total_exact,counterexample_json,strict_total_counterexample_json,hypothesis_text
+ADM_000,ADM,18,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,":- att(V1,V2); not out(V2); not not_defended(V1)."
+ADM_001,ADM,41,1,66066,,,,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+ADM_002,ADM,12,1,66066,,,,:- defeated(V1); not not_defended(V1). :- not_defended(V1); not out(V1).
+ADM_003,ADM,8,1,66066,,,,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+ADM_004,ADM,2,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[], [""a0""]], ""learned_in_sets"": [[], [""a0""], [""a1""]]}",,:- in(V1); defeated(V1).
+ADM_005,ADM,2,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[], [""a0""]], ""learned_in_sets"": [[], [""a0""], [""a1""]]}",,:- in(V1); not supported(V1).
+ADM_006,ADM,18,1,66066,,,,:- in(V1); not supported(V1). :- in(V1); not_defended(V1).
+ADM_007,ADM,15,1,66066,,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1).
+ADM_008,ADM,7,1,66066,,,,:- in(V1); not supported(V1). out(V1) :- not_defended(V1).
+ADM_009,ADM,12,1,66066,,,,:- in(V1); not_defended(V1). :- defeated(V1); not out(V1).
+ADM_010,ADM,54,1,66066,,,,:- in(V1); not_defended(V1). :- in(V1); defeated(V1).
+ADM_011,ADM,3,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V2); att(V1,V2); not att(V2,V1)."
+ADM_012,ADM,22,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,":- in(V2); att(V1,V2); not not_defended(V1)."
+ADM_013,ADM,11,1,66066,,,,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1).
+ADM_014,ADM,5,1,66066,,,,:- not_defended(V1); not out(V1). :- in(V1); defeated(V1).
+ADM_015,ADM,12,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,"out(V1) :- att(V2,V1); not not_defended(V2)."
+ADM_016,ADM,4,1,66066,,,,out(V1) :- defeated(V1). :- in(V1); not_defended(V1).
+ADM_017,ADM,11,1,66066,,,,out(V1) :- defeated(V1). :- not_defended(V1); not out(V1).
+ADM_018,ADM,6,1,66066,,,,out(V1) :- defeated(V1). out(V1) :- not_defended(V1).
+ADM_019,ADM,6,1,66066,,,,out(V1) :- not_defended(V1). :- defeated(V1); not out(V1).
+ADM_020,ADM,1,1,66066,,,,out(V1) :- not_defended(V1). :- in(V1); defeated(V1).
+CMP_000,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,":- att(V1,V1). out(V1) :- defeated(V1). :- out(V1); not not_defended(V1)."
+CMP_001,CMP,6,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- att(V1,V2); not out(V2); not not_defended(V1)."
+CMP_002,CMP,9,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+CMP_003,CMP,2,1,66066,,,,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_004,CMP,1,1,66066,,,,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_005,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1). in(V1) :- att(V1,V2); not not_defended(V1)."
+CMP_006,CMP,1,1,66066,,,,:- defeated(V1); not not_defended(V1). :- not_defended(V1); not out(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_007,CMP,1,1,66066,,,,:- defeated(V1); not not_defended(V1). :- not_defended(V1); not out(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_008,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not not_defended(V1). :- out(V1); defeated(V2); not defeated(V1).
+CMP_009,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,:- defeated(V1); not not_defended(V1). :- out(V1); not defeated(V1).
+CMP_010,CMP,2,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a0"", ""a1""]]}",,:- defeated(V1); not not_defended(V1). :- out(V1); not not_defended(V1).
+CMP_011,CMP,12,1,66066,,,,:- defeated(V1); not not_defended(V1). :- out(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+CMP_012,CMP,6,1,66066,,,,:- defeated(V1); not not_defended(V1). :- out(V1); not not_defended(V1). :- not_defended(V1); not out(V1).
+CMP_013,CMP,9,1,66066,,,,:- defeated(V1); not not_defended(V1). :- out(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+CMP_014,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+CMP_015,CMP,1,1,66066,,,,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_016,CMP,1,1,66066,,,,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1). in(V1) :- supported(V1); not not_defended(V1).
+CMP_017,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not out(V1). :- in(V2); not_defended(V1); supported(V1).
+CMP_018,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- defeated(V1); not out(V1). in(V1) :- att(V1,V2); not not_defended(V1)."
+CMP_019,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not out(V1). in(V1) :- in(V2); supported(V1).
+CMP_020,CMP,1,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",,":- defeated(V1); not out(V1). in(V1) :- out(V2); supported(V1); not att(V2,V1)."
+CMP_021,CMP,3,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,:- in(V1); defeated(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_022,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); defeated(V1). in(V1) :- in(V2); supported(V1).
+CMP_023,CMP,3,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1).
+CMP_024,CMP,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- in(V1); not_defended(V1).
+CMP_025,CMP,1,1,66066,,,,:- in(V1); not supported(V1). :- in(V1); not_defended(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_026,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V1); not supported(V1). :- in(V1); not_defended(V1). :- att(V1,V2); not in(V1); not not_defended(V1)."
+CMP_027,CMP,1,1,66066,,,,:- in(V1); not supported(V1). :- in(V1); not_defended(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_028,CMP,3,1,66066,,,,:- in(V1); not supported(V1). :- in(V1); not_defended(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_029,CMP,5,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- in(V2); out(V1); not defeated(V1).
+CMP_030,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- in(V2); out(V1); supported(V1).
+CMP_031,CMP,3,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1).
+CMP_032,CMP,2,1,66066,,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_033,CMP,2,1,66066,,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_034,CMP,1,1,66066,,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_035,CMP,1,1,66066,,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1). in(V1) :- supported(V1); not not_defended(V1).
+CMP_036,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- out(V1); defeated(V2); not defeated(V1).
+CMP_037,CMP,1,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,:- in(V1); not supported(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_038,CMP,4,1,66066,,,,:- in(V1); not supported(V1). out(V1) :- not_defended(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_039,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not_defended(V1). :- defeated(V1); not out(V1).
+CMP_040,CMP,1,1,66066,,,,:- in(V1); not_defended(V1). :- defeated(V1); not out(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_041,CMP,2,1,66066,,,,:- in(V1); not_defended(V1). :- defeated(V1); not out(V1). in(V1) :- supported(V1); not not_defended(V1).
+CMP_042,CMP,4,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not_defended(V1). :- in(V1); defeated(V1).
+CMP_043,CMP,4,1,66066,,,,:- in(V1); not_defended(V1). :- in(V1); defeated(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_044,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V1); not_defended(V1). :- in(V1); defeated(V1). :- att(V1,V2); not defeated(V2); not not_defended(V1)."
+CMP_045,CMP,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V1); not_defended(V1). :- in(V1); defeated(V1). :- att(V1,V2); not in(V1); not not_defended(V1)."
+CMP_046,CMP,5,1,66066,,,,:- in(V1); not_defended(V1). :- in(V1); defeated(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_047,CMP,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V2); att(V1,V2); not att(V2,V1)."
+CMP_048,CMP,6,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V2); att(V1,V2); not not_defended(V1)."
+CMP_049,CMP,5,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1).
+CMP_050,CMP,1,1,66066,,,,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_051,CMP,1,1,66066,,,,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_052,CMP,2,1,66066,,,,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1). in(V1) :- supported(V1); not not_defended(V1).
+CMP_053,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not out(V1). :- in(V1); defeated(V1).
+CMP_054,CMP,1,1,66066,,,,:- not_defended(V1); not out(V1). :- in(V1); defeated(V1). in(V1) :- supported(V1); not not_defended(V1).
+CMP_055,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,:- out(V1); not defeated(V1). :- defeated(V1); not out(V1).
+CMP_056,CMP,2,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,:- out(V1); not defeated(V1). :- in(V1); not supported(V1).
+CMP_057,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1).
+CMP_058,CMP,4,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,:- out(V1); not not_defended(V1). :- defeated(V1); not out(V1).
+CMP_059,CMP,7,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,:- out(V1); not not_defended(V1). :- in(V1); defeated(V1).
+CMP_060,CMP,1,0,4,,"{""n"": 2, ""attacks"": [[0, 0]], ""expected_in_sets"": [[""a1""]], ""learned_in_sets"": []}",,:- out(V1); not not_defended(V1). :- in(V1); defeated(V1). :- in(V2); not_defended(V1); not defeated(V1).
+CMP_061,CMP,14,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1).
+CMP_062,CMP,6,1,66066,,,,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1). :- in(V1); not_defended(V1).
+CMP_063,CMP,1,0,4,,"{""n"": 2, ""attacks"": [[0, 0]], ""expected_in_sets"": [[""a1""]], ""learned_in_sets"": []}",,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1). :- in(V2); not_defended(V1); not defeated(V1).
+CMP_064,CMP,7,1,66066,,,,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1). :- not_defended(V1); not out(V1).
+CMP_065,CMP,9,1,66066,,,,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1). out(V1) :- not_defended(V1).
+CMP_066,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+CMP_067,CMP,5,1,66066,,,,:- out(V1); not not_defended(V1). :- in(V1); not_defended(V1). :- defeated(V1); not out(V1).
+CMP_068,CMP,11,1,66066,,,,:- out(V1); not not_defended(V1). :- in(V1); not_defended(V1). :- in(V1); defeated(V1).
+CMP_069,CMP,2,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1). :- not_defended(V1); not out(V1).
+CMP_070,CMP,7,1,66066,,,,:- out(V1); not not_defended(V1). :- not_defended(V1); not out(V1). :- defeated(V1); not out(V1).
+CMP_071,CMP,2,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+CMP_072,CMP,4,1,66066,,,,:- out(V1); not not_defended(V1). out(V1) :- not_defended(V1). :- defeated(V1); not out(V1).
+CMP_073,CMP,2,1,66066,,,,:- out(V1); not not_defended(V1). out(V1) :- not_defended(V1). :- in(V1); defeated(V1).
+CMP_074,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,:- supported(V1); not in(V1). :- defeated(V1); not out(V1).
+CMP_075,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,in(V1) :- supported(V1). :- defeated(V1); not out(V1).
+CMP_076,CMP,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",,in(V1) :- supported(V1). :- in(V1); defeated(V1).
+CMP_077,CMP,6,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,"out(V1) :- att(V2,V1); not not_defended(V2)."
+CMP_078,CMP,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). :- in(V1); not_defended(V1).
+CMP_079,CMP,1,1,66066,,,,out(V1) :- defeated(V1). :- in(V1); not_defended(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_080,CMP,2,1,66066,,,,out(V1) :- defeated(V1). :- in(V1); not_defended(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_081,CMP,1,1,66066,,,,out(V1) :- defeated(V1). :- in(V1); not_defended(V1). in(V1) :- arg(V1); not not_defended(V1).
+CMP_082,CMP,1,1,66066,,,,out(V1) :- defeated(V1). :- not_defended(V1); not out(V1). :- supported(V1); not in(V1); not not_defended(V1).
+CMP_083,CMP,7,0,8,,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[], [""a1""]]}",,out(V1) :- defeated(V1). :- out(V1); not not_defended(V1).
+CMP_084,CMP,8,1,66066,,,,out(V1) :- defeated(V1). :- out(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+CMP_085,CMP,7,1,66066,,,,out(V1) :- defeated(V1). :- out(V1); not not_defended(V1). :- not_defended(V1); not out(V1).
+CMP_086,CMP,3,1,66066,,,,out(V1) :- defeated(V1). :- out(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+CMP_087,CMP,1,0,4,,"{""n"": 2, ""attacks"": [[0, 0]], ""expected_in_sets"": [[""a1""]], ""learned_in_sets"": []}",,out(V1) :- defeated(V1). in(V1) :- arg(V2); supported(V1); not not_defended(V2).
+CMP_088,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,"out(V1) :- defeated(V1). in(V1) :- att(V1,V2); not defeated(V1); not supported(V2)."
+CMP_089,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). in(V1) :- defeated(V2); supported(V1).
+CMP_090,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). in(V1) :- in(V2); supported(V1).
+CMP_091,CMP,1,1,66066,,,,out(V1) :- defeated(V1). out(V1) :- not_defended(V1). :- arg(V1); not in(V1); not not_defended(V1).
+CMP_092,CMP,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,"out(V1) :- defeated(V1). out(V1) :- not_defended(V1). :- att(V1,V2); not in(V1); not not_defended(V1)."
+CMP_093,CMP,1,1,66066,,,,out(V1) :- not_defended(V1). :- defeated(V1); not out(V1). :- arg(V1); not in(V1); not not_defended(V1).
+PRF_000,PRF,4,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",":- att(V1,V2); not out(V2); not not_defended(V1)."
+PRF_001,PRF,1,1,66066,1,,,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+PRF_002,PRF,1,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- defeated(V1); not not_defended(V1). :- not_defended(V1); not defeated(V1).
+PRF_003,PRF,3,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0"", ""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- defeated(V1); not not_defended(V1). :- out(V1); not defeated(V1).
+PRF_004,PRF,1,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0"", ""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- defeated(V1); not not_defended(V1). :- out(V1); supported(V1).
+PRF_005,PRF,1,1,66066,1,,,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+PRF_006,PRF,6,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}",:- in(V1); not supported(V1).
+PRF_007,PRF,1,1,66066,1,,,:- in(V1); not supported(V1). :- in(V1); not_defended(V1).
+PRF_008,PRF,2,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- in(V1); not supported(V1). :- not_defended(V1); not defeated(V1).
+PRF_009,PRF,1,1,66066,1,,,:- in(V1); not supported(V1). :- not_defended(V1); not out(V1).
+PRF_010,PRF,2,1,66066,1,,,:- in(V1); not supported(V1). out(V1) :- not_defended(V1).
+PRF_011,PRF,1,1,66066,1,,,:- in(V1); not_defended(V1). :- in(V1); defeated(V1).
+PRF_012,PRF,5,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",":- in(V2); att(V1,V2); not not_defended(V1)."
+PRF_013,PRF,2,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- not_defended(V1); not defeated(V1). :- defeated(V1); not out(V1).
+PRF_014,PRF,3,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- not_defended(V1); not defeated(V1). :- in(V1); defeated(V1).
+PRF_015,PRF,3,1,66066,1,,,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1).
+PRF_016,PRF,1,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- not_defended(V1); supported(V1). :- defeated(V1); not out(V1).
+PRF_017,PRF,3,1,66066,0,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- not_defended(V1); supported(V1). :- in(V1); not supported(V1).
+PRF_018,PRF,8,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); not defeated(V1). :- defeated(V1); not out(V1).
+PRF_019,PRF,8,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); not defeated(V1). :- in(V1); defeated(V1).
+PRF_020,PRF,96,1,66066,0,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); not defeated(V1). :- in(V1); not supported(V1).
+PRF_021,PRF,1,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a0""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a0""]]}",:- out(V1); not not_defended(V1).
+PRF_022,PRF,1,0,8,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",:- out(V1); not not_defended(V1). :- defeated(V1); not out(V1).
+PRF_023,PRF,4,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",:- out(V1); not not_defended(V1). :- in(V1); not supported(V1).
+PRF_024,PRF,3,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); supported(V1). :- defeated(V1); not out(V1).
+PRF_025,PRF,4,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); supported(V1). :- in(V1); defeated(V1).
+PRF_026,PRF,7,0,74,0,"{""n"": 3, ""attacks"": [[0, 2], [1, 0], [1, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a2""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- out(V1); supported(V1). :- in(V1); not supported(V1).
+PRF_027,PRF,12,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- supported(V1); not in(V1). :- defeated(V1); not out(V1).
+PRF_028,PRF,4,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- supported(V1); not in(V1). :- in(V1); defeated(V1).
+PRF_029,PRF,4,0,74,0,"{""n"": 3, ""attacks"": [[0, 2], [1, 0], [1, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a2""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",:- supported(V1); not in(V1). :- in(V1); not supported(V1).
+PRF_030,PRF,12,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",in(V1) :- supported(V1). :- defeated(V1); not out(V1).
+PRF_031,PRF,8,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",in(V1) :- supported(V1). :- in(V1); defeated(V1).
+PRF_032,PRF,5,0,74,0,"{""n"": 3, ""attacks"": [[0, 2], [1, 0], [1, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a2""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",in(V1) :- supported(V1). :- in(V1); not supported(V1).
+PRF_033,PRF,4,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","out(V1) :- att(V2,V1); not not_defended(V2)."
+PRF_034,PRF,1,0,2,0,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). :- not_defended(V1); not defeated(V1).
+PRF_035,PRF,1,1,66066,1,,,out(V1) :- defeated(V1). :- not_defended(V1); not out(V1).
+PRF_036,PRF,1,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). :- not_defended(V1); supported(V1).
+PRF_037,PRF,10,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). :- out(V1); not defeated(V1).
+PRF_038,PRF,4,0,8,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}",out(V1) :- defeated(V1). :- out(V1); not not_defended(V1).
+PRF_039,PRF,4,0,5,0,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). :- out(V1); supported(V1).
+PRF_040,PRF,11,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). :- supported(V1); not in(V1).
+PRF_041,PRF,15,0,8,0,"{""n"": 2, ""attacks"": [[0, 0], [0, 1]], ""expected_in_sets"": [[]], ""learned_in_sets"": [[""a1""]]}","{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [[]], ""learned_in_sets"": []}",out(V1) :- defeated(V1). in(V1) :- supported(V1).
+PRF_042,PRF,1,1,66066,1,,,out(V1) :- not_defended(V1). :- in(V1); defeated(V1).
+STB_000,STB,3,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- att(V1,V2); not out(V2); not not_defended(V1)."
+STB_001,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+STB_002,STB,8,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a0"", ""a1""]]}",,:- defeated(V1); not not_defended(V1). :- out(V1); not defeated(V1).
+STB_003,STB,2,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a0"", ""a1""]]}",,:- defeated(V1); not not_defended(V1). :- supported(V1); not in(V1).
+STB_004,STB,1,0,5,,"{""n"": 2, ""attacks"": [[0, 1]], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[""a0""], [""a0"", ""a1""]]}",,:- defeated(V1); not not_defended(V1). in(V1) :- supported(V1).
+STB_005,STB,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- defeated(V1); not not_defended(V1). out(V1) :- not_defended(V1).
+STB_006,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); defeated(V1).
+STB_007,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V1); defeated(V1). :- att(V1,V2); not in(V1); not defeated(V1)."
+STB_008,STB,1,1,66066,,,,:- in(V1); defeated(V1). in(V1) :- arg(V1); not defeated(V1).
+STB_009,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1).
+STB_010,STB,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V1); not supported(V1). :- att(V1,V2); not in(V1); not defeated(V1)."
+STB_011,STB,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- in(V1); not_defended(V1).
+STB_012,STB,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not supported(V1). :- not_defended(V1); not defeated(V1).
+STB_013,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- in(V1); not_defended(V1). :- defeated(V1); not out(V1).
+STB_014,STB,3,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,":- in(V2); att(V1,V2); not not_defended(V1)."
+STB_015,STB,7,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not defeated(V1). :- defeated(V1); not out(V1).
+STB_016,STB,10,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not defeated(V1). :- in(V1); defeated(V1).
+STB_017,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not out(V1). :- defeated(V1); not out(V1).
+STB_018,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); not out(V1). :- in(V1); defeated(V1).
+STB_019,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); supported(V1). :- defeated(V1); not out(V1).
+STB_020,STB,2,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,:- not_defended(V1); supported(V1). :- in(V1); not supported(V1).
+STB_021,STB,5,1,66066,,,,:- out(V1); not defeated(V1). :- defeated(V1); not out(V1).
+STB_022,STB,7,1,66066,,,,:- out(V1); not defeated(V1). :- in(V1); defeated(V1).
+STB_023,STB,91,1,66066,,,,:- out(V1); not defeated(V1). :- in(V1); not supported(V1).
+STB_024,STB,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1).
+STB_025,STB,2,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[]]}",,:- out(V1); not not_defended(V1). :- in(V1); defeated(V1).
+STB_026,STB,4,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[]]}",,:- out(V1); not not_defended(V1). :- in(V1); not supported(V1).
+STB_027,STB,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[], [""a0""]]}",,:- out(V1); not not_defended(V1). :- in(V1); not_defended(V1).
+STB_028,STB,1,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[""a0""]]}",,:- out(V1); not not_defended(V1). :- not_defended(V1); not defeated(V1).
+STB_029,STB,3,1,66066,,,,:- out(V1); supported(V1). :- defeated(V1); not out(V1).
+STB_030,STB,4,1,66066,,,,:- out(V1); supported(V1). :- in(V1); defeated(V1).
+STB_031,STB,6,1,66066,,,,:- out(V1); supported(V1). :- in(V1); not supported(V1).
+STB_032,STB,1,1,66066,,,,:- out(V1); supported(V1). out(V1) :- arg(V1); not supported(V1).
+STB_033,STB,1,1,66066,,,,":- out(V1); supported(V1). out(V1) :- att(V2,V1); not out(V2)."
+STB_034,STB,13,1,66066,,,,:- supported(V1); not in(V1). :- defeated(V1); not out(V1).
+STB_035,STB,2,1,66066,,,,:- supported(V1); not in(V1). :- in(V1); defeated(V1).
+STB_036,STB,3,1,66066,,,,:- supported(V1); not in(V1). :- in(V1); not supported(V1).
+STB_037,STB,14,1,66066,,,,in(V1) :- supported(V1). :- defeated(V1); not out(V1).
+STB_038,STB,9,1,66066,,,,in(V1) :- supported(V1). :- in(V1); defeated(V1).
+STB_039,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,"out(V1) :- att(V2,V1); not not_defended(V2)."
+STB_040,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). :- in(V1); not_defended(V1).
+STB_041,STB,6,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). :- not_defended(V1); not defeated(V1).
+STB_042,STB,1,0,1,,"{""n"": 1, ""attacks"": [], ""expected_in_sets"": [[""a0""]], ""learned_in_sets"": [[], [""a0""]]}",,out(V1) :- defeated(V1). :- not_defended(V1); supported(V1).
+STB_043,STB,12,1,66066,,,,out(V1) :- defeated(V1). :- out(V1); not defeated(V1).
+STB_044,STB,5,0,2,,"{""n"": 1, ""attacks"": [[0, 0]], ""expected_in_sets"": [], ""learned_in_sets"": [[]]}",,out(V1) :- defeated(V1). :- out(V1); not not_defended(V1).
+STB_045,STB,4,1,66066,,,,out(V1) :- defeated(V1). :- out(V1); supported(V1).
+STB_046,STB,6,1,66066,,,,out(V1) :- defeated(V1). :- supported(V1); not in(V1).
+STB_047,STB,13,1,66066,,,,out(V1) :- defeated(V1). in(V1) :- supported(V1).

@@ -1,0 +1,291 @@
+{
+ "nmax": 4,
+ "rules": [
+  "violated :- not attacked_by_in(V0), not defended(V0), in(V0), arg(V0).",
+  "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+  "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+  "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+  "violated :- reinstated(V0), has_many_attackers(V0), arg(V0)."
+ ],
+ "afs_total": 66066,
+ "afs_acyclic": 572,
+ "legal_labellings_total": 1061584,
+ "complete_labellings_total": 103820,
+ "totality": {
+  "violated_afs": 768,
+  "witness": {
+   "n": 4,
+   "attacks": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ]
+  },
+  "holds": false
+ },
+ "conflict_freeness": {
+  "violated_afs": 9645,
+  "violating_labellings": 28168,
+  "witness": {
+   "n": 2,
+   "attacks": [
+    [
+     0,
+     1
+    ]
+   ],
+   "labelling": {
+    "a0": "in",
+    "a1": "in"
+   }
+  },
+  "holds": false
+ },
+ "admissibility": {
+  "violated_afs": 43933,
+  "violating_labellings": 157148,
+  "witness": {
+   "n": 2,
+   "attacks": [
+    [
+     0,
+     1
+    ]
+   ],
+   "labelling": {
+    "a0": "in",
+    "a1": "in"
+   }
+  },
+  "holds": false
+ },
+ "reinstatement": {
+  "violated_afs": 15078,
+  "violating_labellings": 62442,
+  "witness": {
+   "n": 3,
+   "attacks": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "labelling": {
+    "a0": "in",
+    "a1": "in",
+    "a2": "out"
+   }
+  },
+  "clean_witness": {
+   "n": 3,
+   "attacks": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "labelling": {
+    "a0": "undec",
+    "a1": "in",
+    "a2": "out"
+   }
+  },
+  "holds": false
+ },
+ "complete_subset_legal": {
+  "violated_afs": 14729,
+  "witness": {
+   "n": 3,
+   "attacks": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "labelling": {
+    "a0": "in",
+    "a1": "out",
+    "a2": "out"
+   }
+  },
+  "holds": false
+ },
+ "legal_subset_complete": {
+  "violated_afs": 65294,
+  "witness": {
+   "n": 1,
+   "attacks": [
+    [
+     0,
+     0
+    ]
+   ],
+   "labelling": {
+    "a0": "out"
+   }
+  },
+  "holds": false
+ },
+ "acyclic_grounded_legal": {
+  "checked_afs": 572,
+  "violated_afs": 36,
+  "witness": {
+   "n": 4,
+   "attacks": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "labelling": {
+    "a0": "out",
+    "a1": "out",
+    "a2": "in",
+    "a3": "in"
+   }
+  }
+ },
+ "acyclic_legal_equals_complete": {
+  "equal_afs": 4,
+  "legal_strictly_larger_afs": 532,
+  "legal_missing_complete_afs": 36,
+  "strictly_larger_witness": {
+   "n": 2,
+   "attacks": [
+    [
+     0,
+     1
+    ]
+   ],
+   "labelling": {
+    "a0": "in",
+    "a1": "in"
+   }
+  }
+ },
+ "directionality": {
+  "checked_pairs": 90896,
+  "violated_afs": 2346,
+  "violated_pairs": 3426,
+  "witness": {
+   "n": 3,
+   "attacks": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "unattacked_set": [
+    "a0",
+    "a2"
+   ],
+   "accepted_sets_projected": [
+    [
+     "a1"
+    ]
+   ],
+   "accepted_sets_restricted_af": [
+    [
+     "a0",
+     "a1"
+    ],
+    [
+     "a1"
+    ]
+   ]
+  },
+  "holds": false
+ },
+ "ablations": {
+  "drop_rule4": {
+   "totality_violated_afs": 0,
+   "cf_violated_afs": 11143
+  },
+  "strict_rule1": {
+   "cf_violated_afs": 0,
+   "totality_violated_afs": 768
+  },
+  "secs": 152.0
+ },
+ "gold_stimulus_graphs": {
+  "float_ABC": {
+   "n_legal": 17,
+   "n_complete": 3,
+   "total": true,
+   "complete_subset_legal": true,
+   "cf_violating_legal": 5
+  },
+  "simple_DEF": {
+   "n_legal": 3,
+   "n_complete": 1,
+   "total": true,
+   "complete_subset_legal": true,
+   "cf_violating_legal": 2
+  },
+  "cycle_G": {
+   "n_legal": 41,
+   "n_complete": 1,
+   "total": true,
+   "complete_subset_legal": true,
+   "cf_violating_legal": 13
+  }
+ },
+ "secs": 271.2
+}

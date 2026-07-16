@@ -67,7 +67,10 @@ preferred construction
 is characterized exactly, and the analysis uncovered --- and repaired --- a
 defect in a published assumption-based translation. Second, a $3{,}240$-run controlled
 study maps recovery of four semantics under partial labels, label noise, sample
-size, and class imbalance: recovery from clean data is near-perfect, label
+size, and class imbalance: recovery from clean data is near-perfect --- and
+a post-hoc audit shows $61\%$ of the clean-run theories, $94\%$ among those
+with a perfect test score, are exactly extension-equivalent to the target on
+an exhaustive class of small frameworks --- label
 noise is the binding constraint --- one whose damage more data buys back for
 the runs that complete within the compute budget, at the price of orders-of-magnitude
 longer training and, in the noisiest cells, timeouts --- imbalance
@@ -78,8 +81,9 @@ synthetic study doubles as a calibration instrument for behavioural data.
 Fourth, applied to a published human judgement study under an adversarially
 audited protocol, no learned theory beats the best catalogue semantics (CF2)
 --- yet the learner recovers a legible acceptance policy outside the standard
-extension-based catalogue (committal reinstatement, cycle caution, and a
-distrust of heavily attacked arguments), and a directional,
+extension-based catalogue (committal reinstatement and cycle caution, plus a candidate distrust of
+heavily attacked arguments that the stimuli cannot yet decide), and a
+directional,
 multiplicity-corrected test finds no graph condition whose own theory beats one
 shared policy --- with the pooled contrast significantly favouring the shared
 policy. All results are
@@ -180,10 +184,14 @@ mismatch.
 and~\ref{sec:humansem}). An adversarially audited re-analysis of the
 \citet{guillaume2022} human study: learned theories do not beat CF2 (confirming
 the original finding under a stronger test); the learner nevertheless recovers a
-legible human acceptance policy --- committal reinstatement, cycle caution, and a
-distrust of heavily attacked arguments --- that no semantics in the
-extension-based catalogue encodes;
-psychologically motivated features close roughly a third of the gap to CF2; and
+legible human acceptance policy --- committal reinstatement and cycle
+caution, recurring in $15$--$20$ of $20$ cross-seed folds, plus a
+lower-stability candidate hedge (distrust of heavily attacked arguments)
+aligned with graded semantics --- whose audited principle profile matches no
+semantics in the extension-based catalogue;
+psychologically motivated features close roughly a third of the in-corpus
+gap to CF2 (a descriptive gain that does not transfer to held-out
+conditions); and
 a directional, multiplicity-corrected test finds no support for per-graph
 semantics, with the pooled contrast significantly favouring one
 structure-sensitive policy.
@@ -233,10 +241,15 @@ symmetrically, plays a role in Section~\ref{sec:exp2} as the best known
 descriptor of human judgements. This paper's learnability study
 (Section~\ref{sec:exp1}) covers the stable, admissible, complete, and preferred
 semantics.\footnote{Grounded semantics is deliberately out of scope for the
-learnability study: on dense random frameworks its extension is empty roughly
-$69\%$ of the time, which starves a learner of positive signal for the
-acceptance rule; we return to this scoping decision, and the graph
-distributions under which it could be lifted, in Section~\ref{sec:concl}.}
+learnability study, for a formulational reason: grounded is a functional
+(single-extension, subset-minimal) target, and the campaign's single unified
+guess-and-check learning background can only express constraint-prunable
+semantics --- subset-minimality is not among them. On dense random frameworks
+the grounded extension is additionally empty roughly $68\%$ of the time,
+further starving positive signal. \ref{app:grd} closes the loop: with a
+definite learning background, the identical harness recovers grounded exactly
+(recovery $1.000$ at $f\ge20$ on sparse and dense pools alike, and already at
+$f{=}10$ on the dense pool).}
 
 Three extensions of AAFs appear in this paper. \emph{Bipolar} frameworks
 (BAF)~\citep{cayrol2009} add a support relation; following the
@@ -847,7 +860,8 @@ these four axes in a single controlled campaign: $3{,}240$ learning runs,
 grouped $5$-fold cross-validation, four semantics.\footnote{The released
 artifact additionally contains $270$ grounded-semantics runs from the same
 campaign infrastructure; they are excluded from all analyses per the scoping
-footnote of Section~\ref{sec:bg-af}.}
+footnote of Section~\ref{sec:bg-af}. Grounded is studied separately, and
+recovered exactly, in \ref{app:grd}.}
 
 \subsection{Setup}
 \label{sec:exp1setup}
@@ -877,7 +891,20 @@ contributes to both training and test.
 positive and $100$ held-out negative labelled instances from unseen frameworks
 by exact-model matching: a positive instance counts as correctly classified iff
 its labelling is an answer set of the learned program on that framework, a
-negative iff it is not. We report Matthews correlation (MCC). Crucially, the
+negative iff it is not. Negatives are scored on two surfaces. The
+\emph{sampled} surface uses the pool's oracle-verified non-extensions; the
+\emph{adversarial} surface replaces them, for the same $100$ held-out
+positives, with oracle-verified \emph{Hamming-1} negatives --- a single
+$\pred{in}/\pred{out}$ label of a held-out true extension is flipped and the
+result kept only if the reference encoding rejects it, so every adversarial
+negative is a genuine non-extension one flip away from a genuine extension
+(the hardest labelling-level negatives that exist). The filter itself
+measures how sharp each semantics is at Hamming distance~$1$: no single flip
+of a stable or preferred extension is ever an extension, whereas $32.2\%$ of
+flips of admissible and $17.7\%$ of complete labellings remain legal and are
+discarded. Headline numbers use the sampled surface;
+Table~\ref{tab:hardsurface} reports the adversarial one. We report Matthews
+correlation (MCC). Crucially, the
 test surface is \emph{complete-information}: even when training labels are
 partial, test instances carry full labellings --- otherwise recovery is
 systematically understated (a learner that recovers the exact semantics can
@@ -1016,6 +1043,97 @@ $100{+}100$ sampled held-out labellings, so rows below MCC $1.0$ correspond to
 presentations that are only approximately extensionally correct --- the test
 measures behavioural agreement on the sample, not syntactic identity or proved
 equivalence.
+
+\paragraph{Exactness audit.} That caveat can be quantified. For every
+clean-label learned theory ($1{,}080$ runs; $206$ distinct presentations
+after whitespace normalization) we compared, by exhaustive ASP enumeration,
+the extension set of the learned presentation over the guessing background
+against the target's on \emph{every} framework with up to four arguments,
+self-attacks included ($66{,}066$ frameworks; for preferred, the fixed
+subset-maximal in-selection of Theorem~\ref{thm:prf} is applied to both
+sides). Table~\ref{tab:exactness} reports the result: $61\%$ of clean runs
+($659/1{,}080$; $86$ of the $206$ distinct presentations) learn a theory
+\emph{exactly} extension-equivalent to the target on this class, and the
+fraction rises monotonically with sample size --- $26\%$ at $f{=}20$ to
+$84\%$ at $f{=}160$ --- long after behavioural recovery has saturated: more
+data keeps buying semantic correctness after MCC stops registering it.
+Restricted to runs with a perfect complete-information score ($682$ runs),
+$94\%$ are exact; the remaining $38$ perfect-scoring runs make the
+sample-test caveat concrete --- behaviourally indistinguishable from the
+target on $200$ held-out labellings, each refuted by an explicit
+counterexample framework. The residual non-exact presentations fail early and
+systematically: every one of the $120$ fails on a framework with at most
+three arguments, $51$ of them on the single unattacked argument (the learned
+theory leaves it optional rather than forcing it \emph{in}), a second
+recurring trigger is a self-attacking argument --- precisely the
+configurations the dense training pools rarely exercise --- and
+over-acceptance (admitting labellings the target rejects) accounts for $88$
+of the $120$. The audit is exhaustive but bounded: $15$ preferred runs are
+exact on every framework with up to four arguments yet score below $1.0$ on
+test frameworks with five to eight arguments. The audit lab is
+\texttt{analysis/exp1\_exactness\_audit/}.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Exactness audit of the clean-label runs: fraction of learned
+theories exactly extension-equivalent to the target on all $66{,}066$
+frameworks with $\le 4$ arguments (self-attacks included), by semantics and
+sample size ($45$ runs per cell: $3$ completeness levels $\times$ $3$ class
+proportions $\times$ $5$ folds).}
+\label{tab:exactness}
+\begin{tabular}{lccccccc}
+\toprule
+& \multicolumn{6}{c}{sample size $f$} & \\
+\cmidrule(lr){2-7}
+Semantics & $20$ & $40$ & $60$ & $80$ & $120$ & $160$ & all \\
+\midrule
+STB & $.31$ & $.69$ & $.73$ & $.76$ & $.93$ & $.91$ & $.72$ \\
+ADM & $.40$ & $.62$ & $.80$ & $.89$ & $.98$ & $1.0$ & $.78$ \\
+CMP & $.09$ & $.24$ & $.42$ & $.69$ & $.84$ & $.87$ & $.53$ \\
+PRF & $.22$ & $.33$ & $.40$ & $.44$ & $.47$ & $.60$ & $.41$ \\
+\midrule
+all & $.26$ & $.47$ & $.59$ & $.69$ & $.81$ & $.84$ & $.61$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The adversarial Hamming-1 surface.} Rescoring every learned model
+of the campaign on the adversarial surface (evaluation only; identical
+positives, identical folds) leaves the picture intact: the overall paired
+mean MCC moves from $0.903$ to $0.866$ (median per-run change $0.000$;
+$41\%$ of runs are bit-identical, $10\%$ improve). Exactness behaves as the
+audit above predicts: of the $1{,}035$ runs at ceiling ($\text{MCC}=1.0$) on
+the sampled surface, $91.2\%$ remain at exactly $1.0$ against Hamming-1
+negatives (mean $0.996$) --- a program extensionally equivalent to the target
+cannot be perturbed off ceiling, and the residual $8.8\%$ are precisely the
+near-misses the sampled surface could not distinguish. In the clean regime
+($q{=}0$, $f\ge30$) recovery averages $0.98$ ($0.956$--$0.992$ across $f$);
+sub-ceiling noisy cells drop
+further, concentrated at small $f$ (Table~\ref{tab:hardsurface}); per-cell
+records are committed under \texttt{data/rescore\_hard\_negatives/}.
+
+\begin{table}[t]
+\centering\small
+\caption{Sampled vs.\ adversarial (Hamming-1) negative surface: mean MCC by
+noise $q$ and examples per class $f$, pooled over semantics and label
+completeness on the balanced arm (same runs as Table~\ref{tab:surface}).}
+\label{tab:hardsurface}
+\begin{tabular}{llcccccc}
+\toprule
+$q$ & Surface & $f{=}10$ & $20$ & $30$ & $40$ & $60$ & $80$\\
+\midrule
+\multirow{2}{*}{$0.0$} & sampled     & 0.940 & 0.977 & 0.983 & 0.993 & 0.996 & 0.997\\
+                       & adversarial & 0.866 & 0.942 & 0.956 & 0.980 & 0.992 & 0.990\\
+\midrule
+\multirow{2}{*}{$0.1$} & sampled     & 0.811 & 0.882 & 0.938 & 0.955 & 0.963 & 0.963\\
+                       & adversarial & 0.736 & 0.827 & 0.888 & 0.926 & 0.934 & 0.932\\
+\midrule
+\multirow{2}{*}{$0.2$} & sampled     & 0.625 & 0.756 & 0.782 & 0.862 & 0.937 & 0.950\\
+                       & adversarial & 0.577 & 0.708 & 0.726 & 0.826 & 0.901 & 0.907\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{(E1.2) Noise is the binding constraint --- amplified by incompleteness,
 bought back by data.} Label noise, not sample size or partiality, is what
@@ -1198,6 +1316,64 @@ regime that degrades --- a mechanistically explained boundary, not an artifact.}
 \label{fig:generator_breadth}
 \end{figure}
 
+\paragraph{Cross-pool transfer.} The breadth re-runs above retrain on each
+pool; a sharper question is whether a program learned on \emph{one} generator
+classifies labellings from \emph{another}. Because the target semantics is
+topology-invariant, evaluation-only transfer is the sharpest available test:
+for an exactly recovered presentation, cross-pool MCC $1.0$ is entailed by
+Theorems~\ref{thm:aaf} and~\ref{thm:prf}, so transfer measures how far the
+campaign's \emph{actual} hypotheses sit from that guarantee off-distribution.
+We re-scored every successful anchor-slice program ($595$ of $640$; the $45$
+training timeouts remain excluded, never scored as zeros) --- with no
+retraining --- on fixed complete-information surfaces of $80{+}80$
+oracle-labelled items drawn from the \emph{other} pools' committed frameworks
+(dense${}\to{}$\{sparse, self, large\} and each back to dense; $913$
+cross-pool evaluations; the scorer reproduces the archived per-fold confusion
+counts exactly on all $16$ validation rows). Across density and size shifts --- the $612$ non-self evaluations; the
+self-attacking pool is treated separately below --- transfer is essentially
+lossless (Table~\ref{tab:transfer}): clean-cell
+programs average MCC $0.979$ cross-pool against $0.983$ within-pool; programs
+with a \emph{perfect} within-pool score transfer at mean $0.994$ (exactly
+$1.0$ in $82\%$ of these evaluations); and within-pool MCC predicts
+cross-pool MCC at $r=0.91$, with $80\%$ of evaluations within $\pm 0.05$ ---
+noisy-cell hypotheses likewise transfer at approximately their within-pool
+score ($0.897$ vs.\ $0.909$ at $q{=}0.1$). The self-attacking pool is again the
+boundary, and transfer sharpens its diagnosis: both directions lose about
+$0.05$ MCC even at clean labels, and the worst case is instructive --- one
+clean dense-learned complete hypothesis contains the constraint
+\texttt{:- att(V1,V1).}, vacuous on the dense pool (which contains no
+self-attacks; within-pool MCC $0.96$) but rejecting every self-attacking
+positive (transfer MCC $0.0$). Within-pool cross-validation cannot detect a
+hypothesis that has absorbed a generator invariant; evaluation-only transfer
+is precisely the audit that does. The record is committed under
+\texttt{data/transfer/}.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Evaluation-only cross-pool transfer on the anchor slice: mean MCC of
+the source pool's learned programs on a fixed complete-information $80{+}80$
+surface drawn from the target pool's frameworks (no retraining), over four
+semantics, $p\in\{1.0,0.5\}$, $f\in\{20,60\}$, five folds; ``within-pool'' is
+the same programs' archived complete-information score on their own pool's
+held-out folds. Training failures are excluded from both columns.}
+\label{tab:transfer}
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{clean ($q{=}0$)} & \multicolumn{2}{c}{noisy ($q{=}0.1$)}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+direction & transfer & within-pool & transfer & within-pool\\
+\midrule
+dense $\to$ sparse & $0.975$ & $0.984$ & $0.881$ & $0.906$\\
+sparse $\to$ dense & $0.986$ & $0.981$ & $0.916$ & $0.916$\\
+dense $\to$ large  & $0.986$ & $0.984$ & $0.917$ & $0.906$\\
+large $\to$ dense  & $0.968$ & $0.981$ & $0.865$ & $0.909$\\
+dense $\to$ self   & $0.917$ & $0.984$ & $0.821$ & $0.906$\\
+self $\to$ dense   & $0.918$ & $0.960$ & $0.760$ & $0.809$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \paragraph{Framework breadth: BAF.} Using the \emph{proved} encodings of
 Theorem~\ref{thm:baf} as labelling oracles, we generated 500 random BAFs
 (support pairs disjoint from attacks, count uniform in $[0,n]$) and ran the
@@ -1270,7 +1446,10 @@ scored with Experiment~2's own metric, before any human-data result from it is
 reported. On the grounded-semantics gate, all three pipeline variants (ILASP
 at rule arity one, FastLAS OPL, FastLAS NOPL) score $1.000$ on both the
 three-valued gate metric (pass threshold $0.95$) and committed-only accuracy
-($n=495$). The gate also \emph{caught} a real limitation: on the
+($n=495$) --- a constraint theory can coincide with grounded extensionally on
+these few small study graphs even though grounded is not
+constraint-expressible in general (footnote of Section~\ref{sec:bg-af}); the
+gate tests the pipeline on these graphs, not general expressibility. The gate also \emph{caught} a real limitation: on the
 stable-semantics gate, ILASP's arity-one setting reaches only $0.921$ on the
 gate metric (fail) and $0.882$ committed-only --- an expressivity ceiling of
 that restricted
@@ -1563,7 +1742,9 @@ Section~\ref{sec:act1} says the learner does not beat CF2; it does not say the
 learner is uninformative. Extracting the rules that recur across
 cross-validation folds (discarding per-participant noise) yields the compact,
 fold-stable acceptance theory of Figure~\ref{fig:humansem} --- learned
-agnostically, from behaviour alone.
+agnostically, from behaviour alone. Its scope is the evidence that induced
+it: the pooled judgements of these $129$ participants on these seven graph
+conditions.
 
 \subsection{The learned theory}
 \label{sec:theory}
@@ -1576,34 +1757,46 @@ labelling is admissible-to-a-human unless a rule fires.
 \small
 \fbox{\parbox{0.93\linewidth}{
 \textbf{The consensus human acceptance policy} (a labelling is illegal if any
-rule fires); fold stability in brackets:
+rule fires); fold stability in brackets ($4$ fold seeds $\times$ $5$ folds
+$=20$ learned theories per vocabulary):
 \begin{description}[leftmargin=1.2em,itemsep=1.5pt,topsep=3pt]
-\item[Justification] accept nothing that is not defended \hfill [5/5 folds]
+\item[Justification] accept nothing that is neither defended nor attacked by
+an accepted argument \hfill [20/20 folds]
 \item[Commitment (acyclic)] outside cycles, a defeated argument must be
-rejected and a defended one accepted --- no \pred{undec} \hfill [4/5]
+rejected and a defended one accepted --- no \pred{undec} \hfill [16/20; 10/20]
 \item[Cycle caution] inside a cycle, accept only the genuinely defended
-\hfill [3/5]
-\item[Smoke/fire] do not fully reinstate a heavily attacked argument\\
-(\texttt{violated :- reinstated(X), many\_attackers(X)}) \hfill [3/5, aux.]
+\hfill [15/20]
+\item[Smoke/fire (candidate)] do not fully reinstate a heavily attacked
+argument\\
+(\texttt{violated :- reinstated(X), has\_many\_attackers(X)}) \hfill [5/20, aux.]
 \end{description}}}
 \caption{The human semantics $\sigma_H$ as learned. Rules 1--3 are
-textbook-rational --- jointly, a \emph{committal} complete semantics with cycle
-handling. Rule 4 is the psychologically distinctive hedge that no
-extension-based catalogue semantics encodes (graded and ranking-based
-semantics posit such attack-load sensitivity
-axiomatically~\citep{grossi2019graded,amgoud2013ranking,bonzon2016ranking}).}
+near-textbook --- jointly, a \emph{committal} complete-like policy with cycle
+handling, though rule 1's escape clause tolerates conflict among accepted
+arguments (see the principle profile below). Rule 4 is a
+\emph{candidate} hedge: psychologically suggestive --- graded and
+ranking-based semantics posit exactly this attack-load sensitivity
+axiomatically~\citep{grossi2019graded,amgoud2013ranking,bonzon2016ranking}
+--- but it recurs in only $5$ of $20$ cross-seed folds and its antecedent is
+realized exactly once in the corpus (see text).}
 \label{fig:humansem}
 \end{figure}
 
 Three observations locate $\sigma_H$ against the catalogue. \emph{(i)} On
-acyclic graphs, rules 1--2 make $\sigma_H$ coincide with the (unique) complete
-$=$ grounded $=$ preferred $=$ stable labelling \emph{with forced commitment}
---- humans do not sit on the fence when the logic is unambiguous, which is why
-undecided-heavy semantics like grounded fit poorly on the simple conditions.
+acyclic graphs rules 1--2 forbid fence-sitting --- humans do not sit on the
+fence when the logic is unambiguous, which is why undecided-heavy semantics
+like grounded fit poorly on the simple conditions --- and the unique complete
+($=$ grounded $=$ preferred $=$ stable) labelling is legal on $536$ of the
+$572$ acyclic AFs with $n\le4$ (the $36$ exceptions are rule-4 totality gaps;
+see the principle profile below). But $\sigma_H$ does not \emph{coincide}
+with forced commitment: its legal labellings strictly include the complete
+one on $532$ of those $536$ --- most visibly, rule 1's exception also admits
+$\{a,b\}$ on $a\!\to\!b$, tolerating an accepted argument already ``handled''
+by an accepted attacker.
 \emph{(ii)} On cycles, rule 3 withholds the commitment bias --- qualitatively
-the direction CF2 formalizes. \emph{(iii)} Rule 4 makes $\sigma_H$
-\emph{depart from every catalogue semantics}: an argument whose attackers are
-all defeated is, for humans, still tainted if the attackers were many. This
+the direction CF2 formalizes. \emph{(iii)} Rule 4, if genuine, would make
+$\sigma_H$ \emph{depart most sharply from the catalogue}: an argument whose
+attackers are all defeated would remain tainted if the attackers were many. This
 violates the reinstatement principle that all extension-based Dung-style
 semantics share~\citep{dung1995,baroni2011} and echoes the graded weakening of
 reinstatement observed behaviourally by \citet{rahwan2010}. Attack-load
@@ -1612,17 +1805,109 @@ acceptability~\citep{grossi2019graded} parameterizes Dung's defense by the
 number of attackers and defenders precisely to weaken reinstatement, and
 cardinality precedence --- more attackers is worse --- is a core axiom of the
 ranking-based semantics programme~\citep{amgoud2013ranking,bonzon2016ranking}.
-What is distinctive here is the epistemic route: the hedge is \emph{induced}
-from judgement data as an explicit, checkable rule --- to our knowledge for
-the first time --- and it co-occurs with committal reinstatement inside a
-single learned policy, rather than being posited axiomatically.
+What is distinctive here is the epistemic route: the hedge \emph{surfaces}
+from judgement data as an explicit, checkable rule inside a single learned
+policy, rather than being posited axiomatically. Precisely because it is
+checkable, we stress-tested it --- and demote it to a candidate.
+
+Two direct checks temper rule 4, and sharpen rules 1--3. \emph{Stability}:
+re-extracting the consensus at four independent fold seeds ($4\times5=20$
+learned theories per vocabulary) leaves the core untouched --- justification
+recurs in $20/20$ folds, commitment in $16/20$ (its audited accept-defended
+half in $10/20$; a weaker defended-not-rejected variant in $13/20$), cycle
+caution in $15/20$ --- but the exact smoke/fire rule recurs
+in only $5/20$, and at one seed it is absent altogether (only an
+acyclic-restricted variant survives there, in $2$ of $5$ folds).
+\emph{Behaviour}: computing the rule's two predicates directly on all $495$
+(participant, argument) units, a fully reinstated argument with two or more
+attackers occurs exactly \emph{once} in the corpus --- and that participant
+accepted it. The graded contrast the rule asserts is therefore untestable on
+these stimuli (single-attacker reinstated units are accepted at $63/95$;
+under the behavioural reading of defeat --- all attackers labelled
+\pred{out} --- the many-attacker cell again holds one unit). Where, then,
+does the learner's evidence live? On the synthetic side of the task: the rule
+fires on $1$ of $129$ human labellings but on $11$ of $262$ Hamming-1
+negatives. Rule 4 is thus a learner-surfaced \emph{hypothesis} consistent
+with graded reinstatement~\citep{rahwan2010,grossi2019graded} --- an
+extrapolation beyond the support of the data, not an established behavioural
+regularity; the zero-shot predictions below are exactly the experiment that
+would decide it.
+
+\paragraph{Principle profile of $\sigma_H$.}
+Because $\sigma_H$ is an executable verifier, its position in the
+principle-based catalogue of \citet{baroni2011} need not be conjectured: we
+audited it on all $66{,}066$ labelled digraphs with $n\le4$ arguments
+(self-attacks included), computing per framework the full set of labellings
+$\sigma_H$ admits ($1{,}061{,}584$ in total) and testing each principle
+mechanically (\texttt{analysis/sigma\_h\_principles/}).
+Table~\ref{tab:sigmah} gives the profile. Two relations sharpen it. First,
+$\sigma_H$ is \emph{permissive} rather than deviant: it almost never
+coincides with the complete labellings, but it \emph{contains} them on most
+frameworks --- every complete labelling is admitted on $77.7\%$ of the
+$66{,}066$, on $536$ of the $572$ acyclic frameworks, and on all the stimulus
+graph shapes of the experiment, where $\sigma_H$ is also total. Second, the two
+headline failures are exactly attributable: re-running the audit with rule 4
+deleted restores totality on all $66{,}066$ frameworks, and re-running it
+with rule 1's exception removed (``accept nothing that is not defended'',
+with no attacked-by-accepted escape) restores conflict-freeness on all of
+them (admissibility's witness coincides with conflict-freeness's; the
+reinstatement and directionality failures are separate and our ablations do
+not attribute them to a single rule).
+
+\begin{table}[t]
+\centering
+\small
+\caption{Principle profile of $\sigma_H$~\citep{baroni2011}, checked
+mechanically on all $66{,}066$ AFs with $n\le4$. Witnesses are the minimal
+counterexamples found by the audit.}
+\label{tab:sigmah}
+\begin{tabular}{lp{2.9cm}p{6.0cm}}
+\toprule
+Principle & Verdict & Minimal witness / note\\
+\midrule
+Conflict-freeness & fails ($9{,}645$ AFs; $2.7\%$ of admitted labellings) &
+$a\!\to\!b$ with $\{a,b\}$ accepted is admitted: rule 1's exception tolerates
+an accepted argument attacked by an accepted one\\
+Admissibility & fails ($43{,}933$ AFs) & a fortiori (same witness)\\
+Reinstatement & fails ($15{,}078$ AFs) & $b\!\to\!a$, $a\!\to\!a$,
+$a\!\to\!c$: $\{b\}$ defends $c$, yet $c$ may be rejected while $a$ hangs
+undecided in its self-loop\\
+Totality (existence) & holds for $n\le3$; fails on $768$ $n{=}4$ AFs
+($1.2\%$; $36$ acyclic) & $c\!\to\!a$, $c\!\to\!b$, $a\!\to\!d$, $b\!\to\!d$:
+every labelling either violates rules 1--3 or fully reinstates the
+doubly-attacked $d$, which rule 4 forbids\\
+Directionality & fails ($2{,}346$ AFs) & hence $\sigma_H$ is not
+SCC-recursive (SCC-recursive semantics satisfy directionality)\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 We emphasize the epistemic status of $\sigma_H$: it is a fold-stable
 \emph{description} of the pooled behaviour of $129$ participants on seven
 graphs --- a learned consensus policy, not a proposal for a new normative
-semantics; its two distinctive rules stabilize in $3$ of $5$ folds. Its value
+semantics; its cycle rule stabilizes in $15$ of $20$ cross-seed folds, while
+the smoke/fire hedge recurs in only $5$ of $20$ and is offered as a
+falsifiable candidate, not a finding. Its value
 is precisely that it is \emph{legible}: each rule can be inspected, tested on
-new graphs, and traced back to the data that induced it.
+new graphs, and traced back to the data that induced it. The principle
+profile is exactly why we offer $\sigma_H$ as a description and not a
+proposal: a policy that tolerates conflict among accepted arguments (rule
+1's exception) and refuses forced reinstatement to the point of leaving some
+frameworks with no admitted labelling at all (rule 4) departs from
+\emph{every} Dung-style catalogue semantics on independent, mechanically
+checkable axes --- which sharpens, rather than weakens, the claim that what
+people do is not a known semantics. Legibility also
+makes $\sigma_H$ falsifiable in print. We freeze two zero-shot predictions
+for external stimuli that were not used anywhere in this paper: on
+single-attacker reinstatement chains of the kind studied by
+\citet{rahwan2010}, rule 4 does not fire, so $\sigma_H$ predicts full,
+committal reinstatement --- consistent with the reinstatement those authors
+observe, though not with its graded weakening, which $\sigma_H$'s
+attack-\emph{count} trigger cannot express; on any reinstatement graph whose
+reinstated argument has two or more attackers, $\sigma_H$ predicts
+\emph{blocked} reinstatement, diverging from every extension-based catalogue
+semantics. A pre-registered test of these two predictions on new behavioural
+data is the natural next step (Section~\ref{sec:concl}).
 
 \subsection{Auxiliary predicates: what closes the gap, and what does not}
 \label{sec:aux}
@@ -1635,7 +1920,8 @@ motivated \emph{auxiliary predicates}. Two help: \emph{degree/salience}
 and \emph{reinstatement/defense} (\pred{reinstated}, \pred{floating},
 \pred{undefended\_in}). Two do not --- most pointedly, \emph{SCC/cycle}
 predicates, the natural vocabulary of CF2, which the learner simply ignored.
-Adding the two useful families lifts committed-only accuracy from $0.571$ to
+Adding the two useful families lifts \emph{in-corpus} committed-only
+accuracy (five-fold CV on the full pooled corpus) from $0.571$ to
 $0.648$ on average --- $+7.7$ points, positive at every one of four independent
 fold seeds (range $+5.5$ to $+9.7$; an exact sign test on $n=4$ seeds gives
 $p=.0625$, the minimum attainable, so the multi-seed table is offered as a
@@ -1663,14 +1949,44 @@ $\Delta$ & $+.097$ & $+.084$ & $+.074$ & $+.055$ & \best{$+.077$}\\
 \end{tabular}
 \end{table}
 
-The identity of the winning features is itself a finding the catalogue
-comparison could not deliver: CF2's remaining edge over the learner is
+\paragraph{Selection honesty.} Because the two families were chosen on the
+same corpus Table~\ref{tab:aux} scores, we re-ran the entire selection
+pipeline with each condition held out (leave-one-condition-out,
+identity-guarded as in the transfer arm of Section~\ref{sec:act3}; canonical
+seed; the selection rule codified as: a family is kept iff its
+cross-validated committed-only accuracy strictly beats the primitive
+baseline's and its predicates appear in the learned theories, predicates
+ranked by learned-theory frequency under the same five-predicate cap).
+Family-level selection is only partly stable: reinstatement/defense is
+re-selected in $6$ of $7$ folds and degree/salience in $5$, but
+reach-position --- dropped as neutral on the full corpus --- crosses its
+baseline in $6$ of $7$, and the SCC/cycle family crosses in $2$ (by at most
+$+1.3$ points; its predicates never survive the cap). And the gain does not
+transfer: scoring each fold's selection-honest vocabulary on its held-out
+condition against a primitive-vocabulary theory trained on the identical
+six-condition set gives per-condition deltas from $-57.5$ to $+29.6$ points
+(median $0.0$), pooled $+2.6$ points ($0.581$ vs.\ $0.555$ committed-only,
+$n{=}310$; exact McNemar $p{=}.56$). The $+7.7$ above is therefore an
+\emph{in-corpus} gain: the auxiliary features reliably help \emph{describe}
+the seven conditions they were selected on, but a vocabulary chosen without
+seeing a condition does not reliably help \emph{predict} it --- consistent
+with Section~\ref{sec:act3}'s finding that what transfers across conditions
+is the policy, with the vocabulary's value concentrated in-condition
+(record: \texttt{results/aux10\_loco.json}).
+
+
+The identity of the winning features suggests a hypothesis the catalogue
+comparison could not deliver: that CF2's remaining edge over the learner is
 \emph{not} cycle bookkeeping --- the CF2 gate (B1) shows the SCC family
 demonstrably suffices to express CF2 on these graphs (gate $0.956$ on the
-skeptical reading), yet on human data the learner leaves those predicates
-unused; it is a residue
-of individual variation that salience and floating-reinstatement features only
-partly capture. Combined with the contextual test of Section~\ref{sec:act3},
+skeptical reading), yet on human data the learner makes at best marginal use
+of those predicates (in the leave-one-condition-out re-selection the SCC
+family crosses its baseline in only $2$ of $7$ folds, by at most $+1.3$
+points, and never enters the capped vocabulary); the edge would instead be a
+residue of individual variation that salience and floating-reinstatement
+features only partly capture. We state this as a hypothesis rather than a
+finding because the same check shows family selection is only partially
+stable at this corpus size. Combined with the contextual test of Section~\ref{sec:act3},
 the picture is: one structure-sensitive policy, keyed on salience and
 reinstatement features, with an irreducible individual-level noise floor ---
 exactly the decomposition (B3) anticipated: the learner is at its recovery
@@ -1740,7 +2056,8 @@ MCC $0.67$--$0.72$ on the multi-extension targets (the random forest) and
 $0.86$ on complete/grounded (the depth-12 tree)\footnote{Skeptical-complete acceptance coincides with
 grounded acceptance (the grounded extension is the least complete extension),
 so grounded enters the per-argument baseline for free even though grounded
-extension-learning is outside the paper's scope (Section~\ref{sec:bg-af});
+extension-learning is outside Experiment~1's scope (Section~\ref{sec:bg-af};
+it is recovered exactly, with a definite background, in \ref{app:grd});
 the LAS reference on this target is the complete encoding.} --- the
 near-functional single-extension case where local features suffice ---
 against the LAS route's exact clean-label recovery on these targets
@@ -1894,8 +2211,9 @@ hand-crafting a formalism that best matches behaviour. Our approach is
 complementary and, we believe, novel in kind: rather than positing a semantics,
 we \emph{induce} the acceptance policy as an explicit, inspectable rule set from
 the behaviour itself (Section~\ref{sec:humansem}); the ``smoke/fire'' distrust of
-heavily attacked arguments emerges as a learned rule rather than a posited
-principle. Our further contribution is methodological (a leakage-free, gated,
+heavily attacked arguments emerges as a learner-surfaced candidate rule
+rather than a posited principle (its fold stability and within-corpus support
+are limited; Section~\ref{sec:humansem}). Our further contribution is methodological (a leakage-free, gated,
 calibrated ILP protocol with directional statistics) and substantive (the
 feature-not-policy resolution of contextuality and the negative result on SCC
 vocabulary).
@@ -1920,8 +2238,9 @@ framework families, with self-attacking preferred the one identified boundary;
 and \emph{yes} --- on
 human data the calibrated learner both confirms the CF2 ceiling under a
 stronger-than-before test and returns what the catalogue cannot: a legible
-human acceptance policy with a non-Dungian distrust of heavily attacked
-arguments, and a principled rejection of per-graph semantics.
+human acceptance policy --- committal reinstatement and cycle caution, plus
+a \emph{candidate} non-Dungian distrust of heavily attacked arguments --- and
+a principled rejection of per-graph semantics.
 
 \paragraph{Limitations.} The synthetic envelope is mapped on random digraphs of
 moderate size ($n\le12$). Clean-label recovery reproduces across the sparse,
@@ -1931,16 +2250,28 @@ read as suggestive), and \emph{preferred on self-attacking frameworks} degrades
 (PRF $0.42$--$0.71$ under noise) because self-attacks break the conflict-freeness
 and subset-maximality the construction leans on --- a specific, mechanistically
 understood boundary rather than a general failure. Grounded semantics was
-scoped out of the learnability study for a diagnosed reason --- on dense pools
-its extension is empty $69\%$ of the time, starving the learner's positive
-signal --- and learning it under a signal-bearing sparse distribution is an
-open, now well-posed problem. VAF is covered by the unified background, its
+scoped out of the learnability study for a diagnosed reason, and that
+diagnosis is now confirmed and closed (\ref{app:grd}): grounded is a
+functional target that the campaign's unified guess-and-check background
+cannot express, and with a definite learning background the identical harness
+recovers it exactly --- $1.000$ at $f\ge20$ on both sparse and dense pools
+($0.918$ at $f{=}10$ sparse, $1.000$ at $f{=}10$ dense), learning the
+two-rule program $\mathit{out}(X)\leftarrow\mathit{defeated}(X)$;
+$\mathit{in}(X)\leftarrow\mathit{supported}(X)$ in $29$ of $30$ folds. The
+principled scope boundary of Experiment~1 is the single shared background,
+not learnability; the noise robustness of the definite formulation remains
+future work. VAF is covered by the unified background, its
 specialization (Remark~\ref{rem:spec}), and the equivalence theorem of
 Section~\ref{sec:thmvaf}, but carries no learning experiments of its own
 here. $\sigma_H$ describes pooled behaviour on seven
-graphs; its two distinctive rules stabilize in $3$ of $5$ folds, its auxiliary
-vocabulary was selected on the same corpus and awaits pre-registered
-replication, and the contextual-reasoning test is well-powered only for the
+graphs; its stable core recurs in $15$--$20$ of $20$ cross-seed folds but its
+smoke/fire hedge in only $5$ of $20$, with an antecedent realized exactly
+once in the corpus --- a falsifiable candidate awaiting new stimuli; its
+auxiliary vocabulary was stress-tested by leave-one-condition-out
+re-selection --- the reinstatement family is re-chosen in $6$ of $7$ folds,
+but the in-corpus $+7.7$ gain does not transfer to held-out conditions
+(pooled $+2.6$ points, $p{=}.56$) --- so the vocabulary-level claims are
+in-corpus descriptions pending pre-registered replication, and the contextual-reasoning test is well-powered only for the
 cyclic condition G (the per-condition nulls elsewhere rest on $5$--$11$
 held-out cells each). Committed-only accuracy peaks in the mid-$60$s against a
 CF2 ceiling near $80\%$: closing that residue likely requires per-participant
@@ -1954,8 +2285,9 @@ attached. \emph{Equivalence checking inside the loop}: because the learned
 cores are tight, hypothesis-versus-target equivalence reduces to validity of
 completion formulas (Section~\ref{sec:bg-verif}); running that check inside
 learning --- rejecting hypotheses not equivalent to any admissible target ---
-would turn the post-hoc theorems of Section~\ref{sec:mech} into a
-learn-and-prove loop. \emph{Dialogue}: combining the learned human policy
+would turn the post-hoc theorems of Section~\ref{sec:mech} --- whose
+run-level counterpart the exactness audit of Section~\ref{sec:exp1surfaces}
+already realizes offline --- into a learn-and-prove loop. \emph{Dialogue}: combining the learned human policy
 $\sigma_H$ with argument-mining front ends to predict, and intervene on, real
 deliberation.
 
@@ -2163,6 +2495,66 @@ regenerated from the committed \texttt{data/} record by
 \texttt{docs/aij\_paper/make\_appendix\_tables.py}.
 
 \input{appendix_campaign}
+
+\section{Grounded semantics: exact recovery with a definite learning background}
+\label{app:grd}
+
+Grounded semantics was scoped out of Experiment~1 (footnote of
+Section~\ref{sec:bg-af}); this appendix closes that loop by exhibiting the
+mechanism and the fix. The obstacle is formulational, not informational.
+Grounded is a \emph{functional} target: every framework has exactly one
+grounded labelling, the subset-minimal complete one. The campaign's unified
+learning background is a guess-and-check theory --- choice rules
+$0\,\{\mathit{in}(X)\}\,1$ and $0\,\{\mathit{out}(X)\}\,1$ generate candidate
+labellings and the learned hypothesis prunes them. Under that background
+every labelling is an answer set until constraints remove it, so only
+constraint-expressible semantics are learnable; subset-minimality is not
+expressible as a constraint theory over this vocabulary, and the grounded
+task degenerates. Replacing the learning background with a \emph{definite}
+one (\texttt{config/bg\_nochoice\_grd.lp}: the same derived vocabulary, no
+choice rules, so the hypothesis must \emph{derive}
+$\mathit{in}/\mathit{out}$) removes the obstacle while leaving every other
+component of the harness untouched.
+
+We ran grounded through the standard pipeline --- identical grouped $5$-fold
+framework-disjoint cross-validation, oracle negatives, exact-model evaluation
+on the bare framework, standard configuration files --- on two committed
+$500$-AAF pools: the dense Experiment~1 pool (grounded extension empty in
+$68\%$ of frameworks) and the sparse breadth pool (empty in $26\%$), with
+clean, complete labellings and $f\in\{10,20,40\}$ example pairs.
+
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Exact recovery (mean over $5$ folds) & $f{=}10$ & $f{=}20$ & $f{=}40$\\
+\hline
+dense pool  & $1.000$ & $1.000$ & $1.000$\\
+sparse pool & $0.918$ & $1.000$ & $1.000$\\
+\hline
+\end{tabular}
+\end{center}
+
+All $30$ ILASP runs succeeded (no timeout, no UNSAT; $1.1$--$2.0$\,s training
+each), and $29$ of $30$ learned the same two-rule program,
+\[
+\mathit{out}(X) \leftarrow \mathit{defeated}(X), \qquad
+\mathit{in}(X) \leftarrow \mathit{supported}(X),
+\]
+which is exactly the definite core of the grounded fixpoint over the
+background's derived vocabulary ($\mathit{defeated}$: attacked by an accepted
+argument; $\mathit{supported}$: all attackers rejected). The single imperfect
+fold (sparse, $f{=}10$) learned the over-general
+$\mathit{out}(X) \leftarrow \mathit{not\_defended}(X)$, an alternative
+consistent with its ten training examples. Notably, exact recovery is perfect
+on the \emph{dense} pool even at $f{=}10$: empty-extension prevalence was
+never the binding factor once the background fits the target. The principled
+scope boundary of Experiment~1 is therefore the single unified
+guess-and-check background shared by all four campaign semantics, not the
+learnability of grounded. This appendix is confined to clean labels; the
+noise robustness of the definite formulation (where a single mislabelled
+argument can break a definite derivation chain) remains future work.
+Per-fold results are committed under \texttt{data/grd\_appendix/}; the driver
+is \texttt{experiments/run\_grd\_appendix.py}.
 
 %=====================================================================
 \begin{thebibliography}{99}
