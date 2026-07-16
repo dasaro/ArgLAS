@@ -1,0 +1,60 @@
+{
+  "_comment": [
+    "Integration config for PRF (winning route P1: convention-symmetric,",
+    "complete-core pool). SEPARATE per-semantics file because",
+    "solver_policy.get_background_file and get_show_predicates are GLOBAL-only",
+    "today; run train_test with --semantics PRF --semantics_config <this file>.",
+    "Learned-side background = background_knowledge.lp + the FIXED directive",
+    "'#heuristic in(X) : arg(X). [1, true]' (bg_learned_prf.lp) -- the exact",
+    "subset-maximal enumeration block ASPARTIX/preferred.lp itself carries,",
+    "so applying it to the learned side is symmetric (fact T4).",
+    "clingo_args --heuristic=Domain --enum=domRec apply to ALL stages via the",
+    "semantics-level list (required: plain clingo on preferred.lp returns the",
+    "COMPLETE labellings -- the Exp2 bug).",
+    "show_predicates = in/1 ONLY at both train_test stages: preferred.lp",
+    "labellings are 3-valued (out=attacked, undec hidden) while the",
+    "completion-based learned side is 2-valued, so out/1 sets cannot match.",
+    "learn_heuristics=false (the old PRF entry had true).",
+    "Pool: analysis/grd_prf_lab/integration/pools/labelled_PRF_full, generated",
+    "by gen_pool_prf.py (dual-legality complete-core-filtered negatives).",
+    "NEVER use --negative_policy complete_not_target-style negatives for PRF."
+  ],
+  "global": {
+    "background_file": {
+      "label_generation": null,
+      "train_test_learned": "analysis/grd_prf_lab/integration/bg_learned_prf.lp",
+      "train_test_ground_truth": null
+    },
+    "clingo_args": [],
+    "stage_clingo_args": {
+      "label_generation": [],
+      "train_test_learned": [],
+      "train_test_ground_truth": []
+    },
+    "completion_rules": {
+      "label_generation": false,
+      "train_test_learned": true,
+      "train_test_ground_truth": false
+    },
+    "show_predicates": {
+      "label_generation": [
+        "in/1",
+        "out/1"
+      ],
+      "train_test_learned": [
+        "in/1"
+      ],
+      "train_test_ground_truth": [
+        "in/1"
+      ]
+    }
+  },
+  "PRF": {
+    "file": "ASPARTIX/preferred.lp",
+    "clingo_args": [
+      "--heuristic=Domain",
+      "--enum=domRec"
+    ],
+    "learn_heuristics": false
+  }
+}

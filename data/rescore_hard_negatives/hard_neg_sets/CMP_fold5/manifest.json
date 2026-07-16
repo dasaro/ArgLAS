@@ -1,0 +1,614 @@
+{
+  "semantics": "CMP",
+  "fold": 5,
+  "pool": "artifacts/final_synthetic_v2/labelled/labelled_CMP_full",
+  "test_sampling_seed": 20260312,
+  "k_folds": 5,
+  "test_per_class": 100,
+  "hard_neg_seed_tag": "hard_negative_rescore",
+  "n_positives": 100,
+  "n_hard_negatives": 100,
+  "n_flips_rejected_still_legal": 12,
+  "files": [
+    {
+      "file": "aaf_4_18_CMP_POS_1_HNEG_1.lp",
+      "source_pos": "aaf_4_18_CMP_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_4_27_CMP_POS_1_HNEG_2.lp",
+      "source_pos": "aaf_4_27_CMP_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_67_CMP_POS_2_HNEG_3.lp",
+      "source_pos": "aaf_4_67_CMP_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_70_CMP_POS_3_HNEG_4.lp",
+      "source_pos": "aaf_4_70_CMP_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_73_CMP_POS_3_HNEG_5.lp",
+      "source_pos": "aaf_4_73_CMP_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_84_CMP_POS_1_HNEG_6.lp",
+      "source_pos": "aaf_4_84_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_4_85_CMP_POS_1_HNEG_7.lp",
+      "source_pos": "aaf_4_85_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_5_21_CMP_POS_1_HNEG_8.lp",
+      "source_pos": "aaf_5_21_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_5_26_CMP_POS_1_HNEG_9.lp",
+      "source_pos": "aaf_5_26_CMP_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_26_CMP_POS_2_HNEG_10.lp",
+      "source_pos": "aaf_5_26_CMP_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_26_CMP_POS_3_HNEG_11.lp",
+      "source_pos": "aaf_5_26_CMP_POS_3.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_26_CMP_POS_4_HNEG_12.lp",
+      "source_pos": "aaf_5_26_CMP_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_26_CMP_POS_5_HNEG_13.lp",
+      "source_pos": "aaf_5_26_CMP_POS_5.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_36_CMP_POS_2_HNEG_14.lp",
+      "source_pos": "aaf_5_36_CMP_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_42_CMP_POS_1_HNEG_15.lp",
+      "source_pos": "aaf_5_42_CMP_POS_1.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_49_CMP_POS_1_HNEG_16.lp",
+      "source_pos": "aaf_5_49_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_6_CMP_POS_2_HNEG_17.lp",
+      "source_pos": "aaf_5_6_CMP_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_5_70_CMP_POS_2_HNEG_18.lp",
+      "source_pos": "aaf_5_70_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_70_CMP_POS_3_HNEG_19.lp",
+      "source_pos": "aaf_5_70_CMP_POS_3.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_70_CMP_POS_4_HNEG_20.lp",
+      "source_pos": "aaf_5_70_CMP_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_70_CMP_POS_5_HNEG_21.lp",
+      "source_pos": "aaf_5_70_CMP_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_72_CMP_POS_1_HNEG_22.lp",
+      "source_pos": "aaf_5_72_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_83_CMP_POS_1_HNEG_23.lp",
+      "source_pos": "aaf_5_83_CMP_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_97_CMP_POS_3_HNEG_24.lp",
+      "source_pos": "aaf_5_97_CMP_POS_3.lp",
+      "flipped_arg": "3",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_5_98_CMP_POS_1_HNEG_25.lp",
+      "source_pos": "aaf_5_98_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_98_CMP_POS_4_HNEG_26.lp",
+      "source_pos": "aaf_5_98_CMP_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_5_98_CMP_POS_5_HNEG_27.lp",
+      "source_pos": "aaf_5_98_CMP_POS_5.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_14_CMP_POS_1_HNEG_28.lp",
+      "source_pos": "aaf_6_14_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_19_CMP_POS_3_HNEG_29.lp",
+      "source_pos": "aaf_6_19_CMP_POS_3.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_23_CMP_POS_1_HNEG_30.lp",
+      "source_pos": "aaf_6_23_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_6_29_CMP_POS_1_HNEG_31.lp",
+      "source_pos": "aaf_6_29_CMP_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_31_CMP_POS_1_HNEG_32.lp",
+      "source_pos": "aaf_6_31_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_35_CMP_POS_1_HNEG_33.lp",
+      "source_pos": "aaf_6_35_CMP_POS_1.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_35_CMP_POS_2_HNEG_34.lp",
+      "source_pos": "aaf_6_35_CMP_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_35_CMP_POS_4_HNEG_35.lp",
+      "source_pos": "aaf_6_35_CMP_POS_4.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_42_CMP_POS_2_HNEG_36.lp",
+      "source_pos": "aaf_6_42_CMP_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_42_CMP_POS_4_HNEG_37.lp",
+      "source_pos": "aaf_6_42_CMP_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_6_CMP_POS_1_HNEG_38.lp",
+      "source_pos": "aaf_6_6_CMP_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_6_CMP_POS_3_HNEG_39.lp",
+      "source_pos": "aaf_6_6_CMP_POS_3.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_76_CMP_POS_2_HNEG_40.lp",
+      "source_pos": "aaf_6_76_CMP_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_76_CMP_POS_3_HNEG_41.lp",
+      "source_pos": "aaf_6_76_CMP_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_77_CMP_POS_1_HNEG_42.lp",
+      "source_pos": "aaf_6_77_CMP_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_6_79_CMP_POS_1_HNEG_43.lp",
+      "source_pos": "aaf_6_79_CMP_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_92_CMP_POS_1_HNEG_44.lp",
+      "source_pos": "aaf_6_92_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_6_94_CMP_POS_2_HNEG_45.lp",
+      "source_pos": "aaf_6_94_CMP_POS_2.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_94_CMP_POS_3_HNEG_46.lp",
+      "source_pos": "aaf_6_94_CMP_POS_3.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_6_94_CMP_POS_4_HNEG_47.lp",
+      "source_pos": "aaf_6_94_CMP_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_16_CMP_POS_1_HNEG_48.lp",
+      "source_pos": "aaf_7_16_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_25_CMP_POS_2_HNEG_49.lp",
+      "source_pos": "aaf_7_25_CMP_POS_2.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_26_CMP_POS_1_HNEG_50.lp",
+      "source_pos": "aaf_7_26_CMP_POS_1.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_26_CMP_POS_2_HNEG_51.lp",
+      "source_pos": "aaf_7_26_CMP_POS_2.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_34_CMP_POS_3_HNEG_52.lp",
+      "source_pos": "aaf_7_34_CMP_POS_3.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_41_CMP_POS_4_HNEG_53.lp",
+      "source_pos": "aaf_7_41_CMP_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_41_CMP_POS_6_HNEG_54.lp",
+      "source_pos": "aaf_7_41_CMP_POS_6.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_41_CMP_POS_7_HNEG_55.lp",
+      "source_pos": "aaf_7_41_CMP_POS_7.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_42_CMP_POS_1_HNEG_56.lp",
+      "source_pos": "aaf_7_42_CMP_POS_1.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_42_CMP_POS_3_HNEG_57.lp",
+      "source_pos": "aaf_7_42_CMP_POS_3.lp",
+      "flipped_arg": "7",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_55_CMP_POS_1_HNEG_58.lp",
+      "source_pos": "aaf_7_55_CMP_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_55_CMP_POS_2_HNEG_59.lp",
+      "source_pos": "aaf_7_55_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_55_CMP_POS_3_HNEG_60.lp",
+      "source_pos": "aaf_7_55_CMP_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_55_CMP_POS_8_HNEG_61.lp",
+      "source_pos": "aaf_7_55_CMP_POS_8.lp",
+      "flipped_arg": "5",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_56_CMP_POS_1_HNEG_62.lp",
+      "source_pos": "aaf_7_56_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_60_CMP_POS_1_HNEG_63.lp",
+      "source_pos": "aaf_7_60_CMP_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_62_CMP_POS_1_HNEG_64.lp",
+      "source_pos": "aaf_7_62_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_62_CMP_POS_2_HNEG_65.lp",
+      "source_pos": "aaf_7_62_CMP_POS_2.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_6_CMP_POS_2_HNEG_66.lp",
+      "source_pos": "aaf_7_6_CMP_POS_2.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_6_CMP_POS_4_HNEG_67.lp",
+      "source_pos": "aaf_7_6_CMP_POS_4.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_6_CMP_POS_5_HNEG_68.lp",
+      "source_pos": "aaf_7_6_CMP_POS_5.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_6_CMP_POS_7_HNEG_69.lp",
+      "source_pos": "aaf_7_6_CMP_POS_7.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_73_CMP_POS_1_HNEG_70.lp",
+      "source_pos": "aaf_7_73_CMP_POS_1.lp",
+      "flipped_arg": "7",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_77_CMP_POS_2_HNEG_71.lp",
+      "source_pos": "aaf_7_77_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_7_CMP_POS_2_HNEG_72.lp",
+      "source_pos": "aaf_7_7_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_83_CMP_POS_1_HNEG_73.lp",
+      "source_pos": "aaf_7_83_CMP_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_83_CMP_POS_5_HNEG_74.lp",
+      "source_pos": "aaf_7_83_CMP_POS_5.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_91_CMP_POS_1_HNEG_75.lp",
+      "source_pos": "aaf_7_91_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_91_CMP_POS_2_HNEG_76.lp",
+      "source_pos": "aaf_7_91_CMP_POS_2.lp",
+      "flipped_arg": "1",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_7_92_CMP_POS_2_HNEG_77.lp",
+      "source_pos": "aaf_7_92_CMP_POS_2.lp",
+      "flipped_arg": "3",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_92_CMP_POS_3_HNEG_78.lp",
+      "source_pos": "aaf_7_92_CMP_POS_3.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_92_CMP_POS_4_HNEG_79.lp",
+      "source_pos": "aaf_7_92_CMP_POS_4.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_7_96_CMP_POS_1_HNEG_80.lp",
+      "source_pos": "aaf_7_96_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_100_CMP_POS_1_HNEG_81.lp",
+      "source_pos": "aaf_8_100_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_12_CMP_POS_3_HNEG_82.lp",
+      "source_pos": "aaf_8_12_CMP_POS_3.lp",
+      "flipped_arg": "8",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_15_CMP_POS_2_HNEG_83.lp",
+      "source_pos": "aaf_8_15_CMP_POS_2.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_2_CMP_POS_6_HNEG_84.lp",
+      "source_pos": "aaf_8_2_CMP_POS_6.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_2_CMP_POS_7_HNEG_85.lp",
+      "source_pos": "aaf_8_2_CMP_POS_7.lp",
+      "flipped_arg": "7",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_2_CMP_POS_8_HNEG_86.lp",
+      "source_pos": "aaf_8_2_CMP_POS_8.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_45_CMP_POS_1_HNEG_87.lp",
+      "source_pos": "aaf_8_45_CMP_POS_1.lp",
+      "flipped_arg": "4",
+      "direction": "in->out"
+    },
+    {
+      "file": "aaf_8_50_CMP_POS_1_HNEG_88.lp",
+      "source_pos": "aaf_8_50_CMP_POS_1.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_58_CMP_POS_1_HNEG_89.lp",
+      "source_pos": "aaf_8_58_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_64_CMP_POS_1_HNEG_90.lp",
+      "source_pos": "aaf_8_64_CMP_POS_1.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_64_CMP_POS_3_HNEG_91.lp",
+      "source_pos": "aaf_8_64_CMP_POS_3.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_75_CMP_POS_1_HNEG_92.lp",
+      "source_pos": "aaf_8_75_CMP_POS_1.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_75_CMP_POS_2_HNEG_93.lp",
+      "source_pos": "aaf_8_75_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_75_CMP_POS_5_HNEG_94.lp",
+      "source_pos": "aaf_8_75_CMP_POS_5.lp",
+      "flipped_arg": "1",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_76_CMP_POS_2_HNEG_95.lp",
+      "source_pos": "aaf_8_76_CMP_POS_2.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_80_CMP_POS_2_HNEG_96.lp",
+      "source_pos": "aaf_8_80_CMP_POS_2.lp",
+      "flipped_arg": "2",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_80_CMP_POS_3_HNEG_97.lp",
+      "source_pos": "aaf_8_80_CMP_POS_3.lp",
+      "flipped_arg": "6",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_86_CMP_POS_2_HNEG_98.lp",
+      "source_pos": "aaf_8_86_CMP_POS_2.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_86_CMP_POS_3_HNEG_99.lp",
+      "source_pos": "aaf_8_86_CMP_POS_3.lp",
+      "flipped_arg": "4",
+      "direction": "out->in"
+    },
+    {
+      "file": "aaf_8_96_CMP_POS_2_HNEG_100.lp",
+      "source_pos": "aaf_8_96_CMP_POS_2.lp",
+      "flipped_arg": "8",
+      "direction": "out->in"
+    }
+  ]
+}

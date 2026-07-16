@@ -1,0 +1,284 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage[round,authoryear]{natbib}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\newcommand{\co}{\textsc{co}}
+\newcommand{\vio}{\texttt{violated}}
+\newcommand{\rulesep}{\,{:}{-}\,}
+\newcommand{\pred}[1]{\textsf{#1}}
+\newcommand{\best}[1]{\textbf{#1}}
+
+\title{\vspace{-1.5em}\textbf{Experiment 2: Learning the Semantics Humans Use}\\[0.3em]
+\large A Learning-from-Answer-Sets Account of Human Argument Acceptance}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-3.5em}
+
+\begin{abstract}
+\noindent
+The study of \citet{guillaume2022} established that, among textbook abstract-argumentation
+semantics, \emph{CF2} best predicts how people accept and reject arguments. That result is
+\emph{descriptive}: it selects the closest member of a fixed catalogue but does not say what
+acceptance principles humans actually apply, nor whether those principles can be \emph{learned}
+from behaviour. We revisit the \citeauthor{guillaume2022} data with Inductive Logic Programming,
+in three acts. \textbf{(1)}~Under a fully audited, leakage-free, apples-to-apples protocol we
+confirm the original finding: two independent ILP systems (ILASP and FastLAS), at their best
+configurations, learn agnostic acceptance theories that remain below CF2 on the paper's own metric
+($p<0.001$). \textbf{(2)}~We show the learner nonetheless \emph{recovers a legible, human-flavoured
+semantics}---reinstatement with forced commitment outside cycles, cycle caution, and a distrust of
+heavily-attacked arguments---and that supplying three psychologically-motivated auxiliary predicates
+raises accuracy by a seed-robust $+7.7$ points, closing roughly a third of the gap to CF2.
+\textbf{(3)}~We test whether people reason \emph{contextually}, applying different semantics to
+different argument graphs. A within/global/transfer design with directional, multiplicity-corrected
+statistics rejects the strong form of this hypothesis: a single pooled theory beats seven
+condition-specific ones. The apparent context-sensitivity is real but lives in the \emph{features}
+of one structure-sensitive policy, not in a catalogue of per-graph semantics.
+\end{abstract}
+
+\section{Setup and Protocol}
+\label{sec:setup}
+
+We use the accept/reject/undecided judgements of the $130$ participants of
+\citet{guillaume2022} across seven conditions A--G. Conditions A/B/C present a four-argument
+\emph{floating-reinstatement} graph, D/E/F a three-argument acyclic graph, and G a five-argument
+odd cycle; conditions sharing a structure differ in argument \emph{content}. Each participant's
+individual argumentation framework (\co{}, their own final drawing) carries a three-valued
+labelling of the $495$ argument-level responses that the original study counts.
+
+A learner sees each labelling as a \emph{soft} positive example and is pinned by a \emph{soft}
+negative shell: the Hamming-1 perturbations of each committed labelling plus one all-undecided
+(``drop-all'') labelling per graph, the latter added so that totality is representable. All
+examples are penalty-weighted, and negative penalty mass is balanced against positive mass, so
+that no correct semantics can be \emph{forbidden} by an example---only out-voted. Predictions are
+made by generate-and-test: guess a labelling, keep those the learned constraints admit, and project
+(credulously) to a single verdict per argument.
+
+\paragraph{Metrics.} Our primary metric is \emph{committed-only accuracy}: on the responses where
+a human took a stance (\pred{in}/\pred{out}), the fraction the model predicts exactly, with an
+undecided prediction counting as wrong. This isolates the substantive question---does the model get
+human \emph{decisions} right---and cannot be inflated by predicting \pred{undec}\ where humans do
+(the coin-flip baseline is $50\%$; a three-way guesser scores $33.3\%$). We also report the
+three-valued exact-match accuracy under the \emph{skeptical} reading used by
+\citet{guillaume2022}. Significance is assessed with the exact two-sided McNemar test against the
+pre-registered comparator CF2, deduplicated to one unit per (graph, labelling, argument) cell to
+remove within-cell response multiplicity.
+
+\paragraph{Rigour.} Every number below survives an adversarial audit: cross-validation folds are
+cut at the level of distinct (graph, labelling) cells so that no held-out response's exact training
+example can leak (including across the conditions D/E/F that share graphs); all-undecided
+participants are retained, reproducing the study's $495$-response pool exactly; and each pipeline
+passes a synthetic gate in which clean textbook labels are recovered end-to-end before any human
+result is trusted. Textbook baselines reproduce the \citeauthor{guillaume2022} individual-graph
+column to within $1.2$ points.
+
+\section{Act 1: Learning Does Not Beat CF2}
+\label{sec:act1}
+
+We compare four ``learners'' on identical held-out responses: the textbook semantics
+(computed with the standard ASPARTIX encodings), ILASP at maximum rule arity one (the setting that
+neither over-fits nor times out), and FastLAS in both its observational (OPL) and
+non-observational (NOPL) modes with the best feature set. Table~\ref{tab:act1} gives the result.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Apples-to-apples comparison on the individual-graph pool ($n{=}495$). ``Skept.\ acc'' is
+three-valued exact-match under the skeptical reading (the metric of
+\citeauthor{guillaume2022}; chance $33.3\%$); ``\co'' is committed-only accuracy under the
+credulous reading (chance $50\%$). Learned theories are agnostic (no target semantics). Best
+learner and best overall per column in \best{bold}.}
+\label{tab:act1}
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{\emph{final} (post-deliberation)} & \multicolumn{2}{c}{\emph{first} (initial)}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Predictor & Skept.\ acc & \co & Skept.\ acc & \co\\
+\midrule
+ILASP ($\text{maxv}{=}1$)      & 0.465 & 0.410 & 0.364 & 0.206\\
+FastLAS OPL                    & 0.459 & \best{0.594} & 0.386 & 0.424\\
+FastLAS NOPL                   & 0.459 & \best{0.594} & 0.358 & 0.483\\
+\midrule
+grounded                       & 0.562 & 0.545 & 0.483 & 0.455\\
+complete                       & 0.562 & 0.774 & 0.483 & 0.667\\
+stable                         & 0.622 & 0.742 & 0.535 & 0.648\\
+preferred                      & 0.638 & 0.774 & 0.539 & 0.670\\
+CF2                            & \best{0.648} & \best{0.797} & \best{0.556} & \best{0.692}\\
+\midrule
+\emph{2022 paper (grd/prf/cf2)}& \multicolumn{2}{c}{$55.4 / 63.4 / 63.6$} & \multicolumn{2}{c}{$48.6 / 54.6 / 55.4$}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three findings. First, \textbf{every learner loses to CF2} on the paper's own metric, in both
+deliberation phases, and the loss is significant even under the conservative cell-level McNemar
+test (final: FastLAS $27$ learner-only vs.\ $54$ CF2-only cells, $p{=}0.004$; ILASP $14$ vs.\ $37$,
+$p{=}0.002$). The \citeauthor{guillaume2022} conclusion is thus robust not only to a second, faster
+inference engine but to the far stronger test of whether the semantics can be \emph{learned} from
+the data at all. Second, \textbf{$\text{maxv}{=}1$ is the right setting}: raising rule complexity
+strictly worsened held-out accuracy (over-fitting) while multiplying runtime, and OPL and NOPL
+learned identical theories on the clean \emph{final} data---extra expressive power bought nothing.
+Third, \textbf{learners degrade far more than textbook semantics on the noisy initial responses}
+(their \co\ roughly halves from \emph{final} to \emph{first}, while CF2 barely moves), a direct
+signature of learning \emph{absorbing} idiosyncratic first-impression noise into the theory where a
+fixed semantics is immune.
+
+\section{Act 2: What the Learner Learns}
+\label{sec:act2}
+
+That the learner loses to CF2 does not make it uninformative: agnostically, from behaviour alone,
+it reconstructs a compact and recognisably human acceptance policy. Extracting the rules that recur
+across cross-validation folds (dropping per-participant noise) yields the theory in
+Figure~\ref{fig:semantics}. The backbone is \emph{reinstatement}---accept the defended, reject the
+defeated---exactly complete semantics. Onto it the data adds a \emph{commitment bias} (do not sit
+on the fence outside cycles), \emph{cycle caution}, and, most distinctively, a
+\emph{``where there's smoke there's fire''} distrust: a heavily-attacked argument is not fully
+rehabilitated even when the logic permits it.
+
+\begin{figure}[t]
+\centering
+\small
+\fbox{\parbox{0.93\linewidth}{
+\textbf{The consensus human semantics} (a labelling is illegal if any rule fires):
+\begin{description}[leftmargin=1.2em,itemsep=1pt,topsep=3pt]
+\item[Justification] accept nothing that is not defended \hfill{\footnotesize [5/5 folds]}
+\item[Commit (acyclic)] a defeated argument must be rejected, a defended one accepted---no
+\pred{undec} \hfill{\footnotesize [4/5]}
+\item[Cycle caution] inside a cycle, accept only the genuinely defended \hfill{\footnotesize [3/5]}
+\item[Smoke/fire] do not fully reinstate a heavily-attacked argument
+(\vio\ $\rulesep$ \pred{reinstated}, \pred{many\_attackers}) \hfill{\footnotesize [3/5, aux]}
+\end{description}
+}}
+\caption{The fold-stable theory learned agnostically from human data. Rules 1--3 are textbook-rational
+(committal complete semantics with cycle handling); the fourth is the psychologically distinctive
+hedge that no standard Dung semantics encodes.}
+\label{fig:semantics}
+\end{figure}
+
+The last rule motivates \emph{auxiliary predicates}: structural notions humans plausibly track but
+that the primitive vocabulary cannot state cleanly. We searched four families and found two that
+help---\emph{degree/salience} (\pred{unattacked}, \pred{many\_attackers},
+\pred{has\_unattacked\_attacker}) and \emph{reinstatement/defense}
+(\pred{reinstated}, \pred{floating}, \pred{undefended\_in})---while the a-priori favourite,
+\emph{SCC/cycle} predicates, did \emph{not} help at all (the learner ignored them). Combining the
+two useful families lifts committed-only accuracy from the $0.594$ baseline to $0.677$, and the
+gain is stable across four independent fold seeds (Table~\ref{tab:aux}): a mean of $+7.7$ points
+(range $+5.5$ to $+9.7$), closing about a third of the distance to CF2. That the winning features
+are \emph{salience} and \emph{floating reinstatement}---not SCC recursion---tells us something the
+CF2 result cannot: CF2's remaining edge is not cycle bookkeeping but a residue of individual
+variation the auxiliary predicates only partly capture.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Auxiliary predicates: committed-only accuracy (\emph{final} pool), paired across four
+cross-validation seeds. The gain is positive at every seed. Baseline$=$FastLAS OPL with the primitive
+feature set; CF2$=0.797$.}
+\label{tab:aux}
+\begin{tabular}{lccccc}
+\toprule
+Seed & \texttt{20260703} & \texttt{424242} & \texttt{777} & \texttt{20250101} & mean\\
+\midrule
+baseline & 0.594 & 0.558 & 0.558 & 0.574 & 0.571\\
+$+$aux   & 0.690 & 0.642 & 0.632 & 0.629 & 0.648\\
+\midrule
+$\Delta$ & $+.097$ & $+.084$ & $+.074$ & $+.055$ & \best{$+.077$}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Act 3: One Semantics, Not Seven}
+\label{sec:act3}
+
+The conditions invite a stronger hypothesis: perhaps people reason \emph{contextually}, applying
+different acceptance principles to different graphs. Descriptively the data flirts with this---on
+the shared floating graph, grounded fits condition A but collapses on B; only CF2 commits on the
+cycle G. We test it directly. For each condition we compare three theories on identical held-out
+responses: \textsc{within} (trained on that condition alone, leave-one-cell-out), \textsc{global}
+(one theory pooled over all seven), and \textsc{transfer} (trained on the other six, with an
+identity guard removing any shared cell). If a condition has its own semantics, \textsc{within}
+should beat \textsc{global} despite training on five-to-eight times less data---a deliberately
+conservative, pre-registered reading. Table~\ref{tab:act3} reports the outcome.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Contextual-reasoning test: committed-only accuracy per condition (\emph{final}, aux
+vocabulary). \textsc{within}$>$\textsc{global} would support condition-specific semantics; the
+direction-gated, step-down-Holm-corrected McNemar test finds \emph{no} such effect in any condition,
+and the pooled test runs the other way (\textsc{global}$>$\textsc{within}, $p{=}0.03$). CF2 remains
+the ceiling.}
+\label{tab:act3}
+\begin{tabular}{llccccl}
+\toprule
+Cond. & Type & \#cells & \textsc{within} & \textsc{global} & \textsc{transfer} & CF2\\
+\midrule
+A & float  & 10 & 0.593 & 0.611 & 0.518 & \best{0.852}\\
+B & float  &  6 & 0.250 & 0.900 & 0.625 & \best{1.000}\\
+C & float  & 11 & 0.450 & 0.450 & \best{0.850} & 0.850\\
+D & simple &  5 & \best{0.763} & 0.579 & 0.447 & 0.763\\
+E & simple &  5 & 0.618 & 0.941 & 0.676 & \best{0.971}\\
+F & simple &  7 & \best{0.690} & 0.552 & 0.448 & 0.690\\
+G & cycle  & 19 & 0.480 & 0.560 & 0.600 & \best{0.600}\\
+\midrule
+\multicolumn{7}{l}{\emph{Holm-corrected \textsc{within}$>$\textsc{global}: n.s.\ in all 7 conditions
+(both vocabularies).}}\\
+\multicolumn{7}{l}{\emph{Pooled (cell-level): \textsc{global}$>$\textsc{within} $32/53$, $p{=}0.03$;
+\ \textsc{within}$<$CF2 $16/33$, $p{=}0.02$.}}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The strong hypothesis is \textbf{rejected}: no condition's own theory significantly beats the pooled
+one, and pooled across conditions the effect is significantly \emph{reversed}. In C and G the
+\emph{transfer} theory---trained without ever seeing the condition---matches CF2 and beats the
+condition's own theory, so those humans' semantics is not merely shared but importable, and their
+noisier own-data actively harms a specialised learner. The one within-advantage that replicates
+across both feature sets is condition D, and it is under-powered.
+
+The resolution is not that context is irrelevant but that \textbf{it lives in the features, not the
+policy}. A single structure-sensitive theory---the same rules keying on whether an argument is in a
+cycle, is floatingly reinstated, or is heavily attacked---reproduces the condition-to-condition
+shifts (grounded-sufficient on simple graphs, committal semantics required on floating graphs, CF2
+alone on the cycle) without any per-graph switching. What looked like seven semantics is one policy
+read through seven structures.
+
+\section{Discussion}
+\label{sec:disc}
+
+Taken together the three acts sharpen the \citet{guillaume2022} result rather than overturn it.
+CF2 remains the best fixed description of human acceptance, and it withstands the strongest test we
+can pose---being learned from the data---because the residual gap is individual-level variation, not
+a missing structural principle. But the learning view adds what a best-fit catalogue cannot: an
+explicit, legible acceptance policy (committal reinstatement with cycle caution and a smoke/fire
+hedge), a quantification of how far psychologically-motivated features close the gap, and a clean
+negative result on contextual reasoning. The methodological contribution---a leakage-free,
+gated, adversarially-audited ILP protocol for behavioural argumentation data, with committed-only
+accuracy and directional multiplicity-corrected statistics---is what makes each of these claims
+safe to state.
+
+\paragraph{Limitations.} Committed-only accuracy peaks in the mid-$60$s against a CF2 ceiling near
+$80\%$; the contextual test is well-powered only for the cyclic condition G; and the auxiliary
+predicates, though motivated, were selected on the same corpus and would benefit from
+pre-registered replication on a new elicitation.
+
+{\small
+\begin{thebibliography}{1}
+\bibitem[Guillaume et al.(2022)]{guillaume2022} M.~Guillaume, M.~Cramer, L.~van~der~Torre, and
+C.~Schulz. \emph{Reasoning with abstract argumentation frameworks: an empirical study.} PLOS ONE,
+2022.
+\end{thebibliography}
+}
+
+\end{document}

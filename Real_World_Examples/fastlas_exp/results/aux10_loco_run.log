@@ -1,0 +1,70 @@
+stage 1: 35 CV jobs (cached 0)
+  [cv -A base] co=0.5664 aux_used=False TO=0 (46.5s)
+  [cv -A scc_cycle] co=0.5156 aux_used=True TO=0 (191.5s)
+  [cv -B base] co=0.5795 aux_used=False TO=0 (320.9s)
+  [cv -A reachpos] co=0.6133 aux_used=True TO=0 (383.5s)
+  [cv -A reinstatement] co=0.6484 aux_used=True TO=0 (514.6s)
+  [cv -B scc_cycle] co=0.5152 aux_used=True TO=0 (330.7s)
+  [cv -C base] co=0.5267 aux_used=False TO=0 (167.4s)
+  [cv -B reinstatement] co=0.6742 aux_used=True TO=0 (378.9s)
+  [cv -A degree_salience] co=0.6016 aux_used=True TO=0 (808.0s)
+  [cv -C scc_cycle] co=0.5305 aux_used=True TO=0 (198.7s)
+  [cv -C reinstatement] co=0.5954 aux_used=True TO=0 (121.3s)
+  [cv -B reachpos] co=0.5871 aux_used=True TO=0 (524.2s)
+  [cv -B degree_salience] co=0.6136 aux_used=True TO=0 (687.0s)
+  [cv -D scc_cycle] co=0.5297 aux_used=True TO=0 (43.2s)
+  [cv -D base] co=0.5169 aux_used=False TO=0 (167.4s)
+  [cv -C reachpos] co=0.6489 aux_used=True TO=0 (246.7s)
+  [cv -E base] co=0.5992 aux_used=False TO=0 (235.7s)
+  [cv -D reachpos] co=0.5847 aux_used=True TO=0 (353.4s)
+  [cv -D degree_salience] co=0.6102 aux_used=True TO=0 (419.9s)
+  [cv -D reinstatement] co=0.5000 aux_used=True TO=0 (392.6s)
+  [cv -C degree_salience] co=0.6107 aux_used=True TO=0 (764.0s)
+  [cv -E reachpos] co=0.6270 aux_used=True TO=0 (326.3s)
+  [cv -E reinstatement] co=0.6667 aux_used=True TO=0 (349.8s)
+  [cv -E scc_cycle] co=0.5516 aux_used=True TO=0 (460.7s)
+  [cv -F base] co=0.6094 aux_used=False TO=0 (329.3s)
+  [cv -E degree_salience] co=0.5952 aux_used=True TO=0 (598.8s)
+  [cv -G base] co=0.5787 aux_used=False TO=0 (13.7s)
+  [cv -F reinstatement] co=0.6266 aux_used=True TO=0 (233.9s)
+  [cv -G scc_cycle] co=0.5787 aux_used=True TO=0 (16.5s)
+  [cv -F scc_cycle] co=0.5494 aux_used=True TO=0 (292.6s)
+  [cv -G reinstatement] co=0.7149 aux_used=True TO=0 (43.0s)
+  [cv -G reachpos] co=0.7617 aux_used=True TO=0 (51.3s)
+  [cv -G degree_salience] co=0.6638 aux_used=True TO=0 (131.4s)
+  [cv -F degree_salience] co=0.5451 aux_used=True TO=0 (497.4s)
+  [cv -F reachpos] co=0.5494 aux_used=True TO=0 (537.5s)
+stage 2: 7 transfer jobs (cached 0)
+  [transfer -A] base=0.5185 combined=0.8148 delta=+0.2963 preds=reinstated,floating,undefended_in,sink,attacked_by_source (337.5s)
+  [transfer -E] base=0.6765 combined=0.6765 delta=+0.0000 preds=reinstated,floating,undefended_in,attacked_by_source,sink (337.7s)
+  [transfer -D] base=0.4474 combined=0.4474 delta=+0.0000 preds=has_many_attackers,has_unattacked_attacker,unattacked,sink,attacked_by_source (340.0s)
+  [transfer -B] base=0.5000 combined=0.6250 delta=+0.1250 preds=reinstated,floating,undefended_in,has_unattacked_attacker,has_many_attackers (341.8s)
+  [transfer -C] base=0.8250 combined=0.2500 delta=-0.5750 preds=sink,attacked_by_source,reaches_cycle,source,has_many_attackers (347.1s)
+  [transfer -G] base=0.4800 combined=0.6267 delta=+0.1467 preds=sink,reaches_cycle,attacked_by_source,source,reinstated (12.7s)
+  [transfer -F] base=0.5172 combined=0.4828 delta=-0.0344 preds=reinstated,floating,undefended_in (607.6s)
+
+========== aux10 LOCO selection validation ==========
+  held    base  scc_cycle  degree_sa  reinstate   reachpos   selected -> preds
+  A      0.566     0.516      0.602*     0.648*     0.613*  reinstatement+reachpos+degree_salience -> reinstated,floating,undefended_in,sink,attacked_by_source
+  B      0.580     0.515      0.614*     0.674*     0.587*  reinstatement+degree_salience+reachpos -> reinstated,floating,undefended_in,has_unattacked_attacker,has_many_attackers
+  C      0.527     0.530*     0.611*     0.595*     0.649*  reachpos+degree_salience+reinstatement+scc_cycle -> sink,attacked_by_source,reaches_cycle,source,has_many_attackers
+  D      0.517     0.530*     0.610*     0.500      0.585*  degree_salience+reachpos+scc_cycle -> has_many_attackers,has_unattacked_attacker,unattacked,sink,attacked_by_source
+  E      0.599     0.552      0.595      0.667*     0.627*  reinstatement+reachpos -> reinstated,floating,undefended_in,attacked_by_source,sink
+  F      0.609     0.549      0.545      0.627*     0.549   reinstatement -> reinstated,floating,undefended_in
+  G      0.579     0.579      0.664*     0.715*     0.762*  reachpos+reinstatement+degree_salience -> sink,reaches_cycle,attacked_by_source,source,reinstated
+  selection tally /7: scc_cycle:2, degree_salience:5, reinstatement:6, reachpos:6
+
+  held  n_com    base  combined   delta   preds
+  A        54   0.518     0.815  +0.296   reinstated,floating,undefended_in,sink,attacked_by_source
+  B        40   0.500     0.625  +0.125   reinstated,floating,undefended_in,has_unattacked_attacker,has_many_attackers
+  C        40   0.825     0.250  -0.575   sink,attacked_by_source,reaches_cycle,source,has_many_attackers
+  D        38   0.447     0.447  +0.000   has_many_attackers,has_unattacked_attacker,unattacked,sink,attacked_by_source
+  E        34   0.676     0.676  +0.000   reinstated,floating,undefended_in,attacked_by_source,sink
+  F        29   0.517     0.483  -0.034   reinstated,floating,undefended_in
+  G        75   0.480     0.627  +0.147   sink,reaches_cycle,attacked_by_source,source,reinstated
+  mean per-condition delta: -0.0059 (range -0.575 .. +0.296)
+  pooled committed-only: base 0.5548 combined 0.5806 (delta +0.0258, n=310)
+  pooled McNemar (response-level): combined-only 75 / base-only 67 p=0.5571
+  pooled McNemar (cell-level dedup): combined-only 35 / base-only 29 p=0.5323
+
+DONE

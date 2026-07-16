@@ -1,0 +1,173 @@
+[
+ {
+  "arm": "base",
+  "mode": "opl",
+  "rules": [
+   "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not defended(V0), undec(V0), arg(V0).",
+   "violated :- in(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.927007299270073,
+  "cred_acc3": 0.9708029197080292,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "base",
+  "mode": "nopl",
+  "rules": [
+   "violated :- not defended(V0), undec(V0), arg(V0).",
+   "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- in(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.927007299270073,
+  "cred_acc3": 0.9708029197080292,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "mutual",
+  "mode": "opl",
+  "rules": [
+   "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- mutual(V0), undec(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "mutual",
+  "mode": "nopl",
+  "rules": [
+   "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- mutual(V0), undec(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "long",
+  "mode": "opl",
+  "rules": [
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- not in_long_cycle(V0), undec(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "long",
+  "mode": "nopl",
+  "rules": [
+   "violated :- not in_long_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "both",
+  "mode": "opl",
+  "rules": [
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- not in_long_cycle(V0), undec(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "both",
+  "mode": "nopl",
+  "rules": [
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+   "violated :- not in_long_cycle(V0), undec(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.9562043795620438,
+  "cred_acc3": 0.9124087591240876,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "aux9",
+  "mode": "opl",
+  "rules": [
+   "violated :- not in_cycle(V0), undec(V0), arg(V0).",
+   "violated :- not reinstated(V0), undec(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.927007299270073,
+  "cred_acc3": 0.9708029197080292,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "aux9",
+  "mode": "nopl",
+  "rules": [
+   "violated :- undec(V0), not in_cycle(V0), arg(V0).",
+   "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+   "violated :- undec(V0), not reinstated(V0), arg(V0).",
+   "violated :- not out(V0), attacked_by_in(V0), arg(V0)."
+  ],
+  "skept_acc3": 0.927007299270073,
+  "cred_acc3": 0.9708029197080292,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33,
+  "n_labellings": 60
+ },
+ {
+  "arm": "ilasp_maxv1",
+  "mode": "ilasp",
+  "rules": [
+   ":- out(V1); not defeated(V1).",
+   ":- defeated(V1); not out(V1).",
+   "out(V1) :- not_defended(V1); not in(V1)."
+  ],
+  "timed_out": false,
+  "skept_acc3": 0.4233576642335766,
+  "cred_acc3": 0.8832116788321168,
+  "n_cells": 60,
+  "n_negs": 233,
+  "n_graphs": 33
+ }
+]

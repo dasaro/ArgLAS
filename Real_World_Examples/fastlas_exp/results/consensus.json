@@ -1,0 +1,393 @@
+{
+ "final_base": {
+  "phase": "final",
+  "with_aux": false,
+  "n_folds": 5,
+  "consensus_rules": [
+   {
+    "folds": 5,
+    "rule": "violated :- not attacked_by_in(V0), not defended(V0), in(V0), arg(V0).",
+    "canon": "in(V) & not attacked_by_in(V) & not defended(V)"
+   },
+   {
+    "folds": 4,
+    "rule": "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+    "canon": "attacked_by_in(V) & not in_cycle(V) & undec(V)"
+   },
+   {
+    "folds": 4,
+    "rule": "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & not in(V) & not in_cycle(V)"
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+    "canon": "in(V) & in_cycle(V) & not defended(V)"
+   }
+  ],
+  "all_ranked": [
+   {
+    "folds": 5,
+    "rule": "violated :- not attacked_by_in(V0), not defended(V0), in(V0), arg(V0)."
+   },
+   {
+    "folds": 4,
+    "rule": "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 4,
+    "rule": "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- in_cycle(V0), attacked_by_in(V0), in(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- out(V0), defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), undec(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0)."
+   }
+  ],
+  "secs": 98
+ },
+ "final_aux": {
+  "phase": "final",
+  "with_aux": true,
+  "n_folds": 5,
+  "consensus_rules": [
+   {
+    "folds": 3,
+    "rule": "violated :- not out(V0), not reinstated(V0), defended(V0), in_cycle(V0), arg(V0).",
+    "canon": "defended(V) & in_cycle(V) & not out(V) & not reinstated(V)"
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- reinstated(V0), has_many_attackers(V0), arg(V0).",
+    "canon": "has_many_attackers(V) & reinstated(V)"
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- not reinstated(V0), in_cycle(V0), undefended_in(V0), arg(V0).",
+    "canon": "in_cycle(V) & not reinstated(V) & undefended_in(V)"
+   }
+  ],
+  "all_ranked": [
+   {
+    "folds": 3,
+    "rule": "violated :- not out(V0), not reinstated(V0), defended(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- reinstated(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 3,
+    "rule": "violated :- not reinstated(V0), in_cycle(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- not defended(V0), reinstated(V0), not attacked_by_in(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- not defended(V0), not in_cycle(V0), reinstated(V0), undec(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- attacked_by_in(V0), undefended_in(V0), not has_many_attackers(V0), not reinstated(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- defended(V0), in_cycle(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- undec(V0), reinstated(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- not attacked_by_in(V0), not undec(V0), in_cycle(V0), reinstated(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- not attacked_by_in(V0), not has_many_attackers(V0), in_cycle(V0), out(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- defended(V0), out(V0), has_unattacked_attacker(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- undec(V0), defended(V0), not in_cycle(V0), not reinstated(V0), attacked(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- not attacked_by_in(V0), not in_cycle(V0), reinstated(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 2,
+    "rule": "violated :- in_cycle(V0), out(V0), reinstated(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- attacked_by_in(V0), not in_cycle(V0), floating(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), defended(V0), undec(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- attacked_by_in(V0), not in_cycle(V0), undec(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not in_cycle(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), has_unattacked_attacker(V0), not attacked_by_in(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undefended_in(V0), not reinstated(V0), not attacked_by_in(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- has_unattacked_attacker(V0), defended(V0), not in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- attacked_by_in(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), not reinstated(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not in_cycle(V0), not attacked_by_in(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- attacked_by_in(V0), undefended_in(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undefended_in(V0), not has_many_attackers(V0), not attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undefended_in(V0), has_unattacked_attacker(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), undefended_in(V0), not has_unattacked_attacker(V0), not attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- in(V0), not has_many_attackers(V0), not reinstated(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), not reinstated(V0), defended(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- attacked_by_in(V0), undefended_in(V0), not has_many_attackers(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- reinstated(V0), defended(V0), in_cycle(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undefended_in(V0), not has_many_attackers(V0), not floating(V0), not attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not has_many_attackers(V0), has_unattacked_attacker(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), not floating(V0), not has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not in_cycle(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not floating(V0), in_cycle(V0), out(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), in_cycle(V0), floating(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), not has_unattacked_attacker(V0), in_cycle(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), floating(V0), out(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not in_cycle(V0), reinstated(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), in(V0), in_cycle(V0), floating(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not has_many_attackers(V0), floating(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), not reinstated(V0), not has_unattacked_attacker(V0), out(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- in(V0), in_cycle(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not reinstated(V0), not has_many_attackers(V0), floating(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in(V0), defended(V0), in_cycle(V0), reinstated(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), defended(V0), has_unattacked_attacker(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), not has_unattacked_attacker(V0), has_many_attackers(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), not has_unattacked_attacker(V0), in(V0), in_cycle(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not in_cycle(V0), reinstated(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), in_cycle(V0), has_unattacked_attacker(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- defended(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- defended(V0), reinstated(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not in_cycle(V0), floating(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), not floating(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), defended(V0), not reinstated(V0), attacked(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), not in_cycle(V0), not floating(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not reinstated(V0), floating(V0), not has_many_attackers(V0), attacked_by_in(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), not in_cycle(V0), has_unattacked_attacker(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not has_many_attackers(V0), not floating(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), floating(V0), has_many_attackers(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), not has_many_attackers(V0), out(V0), not defended(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not attacked_by_in(V0), not reinstated(V0), not has_unattacked_attacker(V0), in_cycle(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not in_cycle(V0), has_unattacked_attacker(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not in_cycle(V0), not defended(V0), has_unattacked_attacker(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), reinstated(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), floating(V0), attacked_by_in(V0), in_cycle(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not out(V0), not attacked_by_in(V0), not reinstated(V0), floating(V0), has_many_attackers(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- defended(V0), not in_cycle(V0), not reinstated(V0), not has_many_attackers(V0), attacked(V0), out(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- undec(V0), not defended(V0), reinstated(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), not has_many_attackers(V0), in(V0), floating(V0), attacked_by_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not floating(V0), not has_many_attackers(V0), undefended_in(V0), arg(V0)."
+   },
+   {
+    "folds": 1,
+    "rule": "violated :- not in_cycle(V0), not has_many_attackers(V0), not has_unattacked_attacker(V0), out(V0), not defended(V0), arg(V0)."
+   }
+  ],
+  "secs": 1113
+ }
+}

@@ -1,0 +1,196 @@
+{
+ "GRD_E2": [
+  {
+   "fold": 1,
+   "f": 10,
+   "TP": 50,
+   "FP": 3,
+   "TN": 47,
+   "FN": 0,
+   "MCC": 0.9417,
+   "ACC": 0.97
+  },
+  {
+   "fold": 1,
+   "f": 20,
+   "TP": 50,
+   "FP": 3,
+   "TN": 47,
+   "FN": 0,
+   "MCC": 0.9417,
+   "ACC": 0.97
+  },
+  {
+   "fold": 2,
+   "f": 10,
+   "TP": 11,
+   "FP": 18,
+   "TN": 32,
+   "FN": 39,
+   "MCC": -0.1543,
+   "ACC": 0.43
+  },
+  {
+   "fold": 2,
+   "f": 20,
+   "TP": 50,
+   "FP": 2,
+   "TN": 48,
+   "FN": 0,
+   "MCC": 0.9608,
+   "ACC": 0.98
+  },
+  {
+   "fold": 3,
+   "f": 10,
+   "TP": 16,
+   "FP": 21,
+   "TN": 29,
+   "FN": 34,
+   "MCC": -0.1036,
+   "ACC": 0.45
+  },
+  {
+   "fold": 3,
+   "f": 20,
+   "TP": 50,
+   "FP": 2,
+   "TN": 48,
+   "FN": 0,
+   "MCC": 0.9608,
+   "ACC": 0.98
+  },
+  {
+   "fold": 4,
+   "f": 10,
+   "TP": 6,
+   "FP": 30,
+   "TN": 20,
+   "FN": 44,
+   "MCC": -0.5,
+   "ACC": 0.26
+  },
+  {
+   "fold": 4,
+   "f": 20,
+   "TP": 50,
+   "FP": 2,
+   "TN": 48,
+   "FN": 0,
+   "MCC": 0.9608,
+   "ACC": 0.98
+  },
+  {
+   "fold": 5,
+   "f": 10,
+   "TP": 12,
+   "FP": 28,
+   "TN": 22,
+   "FN": 38,
+   "MCC": -0.3266,
+   "ACC": 0.34
+  },
+  {
+   "fold": 5,
+   "f": 20,
+   "TP": 50,
+   "FP": 3,
+   "TN": 47,
+   "FN": 0,
+   "MCC": 0.9417,
+   "ACC": 0.97
+  }
+ ],
+ "PRF_bare": [
+  {
+   "fold": 1,
+   "f": 10,
+   "bare_exact_heldout": "18/95",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 1,
+   "f": 20,
+   "bare_exact_heldout": "94/95",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 2,
+   "f": 10,
+   "bare_exact_heldout": "97/97",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 2,
+   "f": 20,
+   "bare_exact_heldout": "97/97",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 3,
+   "f": 10,
+   "bare_exact_heldout": "0/98",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 3,
+   "f": 20,
+   "bare_exact_heldout": "98/98",
+   "incoherent_exact": "14/14"
+  },
+  {
+   "fold": 4,
+   "f": 10,
+   "bare_exact_heldout": "51/97",
+   "incoherent_exact": "1/14"
+  },
+  {
+   "fold": 4,
+   "f": 20,
+   "bare_exact_heldout": "19/97",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 5,
+   "f": 10,
+   "bare_exact_heldout": "98/99",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 5,
+   "f": 20,
+   "bare_exact_heldout": "21/99",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 1,
+   "f": 40,
+   "bare_exact_heldout": "94/95",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 2,
+   "f": 40,
+   "bare_exact_heldout": "64/97",
+   "incoherent_exact": "1/14"
+  },
+  {
+   "fold": 3,
+   "f": 40,
+   "bare_exact_heldout": "98/98",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 4,
+   "f": 40,
+   "bare_exact_heldout": "97/97",
+   "incoherent_exact": "0/14"
+  },
+  {
+   "fold": 5,
+   "f": 40,
+   "bare_exact_heldout": "98/99",
+   "incoherent_exact": "0/14"
+  }
+ ]
+}

@@ -1,0 +1,2 @@
+violated :- not out(V0), attacked_by_in(V0), arg(V0).
+violated :- not in(V0), defended(V0), arg(V0).

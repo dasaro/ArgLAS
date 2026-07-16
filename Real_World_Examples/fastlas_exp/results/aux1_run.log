@@ -1,0 +1,9 @@
+=== BASELINE (no aux) ===
+  [BASE] fold 1/5 1.3s (4r) running co=0.444
+  [BASE] fold 2/5 1.8s (5r) running co=0.549
+  [BASE] fold 3/5 1.1s (5r) running co=0.518
+  [BASE] fold 4/5 18.4s (4r) running co=0.567
+  [BASE] fold 5/5 39.0s (5r) running co=0.594
+### BASE: committed_only_cred=0.5935  skept_acc3=0.4586  committed_only_skept=0.2226  to=0 empty=0 61.6s
+=== AUX variant=mutual (maxv=1) ===
+  [mutual] fold 1/5 2.8s (6r) running co=0.378

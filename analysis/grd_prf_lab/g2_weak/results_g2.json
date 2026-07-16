@@ -1,0 +1,642 @@
+[
+  {
+    "fold": 1,
+    "f": 10,
+    "variant": "V1_tight",
+    "n_train_examples": 18,
+    "n_orderings": 8,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 1,
+    "f": 10,
+    "variant": "V2_default",
+    "n_train_examples": 18,
+    "n_orderings": 8,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 1,
+    "f": 20,
+    "variant": "V1_tight",
+    "n_train_examples": 58,
+    "n_orderings": 38,
+    "ilasp_seconds": 0.09,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 1,
+    "f": 20,
+    "variant": "V2_default",
+    "n_train_examples": 58,
+    "n_orderings": 38,
+    "ilasp_seconds": 0.09,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 2,
+    "f": 10,
+    "variant": "V1_tight",
+    "n_train_examples": 25,
+    "n_orderings": 15,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 2,
+    "f": 10,
+    "variant": "V2_default",
+    "n_train_examples": 25,
+    "n_orderings": 15,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 2,
+    "f": 20,
+    "variant": "V1_tight",
+    "n_train_examples": 36,
+    "n_orderings": 16,
+    "ilasp_seconds": 0.07,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 2,
+    "f": 20,
+    "variant": "V2_default",
+    "n_train_examples": 36,
+    "n_orderings": 16,
+    "ilasp_seconds": 0.07,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 69,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 3,
+    "f": 10,
+    "variant": "V1_tight",
+    "n_train_examples": 38,
+    "n_orderings": 28,
+    "ilasp_seconds": 0.08,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 71,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 3,
+    "f": 10,
+    "variant": "V2_default",
+    "n_train_examples": 38,
+    "n_orderings": 28,
+    "ilasp_seconds": 0.08,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 71,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 3,
+    "f": 20,
+    "variant": "V1_tight",
+    "n_train_examples": 42,
+    "n_orderings": 22,
+    "ilasp_seconds": 0.07,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 71,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 3,
+    "f": 20,
+    "variant": "V2_default",
+    "n_train_examples": 42,
+    "n_orderings": 22,
+    "ilasp_seconds": 0.07,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 71,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 4,
+    "f": 10,
+    "variant": "V1_tight",
+    "n_train_examples": 22,
+    "n_orderings": 12,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 66,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 4,
+    "f": 10,
+    "variant": "V2_default",
+    "n_train_examples": 22,
+    "n_orderings": 12,
+    "ilasp_seconds": 0.06,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 66,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 4,
+    "f": 20,
+    "variant": "V1_tight",
+    "n_train_examples": 61,
+    "n_orderings": 41,
+    "ilasp_seconds": 0.1,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 66,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 4,
+    "f": 20,
+    "variant": "V2_default",
+    "n_train_examples": 61,
+    "n_orderings": 41,
+    "ilasp_seconds": 0.09,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 66,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 5,
+    "f": 10,
+    "variant": "V1_tight",
+    "n_train_examples": 42,
+    "n_orderings": 32,
+    "ilasp_seconds": 0.09,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 73,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 5,
+    "f": 10,
+    "variant": "V2_default",
+    "n_train_examples": 42,
+    "n_orderings": 32,
+    "ilasp_seconds": 0.09,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 73,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 5,
+    "f": 20,
+    "variant": "V1_tight",
+    "n_train_examples": 54,
+    "n_orderings": 34,
+    "ilasp_seconds": 0.08,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 73,
+      "pos_gt_mismatch": 0
+    }
+  },
+  {
+    "fold": 5,
+    "f": 20,
+    "variant": "V2_default",
+    "n_train_examples": 54,
+    "n_orderings": 34,
+    "ilasp_seconds": 0.08,
+    "timed_out": false,
+    "unsat": false,
+    "learned": [
+      ":~ out(V1).[1@1, V1]"
+    ],
+    "eval": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "mcc": 1.0,
+      "acc": 1.0,
+      "pos_correct": [
+        50,
+        50
+      ],
+      "neg_correct": [
+        50,
+        50
+      ],
+      "bare_aaf_exact_acc": 1.0,
+      "bare_aaf_n": 73,
+      "pos_gt_mismatch": 0
+    }
+  }
+]

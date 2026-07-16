@@ -1,0 +1,39 @@
+{
+ "manuscript_STB": {
+  "checked": 66066,
+  "counterexamples": [],
+  "secs": 27.1
+ },
+ "manuscript_ADM": {
+  "checked": 66066,
+  "counterexamples": [],
+  "secs": 31.8
+ },
+ "manuscript_CMP": {
+  "checked": 66066,
+  "counterexamples": [],
+  "secs": 32.1
+ },
+ "ondisk_variant_STB": {
+  "checked": 66066,
+  "counterexamples": [],
+  "secs": 28.5
+ },
+ "ondisk_variant_ADM": {
+  "checked": 66066,
+  "counterexamples": [],
+  "secs": 33.8
+ },
+ "campaign_STB": {
+  "checked": 500,
+  "mismatches": 0
+ },
+ "campaign_ADM": {
+  "checked": 500,
+  "mismatches": 0
+ },
+ "campaign_CMP": {
+  "checked": 500,
+  "mismatches": 0
+ }
+}

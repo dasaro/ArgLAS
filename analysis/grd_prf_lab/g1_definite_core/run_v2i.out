@@ -1,0 +1,42 @@
+
+=== Va_nochoice_fold1_f10_v2i: ILASP 1.0s timed_out=False unsat=False rc=0
+    in(V1) :- supported(V1).
+    out(V1) :- not_defended(V1).
+    E1_bare: {'TP': 22, 'FP': 0, 'TN': 0, 'FN': 78, 'acc': 0.22, 'acc_nonempty_grounded': 0.5789473684210527, 'n_nonempty_grounded': 38, 'mcc': 0.0}
+    E2_disc: {'TP': 7, 'FP': 18, 'TN': 32, 'FN': 43, 'acc': 0.39, 'mcc': -0.2540341184434353}
+
+=== Va_nochoice_fold1_f20_v2i: ILASP 1.5s timed_out=False unsat=False rc=0
+    out(V1) :- defeated(V1).
+    in(V1) :- supported(V1).
+    E1_bare: {'TP': 100, 'FP': 0, 'TN': 0, 'FN': 0, 'acc': 1.0, 'acc_nonempty_grounded': 1.0, 'n_nonempty_grounded': 38, 'mcc': 0.0}
+    E2_disc: {'TP': 50, 'FP': 3, 'TN': 47, 'FN': 0, 'acc': 0.97, 'mcc': 0.9416965821485117}
+
+=== Va_nochoice_fold2_f10_v2i: ILASP 1.5s timed_out=False unsat=False rc=0
+    out(V1) :- defeated(V1).
+    in(V1) :- supported(V1).
+    E1_bare: {'TP': 100, 'FP': 0, 'TN': 0, 'FN': 0, 'acc': 1.0, 'acc_nonempty_grounded': 1.0, 'n_nonempty_grounded': 36, 'mcc': 0.0}
+    E2_disc: {'TP': 50, 'FP': 2, 'TN': 48, 'FN': 0, 'acc': 0.98, 'mcc': 0.9607689228305227}
+
+=== Va_nochoice_fold2_f20_v2i: ILASP 1.6s timed_out=False unsat=False rc=0
+    out(V1) :- defeated(V1).
+    in(V1) :- supported(V1).
+    E1_bare: {'TP': 100, 'FP': 0, 'TN': 0, 'FN': 0, 'acc': 1.0, 'acc_nonempty_grounded': 1.0, 'n_nonempty_grounded': 36, 'mcc': 0.0}
+    E2_disc: {'TP': 50, 'FP': 2, 'TN': 48, 'FN': 0, 'acc': 0.98, 'mcc': 0.9607689228305227}
+
+=== Va_nochoice_fold3_f10_v2i: ILASP 1.1s timed_out=False unsat=False rc=0
+    in(V1) :- supported(V1).
+    out(V1) :- not_defended(V1).
+    E1_bare: {'TP': 31, 'FP': 0, 'TN': 0, 'FN': 69, 'acc': 0.31, 'acc_nonempty_grounded': 0.9117647058823529, 'n_nonempty_grounded': 34, 'mcc': 0.0}
+    E2_disc: {'TP': 16, 'FP': 21, 'TN': 29, 'FN': 34, 'acc': 0.45, 'mcc': -0.10356162766686668}
+
+=== Va_nochoice_fold3_f20_v2i: ILASP 1.1s timed_out=False unsat=False rc=0
+    out(V1) :- defeated(V1).
+    in(V1) :- supported(V1).
+    E1_bare: {'TP': 100, 'FP': 0, 'TN': 0, 'FN': 0, 'acc': 1.0, 'acc_nonempty_grounded': 1.0, 'n_nonempty_grounded': 34, 'mcc': 0.0}
+    E2_disc: {'TP': 50, 'FP': 2, 'TN': 48, 'FN': 0, 'acc': 0.98, 'mcc': 0.9607689228305227}
+
+=== Vb_choice_bgsplit_fold1_f20_v2i: ILASP 4.2s timed_out=False unsat=True rc=0
+
+=== Vb_choice_bgsplit_fold2_f20_v2i: ILASP 2.5s timed_out=False unsat=True rc=0
+
+Done. Results in results_g1.json

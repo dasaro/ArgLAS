@@ -1,0 +1,91 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 8                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 9                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 10                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.019s
+%% Hypothesis Space Generation             : 0.176s
+%% Conflict analysis                       : 2.232s
+%%   - Negative Examples                   : 1.477s
+%%   - Positive Examples                   : 0.755s
+%% Counterexample search                   : 0.206s
+%%   - CDOEs                               : 0.003s
+%%   - CDPIs                               : 0.203s
+%% Hypothesis Search                       : 2.178s
+%% Total                                   : 4.877s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_100_PRF_NEG_2 (a total of 156 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_100_P0 (a total of 140 counterexamples found) 
+%% Found hypothesis: [115] 2 
+%%  :- not_defended(V1); not out(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_100_PRF_NEG_3 (a total of 92 counterexamples found) 
+%% Found hypothesis: [100] 2 
+%%  :- in(V1); not supported(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_30_PRF_NEG_3 (a total of 72 counterexamples found) 
+%% Found hypothesis: [533] 3 
+%%  :- att(V1,V2); not out(V2); not att(V2,V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_82_PRF_NEG_2 (a total of 34 counterexamples found) 
+%% Found hypothesis: [8, 53] 4 
+%% out(V1) :- defeated(V1). 
+%%  :- out(V1); not defeated(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_5_16_ANTI_1 (a total of 48 counterexamples found) 
+%% Found hypothesis: [8, 83] 4 
+%% out(V1) :- defeated(V1). 
+%%  :- supported(V1); not in(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_6_91_ANTI_1 (a total of 14 counterexamples found) 
+%% Found hypothesis: [8, 113] 4 
+%% out(V1) :- defeated(V1). 
+%%  :- not_defended(V1); not defeated(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_94_PRF_NEG_3 (a total of 18 counterexamples found) 
+%% Found hypothesis: [89, 100] 4 
+%% in(V1) :- supported(V1). 
+%%  :- in(V1); not supported(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_7_10_ANTI_1 (a total of 6 counterexamples found) 
+%% Found hypothesis: [53, 100] 4 
+%%  :- out(V1); not defeated(V1). 
+%%  :- in(V1); not supported(V1). 
+%% Searching for counterexample... 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+ :- out(V1); not defeated(V1).
+ :- in(V1); not supported(V1).
+

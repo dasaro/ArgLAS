@@ -1,0 +1,2 @@
+out(V0) :- out(V1), arg(V0), arg(V1).
+out(V0) :- att(V1,V0), in(V1), arg(V0), arg(V1).

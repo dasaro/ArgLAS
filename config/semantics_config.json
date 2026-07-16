@@ -1,0 +1,111 @@
+{
+  "global": {
+    "background_file": {
+      "label_generation": null,
+      "train_test_learned": "background_knowledge.lp",
+      "train_test_ground_truth": null
+    },
+    "clingo_args": [],
+    "stage_clingo_args": {
+      "label_generation": [],
+      "train_test_learned": [],
+      "train_test_ground_truth": []
+    },
+    "completion_rules": {
+      "label_generation": false,
+      "train_test_learned": true,
+      "train_test_ground_truth": false
+    },
+    "show_predicates": {
+      "label_generation": [
+        "in/1",
+        "out/1"
+      ],
+      "train_test_learned": [
+        "in/1",
+        "out/1"
+      ],
+      "train_test_ground_truth": [
+        "in/1",
+        "out/1"
+      ]
+    }
+  },
+  "ADM": {
+    "file": "ASPARTIX/admissible.lp",
+    "clingo_args": [],
+    "learn_heuristics": false
+  },
+  "STB": {
+    "file": "ASPARTIX/stable.lp",
+    "clingo_args": [],
+    "learn_heuristics": false
+  },
+  "CMP": {
+    "file": "ASPARTIX/complete.lp",
+    "clingo_args": [],
+    "learn_heuristics": false
+  },
+  "GRD": {
+    "file": "ASPARTIX/grounded.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "completion_rules": {
+      "train_test_learned": false
+    },
+    "eval_on_bare_aaf": true,
+    "learn_background_file": "bg_nochoice_grd.lp",
+    "background_file": {
+      "train_test_learned": "bg_nochoice_grd.lp"
+    }
+  },
+  "PRF": {
+    "file": "ASPARTIX/preferred.lp",
+    "clingo_args": [
+      "--heuristic=Domain",
+      "--enum=domRec"
+    ],
+    "learn_heuristics": false,
+    "completion_rules": {
+      "train_test_learned": false
+    },
+    "background_file": {
+      "train_test_learned": "bg_prf_learned.lp"
+    },
+    "show_predicates": {
+      "train_test_learned": [
+        "in/1"
+      ],
+      "train_test_ground_truth": [
+        "in/1"
+      ]
+    }
+  },
+  "BAF_STB": {
+    "file": "ASPARTIX/baf_stable.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
+  },
+  "BAF_ADM": {
+    "file": "ASPARTIX/baf_admissible.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
+  },
+  "BAF_CMP": {
+    "file": "ASPARTIX/baf_complete.lp",
+    "clingo_args": [],
+    "learn_heuristics": false,
+    "learn_background_file": "bg_baf.lp",
+    "background_file": {
+      "train_test_learned": "bg_baf.lp"
+    }
+  }
+}

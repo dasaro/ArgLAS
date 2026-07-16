@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.011s
+%% Hypothesis Space Generation             : 0.179s
+%% Counterexample search                   : 0.018s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.017s
+%% Hypothesis Search                       : 0.845s
+%% Total                                   : 1.062s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_70_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(2)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(2, 3).\n', 'att(3, 4).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+

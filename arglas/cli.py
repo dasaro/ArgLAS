@@ -1,30 +1,51 @@
 import argparse
-import json
 import sys
 from pathlib import Path
 from typing import Iterable
 
-import cleanup
-import generate_aafs
-import generate_extensions
-import generate_ilasp_task
-import replay_archived_evaluation
-import run_experiment_grid
-import train_test
-import validate_config
-import watch_experiment_grid
-from artifact_paths import resolve_repo_path
 from arglas import __version__
+from arglas import cleanup
+from arglas import generate_aafs
+from arglas import generate_extensions
+from arglas import generate_ilasp_task
+from arglas import train_test
+from arglas import validate_config
+from arglas import demo as demo_module
+from arglas.artifact_paths import repo_root, resolve_repo_path
+from arglas.validate_config import load_batch_config
+
+# Single dispatch table for the core commands: both the argparse subcommands
+# and the fast-path in main() are generated from it.
+CORE_COMMANDS = {
+    "generate-aafs": (generate_aafs.main, "Generate random AAF instances."),
+    "label": (generate_extensions.main, "Label generated AAFs under a selected semantics."),
+    "build-task": (generate_ilasp_task.main, "Build an ILASP learning task from labelled examples."),
+    "learn": (train_test.main, "Run the synthetic ILASP train/test pipeline."),
+    "demo": (demo_module.main,
+             "End-to-end mini pipeline: generate AAFs, label, build task, learn (about a minute)."),
+}
+
+# Benchmark subcommands -> experiments/ module names (lazily imported).
+BENCHMARK_COMMANDS = {
+    "run": ("run_experiment_grid", "Run a benchmark grid from a JSON config."),
+    "watch": ("watch_experiment_grid", "Watch and restart a benchmark grid from a JSON config."),
+    "replay": ("replay_archived_evaluation", "Replay archived learned models through the current evaluator."),
+    "progress": ("campaign_progress", "Show a progress bar for a benchmark grid (add --watch N for a live bar)."),
+}
+
+
+def _experiments(module_name):
+    """Lazy-import an orchestration module from experiments/ (kept outside the
+    core package; used only by the `benchmark` command group)."""
+    import importlib
+    exp_dir = str(repo_root() / "experiments")
+    if exp_dir not in sys.path:
+        sys.path.insert(0, exp_dir)
+    return importlib.import_module(module_name)
 
 
 def sanitize_decimal(value) -> str:
     return str(value).replace(".", "_")
-
-
-def load_batch_config(path: str) -> dict:
-    config_path = resolve_repo_path(path, "batch_config.json")
-    with open(config_path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def run_wrapped(main_func, forwarded_args: Iterable[str], prog: str = None) -> int:
@@ -39,6 +60,8 @@ def run_wrapped(main_func, forwarded_args: Iterable[str], prog: str = None) -> i
             return 0
         if isinstance(code, int):
             return code
+        # Mirror the interpreter's default for SystemExit("message").
+        print(code, file=sys.stderr)
         return 1
     finally:
         sys.argv[0] = original_argv0
@@ -139,37 +162,12 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command")
     subparsers.required = True
 
-    generate_aafs_parser = subparsers.add_parser(
-        "generate-aafs",
-        help="Generate random AAF instances.",
-        add_help=False,
-    )
-    generate_aafs_parser.add_argument("args", nargs=argparse.REMAINDER)
-    generate_aafs_parser.set_defaults(handler=lambda ns: run_wrapped(generate_aafs.main, ns.args, "arglas generate-aafs"))
-
-    label_parser = subparsers.add_parser(
-        "label",
-        help="Label generated AAFs under a selected semantics.",
-        add_help=False,
-    )
-    label_parser.add_argument("args", nargs=argparse.REMAINDER)
-    label_parser.set_defaults(handler=lambda ns: run_wrapped(generate_extensions.main, ns.args, "arglas label"))
-
-    task_parser = subparsers.add_parser(
-        "build-task",
-        help="Build an ILASP learning task from labelled examples.",
-        add_help=False,
-    )
-    task_parser.add_argument("args", nargs=argparse.REMAINDER)
-    task_parser.set_defaults(handler=lambda ns: run_wrapped(generate_ilasp_task.main, ns.args, "arglas build-task"))
-
-    learn_parser = subparsers.add_parser(
-        "learn",
-        help="Run the synthetic ILASP train/test pipeline.",
-        add_help=False,
-    )
-    learn_parser.add_argument("args", nargs=argparse.REMAINDER)
-    learn_parser.set_defaults(handler=lambda ns: run_wrapped(train_test.main, ns.args, "arglas learn"))
+    for name, (main_func, help_text) in CORE_COMMANDS.items():
+        sub = subparsers.add_parser(name, help=help_text, add_help=False)
+        sub.add_argument("args", nargs=argparse.REMAINDER)
+        sub.set_defaults(
+            handler=lambda ns, f=main_func, n=name: run_wrapped(f, ns.args, f"arglas {n}")
+        )
 
     benchmark_parser = subparsers.add_parser(
         "benchmark",
@@ -178,29 +176,14 @@ def build_parser() -> argparse.ArgumentParser:
     benchmark_subparsers = benchmark_parser.add_subparsers(dest="benchmark_command")
     benchmark_subparsers.required = True
 
-    benchmark_run_parser = benchmark_subparsers.add_parser(
-        "run",
-        help="Run a benchmark grid from a JSON config.",
-        add_help=False,
-    )
-    benchmark_run_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_run_parser.set_defaults(handler=lambda ns: run_wrapped(run_experiment_grid.main, ns.args, "arglas benchmark run"))
-
-    benchmark_watch_parser = benchmark_subparsers.add_parser(
-        "watch",
-        help="Watch and restart a benchmark grid from a JSON config.",
-        add_help=False,
-    )
-    benchmark_watch_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_watch_parser.set_defaults(handler=lambda ns: run_wrapped(watch_experiment_grid.main, ns.args, "arglas benchmark watch"))
-
-    benchmark_replay_parser = benchmark_subparsers.add_parser(
-        "replay",
-        help="Replay archived learned models through the current evaluator.",
-        add_help=False,
-    )
-    benchmark_replay_parser.add_argument("args", nargs=argparse.REMAINDER)
-    benchmark_replay_parser.set_defaults(handler=lambda ns: run_wrapped(replay_archived_evaluation.main, ns.args, "arglas benchmark replay"))
+    for name, (module_name, help_text) in BENCHMARK_COMMANDS.items():
+        sub = benchmark_subparsers.add_parser(name, help=help_text, add_help=False)
+        sub.add_argument("args", nargs=argparse.REMAINDER)
+        sub.set_defaults(
+            handler=lambda ns, m=module_name, n=name: run_wrapped(
+                _experiments(m).main, ns.args, f"arglas benchmark {n}"
+            )
+        )
 
     batch_parser = subparsers.add_parser(
         "batch",
@@ -257,22 +240,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv:
-        direct_commands = {
-            "generate-aafs": generate_aafs.main,
-            "label": generate_extensions.main,
-            "build-task": generate_ilasp_task.main,
-            "learn": train_test.main,
-        }
-        if argv[0] in direct_commands:
-            return run_wrapped(direct_commands[argv[0]], argv[1:], f"arglas {argv[0]}")
-        if len(argv) >= 2 and argv[0] == "benchmark":
-            benchmark_commands = {
-                "run": run_experiment_grid.main,
-                "watch": watch_experiment_grid.main,
-                "replay": replay_archived_evaluation.main,
-            }
-            if argv[1] in benchmark_commands:
-                return run_wrapped(benchmark_commands[argv[1]], argv[2:], f"arglas benchmark {argv[1]}")
+        # Fast path: forward directly without building the full parser.
+        if argv[0] in CORE_COMMANDS:
+            return run_wrapped(CORE_COMMANDS[argv[0]][0], argv[1:], f"arglas {argv[0]}")
+        if len(argv) >= 2 and argv[0] == "benchmark" and argv[1] in BENCHMARK_COMMANDS:
+            return run_wrapped(_experiments(BENCHMARK_COMMANDS[argv[1]][0]).main, argv[2:],
+                               f"arglas benchmark {argv[1]}")
 
     parser = build_parser()
     args = parser.parse_args(argv)

@@ -1,0 +1,26 @@
+{
+  "global": {
+    "engine": "ILASP",
+    "fastlas_args": [],
+    "train_timeout_seconds": 1000,
+    "test_par_timeout_seconds": 20,
+    "retry_on_exit_code_minus_11": 1
+  },
+  "ADM": {
+    "ilasp_args": []
+  },
+  "CMP": {
+    "ilasp_args": []
+  },
+  "STB": {
+    "ilasp_args": []
+  },
+  "GRD": {
+    "ilasp_args": [
+      "--version=2i"
+    ]
+  },
+  "PRF": {
+    "ilasp_args": []
+  }
+}

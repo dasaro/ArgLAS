@@ -1,0 +1,5 @@
+input: arg/1.
+input: att/2.
+output: in/1.
+output: out/1.
+assumption: forall X Y (att(X,Y) -> arg(X) and arg(Y)).

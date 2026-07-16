@@ -1,0 +1,128 @@
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+domRec ignored: No domain atoms found.
+computing features + oracle acceptance over 500 frameworks ...
+  100/500  (0s)
+  200/500  (0s)
+  300/500  (0s)
+  400/500  (1s)
+  500/500  (1s)
+dataset: 3000 argument rows from 500 frameworks, 15 features, 1s
+evaluating cred_STB ...
+evaluating skep_STB ...
+evaluating cred_ADMfam ...
+evaluating skep_PRF ...
+evaluating skep_CMP ...
+
+DONE. Wrote results.json, feature_importances.json, summary.md, trees/ to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/tree_baseline

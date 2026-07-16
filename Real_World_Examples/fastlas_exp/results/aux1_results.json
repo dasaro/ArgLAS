@@ -1,0 +1,52 @@
+{
+ "phase": "final",
+ "started": "12:32:41",
+ "runs": {
+  "BASE": {
+   "variant": "BASE",
+   "committed_only_cred": 0.5935483870967742,
+   "committed_only_skept": 0.22258064516129034,
+   "n_committed": 310,
+   "acc3_cred": 0.4262626262626263,
+   "acc3_skept": 0.4585858585858586,
+   "timeouts": 0,
+   "empty": 0,
+   "theories": [
+    [
+     "violated :- not attacked_by_in(V0), not defended(V0), in(V0), arg(V0).",
+     "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+     "violated :- in_cycle(V0), not defended(V0), in(V0), arg(V0).",
+     "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+    ],
+    [
+     "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+     "violated :- in(V0), not defended(V0), not attacked_by_in(V0), arg(V0).",
+     "violated :- not in_cycle(V0), not in(V0), defended(V0), arg(V0).",
+     "violated :- defended(V0), undec(V0), arg(V0).",
+     "violated :- attacked_by_in(V0), not in_cycle(V0), undec(V0), arg(V0)."
+    ],
+    [
+     "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+     "violated :- out(V0), defended(V0), arg(V0).",
+     "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+     "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+     "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0)."
+    ],
+    [
+     "violated :- defended(V0), out(V0), arg(V0).",
+     "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+     "violated :- in(V0), not attacked_by_in(V0), not defended(V0), arg(V0).",
+     "violated :- not in_cycle(V0), undec(V0), arg(V0)."
+    ],
+    [
+     "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0).",
+     "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+     "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+     "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+     "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0)."
+    ]
+   ],
+   "secs": 61.6
+  }
+ }
+}

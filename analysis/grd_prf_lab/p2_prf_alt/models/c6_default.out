@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 4                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 5                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 6                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 7                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 8                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.021s
+%% Hypothesis Space Generation             : 0.18s
+%% Conflict analysis                       : 2.577s
+%%   - Negative Examples                   : 1.062s
+%%   - Positive Examples                   : 1.515s
+%% Counterexample search                   : 0.167s
+%%   - CDOEs                               : 0.005s
+%%   - CDPIs                               : 0.163s
+%% Hypothesis Search                       : 1.403s
+%% Total                                   : 5.026s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_100_N0 (a total of 132 counterexamples found) 
+%% Found hypothesis: [0] 1 
+%%  :- not_defended(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_4_100_P0 (a total of 120 counterexamples found) 
+%% Found hypothesis: [107] 2 
+%% out(V1) :- not_defended(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_100_PRF_NEG_3 (a total of 71 counterexamples found) 
+%% Found hypothesis: [1044] 3 
+%% out(V1) :- arg(V1); not supported(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_30_PRF_NEG_3 (a total of 74 counterexamples found) 
+%% Found hypothesis: [191] 3 
+%% out(V1) :- att(V2,V1); not att(V1,V2). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_82_PRF_NEG_2 (a total of 36 counterexamples found) 
+%% Found hypothesis: [115, 123] 4 
+%%  :- not_defended(V1); not out(V1). 
+%%  :- defeated(V1); not out(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_94_PRF_NEG_3 (a total of 19 counterexamples found) 
+%% Found hypothesis: [63, 107] 4 
+%%  :- out(V1); not not_defended(V1). 
+%% out(V1) :- not_defended(V1). 
+%% Searching for counterexample... 
+%% Found negative counterexample: aaf_4_30_PRF_NEG_2 (a total of 30 counterexamples found) 
+%% Found hypothesis: [89, 172] 5 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- att(V2,V1); not supported(V1). 
+%% Searching for counterexample... 
+%% Found positive counterexample: aaf_5_16_P0 (a total of 16 counterexamples found) 
+UNSATISFIABLE

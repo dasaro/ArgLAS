@@ -10,7 +10,8 @@
 # OS noise
 .DS_Store
 
-# Generated artifact roots
+# Generated artifact roots (default outputs of the core arglas commands when
+# FABIO_ARTIFACTS_ROOT is unset — root-anchored on purpose)
 /artifacts/
 /backup/
 /logs/
@@ -23,6 +24,8 @@
 /benchmarks/
 /aafs/
 /labelled/
+/demo_run/
+/task.las
 
 # Archived/generated bundles
 /results.zip
@@ -51,4 +54,38 @@ __pycache__/
 /Real_World_Examples/runs/
 /Real_World_Examples/_tmp_extract_*/
 /Real_World_Examples/~$*.xlsx
+/Real_World_Examples/data/~$*.xlsx
 ~$*.xlsx
+
+# Campaign runtime log (live output of run_v2_campaign.sh)
+/v2_campaign.out
+/v3_gap*.out
+
+# GRD/PRF lab: deterministic-regenerable pools + e2e scratch (generators are committed)
+analysis/grd_prf_lab/**/pools/
+analysis/grd_prf_lab/**/pool_*/
+analysis/grd_prf_lab/**/labelled_*/
+
+# FastLAS lab noise
+Real_World_Examples/fastlas_exp/__pycache__/
+Real_World_Examples/fastlas_exp/*.log
+Real_World_Examples/fastlas_exp/results/*.partial_bak
+Real_World_Examples/fastlas_exp/paper/*.aux
+Real_World_Examples/fastlas_exp/paper/*.log
+Real_World_Examples/fastlas_exp/paper/page-*.png
+
+# anthem/vampire toolchain (rebuildable; see analysis/zlatina_theorems/anthem/README.md)
+analysis/zlatina_theorems/tools/
+
+# LaTeX build products (the PDF stays tracked)
+docs/aij_paper/*.aux
+docs/aij_paper/*.log
+docs/aij_paper/*.out
+docs/aij_paper/*.spl
+
+# Non-clobber reproduction outputs (regen twins of committed records)
+analysis/figs_regen/
+analysis/tree_baseline/*_regen.json
+analysis/tree_baseline/summary_regen.md
+analysis/tree_baseline/trees_regen/
+analysis/zlatina_theorems/level1_results_regen.json

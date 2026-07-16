@@ -1,0 +1,758 @@
+{
+ "started": "2026-07-03 02:06",
+ "args": {
+  "phases": "final",
+  "folds": 5,
+  "max_neg": 150,
+  "ilasp_timeout": 1800,
+  "opl_timeout": 300,
+  "nopl_timeout": 600,
+  "out": "results/unified_smoke2",
+  "smoke": true
+ },
+ "final": {
+  "phase": "final",
+  "n_responses": 495,
+  "n_participants": 129,
+  "n_folds": 5,
+  "max_neg": 150,
+  "timeouts_cfg": {
+   "ilasp": 240,
+   "opl": 60,
+   "nopl": 120
+  },
+  "folds": [
+   {
+    "fold": 0,
+    "n_train": 111,
+    "n_cells": 45,
+    "n_negs": 177,
+    "neg_w": 63,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 11.6,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       ":- supported(V1); not in(V1).",
+       ":- in(V1); not_defended(V1); not supported(V1).",
+       ":- defeated(V1); not in(V1); not out(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 0.9,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- attacked_by_in(V0), not in_cycle(V0), undec(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in(V0), not defended(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 7.5,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- not in(V0), not in_cycle(V0), defended(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   }
+  ],
+  "status": "done",
+  "running": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 0,
+     "textbook_only": 3,
+     "p": 0.25
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 0,
+     "textbook_only": 3,
+     "p": 0.25
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 8,
+     "p": 0.581055
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 6,
+     "p": 1.0
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.1111,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.3194,
+     "committed_only": 0.4444,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.2667,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 15,
+     "textbook_only": 20,
+     "p": 0.49956
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 8,
+     "textbook_only": 14,
+     "p": 0.286279
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 9,
+     "textbook_only": 16,
+     "p": 0.229523
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 11,
+     "p": 0.210114
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.1111,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.3194,
+     "committed_only": 0.4444,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.3333,
+     "committed_only": 0.2,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 15,
+     "textbook_only": 20,
+     "p": 0.49956
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 8,
+     "textbook_only": 14,
+     "p": 0.286279
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 9,
+     "textbook_only": 16,
+     "p": 0.229523
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 11,
+     "p": 0.210114
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.5333,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4306,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.4028,
+     "committed_only": 0.5778,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4028,
+     "committed_only": 0.5778,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.5333,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4306,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.4167,
+     "committed_only": 0.5556,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4167,
+     "committed_only": 0.6667,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.4028,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "table": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 0,
+     "textbook_only": 3,
+     "p": 0.25
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 0,
+     "textbook_only": 3,
+     "p": 0.25
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 8,
+     "p": 0.581055
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 6,
+     "p": 1.0
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.1111,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.3194,
+     "committed_only": 0.4444,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.2667,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 15,
+     "textbook_only": 20,
+     "p": 0.49956
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 8,
+     "textbook_only": 14,
+     "p": 0.286279
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 9,
+     "textbook_only": 16,
+     "p": 0.229523
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 11,
+     "p": 0.210114
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.1111,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.3194,
+     "committed_only": 0.4444,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.3333,
+     "committed_only": 0.2,
+     "n_committed": 45,
+     "n": 72
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 15,
+     "textbook_only": 20,
+     "p": 0.49956
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 8,
+     "textbook_only": 14,
+     "p": 0.286279
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 9,
+     "textbook_only": 16,
+     "p": 0.229523
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 5,
+     "textbook_only": 11,
+     "p": 0.210114
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.5333,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4306,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.4028,
+     "committed_only": 0.5778,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.3472,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4028,
+     "committed_only": 0.5778,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.5333,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4306,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.375,
+     "committed_only": 0.4889,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.4167,
+     "committed_only": 0.5556,
+     "n_committed": 45,
+     "n": 72
+    },
+    "credulous": {
+     "acc3": 0.4167,
+     "committed_only": 0.6667,
+     "n_committed": 45,
+     "n": 72
+    },
+    "grounded": {
+     "acc3": 0.4028,
+     "committed_only": 0.6222,
+     "n_committed": 45,
+     "n": 72
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "conf": {
+   "ilasp_maxv1|skeptical": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "ilasp_maxv1|credulous": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "ilasp_maxv1|grounded": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "fastlas_opl|skeptical": {
+    "in>undec": 17,
+    "out>undec": 19,
+    "undec>undec": 20,
+    "in>in": 5,
+    "undec>in": 7,
+    "out>in": 4
+   },
+   "fastlas_opl|credulous": {
+    "in>out": 11,
+    "out>out": 9,
+    "undec>out": 12,
+    "in>in": 11,
+    "out>in": 12,
+    "undec>in": 12,
+    "out>undec": 2,
+    "undec>undec": 3
+   },
+   "fastlas_opl|grounded": {
+    "in>undec": 15,
+    "out>undec": 10,
+    "undec>undec": 15,
+    "in>out": 1,
+    "out>out": 6,
+    "in>in": 6,
+    "out>in": 7,
+    "undec>out": 4,
+    "undec>in": 8
+   },
+   "fastlas_nopl|skeptical": {
+    "in>undec": 17,
+    "out>undec": 19,
+    "undec>undec": 20,
+    "in>in": 5,
+    "undec>in": 7,
+    "out>in": 4
+   },
+   "fastlas_nopl|credulous": {
+    "in>out": 11,
+    "out>out": 9,
+    "undec>out": 12,
+    "in>in": 11,
+    "out>in": 12,
+    "undec>in": 12,
+    "out>undec": 2,
+    "undec>undec": 3
+   },
+   "fastlas_nopl|grounded": {
+    "in>undec": 16,
+    "out>undec": 13,
+    "undec>undec": 15,
+    "in>in": 6,
+    "out>in": 7,
+    "undec>out": 4,
+    "undec>in": 8,
+    "out>out": 3
+   },
+   "grounded|skeptical": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "grounded|credulous": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "grounded|grounded": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "preferred|skeptical": {
+    "in>undec": 4,
+    "out>undec": 9,
+    "undec>out": 12,
+    "in>in": 15,
+    "out>out": 9,
+    "undec>in": 12,
+    "in>out": 3,
+    "undec>undec": 3,
+    "out>in": 5
+   },
+   "preferred|credulous": {
+    "in>in": 19,
+    "out>in": 9,
+    "undec>out": 12,
+    "out>out": 9,
+    "out>undec": 5,
+    "undec>in": 12,
+    "in>out": 3,
+    "undec>undec": 3
+   },
+   "preferred|grounded": {
+    "in>in": 16,
+    "out>out": 10,
+    "undec>out": 12,
+    "out>undec": 5,
+    "undec>in": 12,
+    "in>out": 6,
+    "out>in": 8,
+    "undec>undec": 3
+   },
+   "stable|skeptical": {
+    "in>undec": 5,
+    "out>undec": 10,
+    "undec>out": 12,
+    "in>in": 14,
+    "out>out": 8,
+    "undec>in": 12,
+    "in>out": 3,
+    "undec>undec": 3,
+    "out>in": 5
+   },
+   "stable|credulous": {
+    "in>in": 18,
+    "out>in": 9,
+    "undec>out": 12,
+    "in>undec": 1,
+    "out>undec": 6,
+    "out>out": 8,
+    "undec>in": 12,
+    "in>out": 3,
+    "undec>undec": 3
+   },
+   "stable|grounded": {
+    "in>in": 15,
+    "out>out": 9,
+    "undec>out": 12,
+    "in>undec": 1,
+    "out>undec": 6,
+    "undec>in": 12,
+    "in>out": 6,
+    "out>in": 8,
+    "undec>undec": 3
+   },
+   "complete|skeptical": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "complete|credulous": {
+    "in>in": 19,
+    "out>in": 9,
+    "undec>out": 12,
+    "out>out": 9,
+    "out>undec": 5,
+    "undec>in": 12,
+    "in>out": 3,
+    "undec>undec": 3
+   },
+   "complete|grounded": {
+    "in>undec": 8,
+    "out>undec": 10,
+    "undec>undec": 5,
+    "in>in": 14,
+    "undec>out": 10,
+    "out>out": 8,
+    "undec>in": 12,
+    "out>in": 5
+   },
+   "cf2|skeptical": {
+    "in>undec": 4,
+    "out>undec": 7,
+    "undec>undec": 5,
+    "in>in": 15,
+    "out>out": 10,
+    "undec>out": 10,
+    "undec>in": 12,
+    "in>out": 3,
+    "out>in": 6
+   },
+   "cf2|credulous": {
+    "in>in": 19,
+    "out>out": 11,
+    "undec>out": 12,
+    "out>in": 12,
+    "undec>in": 15,
+    "in>out": 3
+   },
+   "cf2|grounded": {
+    "in>in": 16,
+    "out>out": 12,
+    "undec>out": 13,
+    "out>in": 10,
+    "out>undec": 1,
+    "undec>in": 13,
+    "in>out": 6,
+    "undec>undec": 1
+   }
+  }
+ },
+ "status": "ALL DONE"
+}

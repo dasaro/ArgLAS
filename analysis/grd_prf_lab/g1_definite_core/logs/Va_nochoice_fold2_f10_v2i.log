@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.173s
+%% Counterexample search                   : 0.015s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.014s
+%% Hypothesis Search                       : 1.288s
+%% Total                                   : 1.494s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_67_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['in(2)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(3, 1).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 2 : 
+%% in(V1) :- supported(V1). 
+%% Found counterexample {'id': 'aaf_5_100_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(5)', 'out(2)', 'out(1)', 'in(4)', 'in(3)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'att(1, 5).\n', 'att(2, 3).\n', 'att(3, 1).\n', 'att(4, 2).\n', 'att(4, 5).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+

@@ -1,0 +1,142 @@
+{
+ "grounded": {
+  "sem": "grounded",
+  "results": {
+   "ilasp_maxv1": {
+    "acc3": 1.0,
+    "committed_only": 1.0,
+    "n": 495,
+    "gate": "PASS"
+   },
+   "fastlas_opl": {
+    "acc3": 1.0,
+    "committed_only": 1.0,
+    "n": 495,
+    "gate": "PASS"
+   },
+   "fastlas_nopl": {
+    "acc3": 1.0,
+    "committed_only": 1.0,
+    "n": 495,
+    "gate": "PASS"
+   },
+   "textbook_grounded": {
+    "acc3": 1.0,
+    "committed_only": 1.0,
+    "n": 495,
+    "gate": "PASS"
+   }
+  },
+  "folds": [
+   {
+    "fold": 0,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 1.0,
+      "timed_out": false,
+      "rules": [
+       ":- supported(V1); not in(V1).",
+       ":- defeated(V1); not out(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 0.5,
+      "timed_out": false,
+      "rules": [
+       "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- defended(V0), not in(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 4.0,
+      "timed_out": false,
+      "rules": [
+       "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- defended(V0), not in(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 1,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 0.7,
+      "timed_out": false,
+      "rules": [
+       "out(V1) :- defeated(V1).",
+       ":- supported(V1); not in(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 0.5,
+      "timed_out": false,
+      "rules": [
+       "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 2.7,
+      "timed_out": false,
+      "rules": [
+       "violated :- not out(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- defended(V0), not in(V0), arg(V0)."
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "stable_repr": {
+  "ok": 33,
+  "bad": 0
+ },
+ "stable": {
+  "sem": "stable",
+  "results": {
+   "ilasp_maxv1": {
+    "acc3": 0.9212,
+    "committed_only": 0.8818,
+    "n": 495,
+    "gate": "FAIL"
+   },
+   "textbook_stable": {
+    "acc3": 1.0,
+    "committed_only": 1.0,
+    "n": 495,
+    "gate": "PASS"
+   }
+  },
+  "folds": [
+   {
+    "fold": 0,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 1.5,
+      "timed_out": false,
+      "rules": [
+       "out(V1) :- defeated(V1).",
+       "in(V1) :- supported(V1).",
+       ":- in(V1); not supported(V1)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 1,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 1.5,
+      "timed_out": false,
+      "rules": [
+       ":- supported(V1); not in(V1).",
+       ":- defeated(V1); not out(V1).",
+       ":- in(V1); not_defended(V1)."
+      ]
+     }
+    }
+   }
+  ]
+ }
+}

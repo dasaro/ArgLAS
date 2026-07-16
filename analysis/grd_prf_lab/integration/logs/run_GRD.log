@@ -1,0 +1,674 @@
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_10_neg_10_noise_0.las with 20 examples (pos=10, neg=10). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+[Config] GRD: ILASP heuristic learning disabled.
+[Config] ILASP train timeout: 600s | PAR-2 test threshold: 20s | retry_on_exit_code_-11: 1
+[Config] label_oracle_stage=train_test_ground_truth | learned_background=/Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/bg_nochoice_grd.lp | ground_truth_background=(none) | label_oracle_args=(none) | learned_args=(none) | gt_args=(none)
+[Config] grouped_kfold: K=5 group-disjoint folds over source-AAFs (train/test AAF counts per fold: [(400, 100), (400, 100), (400, 100), (400, 100), (400, 100)]); test_per_class=50
+[Config] test_set_policy=grouped_kfold | test_examples_per_class=50 | test_sampling_seed=0 | task_sampling_seed_base=0 | eval_match_policy=full_exact_model
+
+=== Iteration 1 | POS=10, NEG=10, N=0.0 ===
+Generating ILASP task for POS=10, NEG=10, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_10_neg_10_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_10_neg_10_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_5_39_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(3)', 'in(4)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(2, 1).\n', 'att(4, 3).\n', 'att(5, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- att(V1,V2). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_8_33_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(6)', 'out(5)', 'out(2)', 'in(8)', 'in(7)', 'in(4)', 'in(3)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'arg(6).\n', 'arg(7).\n', 'arg(8).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(1, 6).\n', 'att(4, 2).\n', 'att(6, 3).\n', 'att(6, 7).\n', 'att(7, 5).\n', 'att(7, 6).\n', 'att(8, 5).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.17s
+%% Counterexample search                   : 0.016s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.016s
+%% Hypothesis Search                       : 1.296s
+%% Total                                   : 1.5s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_20_neg_20_noise_0.las with 40 examples (pos=20, neg=20). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_1.csv (1/2 rows for iteration 1)
+
+=== Iteration 1 | POS=20, NEG=20, N=0.0 ===
+Generating ILASP task for POS=20, NEG=20, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_20_neg_20_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_1_pos_20_neg_20_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_70_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(2)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(2, 3).\n', 'att(3, 4).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.174s
+%% Counterexample search                   : 0.016s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.016s
+%% Hypothesis Search                       : 0.814s
+%% Total                                   : 1.021s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_10_neg_10_noise_0.las with 20 examples (pos=10, neg=10). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_1.csv (2/2 rows for iteration 1)
+✅ Iteration 1 done: 2/2 rows in /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_1.csv
+
+=== Iteration 2 | POS=10, NEG=10, N=0.0 ===
+Generating ILASP task for POS=10, NEG=10, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_10_neg_10_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_10_neg_10_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_25_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(2)', 'in(3)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 4).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(4, 1).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+in(V1) :- supported(V1).
+out(V1) :- not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.013s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.012s
+%% Hypothesis Search                       : 0.804s
+%% Total                                   : 1.006s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_20_neg_20_noise_0.las with 40 examples (pos=20, neg=20). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+[Mismatch] aaf_4_26_GRD_POS_1.lp
+[Mismatch] aaf_4_32_GRD_POS_1.lp
+[Mismatch] aaf_4_43_GRD_NEG_3.lp
+[Mismatch] aaf_4_43_GRD_NEG_4.lp
+[Mismatch] aaf_4_4_GRD_NEG_4.lp
+[Mismatch] aaf_4_4_GRD_POS_1.lp
+[Mismatch] aaf_4_55_GRD_NEG_1.lp
+[Mismatch] aaf_4_55_GRD_NEG_3.lp
+[Mismatch] aaf_4_55_GRD_POS_1.lp
+[Mismatch] aaf_4_62_GRD_NEG_3.lp
+[Mismatch] aaf_4_62_GRD_POS_1.lp
+[Mismatch] aaf_4_66_GRD_POS_1.lp
+[Mismatch] aaf_4_68_GRD_NEG_1.lp
+[Mismatch] aaf_4_68_GRD_POS_1.lp
+[Mismatch] aaf_4_6_GRD_NEG_4.lp
+[Mismatch] aaf_5_17_GRD_POS_1.lp
+[Mismatch] aaf_5_18_GRD_NEG_2.lp
+[Mismatch] aaf_5_18_GRD_POS_1.lp
+[Mismatch] aaf_5_25_GRD_NEG_1.lp
+[Mismatch] aaf_5_25_GRD_NEG_2.lp
+[Mismatch] aaf_5_50_GRD_POS_1.lp
+[Mismatch] aaf_5_51_GRD_NEG_1.lp
+[Mismatch] aaf_5_51_GRD_POS_1.lp
+[Mismatch] aaf_5_55_GRD_POS_1.lp
+[Mismatch] aaf_5_64_GRD_NEG_3.lp
+[Mismatch] aaf_5_64_GRD_NEG_5.lp
+[Mismatch] aaf_5_64_GRD_POS_1.lp
+[Mismatch] aaf_5_81_GRD_NEG_5.lp
+[Mismatch] aaf_5_8_GRD_POS_1.lp
+[Mismatch] aaf_6_12_GRD_POS_1.lp
+[Mismatch] aaf_6_14_GRD_POS_1.lp
+[Mismatch] aaf_6_16_GRD_NEG_4.lp
+[Mismatch] aaf_6_16_GRD_NEG_5.lp
+[Mismatch] aaf_6_41_GRD_NEG_1.lp
+[Mismatch] aaf_6_54_GRD_NEG_4.lp
+[Mismatch] aaf_6_68_GRD_POS_1.lp
+[Mismatch] aaf_6_72_GRD_NEG_3.lp
+[Mismatch] aaf_6_72_GRD_POS_1.lp
+[Mismatch] aaf_6_73_GRD_POS_1.lp
+[Mismatch] aaf_6_74_GRD_POS_1.lp
+[Mismatch] aaf_6_90_GRD_NEG_4.lp
+[Mismatch] aaf_6_91_GRD_NEG_2.lp
+[Mismatch] aaf_6_91_GRD_NEG_3.lp
+[Mismatch] aaf_7_18_GRD_POS_1.lp
+[Mismatch] aaf_7_22_GRD_NEG_1.lp
+[Mismatch] aaf_7_22_GRD_NEG_5.lp
+[Mismatch] aaf_7_23_GRD_POS_1.lp
+[Mismatch] aaf_7_25_GRD_NEG_2.lp
+[Mismatch] aaf_7_25_GRD_NEG_5.lp
+[Mismatch] aaf_7_31_GRD_NEG_1.lp
+[Mismatch] aaf_7_31_GRD_NEG_3.lp
+[Mismatch] aaf_7_33_GRD_POS_1.lp
+[Mismatch] aaf_7_3_GRD_POS_1.lp
+[Mismatch] aaf_7_44_GRD_POS_1.lp
+[Mismatch] aaf_7_45_GRD_POS_1.lp
+[Mismatch] aaf_7_59_GRD_POS_1.lp
+[Mismatch] aaf_7_81_GRD_POS_1.lp
+[Mismatch] aaf_7_86_GRD_NEG_2.lp
+[Mismatch] aaf_7_86_GRD_POS_1.lp
+[Mismatch] aaf_7_90_GRD_POS_1.lp
+[Mismatch] aaf_8_25_GRD_NEG_1.lp
+[Mismatch] aaf_8_25_GRD_POS_1.lp
+[Mismatch] aaf_8_28_GRD_POS_1.lp
+[Mismatch] aaf_8_35_GRD_POS_1.lp
+[Mismatch] aaf_8_36_GRD_NEG_5.lp
+[Mismatch] aaf_8_36_GRD_POS_1.lp
+[Mismatch] aaf_8_54_GRD_POS_1.lp
+[Mismatch] aaf_8_73_GRD_POS_1.lp
+[Mismatch] aaf_8_7_GRD_NEG_4.lp
+[Mismatch] aaf_8_81_GRD_NEG_2.lp
+[Mismatch] aaf_8_81_GRD_NEG_5.lp
+[Mismatch] aaf_8_84_GRD_POS_1.lp
+[Mismatch] aaf_8_93_GRD_POS_1.lp
+[Mismatch] aaf_8_94_GRD_POS_1.lp
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_2.csv (1/2 rows for iteration 2)
+
+=== Iteration 2 | POS=20, NEG=20, N=0.0 ===
+Generating ILASP task for POS=20, NEG=20, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_20_neg_20_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_2_pos_20_neg_20_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_9_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 4).\n', 'att(2, 3).\n', 'att(3, 2).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.173s
+%% Counterexample search                   : 0.016s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.016s
+%% Hypothesis Search                       : 0.813s
+%% Total                                   : 1.019s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_10_neg_10_noise_0.las with 20 examples (pos=10, neg=10). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_2.csv (2/2 rows for iteration 2)
+✅ Iteration 2 done: 2/2 rows in /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_2.csv
+
+=== Iteration 3 | POS=10, NEG=10, N=0.0 ===
+Generating ILASP task for POS=10, NEG=10, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_10_neg_10_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_10_neg_10_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_5_21_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(2)', 'out(1)', 'in(5)', 'in(4)', 'in(3)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(2, 1).\n', 'att(3, 2).\n', 'att(4, 1).\n', 'att(5, 1).\n', 'att(5, 2).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+in(V1) :- supported(V1).
+out(V1) :- not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.012s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.012s
+%% Hypothesis Search                       : 0.81s
+%% Total                                   : 1.01s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_20_neg_20_noise_0.las with 40 examples (pos=20, neg=20). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+[Mismatch] aaf_4_14_GRD_NEG_2.lp
+[Mismatch] aaf_4_14_GRD_POS_1.lp
+[Mismatch] aaf_4_41_GRD_NEG_2.lp
+[Mismatch] aaf_4_42_GRD_NEG_2.lp
+[Mismatch] aaf_4_82_GRD_POS_1.lp
+[Mismatch] aaf_4_92_GRD_POS_1.lp
+[Mismatch] aaf_5_11_GRD_POS_1.lp
+[Mismatch] aaf_5_2_GRD_NEG_3.lp
+[Mismatch] aaf_5_2_GRD_NEG_5.lp
+[Mismatch] aaf_5_30_GRD_NEG_2.lp
+[Mismatch] aaf_5_30_GRD_NEG_5.lp
+[Mismatch] aaf_5_42_GRD_NEG_1.lp
+[Mismatch] aaf_5_42_GRD_NEG_4.lp
+[Mismatch] aaf_5_42_GRD_POS_1.lp
+[Mismatch] aaf_5_49_GRD_NEG_2.lp
+[Mismatch] aaf_5_49_GRD_POS_1.lp
+[Mismatch] aaf_5_52_GRD_POS_1.lp
+[Mismatch] aaf_5_56_GRD_NEG_5.lp
+[Mismatch] aaf_5_61_GRD_NEG_2.lp
+[Mismatch] aaf_5_61_GRD_POS_1.lp
+[Mismatch] aaf_5_65_GRD_NEG_2.lp
+[Mismatch] aaf_5_65_GRD_NEG_3.lp
+[Mismatch] aaf_5_83_GRD_POS_1.lp
+[Mismatch] aaf_5_96_GRD_NEG_1.lp
+[Mismatch] aaf_6_18_GRD_NEG_3.lp
+[Mismatch] aaf_6_18_GRD_POS_1.lp
+[Mismatch] aaf_6_28_GRD_NEG_3.lp
+[Mismatch] aaf_6_28_GRD_POS_1.lp
+[Mismatch] aaf_6_32_GRD_NEG_1.lp
+[Mismatch] aaf_6_40_GRD_NEG_4.lp
+[Mismatch] aaf_6_40_GRD_POS_1.lp
+[Mismatch] aaf_6_51_GRD_NEG_4.lp
+[Mismatch] aaf_6_51_GRD_POS_1.lp
+[Mismatch] aaf_6_65_GRD_NEG_2.lp
+[Mismatch] aaf_6_65_GRD_POS_1.lp
+[Mismatch] aaf_6_66_GRD_POS_1.lp
+[Mismatch] aaf_6_71_GRD_POS_1.lp
+[Mismatch] aaf_6_93_GRD_NEG_2.lp
+[Mismatch] aaf_6_93_GRD_POS_1.lp
+[Mismatch] aaf_6_99_GRD_POS_1.lp
+[Mismatch] aaf_7_35_GRD_NEG_4.lp
+[Mismatch] aaf_7_35_GRD_NEG_5.lp
+[Mismatch] aaf_7_35_GRD_POS_1.lp
+[Mismatch] aaf_7_38_GRD_NEG_3.lp
+[Mismatch] aaf_7_38_GRD_NEG_5.lp
+[Mismatch] aaf_7_38_GRD_POS_1.lp
+[Mismatch] aaf_7_46_GRD_POS_1.lp
+[Mismatch] aaf_7_47_GRD_POS_1.lp
+[Mismatch] aaf_7_49_GRD_POS_1.lp
+[Mismatch] aaf_7_61_GRD_NEG_5.lp
+[Mismatch] aaf_7_64_GRD_POS_1.lp
+[Mismatch] aaf_7_75_GRD_POS_1.lp
+[Mismatch] aaf_7_78_GRD_NEG_4.lp
+[Mismatch] aaf_7_78_GRD_POS_1.lp
+[Mismatch] aaf_7_79_GRD_POS_1.lp
+[Mismatch] aaf_7_88_GRD_NEG_3.lp
+[Mismatch] aaf_7_88_GRD_POS_1.lp
+[Mismatch] aaf_8_31_GRD_POS_1.lp
+[Mismatch] aaf_8_38_GRD_NEG_3.lp
+[Mismatch] aaf_8_38_GRD_POS_1.lp
+[Mismatch] aaf_8_47_GRD_POS_1.lp
+[Mismatch] aaf_8_49_GRD_NEG_3.lp
+[Mismatch] aaf_8_52_GRD_NEG_4.lp
+[Mismatch] aaf_8_63_GRD_NEG_5.lp
+[Mismatch] aaf_8_67_GRD_NEG_4.lp
+[Mismatch] aaf_8_67_GRD_POS_1.lp
+[Mismatch] aaf_8_85_GRD_POS_1.lp
+[Mismatch] aaf_8_86_GRD_NEG_1.lp
+[Mismatch] aaf_8_86_GRD_POS_1.lp
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_3.csv (1/2 rows for iteration 3)
+
+=== Iteration 3 | POS=20, NEG=20, N=0.0 ===
+Generating ILASP task for POS=20, NEG=20, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_20_neg_20_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_3_pos_20_neg_20_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_67_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['in(2)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(3, 1).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 2 : 
+%% in(V1) :- supported(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_85_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(2)', 'out(1)', 'in(4)', 'in(3)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(2, 1).\n', 'att(2, 3).\n', 'att(3, 1).\n', 'att(3, 2).\n', 'att(4, 1).\n', 'att(4, 2).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.174s
+%% Counterexample search                   : 0.022s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.022s
+%% Hypothesis Search                       : 1.25s
+%% Total                                   : 1.465s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_10_neg_10_noise_0.las with 20 examples (pos=10, neg=10). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_3.csv (2/2 rows for iteration 3)
+✅ Iteration 3 done: 2/2 rows in /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_3.csv
+
+=== Iteration 4 | POS=10, NEG=10, N=0.0 ===
+Generating ILASP task for POS=10, NEG=10, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_10_neg_10_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_10_neg_10_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_5_9_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(2)', 'out(1)', 'in(5)', 'in(3)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'att(3, 2).\n', 'att(4, 1).\n', 'att(4, 2).\n', 'att(5, 1).\n', 'att(5, 2).\n', 'att(5, 4).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+in(V1) :- supported(V1).
+out(V1) :- not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.012s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.012s
+%% Hypothesis Search                       : 0.811s
+%% Total                                   : 1.012s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_20_neg_20_noise_0.las with 40 examples (pos=20, neg=20). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+[Mismatch] aaf_4_31_GRD_NEG_1.lp
+[Mismatch] aaf_4_31_GRD_NEG_2.lp
+[Mismatch] aaf_4_31_GRD_POS_1.lp
+[Mismatch] aaf_4_46_GRD_NEG_4.lp
+[Mismatch] aaf_4_48_GRD_NEG_4.lp
+[Mismatch] aaf_4_48_GRD_POS_1.lp
+[Mismatch] aaf_4_49_GRD_POS_1.lp
+[Mismatch] aaf_4_54_GRD_NEG_2.lp
+[Mismatch] aaf_4_65_GRD_NEG_5.lp
+[Mismatch] aaf_4_65_GRD_POS_1.lp
+[Mismatch] aaf_4_94_GRD_POS_1.lp
+[Mismatch] aaf_5_34_GRD_NEG_2.lp
+[Mismatch] aaf_5_34_GRD_NEG_4.lp
+[Mismatch] aaf_5_34_GRD_POS_1.lp
+[Mismatch] aaf_5_39_GRD_POS_1.lp
+[Mismatch] aaf_5_3_GRD_POS_1.lp
+[Mismatch] aaf_5_66_GRD_NEG_2.lp
+[Mismatch] aaf_5_66_GRD_NEG_5.lp
+[Mismatch] aaf_5_6_GRD_NEG_2.lp
+[Mismatch] aaf_5_6_GRD_POS_1.lp
+[Mismatch] aaf_5_78_GRD_POS_1.lp
+[Mismatch] aaf_5_85_GRD_NEG_2.lp
+[Mismatch] aaf_5_85_GRD_POS_1.lp
+[Mismatch] aaf_5_87_GRD_POS_1.lp
+[Mismatch] aaf_5_88_GRD_POS_1.lp
+[Mismatch] aaf_6_10_GRD_NEG_1.lp
+[Mismatch] aaf_6_10_GRD_NEG_3.lp
+[Mismatch] aaf_6_1_GRD_POS_1.lp
+[Mismatch] aaf_6_26_GRD_NEG_4.lp
+[Mismatch] aaf_6_26_GRD_POS_1.lp
+[Mismatch] aaf_6_31_GRD_NEG_1.lp
+[Mismatch] aaf_6_31_GRD_POS_1.lp
+[Mismatch] aaf_6_34_GRD_POS_1.lp
+[Mismatch] aaf_6_46_GRD_NEG_2.lp
+[Mismatch] aaf_6_46_GRD_NEG_5.lp
+[Mismatch] aaf_6_50_GRD_NEG_1.lp
+[Mismatch] aaf_6_57_GRD_POS_1.lp
+[Mismatch] aaf_6_58_GRD_NEG_4.lp
+[Mismatch] aaf_6_58_GRD_POS_1.lp
+[Mismatch] aaf_6_63_GRD_NEG_5.lp
+[Mismatch] aaf_6_70_GRD_NEG_2.lp
+[Mismatch] aaf_6_82_GRD_NEG_5.lp
+[Mismatch] aaf_6_86_GRD_NEG_1.lp
+[Mismatch] aaf_6_8_GRD_POS_1.lp
+[Mismatch] aaf_6_97_GRD_NEG_3.lp
+[Mismatch] aaf_6_97_GRD_NEG_4.lp
+[Mismatch] aaf_6_97_GRD_POS_1.lp
+[Mismatch] aaf_7_10_GRD_NEG_2.lp
+[Mismatch] aaf_7_14_GRD_NEG_1.lp
+[Mismatch] aaf_7_14_GRD_POS_1.lp
+[Mismatch] aaf_7_19_GRD_NEG_5.lp
+[Mismatch] aaf_7_19_GRD_POS_1.lp
+[Mismatch] aaf_7_27_GRD_NEG_1.lp
+[Mismatch] aaf_7_32_GRD_POS_1.lp
+[Mismatch] aaf_7_50_GRD_POS_1.lp
+[Mismatch] aaf_7_56_GRD_POS_1.lp
+[Mismatch] aaf_7_57_GRD_POS_1.lp
+[Mismatch] aaf_7_58_GRD_NEG_3.lp
+[Mismatch] aaf_7_63_GRD_POS_1.lp
+[Mismatch] aaf_7_67_GRD_NEG_4.lp
+[Mismatch] aaf_7_67_GRD_POS_1.lp
+[Mismatch] aaf_7_68_GRD_POS_1.lp
+[Mismatch] aaf_7_70_GRD_NEG_3.lp
+[Mismatch] aaf_7_70_GRD_POS_1.lp
+[Mismatch] aaf_7_76_GRD_POS_1.lp
+[Mismatch] aaf_7_83_GRD_POS_1.lp
+[Mismatch] aaf_8_11_GRD_POS_1.lp
+[Mismatch] aaf_8_12_GRD_NEG_4.lp
+[Mismatch] aaf_8_12_GRD_POS_1.lp
+[Mismatch] aaf_8_15_GRD_NEG_1.lp
+[Mismatch] aaf_8_17_GRD_POS_1.lp
+[Mismatch] aaf_8_18_GRD_POS_1.lp
+[Mismatch] aaf_8_19_GRD_NEG_2.lp
+[Mismatch] aaf_8_19_GRD_POS_1.lp
+[Mismatch] aaf_8_30_GRD_POS_1.lp
+[Mismatch] aaf_8_42_GRD_NEG_4.lp
+[Mismatch] aaf_8_42_GRD_POS_1.lp
+[Mismatch] aaf_8_43_GRD_NEG_5.lp
+[Mismatch] aaf_8_4_GRD_NEG_1.lp
+[Mismatch] aaf_8_4_GRD_NEG_2.lp
+[Mismatch] aaf_8_4_GRD_POS_1.lp
+[Mismatch] aaf_8_55_GRD_POS_1.lp
+[Mismatch] aaf_8_72_GRD_NEG_1.lp
+[Mismatch] aaf_8_8_GRD_NEG_3.lp
+[Mismatch] aaf_8_8_GRD_POS_1.lp
+[Mismatch] aaf_8_90_GRD_NEG_3.lp
+[Mismatch] aaf_8_90_GRD_POS_1.lp
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_4.csv (1/2 rows for iteration 4)
+
+=== Iteration 4 | POS=20, NEG=20, N=0.0 ===
+Generating ILASP task for POS=20, NEG=20, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_20_neg_20_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_4_pos_20_neg_20_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_47_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(3)', 'out(2)', 'in(4)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 3).\n', 'att(3, 2).\n', 'att(4, 2).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found violating interpretation (truncated) for example  aaf_6_52_GRD_NEG_4T : ['arg(1)', 'arg(2)', 'arg(3)', 'arg(4)', 'arg(5)', 'arg(6)', 'att(1,4)', 'att(1,5)', 'att(1,6)'] 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- att(V2,V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 3                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_35_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': [], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(1, 4).\n', 'att(2, 3).\n', 'att(2, 4).\n', 'att(3, 1).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 2).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.174s
+%% Conflict analysis                       : 0.164s
+%%   - Negative Examples                   : 0.164s
+%% Counterexample search                   : 0.035s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.035s
+%% Hypothesis Search                       : 1.335s
+%% Total                                   : 1.727s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_10_neg_10_noise_0.las with 20 examples (pos=10, neg=10). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_4.csv (2/2 rows for iteration 4)
+✅ Iteration 4 done: 2/2 rows in /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_4.csv
+
+=== Iteration 5 | POS=10, NEG=10, N=0.0 ===
+Generating ILASP task for POS=10, NEG=10, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_10_neg_10_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_10_neg_10_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_25_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(2)', 'in(3)', 'in(1)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 2).\n', 'att(1, 4).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(4, 1).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+in(V1) :- supported(V1).
+out(V1) :- not_defended(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.009s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.01s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.01s
+%% Hypothesis Search                       : 0.813s
+%% Total                                   : 1.012s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+✅ ILASP learning task generated and saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_20_neg_20_noise_0.las with 40 examples (pos=20, neg=20). Noisy examples=0 (0.00%). Negative policy=oracle_neg.
+[oracle_neg filter] Rejected 0 oracle negatives that became satisfiable under training stack.
+📄 Test set size: 100 files
+[Mismatch] aaf_4_10_GRD_POS_1.lp
+[Mismatch] aaf_4_23_GRD_NEG_4.lp
+[Mismatch] aaf_4_23_GRD_POS_1.lp
+[Mismatch] aaf_4_28_GRD_NEG_2.lp
+[Mismatch] aaf_4_30_GRD_NEG_1.lp
+[Mismatch] aaf_4_3_GRD_NEG_4.lp
+[Mismatch] aaf_4_40_GRD_NEG_5.lp
+[Mismatch] aaf_4_56_GRD_POS_1.lp
+[Mismatch] aaf_4_5_GRD_POS_1.lp
+[Mismatch] aaf_4_64_GRD_NEG_1.lp
+[Mismatch] aaf_4_64_GRD_NEG_4.lp
+[Mismatch] aaf_4_64_GRD_POS_1.lp
+[Mismatch] aaf_4_69_GRD_POS_1.lp
+[Mismatch] aaf_4_80_GRD_POS_1.lp
+[Mismatch] aaf_5_10_GRD_NEG_2.lp
+[Mismatch] aaf_5_10_GRD_POS_1.lp
+[Mismatch] aaf_5_22_GRD_POS_1.lp
+[Mismatch] aaf_5_26_GRD_POS_1.lp
+[Mismatch] aaf_5_43_GRD_NEG_1.lp
+[Mismatch] aaf_5_43_GRD_NEG_4.lp
+[Mismatch] aaf_5_43_GRD_POS_1.lp
+[Mismatch] aaf_5_45_GRD_POS_1.lp
+[Mismatch] aaf_5_59_GRD_NEG_5.lp
+[Mismatch] aaf_5_59_GRD_POS_1.lp
+[Mismatch] aaf_5_72_GRD_POS_1.lp
+[Mismatch] aaf_5_79_GRD_NEG_1.lp
+[Mismatch] aaf_5_84_GRD_POS_1.lp
+[Mismatch] aaf_5_94_GRD_NEG_4.lp
+[Mismatch] aaf_5_94_GRD_POS_1.lp
+[Mismatch] aaf_5_97_GRD_POS_1.lp
+[Mismatch] aaf_5_98_GRD_POS_1.lp
+[Mismatch] aaf_6_100_GRD_POS_1.lp
+[Mismatch] aaf_6_19_GRD_NEG_4.lp
+[Mismatch] aaf_6_19_GRD_POS_1.lp
+[Mismatch] aaf_6_27_GRD_NEG_2.lp
+[Mismatch] aaf_6_27_GRD_POS_1.lp
+[Mismatch] aaf_6_29_GRD_POS_1.lp
+[Mismatch] aaf_6_43_GRD_POS_1.lp
+[Mismatch] aaf_6_48_GRD_NEG_4.lp
+[Mismatch] aaf_6_48_GRD_POS_1.lp
+[Mismatch] aaf_6_52_GRD_NEG_4.lp
+[Mismatch] aaf_6_59_GRD_NEG_5.lp
+[Mismatch] aaf_6_5_GRD_NEG_5.lp
+[Mismatch] aaf_6_81_GRD_POS_1.lp
+[Mismatch] aaf_6_84_GRD_NEG_2.lp
+[Mismatch] aaf_6_95_GRD_NEG_1.lp
+[Mismatch] aaf_7_13_GRD_POS_1.lp
+[Mismatch] aaf_7_15_GRD_NEG_2.lp
+[Mismatch] aaf_7_15_GRD_POS_1.lp
+[Mismatch] aaf_7_1_GRD_POS_1.lp
+[Mismatch] aaf_7_53_GRD_POS_1.lp
+[Mismatch] aaf_7_65_GRD_NEG_2.lp
+[Mismatch] aaf_7_65_GRD_NEG_4.lp
+[Mismatch] aaf_7_77_GRD_POS_1.lp
+[Mismatch] aaf_7_85_GRD_POS_1.lp
+[Mismatch] aaf_7_92_GRD_POS_1.lp
+[Mismatch] aaf_7_95_GRD_NEG_2.lp
+[Mismatch] aaf_7_99_GRD_NEG_2.lp
+[Mismatch] aaf_8_24_GRD_NEG_2.lp
+[Mismatch] aaf_8_48_GRD_NEG_2.lp
+[Mismatch] aaf_8_48_GRD_NEG_3.lp
+[Mismatch] aaf_8_48_GRD_NEG_4.lp
+[Mismatch] aaf_8_48_GRD_POS_1.lp
+[Mismatch] aaf_8_53_GRD_NEG_4.lp
+[Mismatch] aaf_8_53_GRD_POS_1.lp
+[Mismatch] aaf_8_56_GRD_NEG_3.lp
+[Mismatch] aaf_8_56_GRD_POS_1.lp
+[Mismatch] aaf_8_57_GRD_NEG_1.lp
+[Mismatch] aaf_8_71_GRD_NEG_1.lp
+[Mismatch] aaf_8_80_GRD_NEG_3.lp
+[Mismatch] aaf_8_83_GRD_POS_1.lp
+[Mismatch] aaf_8_87_GRD_NEG_3.lp
+[Mismatch] aaf_8_91_GRD_POS_1.lp
+[Mismatch] aaf_8_95_GRD_NEG_3.lp
+[Mismatch] aaf_8_96_GRD_NEG_3.lp
+[Mismatch] aaf_8_96_GRD_NEG_5.lp
+[Mismatch] aaf_8_96_GRD_POS_1.lp
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_5.csv (1/2 rows for iteration 5)
+
+=== Iteration 5 | POS=20, NEG=20, N=0.0 ===
+Generating ILASP task for POS=20, NEG=20, NOISE=0.0, NEG_POLICY=oracle_neg, FLIP_K=1...
+ILASP task saved to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_20_neg_20_noise_0.las
+[G1 shim] stripped 2 choice rules from /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/train/GRD_full/ilasp_task_iter_5_pos_20_neg_20_noise_0.las
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_11_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(1)', 'in(3)', 'in(2)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(1, 4).\n', 'att(2, 1).\n', 'att(2, 4).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_6_14_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': [], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'arg(6).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(1, 6).\n', 'att(2, 3).\n', 'att(2, 4).\n', 'att(2, 6).\n', 'att(3, 1).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(3, 5).\n', 'att(4, 5).\n', 'att(5, 3).\n', 'att(5, 4).\n', 'att(6, 2).\n', 'att(6, 3).\n', 'att(6, 5).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.021s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.021s
+%% Hypothesis Search                       : 1.29s
+%% Total                                   : 1.5s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+📄 Test set size: 100 files
+✅ Appended result to /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_5.csv (2/2 rows for iteration 5)
+✅ Iteration 5 done: 2/2 rows in /Users/fdasaro/Desktop/Zlatina/FabioExperimentsMacM4_claude/analysis/grd_prf_lab/integration/results/GRD_full/results_5.csv
+INTEGRATION RUN COMPLETE: GRD

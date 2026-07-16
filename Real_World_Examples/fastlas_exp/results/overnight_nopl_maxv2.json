@@ -1,0 +1,8 @@
+{
+ "started": "2026-07-03 00:47",
+ "params": {
+  "fold_cap": 3600,
+  "max_neg": 150,
+  "configs": "final:enr,first:enr,final:plain,first:plain"
+ }
+}

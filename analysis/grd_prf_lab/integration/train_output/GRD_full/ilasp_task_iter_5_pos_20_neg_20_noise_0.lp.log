@@ -1,0 +1,32 @@
+===== ILASP attempt 1 (returncode=0, timed_out=0, unsat=0) =====
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 1                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_4_11_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': ['out(4)', 'out(1)', 'in(3)', 'in(2)'], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'att(1, 3).\n', 'att(1, 4).\n', 'att(2, 1).\n', 'att(2, 4).\n', 'att(3, 4).\n', 'att(4, 1).\n', 'att(4, 3).\n']} 
+%% Found hypothesis with score 4 : 
+%% in(V1) :- supported(V1). 
+%% out(V1) :- not_defended(V1). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                Iteration 2                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Found counterexample {'id': 'aaf_6_14_GRD_POS_1T', 'type': 'positive', 'inverted': 'false', 'penalty': -1, 'inclusions': [], 'exclusions': [], 'context': ['arg(1).\n', 'arg(2).\n', 'arg(3).\n', 'arg(4).\n', 'arg(5).\n', 'arg(6).\n', 'att(1, 2).\n', 'att(1, 5).\n', 'att(1, 6).\n', 'att(2, 3).\n', 'att(2, 4).\n', 'att(2, 6).\n', 'att(3, 1).\n', 'att(3, 2).\n', 'att(3, 4).\n', 'att(3, 5).\n', 'att(4, 5).\n', 'att(5, 3).\n', 'att(5, 4).\n', 'att(6, 2).\n', 'att(6, 3).\n', 'att(6, 5).\n']} 
+%% Found hypothesis with score 4 : 
+%% out(V1) :- defeated(V1). 
+%% in(V1) :- supported(V1). 
+%%  
+%%  
+%% Final Hypothesis: 
+%%  
+out(V1) :- defeated(V1).
+in(V1) :- supported(V1).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-processing                          : 0.01s
+%% Hypothesis Space Generation             : 0.172s
+%% Counterexample search                   : 0.021s
+%%   - CDOEs                               : 0s
+%%   - CDPIs                               : 0.021s
+%% Hypothesis Search                       : 1.29s
+%% Total                                   : 1.5s
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

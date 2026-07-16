@@ -1,0 +1,79 @@
+{
+ "n_afs": 66066,
+ "nmax": 4,
+ "n_clean_runs": 1080,
+ "n_distinct_hypotheses": 206,
+ "distinct_per_semantics": {
+  "ADM": 21,
+  "CMP": 94,
+  "PRF": 43,
+  "STB": 48
+ },
+ "distinct_exact": 86,
+ "distinct_exact_per_semantics": {
+  "STB": 18,
+  "ADM": 15,
+  "CMP": 42,
+  "PRF": 11
+ },
+ "runs_overall": {
+  "n": 1080,
+  "exact": 659,
+  "frac": 0.6102
+ },
+ "runs_per_semantics": {
+  "STB": {
+   "n": 270,
+   "exact": 195,
+   "frac": 0.7222
+  },
+  "ADM": {
+   "n": 270,
+   "exact": 211,
+   "frac": 0.7815
+  },
+  "CMP": {
+   "n": 270,
+   "exact": 142,
+   "frac": 0.5259
+  },
+  "PRF": {
+   "n": 270,
+   "exact": 111,
+   "frac": 0.4111
+  }
+ },
+ "runs_f_ge_30": {
+  "n": 900,
+  "exact": 613,
+  "frac": 0.6811
+ },
+ "runs_mcc_full_1": {
+  "n": 682,
+  "exact": 644,
+  "frac": 0.9443
+ },
+ "runs_f_ge_30_per_semantics": {
+  "STB": {
+   "n": 225,
+   "exact": 181,
+   "frac": 0.8044
+  },
+  "ADM": {
+   "n": 225,
+   "exact": 193,
+   "frac": 0.8578
+  },
+  "CMP": {
+   "n": 225,
+   "exact": 138,
+   "frac": 0.6133
+  },
+  "PRF": {
+   "n": 225,
+   "exact": 101,
+   "frac": 0.4489
+  }
+ },
+ "prf_strict_total_distinct_exact": 9
+}

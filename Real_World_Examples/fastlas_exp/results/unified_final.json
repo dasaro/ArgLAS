@@ -1,0 +1,1897 @@
+{
+ "started": "2026-07-03 02:07",
+ "args": {
+  "phases": "final,first",
+  "folds": 5,
+  "max_neg": 150,
+  "ilasp_timeout": 1800,
+  "opl_timeout": 300,
+  "nopl_timeout": 600,
+  "out": "results/unified_final",
+  "smoke": false
+ },
+ "final": {
+  "phase": "final",
+  "n_responses": 495,
+  "n_participants": 129,
+  "n_folds": 5,
+  "max_neg": 150,
+  "timeouts_cfg": {
+   "ilasp": 1800,
+   "opl": 300,
+   "nopl": 600
+  },
+  "folds": [
+   {
+    "fold": 0,
+    "n_train": 111,
+    "n_cells": 45,
+    "n_negs": 177,
+    "neg_w": 63,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 11.8,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       ":- supported(V1); not in(V1).",
+       ":- in(V1); not_defended(V1); not supported(V1).",
+       ":- defeated(V1); not in(V1); not out(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 0.9,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- in_cycle(V0), attacked_by_in(V0), in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), not defended(V0), in(V0), arg(V0).",
+       "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 7.7,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- not in(V0), not in_cycle(V0), defended(V0), arg(V0).",
+       "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- undec(V0), attacked_by_in(V0), not in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 1,
+    "n_train": 109,
+    "n_cells": 46,
+    "n_negs": 176,
+    "neg_w": 62,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 18.7,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       ":- supported(V1); not in(V1).",
+       ":- in(V1); not defeated(V1); not supported(V1).",
+       "out(V1) :- supported(V1); not in(V1).",
+       ":- out(V1); supported(V1); not not_defended(V1).",
+       "out(V1) :- defeated(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 1.7,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- attacked_by_in(V0), not in_cycle(V0), undec(V0), arg(V0).",
+       "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+       "violated :- in(V0), not defended(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- not in_cycle(V0), not in(V0), defended(V0), arg(V0).",
+       "violated :- defended(V0), undec(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 8.7,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- undec(V0), defended(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 2,
+    "n_train": 110,
+    "n_cells": 46,
+    "n_negs": 179,
+    "neg_w": 61,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 13.1,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       ":- in(V1); not defeated(V1); not supported(V1).",
+       ":- defeated(V1); not out(V1); not not_defended(V1).",
+       "out(V1) :- supported(V1); not in(V1).",
+       ":- out(V1); supported(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 0.9,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- attacked_by_in(V0), undec(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in_cycle(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- out(V0), defended(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 7.9,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- defended(V0), out(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 3,
+    "n_train": 81,
+    "n_cells": 45,
+    "n_negs": 178,
+    "neg_w": 46,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 16.1,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       ":- in(V1); not defeated(V1); not supported(V1).",
+       ":- defeated(V1); not out(V1); not not_defended(V1).",
+       ":- supported(V1); not in(V1); not out(V1).",
+       "in(V1) :- supported(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 6.3,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- defended(V0), out(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 10.9,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- defended(V0), out(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 4,
+    "n_train": 105,
+    "n_cells": 46,
+    "n_negs": 178,
+    "neg_w": 59,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 51.0,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "in(V1) :- arg(V1); not defeated(V1); not supported(V1).",
+       ":- defeated(V1); not not_defended(V1).",
+       ":- supported(V1); not in(V1).",
+       ":- in(V1); not defeated(V1); not supported(V1).",
+       "out(V1) :- arg(V1); not not_defended(V1); not supported(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 82.5,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- in_cycle(V0), in(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- not defended(V0), not attacked_by_in(V0), in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 46.3,
+      "timed_out": false,
+      "n_rules": 5,
+      "rules": [
+       "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in(V0), not defended(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), out(V0), in_cycle(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   }
+  ],
+  "status": "done",
+  "running": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.4646,
+     "committed_only": 0.3161,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4465,
+     "committed_only": 0.4097,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4303,
+     "committed_only": 0.3161,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 24,
+     "textbook_only": 115,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 14,
+     "textbook_only": 37,
+     "p": 0.001769
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 100,
+     "textbook_only": 126,
+     "p": 0.096101
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 40,
+     "textbook_only": 46,
+     "p": 0.590036
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.4586,
+     "committed_only": 0.2226,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4263,
+     "committed_only": 0.5935,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.4774,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 50,
+     "textbook_only": 144,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 27,
+     "textbook_only": 54,
+     "p": 0.003596
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 49,
+     "textbook_only": 85,
+     "p": 0.002372
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 31,
+     "textbook_only": 35,
+     "p": 0.712231
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.4586,
+     "committed_only": 0.2226,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4263,
+     "committed_only": 0.5935,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5596,
+     "committed_only": 0.4871,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 50,
+     "textbook_only": 144,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 27,
+     "textbook_only": 54,
+     "p": 0.003596
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 49,
+     "textbook_only": 85,
+     "p": 0.002372
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 31,
+     "textbook_only": 35,
+     "p": 0.712231
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.6384,
+     "committed_only": 0.6806,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5293,
+     "committed_only": 0.7742,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4889,
+     "committed_only": 0.7097,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.6222,
+     "committed_only": 0.6484,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5131,
+     "committed_only": 0.7419,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4727,
+     "committed_only": 0.6774,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5616,
+     "committed_only": 0.7742,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.6485,
+     "committed_only": 0.6871,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.499,
+     "committed_only": 0.7968,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4747,
+     "committed_only": 0.7355,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "table": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.4646,
+     "committed_only": 0.3161,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4465,
+     "committed_only": 0.4097,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4303,
+     "committed_only": 0.3161,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 24,
+     "textbook_only": 115,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 14,
+     "textbook_only": 37,
+     "p": 0.001769
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 100,
+     "textbook_only": 126,
+     "p": 0.096101
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 40,
+     "textbook_only": 46,
+     "p": 0.590036
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.4586,
+     "committed_only": 0.2226,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4263,
+     "committed_only": 0.5935,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.4774,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 50,
+     "textbook_only": 144,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 27,
+     "textbook_only": 54,
+     "p": 0.003596
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 49,
+     "textbook_only": 85,
+     "p": 0.002372
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 31,
+     "textbook_only": 35,
+     "p": 0.712231
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.4586,
+     "committed_only": 0.2226,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4263,
+     "committed_only": 0.5935,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5596,
+     "committed_only": 0.4871,
+     "n_committed": 310,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 50,
+     "textbook_only": 144,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 27,
+     "textbook_only": 54,
+     "p": 0.003596
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 49,
+     "textbook_only": 85,
+     "p": 0.002372
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 31,
+     "textbook_only": 35,
+     "p": 0.712231
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.6384,
+     "committed_only": 0.6806,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5293,
+     "committed_only": 0.7742,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4889,
+     "committed_only": 0.7097,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.6222,
+     "committed_only": 0.6484,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5131,
+     "committed_only": 0.7419,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4727,
+     "committed_only": 0.6774,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.5616,
+     "committed_only": 0.7742,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.5616,
+     "committed_only": 0.5452,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.6485,
+     "committed_only": 0.6871,
+     "n_committed": 310,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.499,
+     "committed_only": 0.7968,
+     "n_committed": 310,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4747,
+     "committed_only": 0.7355,
+     "n_committed": 310,
+     "n": 495
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "conf": {
+   "ilasp_maxv1|skeptical": {
+    "in>undec": 81,
+    "out>undec": 110,
+    "undec>undec": 132,
+    "in>in": 83,
+    "undec>out": 14,
+    "out>out": 15,
+    "undec>in": 39,
+    "out>in": 16,
+    "in>out": 5
+   },
+   "ilasp_maxv1|credulous": {
+    "in>undec": 67,
+    "out>undec": 84,
+    "undec>undec": 94,
+    "in>in": 94,
+    "undec>out": 39,
+    "out>out": 33,
+    "undec>in": 52,
+    "out>in": 24,
+    "in>out": 8
+   },
+   "ilasp_maxv1|grounded": {
+    "in>undec": 76,
+    "out>undec": 101,
+    "undec>undec": 115,
+    "in>in": 83,
+    "undec>out": 31,
+    "out>out": 15,
+    "undec>in": 39,
+    "out>in": 25,
+    "in>out": 10
+   },
+   "fastlas_opl|skeptical": {
+    "in>undec": 100,
+    "out>undec": 130,
+    "undec>undec": 158,
+    "in>in": 69,
+    "undec>in": 27,
+    "out>in": 11
+   },
+   "fastlas_opl|credulous": {
+    "in>out": 20,
+    "out>out": 51,
+    "undec>out": 96,
+    "in>in": 133,
+    "out>in": 81,
+    "undec>in": 62,
+    "out>undec": 9,
+    "undec>undec": 27,
+    "in>undec": 16
+   },
+   "fastlas_opl|grounded": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 130,
+    "in>in": 98,
+    "out>in": 25,
+    "undec>out": 16,
+    "undec>in": 39,
+    "out>out": 50,
+    "in>out": 13
+   },
+   "fastlas_nopl|skeptical": {
+    "in>undec": 100,
+    "out>undec": 130,
+    "undec>undec": 158,
+    "in>in": 69,
+    "undec>in": 27,
+    "out>in": 11
+   },
+   "fastlas_nopl|credulous": {
+    "in>out": 20,
+    "out>out": 51,
+    "undec>out": 96,
+    "in>in": 133,
+    "out>in": 81,
+    "undec>in": 62,
+    "out>undec": 9,
+    "undec>undec": 27,
+    "in>undec": 16
+   },
+   "fastlas_nopl|grounded": {
+    "in>undec": 57,
+    "out>undec": 63,
+    "undec>undec": 126,
+    "in>out": 14,
+    "out>out": 53,
+    "in>in": 98,
+    "out>in": 25,
+    "undec>out": 20,
+    "undec>in": 39
+   },
+   "grounded|skeptical": {
+    "in>undec": 48,
+    "out>undec": 60,
+    "undec>undec": 109,
+    "in>in": 111,
+    "undec>out": 25,
+    "out>out": 58,
+    "undec>in": 51,
+    "out>in": 23,
+    "in>out": 10
+   },
+   "grounded|credulous": {
+    "in>undec": 48,
+    "out>undec": 60,
+    "undec>undec": 109,
+    "in>in": 111,
+    "undec>out": 25,
+    "out>out": 58,
+    "undec>in": 51,
+    "out>in": 23,
+    "in>out": 10
+   },
+   "grounded|grounded": {
+    "in>undec": 48,
+    "out>undec": 60,
+    "undec>undec": 109,
+    "in>in": 111,
+    "undec>out": 25,
+    "out>out": 58,
+    "undec>in": 51,
+    "out>in": 23,
+    "in>out": 10
+   },
+   "preferred|skeptical": {
+    "in>undec": 27,
+    "out>undec": 34,
+    "undec>out": 28,
+    "in>in": 129,
+    "out>out": 82,
+    "undec>in": 52,
+    "in>out": 13,
+    "undec>undec": 105,
+    "out>in": 25
+   },
+   "preferred|credulous": {
+    "in>in": 146,
+    "out>in": 37,
+    "undec>out": 49,
+    "out>out": 94,
+    "out>undec": 10,
+    "undec>in": 114,
+    "in>out": 16,
+    "undec>undec": 22,
+    "in>undec": 7
+   },
+   "preferred|grounded": {
+    "in>in": 133,
+    "out>out": 87,
+    "undec>out": 84,
+    "out>undec": 10,
+    "undec>in": 79,
+    "in>out": 29,
+    "out>in": 44,
+    "undec>undec": 22,
+    "in>undec": 7
+   },
+   "stable|skeptical": {
+    "in>undec": 32,
+    "out>undec": 43,
+    "undec>out": 27,
+    "in>in": 125,
+    "out>out": 76,
+    "undec>in": 51,
+    "in>out": 12,
+    "undec>undec": 107,
+    "out>in": 22
+   },
+   "stable|credulous": {
+    "in>in": 142,
+    "out>in": 34,
+    "undec>out": 48,
+    "in>undec": 12,
+    "out>undec": 19,
+    "out>out": 88,
+    "undec>in": 113,
+    "in>out": 15,
+    "undec>undec": 24
+   },
+   "stable|grounded": {
+    "in>in": 129,
+    "out>out": 81,
+    "undec>out": 83,
+    "in>undec": 12,
+    "out>undec": 19,
+    "undec>in": 78,
+    "in>out": 28,
+    "out>in": 41,
+    "undec>undec": 24
+   },
+   "complete|skeptical": {
+    "in>undec": 48,
+    "out>undec": 60,
+    "undec>undec": 109,
+    "in>in": 111,
+    "undec>out": 25,
+    "out>out": 58,
+    "undec>in": 51,
+    "out>in": 23,
+    "in>out": 10
+   },
+   "complete|credulous": {
+    "in>in": 146,
+    "out>in": 37,
+    "undec>out": 49,
+    "out>out": 94,
+    "out>undec": 10,
+    "undec>in": 98,
+    "in>out": 16,
+    "undec>undec": 38,
+    "in>undec": 7
+   },
+   "complete|grounded": {
+    "in>undec": 48,
+    "out>undec": 60,
+    "undec>undec": 109,
+    "in>in": 111,
+    "undec>out": 25,
+    "out>out": 58,
+    "undec>in": 51,
+    "out>in": 23,
+    "in>out": 10
+   },
+   "cf2|skeptical": {
+    "in>undec": 27,
+    "out>undec": 31,
+    "undec>undec": 108,
+    "in>in": 129,
+    "out>out": 84,
+    "undec>out": 25,
+    "undec>in": 52,
+    "in>out": 13,
+    "out>in": 26
+   },
+   "cf2|credulous": {
+    "in>in": 149,
+    "out>out": 98,
+    "undec>out": 49,
+    "out>in": 43,
+    "undec>in": 136,
+    "in>out": 18,
+    "in>undec": 2
+   },
+   "cf2|grounded": {
+    "in>in": 136,
+    "out>out": 92,
+    "undec>out": 91,
+    "out>in": 47,
+    "out>undec": 2,
+    "undec>in": 87,
+    "in>out": 31,
+    "undec>undec": 7,
+    "in>undec": 2
+   }
+  }
+ },
+ "first": {
+  "phase": "first",
+  "n_responses": 495,
+  "n_participants": 129,
+  "n_folds": 5,
+  "max_neg": 150,
+  "timeouts_cfg": {
+   "ilasp": 1800,
+   "opl": 300,
+   "nopl": 600
+  },
+  "folds": [
+   {
+    "fold": 0,
+    "n_train": 98,
+    "n_cells": 75,
+    "n_negs": 181,
+    "neg_w": 54,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 594.3,
+      "timed_out": false,
+      "n_rules": 6,
+      "rules": [
+       ":- in(V1); defeated(V1); not not_defended(V1).",
+       ":- in(V1); defeated(V1); not_defended(V1).",
+       ":- in(V1); not_defended(V1); not supported(V1).",
+       ":- not_defended(V1); supported(V1); not in(V1).",
+       ":- out(V1); defeated(V1); not not_defended(V1).",
+       "out(V1) :- arg(V1); not in(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 183.4,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- not defended(V0), not attacked_by_in(V0), in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in_cycle(V0), attacked_by_in(V0), in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 609.5,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- not out(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in_cycle(V0), not in(V0), defended(V0), arg(V0).",
+       "violated :- undec(V0), defended(V0), arg(V0).",
+       "violated :- in(V0), attacked_by_in(V0), in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 1,
+    "n_train": 102,
+    "n_cells": 76,
+    "n_negs": 178,
+    "neg_w": 57,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 1800.0,
+      "timed_out": true,
+      "n_rules": 0,
+      "rules": []
+     },
+     "fastlas_opl": {
+      "secs": 301.2,
+      "timed_out": false,
+      "n_rules": 18,
+      "rules": [
+       "violated :- out(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- out(V0), defended(V0), arg(V0).",
+       "violated :- undec(V0), attacked(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- undec(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in_cycle(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- not in(V0), attacked(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not in(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- undec(V0), attacked(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- undec(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- attacked(V0), out(V0), defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- attacked(V0), out(V0), defended(V0), arg(V0).",
+       "violated :- in_cycle(V0), out(V0), defended(V0), arg(V0).",
+       "violated :- not out(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 610.0,
+      "timed_out": false,
+      "n_rules": 13,
+      "rules": [
+       "violated :- attacked(V0), defended(V0), out(V0), not in_cycle(V0), arg(V0).",
+       "violated :- undec(V0), in_cycle(V0), defended(V0), arg(V0).",
+       "violated :- attacked_by_in(V0), in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- attacked_by_in(V0), in(V0), arg(V0).",
+       "violated :- not out(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- undec(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not defended(V0), in_cycle(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), not attacked_by_in(V0), arg(V0).",
+       "violated :- not defended(V0), in(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 2,
+    "n_train": 98,
+    "n_cells": 75,
+    "n_negs": 180,
+    "neg_w": 54,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 805.0,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       ":- defeated(V1); not not_defended(V1).",
+       ":- not_defended(V1); supported(V1); not in(V1).",
+       "out(V1) :- arg(V1); not in(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 16.0,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       "violated :- undec(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in_cycle(V0), attacked_by_in(V0), in(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 60.4,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       "violated :- not attacked_by_in(V0), in_cycle(V0), out(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), not in_cycle(V0), undec(V0), arg(V0).",
+       "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 3,
+    "n_train": 109,
+    "n_cells": 75,
+    "n_negs": 176,
+    "neg_w": 62,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 213.4,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "out(V1) :- not_defended(V1); not in(V1); not defeated(V1).",
+       ":- supported(V1); not in(V1).",
+       ":- defeated(V1); not out(V1); not not_defended(V1).",
+       "out(V1) :- arg(V1); not in(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 23.1,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       "violated :- not in(V0), defended(V0), arg(V0).",
+       "violated :- attacked_by_in(V0), in_cycle(V0), in(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 12.1,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       "violated :- not in(V0), defended(V0), arg(V0).",
+       "violated :- undec(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in_cycle(V0), attacked_by_in(V0), in(V0), arg(V0)."
+      ]
+     }
+    }
+   },
+   {
+    "fold": 4,
+    "n_train": 109,
+    "n_cells": 75,
+    "n_negs": 180,
+    "neg_w": 61,
+    "arms": {
+     "ilasp_maxv1": {
+      "secs": 794.3,
+      "timed_out": false,
+      "n_rules": 3,
+      "rules": [
+       ":- out(V1); defeated(V1); not not_defended(V1).",
+       ":- supported(V1); not in(V1).",
+       ":- in(V1); defeated(V1); not not_defended(V1)."
+      ]
+     },
+     "fastlas_opl": {
+      "secs": 300.9,
+      "timed_out": false,
+      "n_rules": 8,
+      "rules": [
+       "violated :- defended(V0), in_cycle(V0), out(V0), arg(V0).",
+       "violated :- defended(V0), attacked(V0), undec(V0), arg(V0).",
+       "violated :- defended(V0), not in_cycle(V0), undec(V0), arg(V0).",
+       "violated :- defended(V0), undec(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), attacked(V0), not in_cycle(V0), undec(V0), arg(V0).",
+       "violated :- in(V0), in_cycle(V0), attacked_by_in(V0), arg(V0).",
+       "violated :- not out(V0), not attacked_by_in(V0), not defended(V0), not in_cycle(V0), arg(V0).",
+       "violated :- not attacked_by_in(V0), not in_cycle(V0), undec(V0), arg(V0)."
+      ]
+     },
+     "fastlas_nopl": {
+      "secs": 22.6,
+      "timed_out": false,
+      "n_rules": 4,
+      "rules": [
+       "violated :- in_cycle(V0), not in(V0), defended(V0), arg(V0).",
+       "violated :- undec(V0), defended(V0), arg(V0).",
+       "violated :- not out(V0), not defended(V0), not attacked_by_in(V0), not in_cycle(V0), arg(V0).",
+       "violated :- in(V0), attacked_by_in(V0), in_cycle(V0), arg(V0)."
+      ]
+     }
+    }
+   }
+  ],
+  "status": "done",
+  "running": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.366,
+     "committed_only": 0.0483,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.3517,
+     "committed_only": 0.1896,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.3397,
+     "committed_only": 0.1041,
+     "n_committed": 269,
+     "n": 418
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 56,
+     "textbook_only": 154,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 48,
+     "textbook_only": 83,
+     "p": 0.002829
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 102,
+     "textbook_only": 149,
+     "p": 0.003606
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 72,
+     "textbook_only": 87,
+     "p": 0.266825
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.3971,
+     "committed_only": 0.0967,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.4258,
+     "committed_only": 0.4312,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.4498,
+     "committed_only": 0.316,
+     "n_committed": 269,
+     "n": 418
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 53,
+     "textbook_only": 138,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 45,
+     "textbook_only": 72,
+     "p": 0.015864
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 77,
+     "textbook_only": 93,
+     "p": 0.249886
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 62,
+     "textbook_only": 55,
+     "p": 0.57929
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.3636,
+     "committed_only": 0.0372,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.4617,
+     "committed_only": 0.5019,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.4258,
+     "committed_only": 0.2677,
+     "n_committed": 269,
+     "n": 418
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 55,
+     "textbook_only": 154,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 47,
+     "textbook_only": 83,
+     "p": 0.002024
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 81,
+     "textbook_only": 82,
+     "p": 1.0
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 62,
+     "textbook_only": 52,
+     "p": 0.399373
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.5167,
+     "committed_only": 0.4721,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.5167,
+     "committed_only": 0.4721,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.5167,
+     "committed_only": 0.4721,
+     "n_committed": 269,
+     "n": 418
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.5837,
+     "committed_only": 0.6022,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.4856,
+     "committed_only": 0.6989,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.4641,
+     "committed_only": 0.6654,
+     "n_committed": 269,
+     "n": 418
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.5789,
+     "committed_only": 0.5799,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.4809,
+     "committed_only": 0.6766,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.4593,
+     "committed_only": 0.6431,
+     "n_committed": 269,
+     "n": 418
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.5167,
+     "committed_only": 0.4721,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.5191,
+     "committed_only": 0.6989,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.5167,
+     "committed_only": 0.4721,
+     "n_committed": 269,
+     "n": 418
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.6005,
+     "committed_only": 0.6097,
+     "n_committed": 269,
+     "n": 418
+    },
+    "credulous": {
+     "acc3": 0.4641,
+     "committed_only": 0.7212,
+     "n_committed": 269,
+     "n": 418
+    },
+    "grounded": {
+     "acc3": 0.4522,
+     "committed_only": 0.6877,
+     "n_committed": 269,
+     "n": 418
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "table": {
+   "ilasp_maxv1": {
+    "skeptical": {
+     "acc3": 0.3636,
+     "committed_only": 0.0717,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.3475,
+     "committed_only": 0.2056,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.3414,
+     "committed_only": 0.1184,
+     "n_committed": 321,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 71,
+     "textbook_only": 166,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 63,
+     "textbook_only": 95,
+     "p": 0.013401
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 112,
+     "textbook_only": 162,
+     "p": 0.003005
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 82,
+     "textbook_only": 99,
+     "p": 0.234245
+    }
+   },
+   "fastlas_opl": {
+    "skeptical": {
+     "acc3": 0.3859,
+     "committed_only": 0.081,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4081,
+     "committed_only": 0.4237,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4283,
+     "committed_only": 0.3053,
+     "n_committed": 321,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 76,
+     "textbook_only": 160,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 68,
+     "textbook_only": 94,
+     "p": 0.049173
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 88,
+     "textbook_only": 108,
+     "p": 0.174582
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 73,
+     "textbook_only": 70,
+     "p": 0.86725
+    }
+   },
+   "fastlas_nopl": {
+    "skeptical": {
+     "acc3": 0.3576,
+     "committed_only": 0.0312,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4384,
+     "committed_only": 0.4829,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4081,
+     "committed_only": 0.2648,
+     "n_committed": 321,
+     "n": 495
+    },
+    "mcnemar_skeptical_vs_cf2": {
+     "learner_only": 78,
+     "textbook_only": 176,
+     "p": 0.0
+    },
+    "mcnemar_cell_skeptical_vs_cf2": {
+     "learner_only": 70,
+     "textbook_only": 105,
+     "p": 0.009963
+    },
+    "mcnemar_credulous_vs_cf2": {
+     "learner_only": 92,
+     "textbook_only": 97,
+     "p": 0.771175
+    },
+    "mcnemar_cell_credulous_vs_cf2": {
+     "learner_only": 73,
+     "textbook_only": 67,
+     "p": 0.672757
+    }
+   },
+   "grounded": {
+    "skeptical": {
+     "acc3": 0.4828,
+     "committed_only": 0.4548,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4828,
+     "committed_only": 0.4548,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4828,
+     "committed_only": 0.4548,
+     "n_committed": 321,
+     "n": 495
+    }
+   },
+   "preferred": {
+    "skeptical": {
+     "acc3": 0.5394,
+     "committed_only": 0.5701,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4646,
+     "committed_only": 0.6698,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4384,
+     "committed_only": 0.6293,
+     "n_committed": 321,
+     "n": 495
+    }
+   },
+   "stable": {
+    "skeptical": {
+     "acc3": 0.5354,
+     "committed_only": 0.5483,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4606,
+     "committed_only": 0.648,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4343,
+     "committed_only": 0.6075,
+     "n_committed": 321,
+     "n": 495
+    }
+   },
+   "complete": {
+    "skeptical": {
+     "acc3": 0.4828,
+     "committed_only": 0.4548,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4929,
+     "committed_only": 0.6667,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4828,
+     "committed_only": 0.4548,
+     "n_committed": 321,
+     "n": 495
+    }
+   },
+   "cf2": {
+    "skeptical": {
+     "acc3": 0.5556,
+     "committed_only": 0.5794,
+     "n_committed": 321,
+     "n": 495
+    },
+    "credulous": {
+     "acc3": 0.4485,
+     "committed_only": 0.6916,
+     "n_committed": 321,
+     "n": 495
+    },
+    "grounded": {
+     "acc3": 0.4343,
+     "committed_only": 0.6573,
+     "n_committed": 321,
+     "n": 495
+    }
+   },
+   "_comparator": "cf2"
+  },
+  "conf": {
+   "ilasp_maxv1|skeptical": {
+    "in>undec": 142,
+    "out>undec": 142,
+    "undec>undec": 157,
+    "in>out": 9,
+    "out>out": 3,
+    "undec>out": 2,
+    "in>in": 20,
+    "out>in": 5,
+    "undec>in": 15
+   },
+   "ilasp_maxv1|credulous": {
+    "in>undec": 84,
+    "out>undec": 97,
+    "undec>undec": 106,
+    "out>in": 41,
+    "in>in": 54,
+    "undec>in": 53,
+    "undec>out": 15,
+    "in>out": 33,
+    "out>out": 12
+   },
+   "ilasp_maxv1|grounded": {
+    "in>undec": 108,
+    "out>undec": 113,
+    "undec>undec": 131,
+    "out>out": 12,
+    "in>in": 26,
+    "undec>out": 18,
+    "in>out": 37,
+    "out>in": 25,
+    "undec>in": 25
+   },
+   "fastlas_opl|skeptical": {
+    "in>undec": 145,
+    "out>undec": 142,
+    "undec>undec": 165,
+    "in>in": 26,
+    "out>in": 8,
+    "undec>in": 9
+   },
+   "fastlas_opl|credulous": {
+    "in>undec": 26,
+    "out>in": 97,
+    "undec>undec": 66,
+    "out>undec": 37,
+    "in>in": 120,
+    "undec>in": 73,
+    "undec>out": 35,
+    "in>out": 25,
+    "out>out": 16
+   },
+   "fastlas_opl|grounded": {
+    "in>undec": 54,
+    "out>undec": 72,
+    "undec>undec": 114,
+    "in>out": 84,
+    "undec>out": 50,
+    "out>out": 65,
+    "in>in": 33,
+    "out>in": 13,
+    "undec>in": 10
+   },
+   "fastlas_nopl|skeptical": {
+    "in>undec": 161,
+    "out>undec": 146,
+    "undec>undec": 167,
+    "in>in": 10,
+    "out>in": 4,
+    "undec>in": 7
+   },
+   "fastlas_nopl|credulous": {
+    "in>undec": 23,
+    "out>undec": 37,
+    "undec>undec": 62,
+    "in>in": 114,
+    "out>in": 72,
+    "undec>in": 67,
+    "undec>out": 45,
+    "in>out": 34,
+    "out>out": 41
+   },
+   "fastlas_nopl|grounded": {
+    "in>undec": 66,
+    "out>undec": 68,
+    "undec>undec": 117,
+    "in>out": 93,
+    "undec>out": 49,
+    "out>out": 73,
+    "in>in": 12,
+    "out>in": 9,
+    "undec>in": 8
+   },
+   "grounded|skeptical": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 93,
+    "out>in": 35,
+    "in>out": 16,
+    "in>in": 97,
+    "undec>out": 28,
+    "undec>in": 53,
+    "out>out": 49
+   },
+   "grounded|credulous": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 93,
+    "out>in": 35,
+    "in>out": 16,
+    "in>in": 97,
+    "undec>out": 28,
+    "undec>in": 53,
+    "out>out": 49
+   },
+   "grounded|grounded": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 93,
+    "out>in": 35,
+    "in>out": 16,
+    "in>in": 97,
+    "undec>out": 28,
+    "undec>in": 53,
+    "out>out": 49
+   },
+   "preferred|skeptical": {
+    "in>undec": 41,
+    "out>undec": 41,
+    "undec>out": 34,
+    "undec>undec": 84,
+    "in>in": 112,
+    "out>out": 71,
+    "out>in": 38,
+    "in>out": 18,
+    "undec>in": 56
+   },
+   "preferred|credulous": {
+    "in>in": 134,
+    "out>in": 54,
+    "undec>out": 50,
+    "out>out": 81,
+    "undec>in": 109,
+    "in>undec": 9,
+    "undec>undec": 15,
+    "out>undec": 15,
+    "in>out": 28
+   },
+   "preferred|grounded": {
+    "in>in": 121,
+    "out>out": 81,
+    "undec>out": 78,
+    "in>out": 41,
+    "out>in": 54,
+    "undec>in": 81,
+    "in>undec": 9,
+    "undec>undec": 15,
+    "out>undec": 15
+   },
+   "stable|skeptical": {
+    "in>undec": 45,
+    "out>undec": 48,
+    "undec>out": 31,
+    "undec>undec": 89,
+    "in>in": 109,
+    "out>out": 67,
+    "out>in": 35,
+    "in>out": 17,
+    "undec>in": 54
+   },
+   "stable|credulous": {
+    "in>in": 131,
+    "out>in": 51,
+    "undec>out": 47,
+    "out>out": 77,
+    "undec>in": 107,
+    "in>undec": 13,
+    "undec>undec": 20,
+    "out>undec": 22,
+    "in>out": 27
+   },
+   "stable|grounded": {
+    "in>in": 118,
+    "out>out": 77,
+    "undec>out": 75,
+    "in>out": 40,
+    "out>in": 51,
+    "undec>in": 79,
+    "in>undec": 13,
+    "undec>undec": 20,
+    "out>undec": 22
+   },
+   "complete|skeptical": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 93,
+    "out>in": 35,
+    "in>out": 16,
+    "in>in": 97,
+    "undec>out": 28,
+    "undec>in": 53,
+    "out>out": 49
+   },
+   "complete|credulous": {
+    "in>in": 133,
+    "out>in": 54,
+    "undec>out": 50,
+    "out>out": 81,
+    "undec>undec": 30,
+    "in>undec": 10,
+    "out>undec": 15,
+    "in>out": 28,
+    "undec>in": 94
+   },
+   "complete|grounded": {
+    "in>undec": 58,
+    "out>undec": 66,
+    "undec>undec": 93,
+    "out>in": 35,
+    "in>out": 16,
+    "in>in": 97,
+    "undec>out": 28,
+    "undec>in": 53,
+    "out>out": 49
+   },
+   "cf2|skeptical": {
+    "in>undec": 39,
+    "out>undec": 38,
+    "undec>undec": 89,
+    "in>in": 113,
+    "out>out": 73,
+    "undec>out": 30,
+    "out>in": 39,
+    "in>out": 19,
+    "undec>in": 55
+   },
+   "cf2|credulous": {
+    "in>in": 138,
+    "out>out": 84,
+    "undec>out": 50,
+    "undec>in": 124,
+    "out>in": 66,
+    "in>out": 31,
+    "in>undec": 2
+   },
+   "cf2|grounded": {
+    "in>in": 125,
+    "out>out": 86,
+    "undec>out": 85,
+    "in>out": 43,
+    "out>in": 60,
+    "undec>in": 85,
+    "out>undec": 4,
+    "in>undec": 3,
+    "undec>undec": 4
+   }
+  }
+ },
+ "status": "ALL DONE"
+}

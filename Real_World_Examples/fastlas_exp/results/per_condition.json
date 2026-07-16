@@ -1,0 +1,271 @@
+{
+ "final": {
+  "A": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.852,
+    "preferred": 0.852,
+    "stable": 0.852,
+    "complete": 0.852,
+    "cf2": 0.852
+   },
+   "best_textbook": "grounded",
+   "best_val": 0.852
+  },
+  "B": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.1,
+    "preferred": 1.0,
+    "stable": 1.0,
+    "complete": 1.0,
+    "cf2": 1.0
+   },
+   "best_textbook": "preferred",
+   "best_val": 1.0
+  },
+  "C": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.45,
+    "preferred": 0.825,
+    "stable": 0.825,
+    "complete": 0.825,
+    "cf2": 0.85
+   },
+   "best_textbook": "cf2",
+   "best_val": 0.85
+  },
+  "D": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.763,
+    "preferred": 0.763,
+    "stable": 0.763,
+    "complete": 0.763,
+    "cf2": 0.763
+   },
+   "best_textbook": "grounded",
+   "best_val": 0.763
+  },
+  "E": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.941,
+    "preferred": 0.971,
+    "stable": 0.971,
+    "complete": 0.971,
+    "cf2": 0.971
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.971
+  },
+  "F": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.483,
+    "preferred": 0.69,
+    "stable": 0.69,
+    "complete": 0.69,
+    "cf2": 0.69
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.69
+  },
+  "G": {
+   "type": "CYCLE",
+   "n": 24,
+   "textbook": {
+    "grounded": 0.347,
+    "preferred": 0.52,
+    "stable": 0.387,
+    "complete": 0.52,
+    "cf2": 0.6
+   },
+   "best_textbook": "cf2",
+   "best_val": 0.6
+  }
+ },
+ "first": {
+  "A": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.8,
+    "preferred": 0.8,
+    "stable": 0.8,
+    "complete": 0.8,
+    "cf2": 0.8
+   },
+   "best_textbook": "grounded",
+   "best_val": 0.8
+  },
+  "B": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.093,
+    "preferred": 0.907,
+    "stable": 0.907,
+    "complete": 0.884,
+    "cf2": 0.907
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.907
+  },
+  "C": {
+   "type": "FLOAT",
+   "n": 20,
+   "textbook": {
+    "grounded": 0.409,
+    "preferred": 0.659,
+    "stable": 0.659,
+    "complete": 0.659,
+    "cf2": 0.682
+   },
+   "best_textbook": "cf2",
+   "best_val": 0.682
+  },
+  "D": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.639,
+    "preferred": 0.694,
+    "stable": 0.694,
+    "complete": 0.694,
+    "cf2": 0.694
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.694
+  },
+  "E": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.844,
+    "preferred": 0.938,
+    "stable": 0.938,
+    "complete": 0.938,
+    "cf2": 0.938
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.938
+  },
+  "F": {
+   "type": "SIMPLE",
+   "n": 15,
+   "textbook": {
+    "grounded": 0.344,
+    "preferred": 0.656,
+    "stable": 0.656,
+    "complete": 0.656,
+    "cf2": 0.656
+   },
+   "best_textbook": "preferred",
+   "best_val": 0.656
+  },
+  "G": {
+   "type": "CYCLE",
+   "n": 24,
+   "textbook": {
+    "grounded": 0.241,
+    "preferred": 0.342,
+    "stable": 0.253,
+    "complete": 0.342,
+    "cf2": 0.418
+   },
+   "best_textbook": "cf2",
+   "best_val": 0.418
+  }
+ },
+ "learned_theories": {
+  "A": {
+   "type": "FLOAT",
+   "n_rules": 3,
+   "rules": [
+    "violated :- defended(V0), attacked(V0), out(V0), arg(V0).",
+    "violated :- in(V0), not defended(V0), arg(V0).",
+    "violated :- undec(V0), not attacked_by_in(V0), not defended(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.741,
+   "secs": 0
+  },
+  "B": {
+   "type": "FLOAT",
+   "n_rules": 3,
+   "rules": [
+    "violated :- not defended(V0), in(V0), arg(V0).",
+    "violated :- not in(V0), attacked(V0), defended(V0), arg(V0).",
+    "violated :- undec(V0), not defended(V0), not in_cycle(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.6,
+   "secs": 0
+  },
+  "C": {
+   "type": "FLOAT",
+   "n_rules": 3,
+   "rules": [
+    "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+    "violated :- not in(V0), attacked(V0), defended(V0), arg(V0).",
+    "violated :- undec(V0), not in_cycle(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.55,
+   "secs": 1
+  },
+  "D": {
+   "type": "SIMPLE",
+   "n_rules": 4,
+   "rules": [
+    "violated :- in(V0), attacked_by_in(V0), arg(V0).",
+    "violated :- not attacked_by_in(V0), not defended(V0), in_cycle(V0), arg(V0).",
+    "violated :- in(V0), in_cycle(V0), arg(V0).",
+    "violated :- attacked(V0), not in_cycle(V0), undec(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.632,
+   "secs": 1
+  },
+  "E": {
+   "type": "SIMPLE",
+   "n_rules": 3,
+   "rules": [
+    "violated :- not attacked_by_in(V0), out(V0), arg(V0).",
+    "violated :- not defended(V0), not in_cycle(V0), not attacked_by_in(V0), arg(V0).",
+    "violated :- in(V0), attacked_by_in(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.971,
+   "secs": 0
+  },
+  "F": {
+   "type": "SIMPLE",
+   "n_rules": 5,
+   "rules": [
+    "violated :- undec(V0), attacked_by_in(V0), arg(V0).",
+    "violated :- not defended(V0), in_cycle(V0), in(V0), arg(V0).",
+    "violated :- not defended(V0), not attacked_by_in(V0), in(V0), arg(V0).",
+    "violated :- defended(V0), out(V0), arg(V0).",
+    "violated :- undec(V0), defended(V0), not in_cycle(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.517,
+   "secs": 1
+  },
+  "G": {
+   "type": "CYCLE",
+   "n_rules": 4,
+   "rules": [
+    "violated :- undec(V0), defended(V0), arg(V0).",
+    "violated :- undec(V0), not in_cycle(V0), arg(V0).",
+    "violated :- in(V0), not defended(V0), not attacked_by_in(V0), arg(V0).",
+    "violated :- attacked(V0), not in(V0), defended(V0), not in_cycle(V0), arg(V0)."
+   ],
+   "resub_committed_only": 0.44,
+   "secs": 1
+  }
+ }
+}
