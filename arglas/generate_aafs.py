@@ -4,6 +4,8 @@ import random
 
 import clingo
 
+from arglas.artifact_paths import resolve_artifact_path
+
 def generate_random_aafs(n, M, output_dir, prefix="", seed=None, quiet=False,
                          density_preset="v2", allow_self_attacks=False):
     # Backward-compatible defaults (density_preset="v2", allow_self_attacks=False)
@@ -62,7 +64,8 @@ def build_parser(add_help=True):
     parser.add_argument("Nmin", type=int, help="Minimum number of arguments.")
     parser.add_argument("Nmax", type=int, help="Maximum number of arguments.")
     parser.add_argument("M", type=int, help="Number of AAFs per N.")
-    parser.add_argument("--output_dir", default="aaf_outputs", help="Directory to save AAFs.")
+    parser.add_argument("--output_dir", default="aaf_outputs",
+                        help="Directory to save AAFs (relative paths resolve under FABIO_ARTIFACTS_ROOT).")
     parser.add_argument("--prefix", default="", help="Prefix for output files.")
     parser.add_argument("--seed", type=int, help="Random seed (optional).")
     parser.add_argument("--quiet", action="store_true", help="Suppress output.")
@@ -81,13 +84,14 @@ def parse_args(argv=None):
 def main(argv=None):
     args = parse_args(argv)
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    output_dir = resolve_artifact_path(args.output_dir, "aaf_outputs")
+    os.makedirs(output_dir, exist_ok=True)
 
     for n in range(args.Nmin, args.Nmax + 1):
         generate_random_aafs(
             n=n,
             M=args.M,
-            output_dir=args.output_dir,
+            output_dir=output_dir,
             prefix=args.prefix,
             seed=None if args.seed is None else args.seed + (n - args.Nmin) * 100000,
             quiet=args.quiet,

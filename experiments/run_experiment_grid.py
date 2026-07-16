@@ -49,13 +49,6 @@ def env_int(name: str, default: int) -> int:
     return int(raw)
 
 
-def env_float(name: str, default: float) -> float:
-    raw = os.environ.get(name)
-    if raw in (None, ""):
-        return default
-    return float(raw)
-
-
 def env_bool(name: str, default: bool) -> bool:
     raw = os.environ.get(name)
     if raw in (None, ""):
@@ -175,7 +168,8 @@ class ExperimentRunner:
             "TEST_PAR_TIMEOUT_SECONDS",
             int(config.get("test_par_timeout_seconds", 1200)),
         )
-        self.par2_factor = env_float("PAR2_FACTOR", float(config.get("par2_factor", 2.0)))
+        # Note: legacy "par2_factor" keys in seeded run_configs are ignored
+        # (PAR2 machinery was removed from arglas.train_test).
         self.overwrite_existing_iterations = env_bool(
             "OVERWRITE_EXISTING_ITERATIONS",
             bool(config.get("overwrite_existing_iterations", False)),
@@ -472,8 +466,6 @@ class ExperimentRunner:
             str(self.train_timeout_seconds),
             "--test_par_timeout_seconds",
             str(self.test_par_timeout_seconds),
-            "--par2_factor",
-            str(self.par2_factor),
         ]
         if self.test_examples_per_class is not None:
             cmd.extend(["--test_examples_per_class", str(self.test_examples_per_class)])

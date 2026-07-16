@@ -13,4 +13,4 @@ ILASP and FastLAS. Scripts and data are separated:
 
 Reproduction: the paper's Exp2 numbers come from the tracked `fastlas_exp/results/*.json`;
 `python3 analysis/make_plots.py` (repo root) rebuilds the Exp2 figures from them in
-seconds. Re-running the learning itself requires ILASP 4.4 and FastLAS 2.1 on PATH.
+seconds (into `analysis/figs_regen/`; `--overwrite` targets the committed `analysis/figs/`). Re-running the learning itself requires ILASP 4.4 and FastLAS 2.1 on PATH.

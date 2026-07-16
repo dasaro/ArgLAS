@@ -8,6 +8,12 @@ Exhaustive over ALL labelled digraphs with n<=NMAX args (self-attacks INCLUDED),
 the 500 campaign AAFs (n=4..8), plus the on-disk Example1 learned variants as secondary
 subjects. Answer sets compared over {in,out,defeated,not_defended} (defs identical in
 both programs, so full-visible-atom equality is the theorem's claim).
+
+Usage: check_equivalence.py [NMAX]
+  NMAX (positional, default 3) bounds the exhaustive sweep. The default is a quick
+  smoke check; the committed level1_results.json was produced with NMAX=4 (66,066 AFs).
+  Results are written to level1_results_regen.json so the committed record is never
+  clobbered; diff the two files to compare.
 """
 import itertools, json, sys, time
 import clingo
@@ -89,8 +95,12 @@ def main():
                 if answer_sets(progs[sem], txt) != answer_sets(S[sem], txt): bad += 1
             print(f"[campaign {sem}] {len(camp)} AAFs, {bad} mismatches ({time.time()-t0:.0f}s)", flush=True)
             results[f"campaign_{sem}"] = {"checked": len(camp), "mismatches": bad}
-    json.dump(results, open(os.path.join(os.path.dirname(__file__), "level1_results.json"), "w"), indent=1)
-    print("DONE", flush=True)
+    out_path = os.path.join(os.path.dirname(__file__), "level1_results_regen.json")
+    json.dump(results, open(out_path, "w"), indent=1)
+    print(f"DONE — wrote {out_path} (committed level1_results.json left untouched)", flush=True)
+    if nmax < 4:
+        print(f"NOTE: quick mode nmax={nmax}; pass 4 (or 5) as the positional argument "
+              "for the exhaustive check behind the committed results.", flush=True)
 
 if __name__ == "__main__":
     main()

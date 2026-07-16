@@ -7,6 +7,7 @@ import clingo
 from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
 from arglas.solver_runtime import build_semantics_runtime, solve_semantics_instance
 from arglas.solver_policy import (
+    available_semantics_names,
     get_semantics_entry,
     get_semantics_names,
     load_semantics_config,
@@ -130,12 +131,14 @@ def generate_labelled_aafs(
 ):
     os.makedirs(output_dir, exist_ok=True)
 
+    skipped = []
     for filename in os.listdir(input_dir):
         if not filename.endswith(".lp"):
             continue
 
         match = re.match(r"aaf_(\d+)_(\d+)\.lp", filename)
         if not match:
+            skipped.append(filename)
             continue
 
         size, id_ = match.groups()
@@ -187,6 +190,12 @@ def generate_labelled_aafs(
                 f.write("\n".join(args + atts + neg) + "\n")
             print(f"[NEG] {output_file}")
 
+    if skipped:
+        print(
+            f"[warn] Skipped {len(skipped)} .lp file(s) in '{input_dir}' not matching "
+            f"aaf_<size>_<id>.lp: {', '.join(sorted(skipped))}"
+        )
+
 def construct_output_dir(base_dir, semantics, p_partial):
     if p_partial < 1.0:
         suffix = f"partial_{p_partial}"
@@ -201,7 +210,11 @@ def build_parser(add_help=True):
     )
     parser.add_argument("--input_dir", default="aafs/", help="Directory with raw AAFs.")
     parser.add_argument("--base_output_dir", default="labelled/", help="Base output directory.")
-    parser.add_argument("--semantics", default="ADM", help="AAF semantics.")
+    parser.add_argument(
+        "--semantics",
+        default="ADM",
+        help="AAF semantics. Available: " + (", ".join(available_semantics_names()) or "(semantics_config.json unreadable)") + ".",
+    )
     parser.add_argument(
         "--semantics_config",
         default="semantics_config.json",

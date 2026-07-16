@@ -1,19 +1,20 @@
 import json
 import os
-import sys
-from arglas.solver_policy import get_semantics_names
+
+from arglas import ilasp_policy, solver_policy
 from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
+from arglas.solver_policy import get_semantics_names
 
 CONFIG_PATH = "batch_config.json"
 SEMANTICS_CONFIG_PATH = "semantics_config.json"
 ILASP_CONFIG_PATH = "ilasp_config.json"
 
+
 def load_semantics_config(path=SEMANTICS_CONFIG_PATH):
-    path = resolve_repo_path(path, "semantics_config.json")
-    if not os.path.isfile(path):
-        raise FileNotFoundError(f"Missing semantics config: {path}")
-    with open(path, "r") as f:
-        return json.load(f)
+    # Canonical loader (raises on missing file), with repo-path resolution.
+    return solver_policy.load_semantics_config(
+        resolve_repo_path(path, "semantics_config.json")
+    )
 
 
 def load_batch_config(path=CONFIG_PATH):
@@ -25,11 +26,12 @@ def load_batch_config(path=CONFIG_PATH):
 
 
 def load_ilasp_config(path=ILASP_CONFIG_PATH):
+    # The canonical loader treats a missing file as an empty config; validation
+    # must fail loudly instead.
     path = resolve_repo_path(path, "ilasp_config.json")
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Missing ILASP config: {path}")
-    with open(path, "r") as f:
-        return json.load(f)
+    return ilasp_policy.load_ilasp_config(path)
 
 
 def validate_ilasp_config(ilasp_cfg, semantics_cfg):

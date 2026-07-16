@@ -5,9 +5,7 @@ import re
 from collections import defaultdict
 from arglas.artifact_paths import ensure_parent_dir, resolve_artifact_path, resolve_repo_path
 from arglas.solver_runtime import build_semantics_runtime, solve_models
-from arglas.solver_policy import (
-    load_semantics_config,
-)
+from arglas.solver_policy import available_semantics_names, load_semantics_config
 
 STATUSES = ("in", "out", "undec")
 LABEL_RE = re.compile(r"^(in|out|undec)\(([^)]+)\)\.$")
@@ -45,10 +43,7 @@ def build_parser(add_help=True):
     parser.add_argument("--noise_factor", default=100, type=int, help="Penalty for noisy examples.")
     parser.add_argument(
         "--negative_policy",
-        choices=(
-            "oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix",
-            "nce_sample", "reliable_negative",
-        ),
+        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "reliable_negative"),
         default="oracle_neg",
         help=(
             "Negative generation strategy: "
@@ -56,12 +51,9 @@ def build_parser(add_help=True):
             "flip_one flips one in/out label from sampled positives; "
             "flip_k flips k in/out labels from sampled positives; "
             "full_relabel relabels all observed labels from sampled positives; "
-            "rn_hardmix mines candidate synthetic negatives, taking a reliable subset "
-            "and filling with harder near-positive negatives; "
-            "nce_sample relabels each arg independently from the global accept "
-            "marginal (noise-contrastive); "
             "reliable_negative keeps the relabelling farthest from the source positive "
-            "(PU density-based)."
+            "(PU density-based). (The experimental rn_hardmix/nce_sample policies live "
+            "in experiments/legacy/neg_policies_experimental.py.)"
         ),
     )
     parser.add_argument(
@@ -71,21 +63,6 @@ def build_parser(add_help=True):
         help="Number of in/out labels to flip when --negative_policy=flip_k.",
     )
     parser.add_argument(
-        "--rn_reliable_fraction",
-        type=float,
-        default=0.7,
-        help=(
-            "Fraction of negatives selected from the most reliable rn_hardmix candidates "
-            "(remaining slots are filled with hard negatives)."
-        ),
-    )
-    parser.add_argument(
-        "--rn_candidates_per_source",
-        type=int,
-        default=3,
-        help="How many rn_hardmix mutation candidates to generate per source positive example.",
-    )
-    parser.add_argument(
         "--allow_overwrite",
         action="store_true",
         help="Allow overwriting output_file if it already exists (default: disabled).",
@@ -93,8 +70,9 @@ def build_parser(add_help=True):
     parser.add_argument(
         "--semantics",
         help=(
-            "Semantics name (e.g., ADM/CMP/STB/GRD/PRF). "
-            "If omitted, inferred from input_dir or example filenames."
+            "Semantics name. Available: "
+            + (", ".join(available_semantics_names()) or "(semantics_config.json unreadable)")
+            + ". If omitted, inferred from input_dir or example filenames."
         ),
     )
     parser.add_argument(
@@ -124,6 +102,14 @@ def build_parser(add_help=True):
             "background_knowledge.lp. Needed for GRD, whose task must NOT contain the "
             "0{in}1/0{out}1 choice rules (with them the grounded task is unsatisfiable: "
             "every labelling is an answer set and minimality is not first-order expressible)."
+        ),
+    )
+    parser.add_argument(
+        "--mode_declarations",
+        default=None,
+        help=(
+            "Optional mode-declarations file to embed in the learning task "
+            "(default: mode_declarations.las)."
         ),
     )
     return parser
@@ -156,6 +142,8 @@ def render_label_facts(labels):
 
 
 def build_synthetic_negative(labels, policy, flip_k=1, p_in=0.5, n_candidates=8):
+    # p_in is retained for call compatibility (it parameterised the retired
+    # nce_sample policy, now in experiments/legacy/neg_policies_experimental.py).
     mutated = dict(labels)
     if policy in {"flip_one", "flip_k"}:
         required_k = 1 if policy == "flip_one" else int(flip_k)
@@ -175,17 +163,6 @@ def build_synthetic_negative(labels, policy, flip_k=1, p_in=0.5, n_candidates=8)
         for arg, current in list(mutated.items()):
             alternatives = [status for status in STATUSES if status != current]
             mutated[arg] = random.choice(alternatives)
-        return mutated
-
-    if policy == "nce_sample":
-        # Noise-contrastive (word2vec-style): relabel each argument INDEPENDENTLY
-        # from the global accept marginal p_in, deliberately breaking the joint
-        # structure of real extensions so the result is unlikely to be a valid
-        # labelling. Oracle-free.
-        if not mutated:
-            return None
-        for arg in mutated:
-            mutated[arg] = "in" if random.random() < p_in else "out"
         return mutated
 
     if policy == "reliable_negative":
@@ -327,31 +304,56 @@ def build_ilasp_directive(example_id, label_facts, af_facts, is_positive, p, det
 
 def main(argv=None):
     args = parse_args(argv)
-    if args.seed is not None:
-        random.seed(args.seed)
+    return run(
+        input_dir=args.input_dir,
+        output_file=args.output_file,
+        n_pos=args.n_pos,
+        p=args.p,
+        n_neg=args.n_neg,
+        noise_factor=args.noise_factor,
+        negative_policy=args.negative_policy,
+        flip_k=args.flip_k,
+        allow_overwrite=args.allow_overwrite,
+        semantics=args.semantics,
+        semantics_config=args.semantics_config,
+        allowed_examples_manifest=args.allowed_examples_manifest,
+        seed=args.seed,
+        learn_background=args.learn_background,
+        mode_declarations=args.mode_declarations,
+    )
 
-    input_dir = resolve_artifact_path(args.input_dir)
-    output_file = ensure_parent_dir(resolve_artifact_path(args.output_file))
-    n_pos = args.n_pos
-    n_neg = args.n_neg if args.n_neg is not None else args.n_pos
-    p = args.p
-    negative_policy = args.negative_policy
-    flip_k = args.flip_k
-    rn_reliable_fraction = args.rn_reliable_fraction
-    rn_candidates_per_source = args.rn_candidates_per_source
-    noise_factor = args.noise_factor
+
+def run(
+    input_dir,
+    output_file,
+    n_pos,
+    p,
+    n_neg=None,
+    noise_factor=100,
+    negative_policy="oracle_neg",
+    flip_k=1,
+    allow_overwrite=False,
+    semantics=None,
+    semantics_config="semantics_config.json",
+    allowed_examples_manifest=None,
+    seed=None,
+    learn_background=None,
+    mode_declarations=None,
+):
+    """Keyword-args entry point shared by the CLI (main) and train_test."""
+    if seed is not None:
+        random.seed(seed)
+
+    input_dir = resolve_artifact_path(input_dir)
+    output_file = ensure_parent_dir(resolve_artifact_path(output_file))
+    if n_neg is None:
+        n_neg = n_pos
 
     if not (0.0 <= p <= 1.0):
         print(f"Error: p must be in [0,1], got {p}.")
         raise SystemExit(1)
     if flip_k <= 0:
         print(f"Error: flip_k must be > 0, got {flip_k}.")
-        raise SystemExit(1)
-    if not (0.0 <= rn_reliable_fraction <= 1.0):
-        print(f"Error: rn_reliable_fraction must be in [0,1], got {rn_reliable_fraction}.")
-        raise SystemExit(1)
-    if rn_candidates_per_source <= 0:
-        print(f"Error: rn_candidates_per_source must be > 0, got {rn_candidates_per_source}.")
         raise SystemExit(1)
 
     # Keep oracle_neg deterministic at p=0, but force weighted noisy format for
@@ -363,7 +365,7 @@ def main(argv=None):
         print(f"Error: Directory {input_dir} does not exist.")
         raise SystemExit(1)
 
-    if os.path.exists(output_file) and not args.allow_overwrite:
+    if os.path.exists(output_file) and not allow_overwrite:
         print(
             f"Error: Output file already exists: {output_file}. "
             "Refusing to overwrite. Pick a new output path or pass --allow_overwrite."
@@ -371,8 +373,8 @@ def main(argv=None):
         raise SystemExit(1)
 
     allowed_examples = None
-    if args.allowed_examples_manifest:
-        manifest_path = resolve_repo_path(args.allowed_examples_manifest)
+    if allowed_examples_manifest:
+        manifest_path = resolve_repo_path(allowed_examples_manifest)
         if not os.path.exists(manifest_path):
             print(f"Error: allowed_examples_manifest does not exist: {manifest_path}")
             raise SystemExit(1)
@@ -409,27 +411,16 @@ def main(argv=None):
             parsed_cache[key] = parse_lp_instance(key)
         return parsed_cache[key]
 
-    # Global accept marginal P(in) over the sampled positives' labelled in/out
-    # arguments -- the noise distribution used by the nce_sample policy.
-    _pin_num = _pin_den = 0
-    for _pf in selected_pos:
-        _, _lbls = get_parsed(_pf)
-        for _st in _lbls.values():
-            if _st in ("in", "out"):
-                _pin_den += 1
-                _pin_num += 1 if _st == "in" else 0
-    p_in_marginal = (_pin_num / _pin_den) if _pin_den else 0.5
-
     oracle_interpretation_is_legal = None
     oracle_neg_validity_cache = {}
     oracle_neg_rejected = 0
     if negative_policy == "oracle_neg":
         semantics_name = infer_semantics_name(
-            args.semantics, input_dir, pos_examples, neg_examples
+            semantics, input_dir, pos_examples, neg_examples
         )
         oracle_interpretation_is_legal = make_oracle_consistency_checker(
             semantics=semantics_name,
-            semantics_config_path=args.semantics_config,
+            semantics_config_path=semantics_config,
             parsed_example_loader=get_parsed,
         )
 
@@ -502,10 +493,8 @@ def main(argv=None):
                 ilasp_examples.append(directive)
         else:
             eligible_pos = pos_examples
-            if negative_policy in {"flip_one", "flip_k", "rn_hardmix"}:
+            if negative_policy in {"flip_one", "flip_k"}:
                 required_k = 1 if negative_policy == "flip_one" else flip_k
-                if negative_policy == "rn_hardmix":
-                    required_k = 1
                 eligible_pos = []
                 for fname in pos_examples:
                     _, labels = get_parsed(fname)
@@ -522,149 +511,35 @@ def main(argv=None):
             source_counts = defaultdict(int)
             generated_count = 0
 
-            if negative_policy == "rn_hardmix":
-                source_budget = max(n_neg, n_neg * 3)
-                source_pool = choose_synthetic_sources(eligible_pos, selected_pos, source_budget)
-                candidate_records = []
+            selected_sources = choose_synthetic_sources(eligible_pos, selected_pos, n_neg)
+            for src_file in selected_sources:
+                source_counts[src_file] += 1
+                occurrence = source_counts[src_file]
 
-                for src_file in source_pool:
-                    af_facts, labels = get_parsed(src_file)
-                    flippable = count_flippable(labels)
-                    if flippable == 0:
-                        continue
+                af_facts, labels = get_parsed(src_file)
+                mutated_labels = build_synthetic_negative(
+                    labels, negative_policy, flip_k=flip_k,
+                )
+                if mutated_labels is None:
+                    continue
 
-                    max_k = max(1, min(flippable, max(2, flip_k)))
-                    for _ in range(rn_candidates_per_source):
-                        k_value = 1 if max_k == 1 else random.randint(1, max_k)
-                        mutated_labels = build_synthetic_negative(
-                            labels,
-                            "flip_k" if k_value > 1 else "flip_one",
-                            flip_k=k_value
-                        )
-                        if mutated_labels is None:
-                            continue
-                        changed = sum(
-                            1 for arg, status in labels.items()
-                            if mutated_labels.get(arg) != status
-                        )
-                        reliability = changed / flippable if flippable else 0.0
-                        candidate_records.append(
-                            {
-                                "src_file": src_file,
-                                "af_facts": af_facts,
-                                "mutated_labels": mutated_labels,
-                                "reliability": reliability,
-                                "hardness": 1.0 - reliability,
-                                "sig": labels_signature(mutated_labels),
-                            }
-                        )
-
-                if not candidate_records:
-                    print("Error: rn_hardmix could not generate any candidate negatives.")
-                    raise SystemExit(1)
-
-                selected_candidates = []
-                seen = set()
-                n_reliable = min(n_neg, int(round(n_neg * rn_reliable_fraction)))
-
-                for rec in sorted(candidate_records, key=lambda x: (-x["reliability"], -x["hardness"])):
-                    key = (rec["src_file"], rec["sig"])
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    selected_candidates.append(rec)
-                    if len(selected_candidates) >= n_reliable:
-                        break
-
-                for rec in sorted(candidate_records, key=lambda x: (-x["hardness"], -x["reliability"])):
-                    if len(selected_candidates) >= n_neg:
-                        break
-                    key = (rec["src_file"], rec["sig"])
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    selected_candidates.append(rec)
-
-                # Fallback if still short: plain flip_one from eligible sources.
-                fallback_attempts = 0
-                fallback_limit = max(10, n_neg * 5)
-                while len(selected_candidates) < n_neg and fallback_attempts < fallback_limit:
-                    fallback_attempts += 1
-                    src_file = random.choice(eligible_pos)
-                    af_facts, labels = get_parsed(src_file)
-                    mutated_labels = build_synthetic_negative(labels, "flip_one", flip_k=1)
-                    if mutated_labels is None:
-                        continue
-                    key = (src_file, labels_signature(mutated_labels))
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    selected_candidates.append(
-                        {
-                            "src_file": src_file,
-                            "af_facts": af_facts,
-                            "mutated_labels": mutated_labels,
-                        }
-                    )
-
-                if len(selected_candidates) < n_neg:
-                    print(
-                        f"Error: rn_hardmix could only generate {len(selected_candidates)}/{n_neg} negatives."
-                    )
-                    raise SystemExit(1)
-
-                for rec in selected_candidates[:n_neg]:
-                    src_file = rec["src_file"]
-                    source_counts[src_file] += 1
-                    occurrence = source_counts[src_file]
-                    base_id = os.path.basename(src_file).replace(".lp", "")
-                    example_id = f"{base_id}_SNEG_{occurrence}"
-                    label_facts = render_label_facts(rec["mutated_labels"])
-                    directive, noisy = build_ilasp_directive(
-                        example_id=example_id,
-                        label_facts=label_facts,
-                        af_facts=rec["af_facts"],
-                        is_positive=False,
-                        p=p,
-                        deterministic=deterministic,
-                        noise_factor=noise_factor,
-                    )
-                    if noisy:
-                        print(f"Example {example_id} gets inverted.")
-                        noisy_count += 1
-                    ilasp_examples.append(directive)
-                    generated_count += 1
-            else:
-                selected_sources = choose_synthetic_sources(eligible_pos, selected_pos, n_neg)
-                for src_file in selected_sources:
-                    source_counts[src_file] += 1
-                    occurrence = source_counts[src_file]
-
-                    af_facts, labels = get_parsed(src_file)
-                    mutated_labels = build_synthetic_negative(
-                        labels, negative_policy, flip_k=flip_k,
-                        p_in=p_in_marginal, n_candidates=max(8, rn_candidates_per_source),
-                    )
-                    if mutated_labels is None:
-                        continue
-
-                    base_id = os.path.basename(src_file).replace(".lp", "")
-                    example_id = f"{base_id}_SNEG_{occurrence}"
-                    label_facts = render_label_facts(mutated_labels)
-                    directive, noisy = build_ilasp_directive(
-                        example_id=example_id,
-                        label_facts=label_facts,
-                        af_facts=af_facts,
-                        is_positive=False,
-                        p=p,
-                        deterministic=deterministic,
-                        noise_factor=noise_factor,
-                    )
-                    if noisy:
-                        print(f"Example {example_id} gets inverted.")
-                        noisy_count += 1
-                    ilasp_examples.append(directive)
-                    generated_count += 1
+                base_id = os.path.basename(src_file).replace(".lp", "")
+                example_id = f"{base_id}_SNEG_{occurrence}"
+                label_facts = render_label_facts(mutated_labels)
+                directive, noisy = build_ilasp_directive(
+                    example_id=example_id,
+                    label_facts=label_facts,
+                    af_facts=af_facts,
+                    is_positive=False,
+                    p=p,
+                    deterministic=deterministic,
+                    noise_factor=noise_factor,
+                )
+                if noisy:
+                    print(f"Example {example_id} gets inverted.")
+                    noisy_count += 1
+                ilasp_examples.append(directive)
+                generated_count += 1
 
             if generated_count < n_neg:
                 print(
@@ -675,14 +550,15 @@ def main(argv=None):
 
     random.shuffle(ilasp_examples)
 
-    learn_bg_path = args.learn_background or "background_knowledge.lp"
+    learn_bg_path = learn_background or "background_knowledge.lp"
     with open(resolve_repo_path(learn_bg_path), "r", encoding="utf-8") as bg_file:
         background_knowledge = bg_file.read()
 
-    with open(resolve_repo_path("mode_declarations.las"), "r", encoding="utf-8") as mode_file:
-        mode_declarations = mode_file.read()
+    mode_declarations_path = mode_declarations or "mode_declarations.las"
+    with open(resolve_repo_path(mode_declarations_path), "r", encoding="utf-8") as mode_file:
+        mode_declarations_text = mode_file.read()
 
-    ilasp_constraints = background_knowledge + "\n" + mode_declarations
+    ilasp_constraints = background_knowledge + "\n" + mode_declarations_text
 
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("\n".join(ilasp_examples) + "\n")
@@ -696,11 +572,6 @@ def main(argv=None):
         f"Noisy examples={noisy_count} ({noise_ratio:.2%}). "
         f"Negative policy={negative_policy}"
         + (f"(k={flip_k})" if negative_policy == "flip_k" else "")
-        + (
-            f"(reliable_frac={rn_reliable_fraction}, candidates_per_source={rn_candidates_per_source})"
-            if negative_policy == "rn_hardmix"
-            else ""
-        )
         + "."
     )
     if negative_policy == "oracle_neg":

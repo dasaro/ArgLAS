@@ -1,15 +1,11 @@
-import shutil
 import os
-import json
+import shutil
 
-from arglas.artifact_paths import resolve_repo_path
+from arglas.artifact_paths import resolve_artifact_path
+from arglas.validate_config import load_batch_config
 
 CONFIG_PATH = "batch_config.json"
 
-def load_config(path=CONFIG_PATH):
-    path = resolve_repo_path(path, "batch_config.json")
-    with open(path, "r") as f:
-        return json.load(f)
 
 def remove_dir(path):
     if os.path.exists(path):
@@ -18,31 +14,33 @@ def remove_dir(path):
     else:
         print(f"✓ Skipping (not found): {path}")
 
-def cleanup_from_config(cfg):
 
-    # Remove all per-prefix outputs
+def cleanup_from_config(cfg):
+    # Every directory is resolved against the artifacts root, so with
+    # FABIO_ARTIFACTS_ROOT set the cleanup targets the campaign's outputs and
+    # never CWD-relative directories.
+    base_output_dir = resolve_artifact_path(cfg["base_output_dir"], "labelled")
+    train_dir = resolve_artifact_path(cfg["train_dir"], "train")
+    train_output_dir = resolve_artifact_path(cfg["train_output_dir"], "train_output")
+    results_dir = resolve_artifact_path(cfg["results_dir"], "results")
+
     for sem in cfg["semantics"]:
         for p in cfg["partials"]:
             pstr = "full" if p == 1.0 else f"partial_{p}"
             prefix = f"{sem}_{pstr}"
 
-            remove_dir(os.path.join(cfg["base_output_dir"], f"labelled_{prefix}"))
-            remove_dir(os.path.join(cfg["train_dir"], prefix))
-            remove_dir(os.path.join(cfg["train_output_dir"], prefix))
-            remove_dir(os.path.join(cfg["results_dir"], prefix))
-
-    # Global batch summary
-    if os.path.exists("batch_summary.csv"):
-        os.remove("batch_summary.csv")
-        print("🧹 Removed batch_summary.csv")
+            remove_dir(os.path.join(base_output_dir, f"labelled_{prefix}"))
+            remove_dir(os.path.join(train_dir, prefix))
+            remove_dir(os.path.join(train_output_dir, prefix))
+            remove_dir(os.path.join(results_dir, prefix))
 
     print("\n✅ Cleanup complete.")
     return 0
 
 
 def main(config_path=CONFIG_PATH):
-    cfg = load_config(config_path)
-    return cleanup_from_config(cfg)
+    return cleanup_from_config(load_batch_config(config_path))
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

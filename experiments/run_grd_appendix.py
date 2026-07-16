@@ -85,7 +85,6 @@ def run_pool(pool_name):
         dry_run=False,
         train_timeout_seconds=600,
         test_par_timeout_seconds=20,
-        par2_factor=2.0,
         overwrite_existing_iterations=False,
         negative_policy="oracle_neg",
         negative_flip_k=1,

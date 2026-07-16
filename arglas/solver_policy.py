@@ -39,6 +39,18 @@ def get_semantics_names(config):
     return sorted(names)
 
 
+def available_semantics_names(config_path="semantics_config.json"):
+    """Semantics names from the default config, for CLI help/choices. Returns
+    [] when the config cannot be read, so parser construction never crashes."""
+    from arglas.artifact_paths import resolve_repo_path
+    try:
+        return get_semantics_names(
+            load_semantics_config(resolve_repo_path(config_path, "semantics_config.json"))
+        )
+    except Exception:
+        return []
+
+
 def get_semantics_entry(config, semantics):
     if semantics not in config or semantics in RESERVED_TOP_LEVEL_KEYS:
         available = ", ".join(get_semantics_names(config))
@@ -68,19 +80,26 @@ def get_clingo_args(config, semantics, stage):
     args.extend(sem_entry.get("clingo_args", []))
     args.extend(_read_stage_args(sem_entry.get("stage_clingo_args", {}), stage))
 
-    # Backward-compatible support for legacy paper_* flags.
-    if sem_entry.get("paper_heuristic_mode", False):
-        paper_args = sem_entry.get(
-            "paper_clingo_args",
-            ["--heuristic=Domain", "--enum=domRec"],
-        )
-        if not isinstance(paper_args, list):
-            raise ValueError(
-                f"Invalid paper_clingo_args for '{semantics}': expected list."
-            )
-        args.extend(paper_args)
-
     return dedupe_keep_order(args)
+
+
+def _stage_override(config, semantics, stage, key, scalar_types=None):
+    """Per-semantics stage override lookup shared by get_background_file /
+    get_completion_rules_enabled / get_show_predicates. entry[key] is either a
+    bare scalar (applies to all stages; accepted only when scalar_types is
+    given) or a {stage: value} dict. Returns (found, value); anything else
+    falls through to the global setting."""
+    if semantics is None or semantics in RESERVED_TOP_LEVEL_KEYS:
+        return False, None
+    sem_entry = config.get(semantics, {})
+    if not isinstance(sem_entry, dict) or key not in sem_entry:
+        return False, None
+    cfg = sem_entry[key]
+    if scalar_types is not None and isinstance(cfg, scalar_types):
+        return True, cfg
+    if isinstance(cfg, dict) and stage in cfg:
+        return True, cfg[stage]
+    return False, None
 
 
 def get_background_file(config, stage=None, semantics=None):
@@ -89,21 +108,15 @@ def get_background_file(config, stage=None, semantics=None):
     # use the NO-CHOICE background: with 0{in}1/0{out}1 the unique-model grounded eval is
     # degenerate) and PRF (the learned side appends the fixed subset-maximality
     # #heuristic directive). Default (semantics=None) preserves the global behavior.
-    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
-        sem_entry = config.get(semantics, {})
-        if isinstance(sem_entry, dict) and "background_file" in sem_entry:
-            sem_cfg = sem_entry["background_file"]
-            if isinstance(sem_cfg, str):
-                return sem_cfg if sem_cfg.strip() else None
-            if isinstance(sem_cfg, dict) and stage in sem_cfg:
-                stage_value = sem_cfg.get(stage)
-                if stage_value is None or stage_value == "":
-                    return None
-                if not isinstance(stage_value, str) or not stage_value.strip():
-                    raise ValueError(
-                        f"Invalid {semantics}.background_file['{stage}'] in semantics config."
-                    )
-                return stage_value
+    found, override = _stage_override(config, semantics, stage, "background_file", scalar_types=str)
+    if found:
+        if override is None or (isinstance(override, str) and not override.strip()):
+            return None
+        if not isinstance(override, str):
+            raise ValueError(
+                f"Invalid {semantics}.background_file['{stage}'] in semantics config."
+            )
+        return override
     value = config.get("global", {}).get("background_file", DEFAULT_BACKGROUND_FILE)
     if isinstance(value, dict):
         if stage is None:
@@ -130,19 +143,13 @@ def get_completion_rules_enabled(config, stage, semantics=None):
     # least-fixpoint oracle (undecided args unlabelled), so forcing the learned side
     # total via completion would mismatch it -- whereas the total ADM/STB/CMP oracles
     # require completion=true. Default (semantics=None) preserves the global behavior.
-    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
-        sem_entry = config.get(semantics, {})
-        if isinstance(sem_entry, dict) and "completion_rules" in sem_entry:
-            sem_cfg = sem_entry["completion_rules"]
-            if isinstance(sem_cfg, bool):
-                return sem_cfg
-            if isinstance(sem_cfg, dict) and stage in sem_cfg:
-                value = sem_cfg.get(stage)
-                if not isinstance(value, bool):
-                    raise ValueError(
-                        f"Invalid {semantics}.completion_rules['{stage}']: expected bool."
-                    )
-                return value
+    found, override = _stage_override(config, semantics, stage, "completion_rules", scalar_types=bool)
+    if found:
+        if not isinstance(override, bool):
+            raise ValueError(
+                f"Invalid {semantics}.completion_rules['{stage}']: expected bool."
+            )
+        return override
 
     cfg = config.get("global", {}).get("completion_rules", True)
     if isinstance(cfg, bool):
@@ -176,17 +183,13 @@ def get_show_predicates(config, stage, semantics=None):
     # Per-semantics override ({stage: [preds]}), e.g. PRF projects in/1 only at both
     # train_test stages (ASPARTIX preferred.lp itself shows only in/1; the learned side
     # must be projected identically for full_exact_model symmetry).
-    if semantics is not None and semantics not in RESERVED_TOP_LEVEL_KEYS:
-        sem_entry = config.get(semantics, {})
-        if isinstance(sem_entry, dict) and "show_predicates" in sem_entry:
-            sem_cfg = sem_entry["show_predicates"]
-            if isinstance(sem_cfg, dict) and stage in sem_cfg:
-                value = sem_cfg.get(stage)
-                if not isinstance(value, list) or any(not isinstance(x, str) for x in value):
-                    raise ValueError(
-                        f"Invalid {semantics}.show_predicates['{stage}']: expected list[str]."
-                    )
-                return value if value else defaults
+    found, override = _stage_override(config, semantics, stage, "show_predicates")
+    if found:
+        if not isinstance(override, list) or any(not isinstance(x, str) for x in override):
+            raise ValueError(
+                f"Invalid {semantics}.show_predicates['{stage}']: expected list[str]."
+            )
+        return override if override else defaults
     cfg = config.get("global", {}).get("show_predicates", {})
     if not isinstance(cfg, dict):
         return defaults

@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Illustrative figures for the ArgLAS Exp1+Exp2 results. Outputs PNG+PDF to analysis/figs/."""
-import json, os
+"""Illustrative figures for the ArgLAS Exp1+Exp2 results.
+
+By default outputs PNG+PDF to analysis/figs_regen/ so the committed figures in
+analysis/figs/ are never clobbered; pass --overwrite to write into analysis/figs/.
+"""
+import json, os, sys
 from collections import defaultdict
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FIGS = os.path.join(REPO, "analysis", "figs")
+FIGS = os.path.join(REPO, "analysis", "figs" if "--overwrite" in sys.argv else "figs_regen")
 os.makedirs(FIGS, exist_ok=True)
 EXP2 = os.path.join(REPO, "Real_World_Examples", "fastlas_exp", "results")
 

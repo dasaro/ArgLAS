@@ -1,31 +1,50 @@
 import os
 import re
 import csv
+import math
 import time
 import subprocess
 import argparse
-import clingo
 import sys
-import json
-import random
-import hashlib
-from arglas.artifact_paths import repo_root, resolve_artifact_path, resolve_repo_path
-from arglas.ilasp_policy import load_ilasp_config, resolve_ilasp_args
-from arglas.solver_runtime import build_semantics_runtime, solve_models
+from dataclasses import dataclass, replace
+from arglas import generate_ilasp_task as task_builder
+from arglas.artifact_paths import resolve_artifact_path, resolve_repo_path
+# Re-exported for external users (experiments/, analysis/) that import the fold
+# machinery from arglas.train_test.
+from arglas.folds import (  # noqa: F401
+    aaf_group_id,
+    build_fixed_balanced_holdout_files,
+    build_grouped_balanced_test,
+    build_grouped_folds,
+    build_grouped_train_manifest,
+    get_train_test_sets,
+    resolve_balanced_test_examples_per_class,
+    split_labelled_files_by_class,
+    stable_sample,
+    stable_seed_from_parts,
+)
+from arglas.ilasp_policy import (
+    build_ilasp_command,
+    load_ilasp_config,
+    require_ilasp,
+    resolve_ilasp_args,
+)
+from arglas.solver_runtime import (
+    SemanticsRuntime,
+    build_semantics_runtime,
+    solve_models,
+    solve_semantics_instance,
+)
 from arglas.solver_policy import (
-    get_background_file,
-    get_clingo_args,
-    get_completion_rules_enabled,
+    available_semantics_names,
     get_eval_on_bare_aaf,
     get_semantics_entry,
-    get_show_predicates,
     load_semantics_config,
     semantics_wants_ilasp_heuristics,
 )
 
 DEFAULT_TRAIN_TIMEOUT_SECONDS = 1200
 DEFAULT_TEST_PAR_TIMEOUT_SECONDS = 1200
-DEFAULT_PAR2_FACTOR = 2.0
 DEFAULT_RETRY_ON_EXIT_CODE_MINUS_11 = 1
 DEFAULT_EVAL_MATCH_POLICY = "full_exact_model"
 ILASP_UNSAT_EXIT_CODE = -2
@@ -75,33 +94,25 @@ def generate_ilasp_task(
     allowed_examples_manifest=None,
     seed=None,
     learn_background=None,
+    mode_declarations=None,
 ):
     print(f"Generating ILASP task for POS={n_pos}, NEG={n_neg}, NOISE={noise}, NEG_POLICY={negative_policy}, FLIP_K={negative_flip_k}...")
-    semantics_config_path = resolve_repo_path(semantics_config_path, "semantics_config.json")
-    command = [
-        sys.executable,
-        "-m",
-        "arglas.generate_ilasp_task",
-        input_dir,
-        output_file,
-        str(n_pos),
-        str(noise),
-        f"--n_neg={n_neg}",
-        f"--negative_policy={negative_policy}",
-        f"--flip_k={negative_flip_k}",
-        f"--semantics_config={semantics_config_path}",
-    ]
-    if semantics:
-        command.append(f"--semantics={semantics}")
-    if allowed_examples_manifest:
-        command.append(f"--allowed_examples_manifest={allowed_examples_manifest}")
-    if seed is not None:
-        command.append(f"--seed={int(seed)}")
-    if learn_background:
-        command.append(f"--learn_background={learn_background}")
-    if noise != 0 or negative_policy != "oracle_neg":
-        command.append("--noise_factor=100")
-    subprocess.run(command, check=True, cwd=str(repo_root()))
+    task_builder.run(
+        input_dir=input_dir,
+        output_file=output_file,
+        n_pos=n_pos,
+        p=noise,
+        n_neg=n_neg,
+        noise_factor=100,
+        negative_policy=negative_policy,
+        flip_k=negative_flip_k,
+        semantics=semantics,
+        semantics_config=resolve_repo_path(semantics_config_path, "semantics_config.json"),
+        allowed_examples_manifest=allowed_examples_manifest,
+        seed=None if seed is None else int(seed),
+        learn_background=learn_background,
+        mode_declarations=mode_declarations,
+    )
     print(f"ILASP task saved to {output_file}")
 
 def extract_train_files(task_file):
@@ -116,275 +127,12 @@ def extract_train_files(task_file):
 
     return list(train_files)
 
-def split_labelled_files_by_class(files):
-    pos_files = sorted(f for f in files if "_POS_" in f and f.endswith(".lp"))
-    neg_files = sorted(f for f in files if "_NEG_" in f and f.endswith(".lp"))
-    return pos_files, neg_files
-
-def stable_sample(files, k, seed_parts):
-    seed_blob = "||".join(str(part) for part in seed_parts)
-    seed_value = int(hashlib.sha256(seed_blob.encode("utf-8")).hexdigest()[:16], 16)
-    rng = random.Random(seed_value)
-    return sorted(rng.sample(sorted(files), k))
-
-
-def stable_seed_from_parts(*seed_parts):
-    seed_blob = "||".join(str(part) for part in seed_parts)
-    return int(hashlib.sha256(seed_blob.encode("utf-8")).hexdigest()[:16], 16)
-
-def resolve_balanced_test_examples_per_class(input_dir, max_train_pos, max_train_neg, requested_per_class=None):
-    all_files = set(f for f in os.listdir(input_dir) if f.endswith(".lp"))
-    all_pos, all_neg = split_labelled_files_by_class(all_files)
-    available_pos = len(all_pos) - max_train_pos
-    available_neg = len(all_neg) - max_train_neg
-    auto_per_class = min(available_pos, available_neg)
-
-    if auto_per_class <= 0:
-        raise ValueError(
-            f"Balanced test set is infeasible for '{input_dir}': "
-            f"POS={len(all_pos)}, NEG={len(all_neg)}, "
-            f"max_train_pos={max_train_pos}, max_train_neg={max_train_neg}."
-        )
-
-    if requested_per_class is None:
-        return auto_per_class
-
-    if requested_per_class > auto_per_class:
-        raise ValueError(
-            f"Requested --test_examples_per_class={requested_per_class} exceeds feasible "
-            f"balanced test size per class ({auto_per_class}) for '{input_dir}'."
-        )
-    return requested_per_class
-
-
-def build_fixed_balanced_holdout_files(
-    input_dir,
-    test_examples_per_class,
-    test_sampling_seed=0,
-    semantics=None,
-    partial=None,
-):
-    if test_examples_per_class is None or test_examples_per_class <= 0:
-        raise ValueError(
-            "Fixed balanced hold-out requires test_examples_per_class to be a positive integer."
-        )
-
-    all_files = set(f for f in os.listdir(input_dir) if f.endswith(".lp"))
-    all_pos, all_neg = split_labelled_files_by_class(all_files)
-    if len(all_pos) < test_examples_per_class or len(all_neg) < test_examples_per_class:
-        raise ValueError(
-            f"Insufficient files for fixed balanced hold-out in '{input_dir}': "
-            f"need {test_examples_per_class} per class, found "
-            f"POS={len(all_pos)}, NEG={len(all_neg)}."
-        )
-
-    seed_parts = [
-        "fixed_balanced_holdout",
-        test_sampling_seed,
-        os.path.abspath(input_dir),
-        semantics,
-        partial,
-    ]
-    selected_pos = stable_sample(all_pos, test_examples_per_class, seed_parts + ["POS"])
-    selected_neg = stable_sample(all_neg, test_examples_per_class, seed_parts + ["NEG"])
-    return sorted(selected_pos + selected_neg)
-
-
-def aaf_group_id(filename):
-    """Source-AAF identity (N, i) from aaf_<N>_<i>_<SEM>_<POS|NEG>_<k>.lp."""
-    m = re.match(r"aaf_(\d+)_(\d+)_", filename)
-    if not m:
-        return None
-    return (int(m.group(1)), int(m.group(2)))
-
-
-def build_grouped_folds(input_dir, k, fold_seed=0):
-    """Partition the source-AAFs in input_dir into k GROUP-DISJOINT CV folds,
-    stratified by AAF size N. Returns a list of k (train_aafs, test_aafs) pairs
-    of (N, i) tuples: fold j's test AAFs tile the population exactly once and
-    train = population - test, so a given source-AAF is NEVER in both the train
-    and test side of the same fold (this is the fix for AAF-level leakage,
-    audit defect #2). The per-size shuffle seed depends ONLY on (fold_seed, N)
-    -- not on os.path.abspath(input_dir) and not on the semantics -- so folds
-    are reproducible across checkouts (fixing the path-dependent-seed wart) and
-    identical across semantics for paired cross-semantics comparison."""
-    if k < 2:
-        raise ValueError("grouped_kfold requires k >= 2 folds.")
-    ids_by_size = {}
-    for f in os.listdir(input_dir):
-        if not f.endswith(".lp"):
-            continue
-        gid = aaf_group_id(f)
-        if gid is None:
-            continue
-        ids_by_size.setdefault(gid[0], set()).add(gid[1])
-    if not ids_by_size:
-        raise ValueError(f"No parseable source-AAFs found in '{input_dir}'.")
-    test_aafs = [set() for _ in range(k)]
-    all_aafs = set()
-    for size in sorted(ids_by_size):
-        ids = sorted(ids_by_size[size])
-        for i in ids:
-            all_aafs.add((size, i))
-        rng = random.Random(stable_seed_from_parts("grouped_folds", fold_seed, size))
-        rng.shuffle(ids)
-        n = len(ids)
-        for j in range(k):
-            lo = (j * n) // k
-            hi = ((j + 1) * n) // k
-            for i in ids[lo:hi]:
-                test_aafs[j].add((size, i))
-    return [(all_aafs - test_aafs[j], test_aafs[j]) for j in range(k)]
-
-
-def build_grouped_balanced_test(input_dir, test_aafs, test_per_class, fold_seed, fold_index):
-    """Balanced (equal POS/NEG) hold-out drawn ONLY from the given test AAFs.
-    Caps at the smaller class so the result stays balanced; seed is
-    path-independent (fold_seed, fold_index)."""
-    test_set = set(test_aafs)
-    pos = sorted(
-        f for f in os.listdir(input_dir)
-        if f.endswith(".lp") and "_POS_" in f and aaf_group_id(f) in test_set
-    )
-    neg = sorted(
-        f for f in os.listdir(input_dir)
-        if f.endswith(".lp") and "_NEG_" in f and aaf_group_id(f) in test_set
-    )
-    # Min-example guard: fail fast if this fold cannot supply a full balanced test
-    # set, instead of silently shrinking to an under-powered/unbalanced one.
-    if min(len(pos), len(neg)) < test_per_class:
-        raise ValueError(
-            f"Grouped fold {fold_index} cannot reach test_examples_per_class="
-            f"{test_per_class} in '{input_dir}': only POS={len(pos)}, NEG={len(neg)} "
-            f"available among the fold's test AAFs. Lower test_examples_per_class, "
-            f"raise the AAF count, or reduce K."
-        )
-    per_class = test_per_class
-    seed_parts = ["grouped_balanced_test", fold_seed, fold_index]
-    selected_pos = stable_sample(pos, per_class, seed_parts + ["POS"])
-    selected_neg = stable_sample(neg, per_class, seed_parts + ["NEG"])
-    return sorted(selected_pos + selected_neg)
-
-
-def build_grouped_train_manifest(input_dir, train_aafs):
-    """All labelled files whose source-AAF is in the fold's training AAF set."""
-    train_set = set(train_aafs)
-    return sorted(
-        f for f in os.listdir(input_dir)
-        if f.endswith(".lp") and aaf_group_id(f) in train_set
-    )
-
-
-def get_train_test_sets(
-    input_dir,
-    train_files,
-    test_set_policy="fixed_balanced_holdout",
-    test_examples_per_class=None,
-    test_sampling_seed=0,
-    semantics=None,
-    partial=None,
-    iteration=None,
-    n_pos=None,
-    n_neg=None,
-    noise=None,
-    fixed_holdout_files=None,
-):
-    all_files = set(f for f in os.listdir(input_dir) if f.endswith(".lp"))
-    train_files_set = set(train_files)
-    remaining_files = sorted(all_files - train_files_set)
-
-    if test_set_policy == "all_remaining":
-        pos_files, neg_files = split_labelled_files_by_class(remaining_files)
-        metadata = {
-            "test_set_policy": test_set_policy,
-            "test_set_target_per_class": "",
-            "test_set_pos": len(pos_files),
-            "test_set_neg": len(neg_files),
-        }
-        return train_files, remaining_files, metadata
-
-    if test_set_policy == "fixed_balanced_holdout":
-        holdout_files = (
-            sorted(fixed_holdout_files)
-            if fixed_holdout_files is not None
-            else build_fixed_balanced_holdout_files(
-                input_dir=input_dir,
-                test_examples_per_class=test_examples_per_class,
-                test_sampling_seed=test_sampling_seed,
-                semantics=semantics,
-                partial=partial,
-            )
-        )
-        holdout_set = set(holdout_files)
-        overlap = sorted(train_files_set & holdout_set)
-        if overlap:
-            preview = ", ".join(overlap[:5])
-            if len(overlap) > 5:
-                preview += ", ..."
-            raise ValueError(
-                "Fixed balanced hold-out leaked into training examples. "
-                f"Overlap count={len(overlap)} in '{input_dir}'. "
-                f"Examples: {preview}"
-            )
-        holdout_pos, holdout_neg = split_labelled_files_by_class(holdout_files)
-        metadata = {
-            "test_set_policy": test_set_policy,
-            "test_set_target_per_class": test_examples_per_class,
-            "test_set_pos": len(holdout_pos),
-            "test_set_neg": len(holdout_neg),
-        }
-        return train_files, holdout_files, metadata
-
-    if test_set_policy != "balanced_remaining":
-        raise ValueError(f"Unsupported test_set_policy: {test_set_policy}")
-
-    if test_examples_per_class is None or test_examples_per_class <= 0:
-        raise ValueError(
-            "Balanced test policy requires test_examples_per_class to be a positive integer."
-        )
-
-    pos_files, neg_files = split_labelled_files_by_class(remaining_files)
-    if len(pos_files) < test_examples_per_class or len(neg_files) < test_examples_per_class:
-        raise ValueError(
-            f"Insufficient remaining files for balanced test set in '{input_dir}': "
-            f"need {test_examples_per_class} per class, found "
-            f"POS={len(pos_files)}, NEG={len(neg_files)}."
-        )
-
-    seed_parts = [
-        "balanced_test_subset",
-        test_sampling_seed,
-        os.path.abspath(input_dir),
-        semantics,
-        partial,
-        iteration,
-        n_pos,
-        n_neg,
-        noise,
-    ]
-    selected_pos = stable_sample(pos_files, test_examples_per_class, seed_parts + ["POS"])
-    selected_neg = stable_sample(neg_files, test_examples_per_class, seed_parts + ["NEG"])
-    test_files = sorted(selected_pos + selected_neg)
-    metadata = {
-        "test_set_policy": test_set_policy,
-        "test_set_target_per_class": test_examples_per_class,
-        "test_set_pos": len(selected_pos),
-        "test_set_neg": len(selected_neg),
-    }
-    return train_files, test_files, metadata
-
-def par2_score_seconds(elapsed_seconds, timeout_seconds, par2_factor):
-    if elapsed_seconds >= timeout_seconds:
-        return par2_factor * timeout_seconds
-    return elapsed_seconds
-
 def safe_div(numerator, denominator):
     return numerator / denominator if denominator else 0.0
 
 def matthews_corrcoef(tp, fp, tn, fn):
     # MCC = (TP*TN - FP*FN) / sqrt((TP+FP)(TP+FN)(TN+FP)(TN+FN)); 0.0 when any
     # marginal is 0 (degenerate single-class fold) to avoid div-by-zero/NaN.
-    import math
     denom = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
     return ((tp * tn) - (fp * fn)) / denom if denom else 0.0
 
@@ -507,13 +255,9 @@ def _final_verdict_unsat(output_text):
 
 def run_ilasp(task_file, output_file, extra_args, timeout_seconds, retry_on_exit_code_minus_11):
     start = time.perf_counter()
-    # Per-semantics ILASP version: an explicit --version=... in extra_args (from
-    # ilasp_config.json, e.g. GRD -> 2i) replaces the default. Needed because ILASP 4.4.1
-    # returns a spurious UNSATISFIABLE on ~1/6 no-choice GRD tasks (minimal repro:
-    # analysis/grd_prf_lab/g1_definite_core/tasks/_diag_core.las); --version=2i solves them.
-    version_args = [a for a in extra_args if a.startswith("--version")]
-    base = ["ILASP"] if version_args else ["ILASP", "--version=4"]
-    command = base + extra_args + ["-d", task_file]
+    # Version default + per-semantics --version override (e.g. GRD -> 2i): see
+    # ilasp_policy.build_ilasp_command.
+    command = build_ilasp_command(task_file, extra_args=extra_args, debug=True)
 
     env = os.environ.copy()
     env["PYTHONUNBUFFERED"] = "1"
@@ -851,14 +595,147 @@ def append_result_row(results_file, row):
         writer = csv.writer(csvfile, delimiter=';')
         writer.writerow(row)
 
+@dataclass(frozen=True)
+class RunConfig:
+    """Per-run settings resolved ONCE from semantics_config + ilasp_config
+    (replaces the previous per-stage getter plumbing inside run_experiment)."""
+    semantics: str
+    semantics_entry: dict
+    # train_test_learned stage; its semantics_file is swapped for each learned
+    # model at scoring time (dataclasses.replace).
+    learned_runtime: SemanticsRuntime
+    # train_test_ground_truth stage: the ASPARTIX reference oracle.
+    ground_truth_runtime: SemanticsRuntime
+    eval_on_bare_aaf: bool
+    learn_heuristics: bool
+    ilasp_args: tuple
+    train_timeout_seconds: int
+    test_par_timeout_seconds: int
+    retry_on_exit_code_minus_11: int
+
+    @classmethod
+    def from_configs(cls, semantics_config, ilasp_config, semantics,
+                     semantics_config_path="semantics_config.json",
+                     train_timeout_seconds=None, test_par_timeout_seconds=None):
+        global_ilasp_cfg = ilasp_config.get("global", {})
+        train_timeout = int(
+            train_timeout_seconds
+            if train_timeout_seconds is not None
+            else global_ilasp_cfg.get("train_timeout_seconds", DEFAULT_TRAIN_TIMEOUT_SECONDS)
+        )
+        test_timeout = int(
+            test_par_timeout_seconds
+            if test_par_timeout_seconds is not None
+            else global_ilasp_cfg.get("test_par_timeout_seconds", DEFAULT_TEST_PAR_TIMEOUT_SECONDS)
+        )
+        retries = int(
+            global_ilasp_cfg.get(
+                "retry_on_exit_code_minus_11", DEFAULT_RETRY_ON_EXIT_CODE_MINUS_11
+            )
+        )
+        if train_timeout <= 0:
+            raise ValueError("train_timeout_seconds must be > 0")
+        if test_timeout <= 0:
+            raise ValueError("test_par_timeout_seconds must be > 0")
+        if retries < 0:
+            raise ValueError("retry_on_exit_code_minus_11 must be >= 0")
+        return cls(
+            semantics=semantics,
+            semantics_entry=get_semantics_entry(semantics_config, semantics),
+            learned_runtime=build_semantics_runtime(
+                semantics_config, semantics, stage="train_test_learned"
+            ),
+            ground_truth_runtime=build_semantics_runtime(
+                semantics_config, semantics, stage="train_test_ground_truth"
+            ),
+            eval_on_bare_aaf=get_eval_on_bare_aaf(semantics_config, semantics),
+            learn_heuristics=semantics_wants_ilasp_heuristics(semantics_config, semantics),
+            ilasp_args=tuple(
+                resolve_ilasp_args(
+                    semantics=semantics,
+                    ilasp_config=ilasp_config,
+                    semantics_config_path=semantics_config_path,
+                )
+            ),
+            train_timeout_seconds=train_timeout,
+            test_par_timeout_seconds=test_timeout,
+            retry_on_exit_code_minus_11=retries,
+        )
+
+
+def score_model_on_test_set(model_file, test_files, input_dir, cfg,
+                            eval_match_policy, bare_instance_path,
+                            test_timeout_seconds=None, report_mismatches=False):
+    """Score ONE learned model against the reference semantics on ONE test set —
+    shared by the matched-regime and complete-information (*_FULL) surfaces.
+    Returns (tp, fp, tn, fn, correct, learned_times, oracle_times, any_timed_out);
+    the timeout flag is only tracked when test_timeout_seconds is given."""
+    learned_runtime = replace(cfg.learned_runtime, semantics_file=model_file)
+    tp = fp = tn = fn = correct = 0
+    learned_times = []
+    oracle_times = []
+    any_timed_out = 0
+    for tf in test_files:
+        test_path = os.path.join(input_dir, tf)
+        if cfg.eval_on_bare_aaf:
+            # Strip the test file's label atoms and compare on the BARE AAF.
+            # Required for grounded: grounded.lp is a definite program (no
+            # integrity constraints), so it can never reject an injected
+            # non-grounded labelling, which makes the labelled-instance
+            # comparison meaningless on negative instances. Comparing the
+            # computed unique extension on the bare AAF is the correct test.
+            bare_lines = [
+                ln.strip()
+                for ln in open(test_path, "r", encoding="utf-8")
+                if ln.strip().startswith(("arg(", "att("))
+            ]
+            test_path = bare_instance_path
+            with open(test_path, "w", encoding="utf-8") as bf:
+                bf.write("\n".join(bare_lines) + "\n")
+
+        start = time.perf_counter()
+        pred_models = solve_semantics_instance(learned_runtime, test_path)
+        elapsed = time.perf_counter() - start
+        learned_times.append(elapsed)
+        if test_timeout_seconds is not None and elapsed >= test_timeout_seconds:
+            any_timed_out = 1
+
+        start = time.perf_counter()
+        gt_models = solve_semantics_instance(cfg.ground_truth_runtime, test_path)
+        elapsed = time.perf_counter() - start
+        oracle_times.append(elapsed)
+        if test_timeout_seconds is not None and elapsed >= test_timeout_seconds:
+            any_timed_out = 1
+
+        is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
+            pred_models, gt_models, eval_match_policy
+        )
+        if is_correct:
+            correct += 1
+        elif report_mismatches:
+            print(f"[Mismatch] {tf}")
+        tp += add_tp
+        fp += add_fp
+        tn += add_tn
+        fn += add_fn
+    return tp, fp, tn, fn, correct, learned_times, oracle_times, any_timed_out
+
+
 def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterations,
                    base_output_dir, train_dir, train_output_dir, results_dir,
                    no_prefix=False, dry_run=False,
                    train_timeout_seconds=None, test_par_timeout_seconds=None, par2_factor=None,
                    overwrite_existing_iterations=False, negative_policy="oracle_neg", negative_flip_k=1,
-                   test_set_policy="fixed_balanced_holdout", test_examples_per_class=None, test_sampling_seed=0,
+                   test_set_policy="grouped_kfold", test_examples_per_class=None, test_sampling_seed=0,
                    eval_match_policy=DEFAULT_EVAL_MATCH_POLICY, ilasp_config_path="ilasp_config.json",
                    semantics_config_path="semantics_config.json", task_sampling_seed_base=0):
+    # par2_factor is deprecated and ignored (PAR2 scoring was never applied to
+    # any recorded metric); it stays in the signature because archived labs
+    # (analysis/grd_prf_lab/integration) still pass it.
+    del par2_factor
+
+    if not dry_run:
+        require_ilasp()  # fail fast, before any task generation
 
     base_output_dir = resolve_artifact_path(base_output_dir, "labelled")
     train_dir = resolve_artifact_path(train_dir, "train")
@@ -885,104 +762,32 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
     os.makedirs(results_dir, exist_ok=True)
 
     semantics_config = load_semantics_config(semantics_config_path)
-    semantics_entry = get_semantics_entry(semantics_config, semantics)
-    asp_file = resolve_repo_path(semantics_entry["file"])
-    learned_clingo_args = get_clingo_args(
-        semantics_config, semantics, stage="train_test_learned"
-    )
-    ground_truth_clingo_args = get_clingo_args(
-        semantics_config, semantics, stage="train_test_ground_truth"
-    )
-    learned_background_file_cfg = get_background_file(
-        semantics_config, stage="train_test_learned", semantics=semantics
-    )
-    ground_truth_background_file_cfg = get_background_file(
-        semantics_config, stage="train_test_ground_truth", semantics=semantics
-    )
-    learned_background_file = (
-        resolve_repo_path(learned_background_file_cfg)
-        if learned_background_file_cfg
-        else None
-    )
-    ground_truth_background_file = (
-        resolve_repo_path(ground_truth_background_file_cfg)
-        if ground_truth_background_file_cfg
-        else None
-    )
-    learned_completion_rules = get_completion_rules_enabled(
-        semantics_config, stage="train_test_learned", semantics=semantics
-    )
-    ground_truth_completion_rules = get_completion_rules_enabled(
-        semantics_config, stage="train_test_ground_truth", semantics=semantics
-    )
-    eval_on_bare_aaf = get_eval_on_bare_aaf(semantics_config, semantics)
-    learned_show_predicates = get_show_predicates(
-        semantics_config, stage="train_test_learned", semantics=semantics
-    )
-    ground_truth_show_predicates = get_show_predicates(
-        semantics_config, stage="train_test_ground_truth", semantics=semantics
-    )
-    ground_truth_runtime = build_semantics_runtime(
-        semantics_config,
-        semantics,
-        stage="train_test_ground_truth",
-    )
     ilasp_config = load_ilasp_config(ilasp_config_path)
-    ilasp_args = resolve_ilasp_args(
-        semantics=semantics,
-        ilasp_config_path=ilasp_config_path,
+    cfg = RunConfig.from_configs(
+        semantics_config,
+        ilasp_config,
+        semantics,
         semantics_config_path=semantics_config_path,
+        train_timeout_seconds=train_timeout_seconds,
+        test_par_timeout_seconds=test_par_timeout_seconds,
     )
-    learn_heuristics = semantics_wants_ilasp_heuristics(semantics_config, semantics)
-    if learn_heuristics:
-        print(f"[Config] {semantics}: ILASP heuristic learning enabled.")
-    else:
-        print(f"[Config] {semantics}: ILASP heuristic learning disabled.")
-    global_ilasp_cfg = ilasp_config.get("global", {})
-    effective_train_timeout_seconds = int(
-        train_timeout_seconds
-        if train_timeout_seconds is not None
-        else global_ilasp_cfg.get("train_timeout_seconds", DEFAULT_TRAIN_TIMEOUT_SECONDS)
-    )
-    effective_test_par_timeout_seconds = int(
-        test_par_timeout_seconds
-        if test_par_timeout_seconds is not None
-        else global_ilasp_cfg.get("test_par_timeout_seconds", DEFAULT_TEST_PAR_TIMEOUT_SECONDS)
-    )
-    effective_par2_factor = float(
-        par2_factor
-        if par2_factor is not None
-        else global_ilasp_cfg.get("par2_factor", DEFAULT_PAR2_FACTOR)
-    )
-    effective_retry_on_exit_code_minus_11 = int(
-        global_ilasp_cfg.get(
-            "retry_on_exit_code_minus_11",
-            DEFAULT_RETRY_ON_EXIT_CODE_MINUS_11
-        )
-    )
-    if effective_train_timeout_seconds <= 0:
-        raise ValueError("train_timeout_seconds must be > 0")
-    if effective_test_par_timeout_seconds <= 0:
-        raise ValueError("test_par_timeout_seconds must be > 0")
-    if effective_par2_factor <= 0:
-        raise ValueError("par2_factor must be > 0")
-    if effective_retry_on_exit_code_minus_11 < 0:
-        raise ValueError("retry_on_exit_code_minus_11 must be >= 0")
     if negative_flip_k <= 0:
         raise ValueError("negative_flip_k must be > 0")
 
     print(
-        f"[Config] ILASP train timeout: {effective_train_timeout_seconds}s | "
-        f"PAR-{effective_par2_factor:g} test threshold: {effective_test_par_timeout_seconds}s | "
-        f"retry_on_exit_code_-11: {effective_retry_on_exit_code_minus_11}"
+        f"[Config] {semantics}: ILASP heuristic learning "
+        f"{'enabled' if cfg.learn_heuristics else 'disabled'}."
     )
     print(
-        f"[Config] label_oracle_stage=train_test_ground_truth | "
-        f"learned_background={learned_background_file or '(none)'} | "
-        f"ground_truth_background={ground_truth_background_file or '(none)'} | "
-        f"label_oracle_args={' '.join(ground_truth_runtime.clingo_args) if ground_truth_runtime.clingo_args else '(none)'} | "
-        f"learned_args={' '.join(learned_clingo_args) if learned_clingo_args else '(none)'} | "
-        f"gt_args={' '.join(ground_truth_clingo_args) if ground_truth_clingo_args else '(none)'}"
+        f"[Config] ILASP train timeout: {cfg.train_timeout_seconds}s | "
+        f"test timeout threshold: {cfg.test_par_timeout_seconds}s | "
+        f"retry_on_exit_code_-11: {cfg.retry_on_exit_code_minus_11}"
+    )
+    print(
+        f"[Config] learned_background={cfg.learned_runtime.background_file or '(none)'} | "
+        f"ground_truth_background={cfg.ground_truth_runtime.background_file or '(none)'} | "
+        f"learned_args={' '.join(cfg.learned_runtime.clingo_args) or '(none)'} | "
+        f"gt_args={' '.join(cfg.ground_truth_runtime.clingo_args) or '(none)'}"
     )
 
     sample_pairs = build_sample_size_pairs(f_values, f_neg_values)
@@ -1175,7 +980,8 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     semantics_config_path=semantics_config_path,
                     allowed_examples_manifest=iter_manifest,
                     seed=run_seed,
-                    learn_background=semantics_entry.get("learn_background_file"),
+                    learn_background=cfg.semantics_entry.get("learn_background_file"),
+                    mode_declarations=cfg.semantics_entry.get("mode_declarations_file"),
                 )
                 train_files = extract_train_files(task_file)
                 train_files, test_files, test_set_meta = get_train_test_sets(
@@ -1203,11 +1009,11 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                 if negative_policy != "oracle_neg":
                     synth_neg_legal, synth_neg_total = count_oracle_legal_synthetic_negatives(
                         task_file=task_file,
-                        semantics_file=ground_truth_runtime.semantics_file,
-                        background_file=ground_truth_runtime.background_file,
-                        clingo_args=list(ground_truth_runtime.clingo_args),
-                        completion_rules=ground_truth_runtime.completion_rules,
-                        show_predicates=list(ground_truth_runtime.show_predicates),
+                        semantics_file=cfg.ground_truth_runtime.semantics_file,
+                        background_file=cfg.ground_truth_runtime.background_file,
+                        clingo_args=list(cfg.ground_truth_runtime.clingo_args),
+                        completion_rules=cfg.ground_truth_runtime.completion_rules,
+                        show_predicates=list(cfg.ground_truth_runtime.show_predicates),
                         cache=oracle_legal_cache,
                     )
                     print(
@@ -1224,9 +1030,9 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                 ) = run_ilasp(
                     task_file,
                     output_file,
-                    ilasp_args,
-                    timeout_seconds=effective_train_timeout_seconds,
-                    retry_on_exit_code_minus_11=effective_retry_on_exit_code_minus_11
+                    list(cfg.ilasp_args),
+                    timeout_seconds=cfg.train_timeout_seconds,
+                    retry_on_exit_code_minus_11=cfg.retry_on_exit_code_minus_11
                 )
                 learned_heuristic_rules = count_heuristic_directives(output_file)
                 learned_has_heuristic = int(learned_heuristic_rules > 0)
@@ -1241,74 +1047,24 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                 learned_test_times = []
                 oracle_test_times = []
                 any_test_timed_out = 0
-                tp = 0
-                fp = 0
-                tn = 0
-                fn = 0
+                tp = fp = tn = fn = 0
 
                 print(f"📄 Test set size: {total} files")
 
                 if train_succeeded:
-                    for tf in test_files:
-                        test_path = os.path.join(input_dir, tf)
-                        if eval_on_bare_aaf:
-                            # Strip the test file's label atoms and compare on the
-                            # BARE AAF. Required for grounded: grounded.lp is a
-                            # definite program (no integrity constraints), so it can
-                            # never reject an injected non-grounded labelling, which
-                            # makes the labelled-instance comparison meaningless on
-                            # negative instances. Comparing the computed unique
-                            # extension on the bare AAF is the correct test.
-                            bare_lines = [
-                                ln.strip()
-                                for ln in open(test_path, "r", encoding="utf-8")
-                                if ln.strip().startswith(("arg(", "att("))
-                            ]
-                            test_path = os.path.join(train_dir, "_bare_eval_instance.lp")
-                            with open(test_path, "w", encoding="utf-8") as bf:
-                                bf.write("\n".join(bare_lines) + "\n")
-
-                        start = time.perf_counter()
-                        ilasp_models = run_learned_model_with_api(
-                            output_file,
-                            test_path,
-                            learned_background_file,
-                            clingo_args=learned_clingo_args,
-                            completion_rules=learned_completion_rules,
-                            show_predicates=learned_show_predicates,
-                        )
-                        ilasp_test_elapsed = time.perf_counter() - start
-                        learned_test_times.append(ilasp_test_elapsed)
-                        if ilasp_test_elapsed >= effective_test_par_timeout_seconds:
-                            any_test_timed_out = 1
-
-                        start = time.perf_counter()
-                        gt_models = run_ground_truth_with_api(
-                            asp_file,
-                            test_path,
-                            ground_truth_background_file,
-                            clingo_args=ground_truth_clingo_args,
-                            completion_rules=ground_truth_completion_rules,
-                            show_predicates=ground_truth_show_predicates,
-                        )
-                        aspartix_elapsed = time.perf_counter() - start
-                        oracle_test_times.append(aspartix_elapsed)
-                        if aspartix_elapsed >= effective_test_par_timeout_seconds:
-                            any_test_timed_out = 1
-
-                        is_correct, add_tp, add_fp, add_tn, add_fn = evaluate_model_sets(
-                            ilasp_models,
-                            gt_models,
-                            eval_match_policy,
-                        )
-                        if is_correct:
-                            correct += 1
-                        else:
-                            print(f"[Mismatch] {tf}")
-                        tp += add_tp
-                        fp += add_fp
-                        tn += add_tn
-                        fn += add_fn
+                    (
+                        tp, fp, tn, fn, correct,
+                        learned_test_times, oracle_test_times, any_test_timed_out,
+                    ) = score_model_on_test_set(
+                        output_file,
+                        test_files,
+                        input_dir,
+                        cfg,
+                        eval_match_policy,
+                        bare_instance_path=os.path.join(train_dir, "_bare_eval_instance.lp"),
+                        test_timeout_seconds=cfg.test_par_timeout_seconds,
+                        report_mismatches=True,
+                    )
                 else:
                     print(
                         f"[Warning] Skipping learned-model inference because ILASP failed "
@@ -1338,40 +1094,14 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     if train_succeeded and input_dir_full == input_dir:
                         tp_full, fp_full, tn_full, fn_full = tp, fp, tn, fn
                     elif train_succeeded:
-                        for tf in iter_holdout_files_full:
-                            test_path_full = os.path.join(input_dir_full, tf)
-                            if eval_on_bare_aaf:
-                                bare_lines = [
-                                    ln.strip()
-                                    for ln in open(test_path_full, "r", encoding="utf-8")
-                                    if ln.strip().startswith(("arg(", "att("))
-                                ]
-                                test_path_full = os.path.join(train_dir, "_bare_eval_instance_full.lp")
-                                with open(test_path_full, "w", encoding="utf-8") as bf:
-                                    bf.write("\n".join(bare_lines) + "\n")
-                            pred_models_full = run_learned_model_with_api(
-                                output_file,
-                                test_path_full,
-                                learned_background_file,
-                                clingo_args=learned_clingo_args,
-                                completion_rules=learned_completion_rules,
-                                show_predicates=learned_show_predicates,
-                            )
-                            gt_models_full = run_ground_truth_with_api(
-                                asp_file,
-                                test_path_full,
-                                ground_truth_background_file,
-                                clingo_args=ground_truth_clingo_args,
-                                completion_rules=ground_truth_completion_rules,
-                                show_predicates=ground_truth_show_predicates,
-                            )
-                            _, a_f, b_f, c_f, d_f = evaluate_model_sets(
-                                pred_models_full, gt_models_full, eval_match_policy
-                            )
-                            tp_full += a_f
-                            fp_full += b_f
-                            tn_full += c_f
-                            fn_full += d_f
+                        tp_full, fp_full, tn_full, fn_full, _, _, _, _ = score_model_on_test_set(
+                            output_file,
+                            iter_holdout_files_full,
+                            input_dir_full,
+                            cfg,
+                            eval_match_policy,
+                            bare_instance_path=os.path.join(train_dir, "_bare_eval_instance_full.lp"),
+                        )
 
                 acc = correct / total if total > 0 else 0
                 precision = safe_div(tp, tp + fp)
@@ -1410,8 +1140,8 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
                     int(train_succeeded),
                     train_exit_code if train_exit_code is not None else "",
                     train_retries_used,
-                    effective_train_timeout_seconds,
-                    effective_test_par_timeout_seconds,
+                    cfg.train_timeout_seconds,
+                    cfg.test_par_timeout_seconds,
                     output_file,
                     learned_heuristic_rules,
                     learned_has_heuristic,
@@ -1463,7 +1193,12 @@ def build_parser(add_help=True):
         description="Run ILASP training/testing pipeline on labelled AAFs.",
         add_help=add_help,
     )
-    parser.add_argument("--semantics", default="ADM", help="Semantics used (e.g. ADM, PRF)")
+    parser.add_argument(
+        "--semantics",
+        default="ADM",
+        help="Semantics to learn. Available: "
+             + (", ".join(available_semantics_names()) or "(semantics_config.json unreadable)") + ".",
+    )
     parser.add_argument("--partial", type=float, default=0.3, help="Partial extension probability")
     parser.add_argument("--f_values", type=int, nargs="+", default=[5, 10], help="Positive example counts")
     parser.add_argument(
@@ -1475,7 +1210,7 @@ def build_parser(add_help=True):
     )
     parser.add_argument(
         "--negative_policy",
-        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "rn_hardmix", "nce_sample", "reliable_negative"),
+        choices=("oracle_neg", "flip_one", "flip_k", "full_relabel", "reliable_negative"),
         default="oracle_neg",
         help="Negative generation policy for ILASP task construction."
     )
@@ -1503,13 +1238,7 @@ def build_parser(add_help=True):
         "--test_par_timeout_seconds",
         type=int,
         default=None,
-        help="PAR-2 threshold (seconds) for test/inference metrics. Default: ilasp_config global value or 1200."
-    )
-    parser.add_argument(
-        "--par2_factor",
-        type=float,
-        default=None,
-        help="PAR-k penalty factor. Default: ilasp_config global value or 2."
+        help="Timeout threshold (seconds) for test/inference metrics. Default: ilasp_config global value or 1200."
     )
     parser.add_argument(
         "--overwrite_existing_iterations",
@@ -1529,15 +1258,16 @@ def build_parser(add_help=True):
     parser.add_argument(
         "--test_set_policy",
         choices=("grouped_kfold", "fixed_balanced_holdout", "balanced_remaining", "all_remaining"),
-        default="fixed_balanced_holdout",
+        default="grouped_kfold",
         help=(
-            "Testing policy. 'grouped_kfold' (recommended) runs K group-disjoint CV folds over "
-            "source-AAFs (K = --iterations): train and test never share a source-AAF, removing "
-            "AAF-level leakage, and the K folds give honest generalization CIs. "
-            "'fixed_balanced_holdout' reserves one deterministic, class-balanced hold-out pool per "
-            "labelled dataset and samples training only from the complement (note: file-level "
-            "disjoint but NOT AAF-disjoint -> leaks); 'balanced_remaining' preserves the earlier "
-            "balanced-on-remainder behavior; 'all_remaining' preserves the legacy behavior."
+            "Testing policy. 'grouped_kfold' (default; the paper protocol) runs K group-disjoint "
+            "CV folds over source-AAFs (K = --iterations): train and test never share a "
+            "source-AAF, removing AAF-level leakage, and the K folds give honest generalization "
+            "CIs. Legacy policies are opt-in: 'fixed_balanced_holdout' reserves one deterministic, "
+            "class-balanced hold-out pool per labelled dataset and samples training only from the "
+            "complement (file-level disjoint but NOT AAF-disjoint -> leaks); 'balanced_remaining' "
+            "preserves the earlier balanced-on-remainder behavior; 'all_remaining' preserves the "
+            "legacy behavior."
         )
     )
     parser.add_argument(
@@ -1596,7 +1326,6 @@ def main(argv=None):
         dry_run=args.dry_run,
         train_timeout_seconds=args.train_timeout_seconds,
         test_par_timeout_seconds=args.test_par_timeout_seconds,
-        par2_factor=args.par2_factor,
         overwrite_existing_iterations=args.overwrite_existing_iterations,
         negative_policy=args.negative_policy,
         negative_flip_k=args.negative_flip_k,

@@ -16,8 +16,12 @@ Purely structural features (no oracle labels leak in).
 
 Records EVERYTHING to analysis/tree_baseline/: results.json (per-fold + aggregate
 metrics), summary.md, feature_importances.json, and exported tree rules per target.
+
+By default a re-run writes *_regen outputs (results_regen.json, summary_regen.md,
+feature_importances_regen.json, trees_regen/) so the committed results.json stays
+authoritative; pass --overwrite to clobber the committed files instead.
 """
-import csv, glob, json, os, re, time, statistics as st
+import csv, glob, json, os, re, sys, time, statistics as st
 from collections import defaultdict
 import numpy as np
 import networkx as nx
@@ -30,7 +34,9 @@ from sklearn.metrics import matthews_corrcoef, accuracy_score, precision_recall_
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 OUT = os.path.join(REPO, "analysis/tree_baseline")
-os.makedirs(os.path.join(OUT, "trees"), exist_ok=True)
+SUF = "" if "--overwrite" in sys.argv else "_regen"   # default: never clobber committed outputs
+TREES_DIR = os.path.join(OUT, "trees" + SUF)
+os.makedirs(TREES_DIR, exist_ok=True)
 POOL = sorted(glob.glob(os.path.join(REPO, "data/exp1_v2/aafs/aaf_*.lp")))
 SEED = 20260312           # campaign test_sampling_seed, reused for fold + noise determinism
 NOISES = [0.0, 0.1, 0.2]
@@ -216,7 +222,7 @@ def evaluate(target_name):
                 per["majority"][metr].append(val)
             # export one representative tree (clean, fold 0)
             if q == 0.0 and fold == 0 and not exported:
-                with open(os.path.join(OUT, "trees", f"{target_name}.txt"), "w") as fh:
+                with open(os.path.join(TREES_DIR, f"{target_name}.txt"), "w") as fh:
                     fh.write(f"# Decision tree for {target_name} (clean, fold 0)\n")
                     fh.write(f"# base rate accepted = {base_rate:.3f}\n\n")
                     fh.write(export_text(dt, feature_names=FEATNAMES))
@@ -249,12 +255,12 @@ for tname in TASKS:
     print("evaluating", tname, "...")
     results["tasks"][tname] = evaluate(tname)
 
-json.dump(results, open(os.path.join(OUT, "results.json"), "w"), indent=1)
+json.dump(results, open(os.path.join(OUT, f"results{SUF}.json"), "w"), indent=1)
 json.dump({t: results["tasks"][t]["feature_importance"] for t in TASKS},
-          open(os.path.join(OUT, "feature_importances.json"), "w"), indent=1)
+          open(os.path.join(OUT, f"feature_importances{SUF}.json"), "w"), indent=1)
 
 # ---- readable summary
-with open(os.path.join(OUT, "summary.md"), "w") as fh:
+with open(os.path.join(OUT, f"summary{SUF}.md"), "w") as fh:
     fh.write("# Decision-tree acceptability baseline (per-argument task)\n\n")
     fh.write(f"Pool: {len(POOL)} AAFs, {len(X)} argument rows, grouped {N_FOLDS}-fold CV. "
              "Tree = CART (max_depth 6). Metric MCC (mean over folds). Noise q flips training "
@@ -277,4 +283,6 @@ with open(os.path.join(OUT, "summary.md"), "w") as fh:
              "labelling-level extension-membership task LAS solves; it cannot represent the set of extensions.\n")
     fh.write("- LAS recovers the exact semantics on clean data (Thm 1 + the recovery surface), so its "
              "argument-level acceptance is ~1.0 by construction — the gap to the tree's MCC is the baseline's cost.\n")
-print("\nDONE. Wrote results.json, feature_importances.json, summary.md, trees/ to", OUT)
+print(f"\nDONE. Wrote results{SUF}.json, feature_importances{SUF}.json, summary{SUF}.md, "
+      f"trees{SUF}/ to {OUT}"
+      + ("" if SUF == "" else "  (committed results.json untouched; pass --overwrite to replace it)"))

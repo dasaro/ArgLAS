@@ -10,7 +10,9 @@ ASPARTIX-style encoding S_σ have identical answer sets on EVERY argumentation f
 - ALL 66,066 labelled digraphs with ≤4 arguments (self-attacks included): 0 counterexamples,
   for the three manuscript programs AND the on-disk Example1 variants.
 - All 500 campaign AAFs (4–8 arguments, dense): 0 mismatches.
-- Results: `level1_results.json`.
+- Results: `level1_results.json` (committed; produced with `check_equivalence.py 4`).
+  Re-runs write `level1_results_regen.json` so the committed record is never clobbered;
+  without the positional NMAX the script does a quick nmax=3 smoke check.
 
 **Level 2 — first-order proof** (`prove_completion_equiv.py`):
 - All six programs are TIGHT (syntactic positive-dependency check in the script), so by

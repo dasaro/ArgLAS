@@ -22,6 +22,17 @@ class SemanticsRuntime:
     show_predicates: tuple[str, ...]
 
 
+_completion_rules_program_cache = None
+
+
+def _completion_rules_program():
+    global _completion_rules_program_cache
+    if _completion_rules_program_cache is None:
+        with open(resolve_repo_path("completion_rules.lp"), "r", encoding="utf-8") as f:
+            _completion_rules_program_cache = f.read()
+    return _completion_rules_program_cache
+
+
 def solve_models(
     files_to_load,
     clingo_args=None,
@@ -38,8 +49,7 @@ def solve_models(
         ctl.load(path)
 
     if completion_rules:
-        ctl.add("base", [], "in(X) :- arg(X), not out(X).")
-        ctl.add("base", [], "out(X) :- arg(X), not in(X).")
+        ctl.add("base", [], _completion_rules_program())
 
     if additional_program:
         ctl.add("base", [], additional_program)
