@@ -161,8 +161,14 @@ Same conventions as B.1, one block per regime.
         parts.append(f"\\paragraph{{{title}}}")
         parts.append(wide_table(load(root), label=None))
     # ---- C.4 exact invocations
-    cfgs = sorted(os.path.basename(p) for p in
-                  glob.glob(f"{REPO}/experiments/run_configs/*.json"))
+    # only the configs that produced the committed record (smoke/probe/GRD
+    # configs in run_configs/ are deliberately excluded from the listing)
+    PRODUCING = ["final_synthetic_v2_pos40.json", "final_synthetic_v2_pos50.json",
+                 "final_synthetic_v2_pos60.json", "v3_breadth_sparse.json",
+                 "v3_breadth_self.json", "v3_breadth_large.json",
+                 "v3_baf.json", "v3_aba.json"]
+    cfgs = [c for c in PRODUCING
+            if os.path.exists(f"{REPO}/experiments/run_configs/{c}")]
     cfg_list = ", ".join(c.replace("_", "\\_") for c in cfgs)
     parts.append(f"""
 \\subsection*{{B.4\\quad Exact invocations}}
@@ -172,7 +178,7 @@ Every run is reproducible from the seeded configuration files in
 \\texttt{{run\\_v2\\_campaign.sh}}, \\texttt{{run\\_v3\\_gap.sh}}, and
 \\texttt{{run\\_large\\_safe.sh}} (workers$=$1 plus a memory watchdog for the
 $n\\le12$ regime). Master seed $20260309$; ILASP~4.4.1 with the flags of
-\\texttt{{config/ilasp\\_config.json}}; clingo~5.x; train timeout
+\\texttt{{config/ilasp\\_config.json}}; clingo~5.8.0; train timeout
 $3{{,}}500$\\,s. Both launchers are stop/resume-safe.""")
 
     open(OUT, "w").write("\n".join(parts) + "\n")

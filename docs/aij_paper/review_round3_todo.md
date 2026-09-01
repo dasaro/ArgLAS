@@ -81,8 +81,41 @@ own committed evidence (tab:surface, tab:exactness); the preliminary report's
 30-example collapse is cited, not restated. ICCMA timing cut to a remark
 citing the preliminary report (correction retained).
 
-**REMAINING:** zero-shot Tier 1 (external-data transcription, 1–2 weeks),
-release-commit pin at submission.
+**DONE (2026-07-17, status-audit fixes):** Environment + fixed-hyperparameters
+paragraph (ILASP 4.4.1, clingo 5.8.0, M4 Pro/24 GB, 7 vs 1 workers, host-relative
+3,500 s cap, @100 penalty, 100+100 test surface); single-realization clauses
+(Evaluation, breadth-as-replication, Limitations); self-attack pool censoring
+disclosed (18/160, 12 PRF; 0.71/0.42 rest on 2/10 and 6/10 completions,
+worst-case 0.14/0.25; clean anchors 0.90/0.87) and "mechanistically explained
+boundary" softened to "confounded with the compute budget"; sparse-vs-dense
+"within ±0.03" corrected to median |Δ| 0.018 with 6/16 cells above 0.03;
+q=0.2 buy-back scoped to the dense pool; BAF/ABA scoped to clean-label
+learnability with Clopper–Pearson bound on the 15+15 ABA surface; B3 reworded
+to a qualitative decomposition (no promised operating point); imbalance
+caption per-arm timeouts (45/43/32; 118/120 at p=0.5); Appendix B.4 config list
+pruned to the 8 producing configs. BUG FIXED: arglas/train_test.py sibling
+full-pool lookup no longer regex-parses the basename (BAF_* semantics mapped to
+a nonexistent labelled_BAF_full → empty MCC_FULL on every BAF row); verified
+BAF_STB p=0.5 now populates MCC_FULL, STB A/B byte-equivalent.
+
+**REMAINING — theory presentation (paper-only, ~2–3 days; NOT yet applied):**
+R3.8 lemma for the modal constraint-style stable hypothesis (asserted bare at
+E1.1); R3.9 display the unified background B as a figure + commit
+config/bg_unified.lp, reword "extends B_AAF with ..." (currently reads as if
+unconditional and guarded defeat coexist); R3.11 ABA Proposition rigor (define
+AS*-min, display the enumeration program, splitting lemma); R3.12 semantic
+anchor for the reference side (BAF/VAF have none beyond a remark; Thm 1 rests
+on the egly2010 citation); R3.13 pinpoint Fages-with-constraints
+(erdem2003) + partial-evaluation justification. Minors: drop/rephrase Thm 2's
+unused supp premises; VAF remark needs "one value per argument, valpref a
+strict order"; mention self-attacks in App A prelims.
+
+**REMAINING — other:** commit the ~14 MB of learned .lp models the four
+derived audits address by filename (currently gitignored under artifacts/);
+optional targeted runs — BAF anchor slice (120 runs, <1 day, regex bug now
+fixed) and the 12 censored PRF self-attack cells at 4× cap (~7 h wall);
+zero-shot Tier 1 (external data, 1–2 weeks, follow-up); release-commit pin —
+the LAST action at submission (tag + replace the one remaining \todo).
 
 ## Lens verdicts
 
