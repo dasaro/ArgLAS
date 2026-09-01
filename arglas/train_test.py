@@ -907,11 +907,13 @@ def run_experiment(semantics, partial, f_values, f_neg_values, n_values, iterati
         iter_holdout_files_full = None
         input_dir_full = None
         if grouped_kfold:
+            # The sibling pool is labelled_<SEM>_full; derive it from the known semantics
+            # name rather than a basename regex (a regex on [A-Za-z0-9]+ stopped at the
+            # first underscore and silently mapped BAF_STB -> labelled_BAF_full).
             base = os.path.basename(os.path.normpath(input_dir))
-            m_full = re.match(r"(labelled_[A-Za-z0-9]+)_", base)
-            if m_full:
+            if base.startswith(f"labelled_{semantics}_"):
                 candidate = os.path.join(os.path.dirname(os.path.normpath(input_dir)),
-                                         f"{m_full.group(1)}_full")
+                                         f"labelled_{semantics}_full")
                 if os.path.normpath(candidate) == os.path.normpath(input_dir):
                     input_dir_full = input_dir  # p=1.0: full == matched
                     iter_holdout_files_full = iter_holdout_files

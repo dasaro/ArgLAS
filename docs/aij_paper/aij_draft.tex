@@ -911,7 +911,13 @@ systematically understated (a learner that recovers the exact semantics can
 still ``fail'' a partial test instance whose missing labels admit multiple
 completions). Training failures are recorded in a first-class taxonomy ---
 timeout ($3{,}500$\,s cap), unsatisfiable, error --- rather than folded into
-scores.
+scores. One scoping remark applies to every interval in this section: fold-level
+confidence intervals integrate over the five grouped folds only. The
+$500$-framework pool draw, the per-cell noise-mask realization, and the
+test-pool draw are held fixed by the campaign's single master seed, so the
+intervals quantify fold-to-fold variation within one realization of the
+generator, not variation across pool draws; the breadth pools of
+Section~\ref{sec:exp1breadth} are the campaign's between-realization evidence.
 
 \paragraph{Preferred at scale.} PRF cells instantiate the construction of
 Theorem~\ref{thm:prf}: the learner induces an admissible/complete core from
@@ -925,6 +931,22 @@ formulation, not to the semantics: asking the learner to induce the maximality
 step itself, and omitting the subset-maximal selection on the evaluation side;
 with the formulation of Theorem~\ref{thm:prf} preferred behaves like the other
 three semantics throughout.
+
+\paragraph{Environment and fixed hyperparameters.} All campaigns ran ILASP
+4.4.1 (default algorithm; the per-semantics ILASP flag lists in
+\texttt{config/ilasp\_config.json} are empty) with clingo 5.8.0 on one Apple
+M4~Pro (12 cores, 24\,GB), using $7$ concurrent workers for the main grid and
+a single worker for the $n\in\{10,11,12\}$ regime, whose ILASP tasks peak at
+$7$--$8$\,GB each. The training cap of $3{,}500$\,s is therefore
+host-relative: a timeout marks a task that exceeded roughly an hour on this
+machine, not an intrinsic limit of the learner. Three settings are held fixed
+throughout and were not tuned: noisy examples carry ILASP's finite penalty
+weight $100$ (\texttt{noise\_factor} --- large enough that a lone corrupted
+example is out-voted by a consistent majority, finite so that it remains
+uncoverable at a cost), every fold is scored on a fixed balanced draw of $100$
+held-out positives and $100$ held-out negatives, and the cap above. We state
+them so that the failure taxonomy is interpretable, not as a claim of
+optimality.
 
 \subsection{Recovery surfaces}
 \label{sec:exp1surfaces}
@@ -1206,7 +1228,9 @@ Balanced training sets are a convenience, not a requirement.
 \caption{Class imbalance: mean recovery per positive-fraction arm over the
 cells present in all three arms (matched on semantics, completeness, noise, and
 total training size; $52$--$54$ matched cells per semantics --- matching
-requires at least one completed run per arm).}
+requires at least one completed run per arm). Timeouts by arm: $45$
+($50\%$), $43$ ($40\%$), and $32$ ($60\%$) of $1{,}080$ runs each, $118$ of
+the $120$ at $p{=}0.5$.}
 \label{tab:imbalance}
 \begin{tabular}{lcccc}
 \toprule
@@ -1278,30 +1302,45 @@ reproduces everywhere'' but a sharper, regime-dependent one.
 
 \emph{Clean labels reproduce across all three regimes.} At $q=0$ every
 generator recovers every semantics at MCC $\ge 0.99$ for stable, admissible,
-and complete, and $\ge 0.97$ for preferred (bar one exception below) --- the
-learnability of the semantics does not depend on the generator, and in
+and complete, and $\ge 0.97$ for preferred (bar one exception below; $4$ of
+the $80$ clean-label runs on the larger pool timed out and are excluded) ---
+the learnability of the semantics does not depend on the generator, and in
 particular it \emph{scales to $n=12$}, where clean-label recovery is $0.99$--
 $1.00$ throughout. This is the core robustness claim, and it holds cleanly.
+Because each breadth pool is an independent draw under its own generator
+seed, these re-runs are also the campaign's only between-realization
+evidence: that clean recovery reproduces on every draw is the replication the
+single-seed main grid cannot supply by itself.
 
 \emph{Under noise the regimes separate.} Sparse tracks the dense pool closely
-(within $\pm0.03$ at matched coordinates, and \emph{better} for complete, $0.94$
+(median absolute difference $0.018$ over the $16$ matched noisy cells, six of
+which differ by more than $0.03$, the largest being preferred at
+$p{=}0.5,f{=}20$ at $-0.09$; and \emph{better} for complete, $0.94$
 vs.\ $0.69$ at $f{=}20$ --- sparser graphs are if anything easier). Larger
 frameworks confirm scaling but with heavier censoring: $25$ of their $160$ runs
-hit the $3{,}500$\,s cap (versus $1$ for sparse), so the surviving noisy-large
+hit the $3{,}500$\,s cap (versus $1$ for sparse and $18$ for the
+self-attacking pool, twelve of them preferred), so the surviving noisy-large
 numbers are survivor-biased upward and we read them as suggestive, not
-definitive. The same worst-case sensitivity as Section~\ref{sec:exp1cost}
+definitive. The breadth pools cover $q\in\{0,0.1\}$: the $q{=}0.2$ buy-back of
+E1.2 is established on the dense pool and corroborated across regimes only at
+$q{=}0.1$. The same worst-case sensitivity as Section~\ref{sec:exp1cost}
 (scoring every timed-out run as MCC~$0$) bounds the damage: most noisy-large
 cells drop from $0.87$--$0.99$ to $0.61$--$0.89$, with the worst cell (PRF,
 $q{=}0.1$, $f{=}60$: $5/10$ completions) falling from $0.945$ to $0.472$ ---
-the truth lies between the conditional mean and this floor. The one genuine boundary is \emph{preferred on self-attacking
-frameworks}: PRF recovery falls to $0.71$ at $q{=}0.1,f{=}60$ (and $0.42$ at
-$f{=}20$), well below the $0.94$--$0.97$ the other regimes hold, and it is
-depressed even at clean labels ($0.87$ vs.\ $0.98$). Self-attacks complicate
-conflict-freeness and subset-maximality --- a self-attacking argument is in no
-admissible set --- so the maximality-based construction is the most fragile
-under label noise. We report this as a documented limitation of the current
-formulation, not a gap: it is a specific, mechanistically explained boundary,
-and the other three semantics remain robust across all three generators.
+the truth lies between the conditional mean and this floor. The one regime
+that degrades is \emph{preferred on self-attacking frameworks}, and censoring
+dominates its noisy numbers: at $q{=}0.1$ the reported $0.71$ ($f{=}60$) is
+the mean of the $2$ of $10$ runs that completed and the $0.42$ ($f{=}20$) of
+$6$ of $10$, with worst-case floors of $0.14$ and $0.25$. The uncensored
+evidence for the boundary is the clean-label slice, where all $10/10$ runs
+complete and PRF still sits at $0.90$ ($f{=}20$) and $0.87$ ($f{=}60$)
+against $\ge0.97$ elsewhere. Self-attacks complicate conflict-freeness and
+subset-maximality --- a self-attacking argument is in no admissible set --- so
+the maximality-based construction has the hardest search and the weakest
+signal here. We report this as a documented limitation of the current
+formulation whose noisy extent is confounded with the compute budget, not as
+a settled accuracy floor; the other three semantics remain robust across all
+three generators.
 
 \begin{figure}[t]
 \centering
@@ -1311,8 +1350,10 @@ self-attacking, and larger ($n{\le}12$) frameworks, clean (left) and noisy
 (right); bars are means over label completeness $\{1.0,0.5\}$ and five folds,
 with $\pm1$ s.e.m. Clean recovery reproduces across all generators; under noise,
 sparse and larger frameworks stay high (larger with heavier timeout censoring,
-$25/160$), while \emph{preferred on self-attacking frameworks} is the one
-regime that degrades --- a mechanistically explained boundary, not an artifact.}
+$25/160$; self-attacking $18/160$, twelve of them preferred), while
+\emph{preferred on self-attacking frameworks} is the one regime that degrades
+--- its noisy bars rest on $2$--$6$ of $10$ completions, so the boundary's
+noisy extent is confounded with the compute budget (see text).}
 \label{fig:generator_breadth}
 \end{figure}
 
@@ -1392,8 +1433,11 @@ frameworks, translated them with the \emph{corrected} construction of
 Section~\ref{sec:abatranslation}, and ran the standard AAF pipeline on the
 translated pool (which organically contains self-attacking arguments ---
 assumptions attacking themselves via their own contrary).
-Table~\ref{tab:breadth} (right): both tested semantics reach exact recovery
-(MCC $1.0$ in every fold) by $f=40$. The end-to-end path ABA $\to$ corrected
+Table~\ref{tab:breadth} (right): both tested semantics make no test error by
+$f=40$ on the $15{+}15$ items available per fold --- a Clopper--Pearson $95\%$
+lower bound of $0.88$ on per-fold accuracy, and a single error would already
+read MCC $0.94$ --- so the ABA figures certify learnability at this scale
+rather than a precise recovery level. The end-to-end path ABA $\to$ corrected
 translation $\to$ learning $\to$ evaluation closes the loop the
 defect of Section~\ref{sec:abadefect} had broken.
 
@@ -1426,7 +1470,9 @@ cmp & 0.848 (0.69) & 0.983 (0.94) & 0.974 (0.89) & & & &\\
 frameworks (learned with the \emph{unchanged} AAF hypothesis space over
 $B_{\mathrm{BAF}}$) and on ABA-translated frameworks (via the corrected
 translation of Section~\ref{sec:abadefect}). Both reach near-perfect recovery by
-$f=20$--$40$, confirming that one learner serves all three families.}
+$f=20$--$40$ under clean, complete labels: a learnability check that the
+unchanged hypothesis space covers all three families, not a robustness check
+--- the noise and completeness axes were run on AAFs only.}
 \label{fig:breadth}
 \end{figure}
 
@@ -1517,12 +1563,15 @@ reliable-negative & $0.911$ {\scriptsize$[0.77,1.00]$} & $0.802$ {\scriptsize$[0
 \end{table}
 
 \textbf{(B3) Error decomposes --- with the interaction read the right way.}
-Reading Experiment~1's surface at coordinates matching the behavioural data
-yields the \emph{recovery limit}: the best any learner could do if humans
-followed some Dung-style semantics exactly but reported it imperfectly. The gap
-between that limit and observed human-data accuracy is then attributable to
-\emph{model mismatch} --- the extent to which human acceptance is not any such
-semantics. Table~\ref{tab:pq} supplies the needed calibration facts:
+Experiment~1's surface licenses a \emph{qualitative} decomposition. Read at
+coordinates resembling the behavioural data's completeness and noise, it
+bounds the \emph{recovery limit}: the best any learner could do if humans
+followed some Dung-style semantics exactly but reported it imperfectly. The
+gap between that limit and observed human-data accuracy is then attributable
+to \emph{model mismatch} --- the extent to which human acceptance is not any
+such semantics. We use the decomposition as a reading aid, not as a point
+estimate: the behavioural corpus does not pin its own $(p,q)$ operating point
+precisely enough to interpolate Table~\ref{tab:pq} to a number. Table~\ref{tab:pq} supplies the needed calibration facts:
 incompleteness alone (humans abstaining) is essentially free for the learner,
 noise alone (humans erring) is survivable and data-recoverable --- but their
 \emph{combination} is what collapses recovery. Since the human corpus is both
@@ -2250,9 +2299,16 @@ moderate size ($n\le12$). Clean-label recovery reproduces across the sparse,
 self-attacking, and larger generators; under noise, larger frameworks carry
 heavier timeout censoring ($25/160$ runs hit the cap, so their noisy recovery is
 read as suggestive), and \emph{preferred on self-attacking frameworks} degrades
-(PRF $0.42$--$0.71$ under noise) because self-attacks break the conflict-freeness
-and subset-maximality the construction leans on --- a specific, mechanistically
-understood boundary rather than a general failure. Grounded semantics was
+--- clean-label recovery $0.87$--$0.90$ against $\ge0.97$ elsewhere, with the
+noisy figures ($0.42$--$0.71$) resting on $2$--$6$ of $10$ completions and
+worst-case floors of $0.14$--$0.25$, so the noisy extent of that boundary is
+confounded with the compute budget; self-attacks break the conflict-freeness
+and subset-maximality the construction leans on, a specific rather than a
+general failure. All dense-pool point estimates rest on a single pool draw and
+one noise-mask realization per cell (their intervals are fold-level only); the
+breadth pools are independent draws that reproduce the clean headline. The
+bipolar and ABA breadth arms are clean-label, complete-information runs only
+($45$ and $30$ runs), and preferred was not tested on either family. Grounded semantics was
 scoped out of the learnability study for a diagnosed reason, and that
 diagnosis is now confirmed and closed (\ref{app:grd}): grounded is a
 functional target that the campaign's unified guess-and-check background
