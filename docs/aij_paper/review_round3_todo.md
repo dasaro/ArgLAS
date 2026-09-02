@@ -112,8 +112,11 @@ strict order"; mention self-attacks in App A prelims.
 
 **REMAINING — other:** commit the ~14 MB of learned .lp models the four
 derived audits address by filename (currently gitignored under artifacts/);
-optional targeted runs — BAF anchor slice (120 runs, <1 day, regex bug now
-fixed) and the 12 censored PRF self-attack cells at 4× cap (~7 h wall);
+optional targeted runs, now PACKAGED for the command line (experiments/RERUNS.md,
+`./experiments/run_reruns.sh {baf-anchor|self-prf-recap|seedb} [smoke]`, resume-safe,
+`collect` copies results into data/): BAF anchor slice (120 runs, 2–4 h), the censored
+PRF self-attack cells at a 4× cap (20 runs, up to ~12 h), seed-B replicate (440 runs,
+1–2 h);
 zero-shot Tier 1 (external data, 1–2 weeks, follow-up); release-commit pin —
 the LAST action at submission (tag + replace the one remaining \todo).
 
