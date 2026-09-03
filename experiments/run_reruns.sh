@@ -158,13 +158,14 @@ PY
     cp -R "$ROOT/results" "$DEST/results"
     cp -R "$ROOT/aafs" "$DEST/aafs"
     # the learned programs the derived audits address via LEARNED_MODEL_FILENAME
-    [ -d "$ROOT/train_output" ] && cp -R "$ROOT/train_output" "$DEST/train_output"
+    # (learned .lp programs only; the ILASP stdout logs stay in artifacts/)
+    [ -d "$ROOT/train_output" ] && rsync -a --exclude '*.log' "$ROOT/train_output/" "$DEST/train_output/"
     cat > "$DEST/README.md" <<EOF
 # $NAME — targeted re-run (collected $(date '+%F'))
 
 Produced by \`./experiments/run_reruns.sh\` (see experiments/RERUNS.md) with the seeded config
 under experiments/run_configs/; results/ holds the per-fold rows (semicolon-delimited, same
-45-column schema as data/exp1_v2), aafs/ the exact framework pool, train_output/ the learned
+56-column schema as data/exp1_v2), aafs/ the exact framework pool, train_output/ the learned
 programs referenced by LEARNED_MODEL_FILENAME. $(rows_in "$ROOT")
 EOF
     echo "[reruns] collected into $DEST — review, then: git add $DEST && git commit"

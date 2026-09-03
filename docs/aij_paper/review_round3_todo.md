@@ -110,15 +110,24 @@ on the egly2010 citation); R3.13 pinpoint Fages-with-constraints
 unused supp premises; VAF remark needs "one value per argument, valpref a
 strict order"; mention self-attacks in App A prelims.
 
-**REMAINING — other:** commit the ~14 MB of learned .lp models the four
-derived audits address by filename (currently gitignored under artifacts/);
-optional targeted runs, now PACKAGED for the command line (experiments/RERUNS.md,
-`./experiments/run_reruns.sh {baf-anchor|self-prf-recap|seedb} [smoke]`, resume-safe,
-`collect` copies results into data/): BAF anchor slice (120 runs, 2–4 h), the censored
-PRF self-attack cells at a 4× cap (20 runs, up to ~12 h), seed-B replicate (440 runs,
-1–2 h);
-zero-shot Tier 1 (external data, 1–2 weeks, follow-up); release-commit pin —
-the LAST action at submission (tag + replace the one remaining \todo).
+**REMAINING — other:** commit the ~14 MB of learned .lp models of the v2 grid that the four
+derived audits address by LEARNED_MODEL_FILENAME (the three targeted re-runs below already
+commit theirs under data/<name>/train_output); zero-shot Tier 1 (external data, 1–2 weeks,
+follow-up); release-commit pin — the LAST action at submission (tag + replace the one
+remaining \todo).
+
+**DONE 2026-09-03 — the three targeted re-runs** (experiments/RERUNS.md, run unattended by
+experiments/supervise_reruns.sh; committed as data/self_prf_recap, data/baf_anchor, data/seedB;
+tables by docs/aij_paper/make_rerun_tables.py → tab:prfrecap, tab:bafanchor, tab:seedb):
+- self-prf-recap (20 runs, 4× cap = 14,000 s): 12/20 complete vs 8/20; PRF on self-attacking
+  frameworks at q=0.1 is a genuine boundary (p=1, f=20: 0.34 on 5/5), f=60 still budget-bound
+  (3/10). The 8 previously-completed folds all completed again on byte-identical tasks, but only
+  4 returned the identical program — ILASP tie-breaking among equal-size optima is not
+  run-to-run stable on long searches (disclosed in the Environment paragraph).
+- baf-anchor (120 runs, 1 timeout): MCC_FULL populated on every p=0.5 row (sibling-pool fix
+  verified); BAF holds 0.98–1.00 at p=0.5/q=0, 0.92–0.97 at q=0.1/p=1, 0.76–0.96 at q=0.1/p=0.5.
+- seedB (440 runs, 0 timeouts): vs exp1_v2 on 88 cells mean Δ +0.002, mean |Δ| 0.023; 9 of the
+  10 cells with |Δ|>0.05 are f=10; the two largest (±0.25) are CMP q=0.2 f=10, opposite signs.
 
 ## Lens verdicts
 

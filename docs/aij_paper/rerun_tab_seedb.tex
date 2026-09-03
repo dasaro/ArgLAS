@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Second realization of the dense campaign (a fresh $500$-framework pool,
+noise masks and test draw under master seed $20260901$; $440$ runs, all completed)
+against the balanced arm of the main grid on the same $88$ cells
+($p\in\{1,0.75,0.5\}$, $q{=}0$, $f\in\{10,\dots,80\}$; $p\in\{1,0.75\}$,
+$q{=}0.2$, $f\in\{10,80\}$). $\Delta$ is the seed-B minus main-grid difference
+in per-cell mean complete-information MCC.}
+\label{tab:seedb}
+\begin{tabular}{lcrrrr}
+\toprule
+semantics & $q$ & cells & mean $\Delta$ & mean $|\Delta|$ & max $|\Delta|$ (cell)\\
+\midrule
+STB & 0.0 & 18 & -0.002 & 0.014 & -0.068 ($p{=}1.0,f{=}20$)\\
+STB & 0.2 & 4 & +0.043 & 0.043 & +0.107 ($p{=}1.0,f{=}10$)\\
+ADM & 0.0 & 18 & +0.008 & 0.013 & +0.130 ($p{=}0.75,f{=}10$)\\
+ADM & 0.2 & 4 & +0.061 & 0.061 & +0.116 ($p{=}0.75,f{=}10$)\\
+CMP & 0.0 & 18 & -0.005 & 0.011 & -0.054 ($p{=}1.0,f{=}10$)\\
+CMP & 0.2 & 4 & +0.001 & 0.134 & -0.250 ($p{=}1.0,f{=}10$)\\
+PRF & 0.0 & 18 & -0.007 & 0.009 & -0.038 ($p{=}0.75,f{=}10$)\\
+PRF & 0.2 & 4 & -0.034 & 0.049 & -0.114 ($p{=}0.75,f{=}10$)\\
+\midrule
+all & & 88 & +0.002 & 0.023 & -0.250 (CMP, $p{=}1.0,q{=}0.2,f{=}10$)\\
+\bottomrule\end{tabular}\end{table}
