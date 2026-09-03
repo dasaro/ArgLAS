@@ -92,3 +92,19 @@ hard-negative and transfer audits need them). Then fold the numbers into the pap
 The smoke mode derives a one-cell/two-fold variant of the real config on the fly (lowest
 `p` so the complete-information sibling pool is exercised), so there is a single source of
 truth per experiment.
+
+## Outcome (2026-09-03)
+
+All three ran to completion under `experiments/supervise_reruns.sh` (one attempt each, no
+restarts) and are committed as `data/self_prf_recap`, `data/baf_anchor`, `data/seedB`
+(results, pool, learned programs; ILASP stdout logs stay in `artifacts/`). Paper tables:
+`docs/aij_paper/make_rerun_tables.py` → `tab:prfrecap`, `tab:bafanchor`, `tab:seedb`.
+
+- self-prf-recap: 12/20 completions at 14,000 s (8/20 at 3,500 s). The built-in check found
+  that the 8 previously-completed folds all completed again on byte-identical tasks, but only
+  4 returned the identical program: ILASP's choice among equal-size optimal hypotheses is not
+  run-to-run stable on long searches. Cell means/failure taxonomy reproduce; single noisy folds
+  on hard pools do not necessarily.
+- baf-anchor: 120/120 rows, 1 timeout (CMP p=0.5 q=0.1 f=60 fold 5); MCC_FULL populated on every
+  p=0.5 row; the p=1.0 f=20 clean rows are byte-equal to data/v3_baf.
+- seedB: 440/440, no timeouts; vs data/exp1_v2 mean Δ +0.002, mean |Δ| 0.023 over 88 cells.

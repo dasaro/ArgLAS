@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{BAF anchor under label incompleteness and noise (complete-information
+MCC, mean over five folds, worst fold in parentheses; $80$ test instances per
+class; the unchanged AAF mode bias over $B_{\mathrm{BAF}}$; same $500$-BAF pool
+as Table~\ref{tab:breadth}). A bracket $[k/5]$ marks a cell with $k$ completions
+within the $3{,}500$\,s cap; every other cell completed $5/5$ (1 of 120 runs
+timed out).}
+\label{tab:bafanchor}
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{2}{c}{$p{=}1.0,\ q{=}0$} & \multicolumn{2}{c}{$p{=}0.5,\ q{=}0$}
+& \multicolumn{2}{c}{$p{=}1.0,\ q{=}0.1$} & \multicolumn{2}{c}{$p{=}0.5,\ q{=}0.1$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+BAF & $f{=}20$ & $f{=}60$ & $f{=}20$ & $f{=}60$ & $f{=}20$ & $f{=}60$ & $f{=}20$ & $f{=}60$\\
+\midrule
+STB & 0.98 (0.93) & 0.98 (0.95) & 0.99 (0.98) & 1.00 (1.00) & 0.97 (0.92) & 0.95 (0.89) & 0.76 (0.15) & 0.95 (0.91)\\
+ADM & 1.00 (1.00) & 1.00 (1.00) & 1.00 (1.00) & 1.00 (1.00) & 0.93 (0.86) & 0.96 (0.90) & 0.83 (0.45) & 0.89 (0.62)\\
+CMP & 0.98 (0.94) & 1.00 (0.99) & 0.98 (0.90) & 1.00 (0.98) & 0.92 (0.86) & 0.94 (0.86) & 0.91 (0.62) & 0.96 (0.94)\,[4/5]\\
+\bottomrule\end{tabular}\end{table}

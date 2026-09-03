@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Preferred on the self-attacking pool at $q{=}0.1$, re-run at four times
+the training cap ($14{,}000$\,s) on the identical frameworks, seeds and ILASP
+tasks as the breadth arm (\S\ref{sec:exp1breadth}). Complete-information MCC,
+mean over the folds that completed (worst fold in parentheses), with
+completions out of five in brackets; the last column is the mean ILASP
+training time over all five folds, timed-out folds counted at the cap.}
+\label{tab:prfrecap}
+\begin{tabular}{llccccr}
+\toprule
+& & \multicolumn{2}{c}{cap $3{,}500$\,s (breadth arm)} & \multicolumn{2}{c}{cap $14{,}000$\,s (re-run)}\\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+$p$ & $f$ & MCC & compl. & MCC & compl. & mean train (s)\\
+\midrule
+1.0 & 20 & 0.33 (0.10) & 3/5 & 0.34 (0.10) & 5/5 & 3,230\\
+1.0 & 60 & 0.66 (0.66) & 1/5 & 0.52 (0.27) & 2/5 & 11,350\\
+0.5 & 20 & 0.52 (0.30) & 3/5 & 0.77 (0.58) & 4/5 & 5,381\\
+0.5 & 60 & 0.75 (0.75) & 1/5 & 0.87 (0.87) & 1/5 & 11,931\\
+\bottomrule\end{tabular}\end{table}

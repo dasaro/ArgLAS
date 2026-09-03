@@ -212,8 +212,8 @@ breadth studies (Section~\ref{sec:exp1}), the bridge methodology
 (Sections~\ref{sec:exp2}--\ref{sec:humansem}), and the FastLAS and
 feature-baseline comparisons of Section~\ref{sec:eval}.
 
-Everything is reproducible: encodings, proof-checking scripts, campaign
-configurations with pinned seeds, and analysis notebooks are available in the
+Everything is reproducible: encodings, the exhaustive equivalence audits, campaign
+configurations with pinned seeds, and analysis scripts are available in the
 accompanying repository.\footnote{\url{https://github.com/dasaro/ArgLAS}
 \todo{pin release commit for submission}}
 
@@ -916,8 +916,16 @@ confidence intervals integrate over the five grouped folds only. The
 $500$-framework pool draw, the per-cell noise-mask realization, and the
 test-pool draw are held fixed by the campaign's single master seed, so the
 intervals quantify fold-to-fold variation within one realization of the
-generator, not variation across pool draws; the breadth pools of
-Section~\ref{sec:exp1breadth} are the campaign's between-realization evidence.
+generator, not variation across pool draws. Two sources bound that variation:
+the breadth pools of Section~\ref{sec:exp1breadth}, and a second full
+realization of the balanced clean grid and its $q{=}0.2$ corners under a fresh
+master seed ($440$ runs, all completed; Table~\ref{tab:seedb} in
+\ref{app:campaign}). Across the $88$ shared cells the second realization moves
+the cell means by $+0.002$ on average and $0.023$ in mean absolute value; nine
+of the ten cells that move by more than $0.05$ are the smallest-sample
+$f{=}10$ cells, and the two largest moves ($\pm0.25$, both complete-semantics
+cells at $q{=}0.2$, $f{=}10$) go in opposite directions, so the noisy
+small-sample corner is where a single realization is least trustworthy.
 
 \paragraph{Preferred at scale.} PRF cells instantiate the construction of
 Theorem~\ref{thm:prf}: the learner induces an admissible/complete core from
@@ -946,7 +954,15 @@ example is out-voted by a consistent majority, finite so that it remains
 uncoverable at a cost), every fold is scored on a fixed balanced draw of $100$
 held-out positives and $100$ held-out negatives, and the cap above. We state
 them so that the failure taxonomy is interpretable, not as a claim of
-optimality.
+optimality. One caveat qualifies reproducibility: the pinned seeds fix every
+ILASP task byte-for-byte, but ILASP's choice among equally optimal hypotheses
+is not stable across runs on long searches. In the re-run of
+Table~\ref{tab:prfrecap} the eight folds that had completed at the campaign
+cap all completed again on identical task files; four returned the identical
+program, and four returned a different program of the same size, three of
+which scored differently ($+0.11$ to $+0.51$ complete-information MCC). Cell
+means and the failure taxonomy are reproducible to the seed; individual noisy
+folds on hard pools are reproducible only up to this tie-breaking.
 
 \subsection{Recovery surfaces}
 \label{sec:exp1surfaces}
@@ -1308,9 +1324,9 @@ the learnability of the semantics does not depend on the generator, and in
 particular it \emph{scales to $n=12$}, where clean-label recovery is $0.99$--
 $1.00$ throughout. This is the core robustness claim, and it holds cleanly.
 Because each breadth pool is an independent draw under its own generator
-seed, these re-runs are also the campaign's only between-realization
-evidence: that clean recovery reproduces on every draw is the replication the
-single-seed main grid cannot supply by itself.
+seed, these re-runs are, with the second realization of Table~\ref{tab:seedb},
+the campaign's between-realization evidence: that clean recovery reproduces on
+every draw is the replication the single-seed main grid cannot supply by itself.
 
 \emph{Under noise the regimes separate.} Sparse tracks the dense pool closely
 (median absolute difference $0.018$ over the $16$ matched noisy cells, six of
@@ -1328,13 +1344,22 @@ $q{=}0.1$. The same worst-case sensitivity as Section~\ref{sec:exp1cost}
 cells drop from $0.87$--$0.99$ to $0.61$--$0.89$, with the worst cell (PRF,
 $q{=}0.1$, $f{=}60$: $5/10$ completions) falling from $0.945$ to $0.472$ ---
 the truth lies between the conditional mean and this floor. The one regime
-that degrades is \emph{preferred on self-attacking frameworks}, and censoring
-dominates its noisy numbers: at $q{=}0.1$ the reported $0.71$ ($f{=}60$) is
-the mean of the $2$ of $10$ runs that completed and the $0.42$ ($f{=}20$) of
-$6$ of $10$, with worst-case floors of $0.14$ and $0.25$. The uncensored
-evidence for the boundary is the clean-label slice, where all $10/10$ runs
-complete and PRF still sits at $0.90$ ($f{=}20$) and $0.87$ ($f{=}60$)
-against $\ge0.97$ elsewhere. Self-attacks complicate conflict-freeness and
+that degrades is \emph{preferred on self-attacking frameworks}, and at the
+campaign cap censoring dominates its noisy numbers: at $q{=}0.1$ the reported
+$0.71$ ($f{=}60$) is the mean of the $2$ of $10$ runs that completed and the
+$0.42$ ($f{=}20$) of $6$ of $10$, with worst-case floors of $0.14$ and $0.25$.
+To separate the boundary from the budget we re-ran these four cells at four
+times the cap ($14{,}000$\,s) on the identical frameworks, seeds and ILASP
+tasks (Table~\ref{tab:prfrecap}). The extra budget buys back four of the
+twelve censored folds ($12/20$ completions against $8/20$), and what emerges
+is a genuine boundary rather than a budget artefact: with complete labels at
+$f{=}20$ all five folds now complete and preferred still recovers only
+$0.34$ (worst fold $0.10$; the half-complete-label cell scores $0.77$ on
+$4/5$, with the fold spread on this pool wide throughout), while the $f{=}60$
+cells remain budget-bound even at the quadrupled cap ($3/10$ completions,
+mean $0.64$). The uncensored clean-label slice, where all $10/10$ runs
+complete and PRF sits at $0.90$ ($f{=}20$) and $0.87$ ($f{=}60$) against
+$\ge0.97$ elsewhere, points the same way. Self-attacks complicate conflict-freeness and
 subset-maximality --- a self-attacking argument is in no admissible set --- so
 the maximality-based construction has the hardest search and the weakest
 signal here. We report this as a documented limitation of the current
@@ -1352,10 +1377,13 @@ with $\pm1$ s.e.m. Clean recovery reproduces across all generators; under noise,
 sparse and larger frameworks stay high (larger with heavier timeout censoring,
 $25/160$; self-attacking $18/160$, twelve of them preferred), while
 \emph{preferred on self-attacking frameworks} is the one regime that degrades
---- its noisy bars rest on $2$--$6$ of $10$ completions, so the boundary's
-noisy extent is confounded with the compute budget (see text).}
+--- its noisy bars rest on $2$--$6$ of $10$ completions; a re-run at four
+times the cap (Table~\ref{tab:prfrecap}) confirms the degradation on
+uncensored cells (see text).}
 \label{fig:generator_breadth}
 \end{figure}
+
+\input{rerun_tab_prf}
 
 \paragraph{Cross-pool transfer.} The breadth re-runs above retrain on each
 pool; a sharper question is whether a program learned on \emph{one} generator
@@ -1427,6 +1455,12 @@ per class and $0.97$--$1.00$ from $20$, in under $9$ seconds per task (median
 $4$\,s). The unifying claim of Section~\ref{sec:framework} --- proved for AAF and
 BAF (Theorems~\ref{thm:aaf} and~\ref{thm:baf}) --- is thus also
 \emph{learnable}: one hypothesis space serves both families.
+Table~\ref{tab:bafanchor} anchors the two AAF robustness axes on the same
+pool: at half-complete labels and no noise all three BAF semantics stay at
+$0.98$--$1.00$ complete-information MCC, and at $q{=}0.1$ they hold
+$0.92$--$0.97$ with complete labels and $0.76$--$0.96$ with half-complete
+ones --- the same ordering as on the AAF grid, where label incompleteness
+amplifies noise (Table~\ref{tab:pq}) --- with a single timeout in $120$ runs.
 
 \paragraph{Framework breadth: ABA.} We generated 300 random flat ABA
 frameworks, translated them with the \emph{corrected} construction of
@@ -1463,6 +1497,8 @@ cmp & 0.848 (0.69) & 0.983 (0.94) & 0.974 (0.89) & & & &\\
 \end{tabular}
 \end{table}
 
+\input{rerun_tab_baf}
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figs/fig_breadth.pdf}
@@ -1472,7 +1508,8 @@ $B_{\mathrm{BAF}}$) and on ABA-translated frameworks (via the corrected
 translation of Section~\ref{sec:abadefect}). Both reach near-perfect recovery by
 $f=20$--$40$ under clean, complete labels: a learnability check that the
 unchanged hypothesis space covers all three families, not a robustness check
---- the noise and completeness axes were run on AAFs only.}
+--- the noise and completeness axes are swept on AAFs only; Table~\ref{tab:bafanchor}
+anchors both on the BAF pool.}
 \label{fig:breadth}
 \end{figure}
 
@@ -2299,16 +2336,21 @@ moderate size ($n\le12$). Clean-label recovery reproduces across the sparse,
 self-attacking, and larger generators; under noise, larger frameworks carry
 heavier timeout censoring ($25/160$ runs hit the cap, so their noisy recovery is
 read as suggestive), and \emph{preferred on self-attacking frameworks} degrades
---- clean-label recovery $0.87$--$0.90$ against $\ge0.97$ elsewhere, with the
-noisy figures ($0.42$--$0.71$) resting on $2$--$6$ of $10$ completions and
-worst-case floors of $0.14$--$0.25$, so the noisy extent of that boundary is
-confounded with the compute budget; self-attacks break the conflict-freeness
+--- clean-label recovery $0.87$--$0.90$ against $\ge0.97$ elsewhere, and
+under noise the degradation is confirmed on uncensored cells by a re-run at
+four times the training cap ($0.34$ at $f{=}20$ with complete labels, $5/5$
+completions), while its $f{=}60$ cells remain budget-bound ($3/10$
+completions at $14{,}000$\,s); self-attacks break the conflict-freeness
 and subset-maximality the construction leans on, a specific rather than a
 general failure. All dense-pool point estimates rest on a single pool draw and
-one noise-mask realization per cell (their intervals are fold-level only); the
-breadth pools are independent draws that reproduce the clean headline. The
-bipolar and ABA breadth arms are clean-label, complete-information runs only
-($45$ and $30$ runs), and preferred was not tested on either family. Grounded semantics was
+one noise-mask realization per cell (their intervals are fold-level only); a
+second realization of the clean grid and its $q{=}0.2$ corners moves cell
+means by $0.02$ in mean absolute value, with the larger moves confined to
+$f{=}10$ (Table~\ref{tab:seedb}), and the breadth pools are independent draws
+that reproduce the clean headline. The ABA breadth arm is clean-label,
+complete-information runs only ($30$ runs); the bipolar arm is anchored at
+half-complete labels and $q{=}0.1$ ($120$ further runs, Table~\ref{tab:bafanchor})
+but not swept; and preferred was not tested on either family. Grounded semantics was
 scoped out of the learnability study for a diagnosed reason, and that
 diagnosis is now confirmed and closed (\ref{app:grd}): grounded is a
 functional target that the campaign's unified guess-and-check background
@@ -2554,6 +2596,14 @@ regenerated from the committed \texttt{data/} record by
 \texttt{docs/aij\_paper/make\_appendix\_tables.py}.
 
 \input{appendix_campaign}
+
+The second realization of the balanced clean grid (Section~\ref{sec:exp1surfaces})
+is summarized in Table~\ref{tab:seedb}; its per-cell rows are committed under
+\texttt{data/seedB}, alongside \texttt{data/baf\_anchor} and
+\texttt{data/self\_prf\_recap} for Tables~\ref{tab:bafanchor}
+and~\ref{tab:prfrecap}, all regenerated by \texttt{make\_rerun\_tables.py}.
+
+\input{rerun_tab_seedb}
 
 \section{Grounded semantics: exact recovery with a definite learning background}
 \label{app:grd}

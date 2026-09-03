@@ -1,0 +1,15 @@
+arg(1).
+arg(2).
+arg(3).
+arg(4).
+arg(5).
+att(2,1).
+att(2,3).
+att(3,4).
+att(3,5).
+att(4,2).
+att(5,3).
+support(1,5).
+support(2,4).
+support(4,1).
+support(4,3).

@@ -1,0 +1,2 @@
+:- in(V1); not_defended(V1).
+:- defeated(V1); not out(V1).
