@@ -1,0 +1,2289 @@
+{
+ "method": "Three blind readers (independent LLM agents, each given only the high-resolution crops of Fig. 2 of arXiv:1902.10552) transcribed the majority-response squares of all 60 arguments x 3 participant groups; two blind readers derived the 12 attack relations from the appendix text; two read the Fig. 4 bar chart of the COMMA 2018 paper. A reconciler compared their outputs with external_responses.py / external_afs.py and re-read every contested cell. Run 2026-09-03.",
+ "fig2_majority_readers": [
+  [
+   {
+    "num": 1,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 2,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 3,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 4,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 5,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 6,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 7,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 8,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 9,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 10,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 11,
+    "all": "reject",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 12,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 13,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 14,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 15,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 16,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 17,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 18,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 19,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 20,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 21,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 22,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 23,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 24,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 25,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 26,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 27,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 28,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 29,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 30,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 31,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 32,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 33,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 34,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 35,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 36,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 37,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 38,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 39,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 40,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 41,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 42,
+    "all": "undecided",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 43,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 44,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 45,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 46,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 47,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 48,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 49,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 50,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 51,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 52,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 53,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 54,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 55,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 56,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 57,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 58,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 59,
+    "all": "tie",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 60,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   }
+  ],
+  [
+   {
+    "num": 1,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 2,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 3,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 4,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 5,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 6,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 7,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 8,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 9,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 10,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 11,
+    "all": "reject",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 12,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 13,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 14,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 15,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 16,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 17,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 18,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 19,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 20,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 21,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 22,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 23,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 24,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 25,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 26,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 27,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 28,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 29,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 30,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 31,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 32,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 33,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 34,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 35,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 36,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 37,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 38,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 39,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 40,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 41,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 42,
+    "all": "undecided",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 43,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 44,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 45,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 46,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 47,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 48,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 49,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 50,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 51,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 52,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 53,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 54,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 55,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 56,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 57,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 58,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 59,
+    "all": "tie",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 60,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   }
+  ],
+  [
+   {
+    "num": 1,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 2,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 3,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 4,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 5,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 6,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 7,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 8,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 9,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 10,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 11,
+    "all": "reject",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 12,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 13,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 14,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 15,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 16,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 17,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 18,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 19,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 20,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 21,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 22,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 23,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 24,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 25,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 26,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 27,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 28,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 29,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 30,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 31,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 32,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 33,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 34,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 35,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 36,
+    "all": "accept",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 37,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 38,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 39,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 40,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 41,
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 42,
+    "all": "undecided",
+    "coherent": "accept",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 43,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 44,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 45,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 46,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 47,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 48,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 49,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 50,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 51,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 52,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   },
+   {
+    "num": 53,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 54,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 55,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 56,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 57,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 58,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided",
+    "confidence": "high"
+   },
+   {
+    "num": 59,
+    "all": "tie",
+    "coherent": "undecided",
+    "nongrounded": "reject",
+    "confidence": "high"
+   },
+   {
+    "num": 60,
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept",
+    "confidence": "high"
+   }
+  ]
+ ],
+ "af_readers": [
+  [
+   {
+    "name": "AF1",
+    "args": [
+     "G (1)",
+     "H (2)",
+     "I (3)",
+     "J (4)"
+    ],
+    "attacks": [
+     [
+      "G",
+      "H"
+     ],
+     [
+      "H",
+      "I"
+     ]
+    ]
+   },
+   {
+    "name": "AF2",
+    "args": [
+     "T (5)",
+     "U (6)",
+     "V (7)"
+    ],
+    "attacks": [
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "T"
+     ],
+     [
+      "U",
+      "V"
+     ]
+    ]
+   },
+   {
+    "name": "AF3",
+    "args": [
+     "L (8)",
+     "M (9)",
+     "N (10)",
+     "O (11)",
+     "P (12)"
+    ],
+    "attacks": [
+     [
+      "L",
+      "M"
+     ],
+     [
+      "L",
+      "O"
+     ],
+     [
+      "M",
+      "N"
+     ],
+     [
+      "M",
+      "O"
+     ],
+     [
+      "N",
+      "L"
+     ],
+     [
+      "N",
+      "O"
+     ],
+     [
+      "O",
+      "P"
+     ]
+    ]
+   },
+   {
+    "name": "AF4",
+    "args": [
+     "R (13)",
+     "S (14)",
+     "T (15)",
+     "U (16)",
+     "V (17)"
+    ],
+    "attacks": [
+     [
+      "R",
+      "S"
+     ],
+     [
+      "S",
+      "T"
+     ],
+     [
+      "T",
+      "R"
+     ],
+     [
+      "T",
+      "S"
+     ],
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ]
+    ]
+   },
+   {
+    "name": "AF5",
+    "args": [
+     "W (18)",
+     "X (19)",
+     "Y (20)",
+     "Z (21)",
+     "A (22)",
+     "B (23)"
+    ],
+    "attacks": [
+     [
+      "W",
+      "X"
+     ],
+     [
+      "X",
+      "Y"
+     ],
+     [
+      "X",
+      "A"
+     ],
+     [
+      "Y",
+      "Z"
+     ],
+     [
+      "Y",
+      "A"
+     ],
+     [
+      "Z",
+      "W"
+     ],
+     [
+      "A",
+      "B"
+     ]
+    ]
+   },
+   {
+    "name": "AF6",
+    "args": [
+     "C (24)",
+     "D (25)",
+     "E (26)",
+     "F (27)",
+     "G (28)",
+     "H (29)",
+     "I (30)"
+    ],
+    "attacks": [
+     [
+      "C",
+      "D"
+     ],
+     [
+      "D",
+      "E"
+     ],
+     [
+      "E",
+      "F"
+     ],
+     [
+      "E",
+      "H"
+     ],
+     [
+      "F",
+      "G"
+     ],
+     [
+      "F",
+      "H"
+     ],
+     [
+      "G",
+      "C"
+     ],
+     [
+      "H",
+      "I"
+     ]
+    ]
+   },
+   {
+    "name": "AF7",
+    "args": [
+     "G (31)",
+     "H (32)",
+     "I (33)",
+     "J (34)",
+     "K (35)"
+    ],
+    "attacks": [
+     [
+      "G",
+      "H"
+     ],
+     [
+      "G",
+      "I"
+     ],
+     [
+      "G",
+      "J"
+     ],
+     [
+      "H",
+      "K"
+     ],
+     [
+      "I",
+      "K"
+     ],
+     [
+      "J",
+      "K"
+     ]
+    ]
+   },
+   {
+    "name": "AF8",
+    "args": [
+     "T (36)",
+     "U (37)",
+     "V (38)"
+    ],
+    "attacks": [
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ],
+     [
+      "V",
+      "U"
+     ]
+    ]
+   },
+   {
+    "name": "AF9",
+    "args": [
+     "L (39)",
+     "M (40)",
+     "N (41)",
+     "O (42)"
+    ],
+    "attacks": [
+     [
+      "L",
+      "M"
+     ],
+     [
+      "L",
+      "N"
+     ],
+     [
+      "M",
+      "L"
+     ],
+     [
+      "M",
+      "N"
+     ],
+     [
+      "N",
+      "O"
+     ]
+    ]
+   },
+   {
+    "name": "AF10",
+    "args": [
+     "R (43)",
+     "S (44)",
+     "T (45)",
+     "U (46)",
+     "V (47)"
+    ],
+    "attacks": [
+     [
+      "R",
+      "S"
+     ],
+     [
+      "S",
+      "R"
+     ],
+     [
+      "S",
+      "T"
+     ],
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ],
+     [
+      "V",
+      "T"
+     ]
+    ]
+   },
+   {
+    "name": "AF11",
+    "args": [
+     "W (48)",
+     "X (49)",
+     "Y (50)",
+     "Z (51)",
+     "A (52)"
+    ],
+    "attacks": [
+     [
+      "W",
+      "X"
+     ],
+     [
+      "X",
+      "Y"
+     ],
+     [
+      "X",
+      "Z"
+     ],
+     [
+      "Y",
+      "W"
+     ],
+     [
+      "Y",
+      "Z"
+     ],
+     [
+      "Z",
+      "A"
+     ]
+    ]
+   },
+   {
+    "name": "AF12",
+    "args": [
+     "C (53)",
+     "D (54)",
+     "E (55)",
+     "F (56)",
+     "G (57)",
+     "H (58)",
+     "I (59)",
+     "J (60)"
+    ],
+    "attacks": [
+     [
+      "C",
+      "D"
+     ],
+     [
+      "D",
+      "E"
+     ],
+     [
+      "E",
+      "F"
+     ],
+     [
+      "E",
+      "I"
+     ],
+     [
+      "F",
+      "G"
+     ],
+     [
+      "F",
+      "I"
+     ],
+     [
+      "G",
+      "H"
+     ],
+     [
+      "H",
+      "C"
+     ],
+     [
+      "I",
+      "J"
+     ]
+    ]
+   }
+  ],
+  [
+   {
+    "name": "AF1",
+    "args": [
+     "G(1)",
+     "H(2)",
+     "I(3)",
+     "J(4)"
+    ],
+    "attacks": [
+     [
+      "G",
+      "H"
+     ],
+     [
+      "H",
+      "I"
+     ]
+    ]
+   },
+   {
+    "name": "AF2",
+    "args": [
+     "T(5)",
+     "U(6)",
+     "V(7)"
+    ],
+    "attacks": [
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "T"
+     ],
+     [
+      "U",
+      "V"
+     ]
+    ]
+   },
+   {
+    "name": "AF3",
+    "args": [
+     "L(8)",
+     "M(9)",
+     "N(10)",
+     "O(11)",
+     "P(12)"
+    ],
+    "attacks": [
+     [
+      "L",
+      "M"
+     ],
+     [
+      "L",
+      "O"
+     ],
+     [
+      "M",
+      "N"
+     ],
+     [
+      "M",
+      "O"
+     ],
+     [
+      "N",
+      "L"
+     ],
+     [
+      "N",
+      "O"
+     ],
+     [
+      "O",
+      "P"
+     ]
+    ]
+   },
+   {
+    "name": "AF4",
+    "args": [
+     "R(13)",
+     "S(14)",
+     "T(15)",
+     "U(16)",
+     "V(17)"
+    ],
+    "attacks": [
+     [
+      "R",
+      "S"
+     ],
+     [
+      "S",
+      "T"
+     ],
+     [
+      "T",
+      "R"
+     ],
+     [
+      "T",
+      "S"
+     ],
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ]
+    ]
+   },
+   {
+    "name": "AF5",
+    "args": [
+     "W(18)",
+     "X(19)",
+     "Y(20)",
+     "Z(21)",
+     "A(22)",
+     "B(23)"
+    ],
+    "attacks": [
+     [
+      "W",
+      "X"
+     ],
+     [
+      "X",
+      "Y"
+     ],
+     [
+      "X",
+      "A"
+     ],
+     [
+      "Y",
+      "Z"
+     ],
+     [
+      "Y",
+      "A"
+     ],
+     [
+      "Z",
+      "W"
+     ],
+     [
+      "A",
+      "B"
+     ]
+    ]
+   },
+   {
+    "name": "AF6",
+    "args": [
+     "C(24)",
+     "D(25)",
+     "E(26)",
+     "F(27)",
+     "G(28)",
+     "H(29)",
+     "I(30)"
+    ],
+    "attacks": [
+     [
+      "C",
+      "D"
+     ],
+     [
+      "D",
+      "E"
+     ],
+     [
+      "E",
+      "F"
+     ],
+     [
+      "E",
+      "H"
+     ],
+     [
+      "F",
+      "G"
+     ],
+     [
+      "F",
+      "H"
+     ],
+     [
+      "G",
+      "C"
+     ],
+     [
+      "H",
+      "I"
+     ]
+    ]
+   },
+   {
+    "name": "AF7",
+    "args": [
+     "G(31)",
+     "H(32)",
+     "I(33)",
+     "J(34)",
+     "K(35)"
+    ],
+    "attacks": [
+     [
+      "G",
+      "H"
+     ],
+     [
+      "G",
+      "I"
+     ],
+     [
+      "G",
+      "J"
+     ],
+     [
+      "H",
+      "K"
+     ],
+     [
+      "I",
+      "K"
+     ],
+     [
+      "J",
+      "K"
+     ]
+    ]
+   },
+   {
+    "name": "AF8",
+    "args": [
+     "T(36)",
+     "U(37)",
+     "V(38)"
+    ],
+    "attacks": [
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ],
+     [
+      "V",
+      "U"
+     ]
+    ]
+   },
+   {
+    "name": "AF9",
+    "args": [
+     "L(39)",
+     "M(40)",
+     "N(41)",
+     "O(42)"
+    ],
+    "attacks": [
+     [
+      "L",
+      "M"
+     ],
+     [
+      "L",
+      "N"
+     ],
+     [
+      "M",
+      "L"
+     ],
+     [
+      "M",
+      "N"
+     ],
+     [
+      "N",
+      "O"
+     ]
+    ]
+   },
+   {
+    "name": "AF10",
+    "args": [
+     "R(43)",
+     "S(44)",
+     "T(45)",
+     "U(46)",
+     "V(47)"
+    ],
+    "attacks": [
+     [
+      "R",
+      "S"
+     ],
+     [
+      "S",
+      "R"
+     ],
+     [
+      "S",
+      "T"
+     ],
+     [
+      "T",
+      "U"
+     ],
+     [
+      "U",
+      "V"
+     ],
+     [
+      "V",
+      "T"
+     ]
+    ]
+   },
+   {
+    "name": "AF11",
+    "args": [
+     "W(48)",
+     "X(49)",
+     "Y(50)",
+     "Z(51)",
+     "A(52)"
+    ],
+    "attacks": [
+     [
+      "W",
+      "X"
+     ],
+     [
+      "X",
+      "Y"
+     ],
+     [
+      "X",
+      "Z"
+     ],
+     [
+      "Y",
+      "W"
+     ],
+     [
+      "Y",
+      "Z"
+     ],
+     [
+      "Z",
+      "A"
+     ]
+    ]
+   },
+   {
+    "name": "AF12",
+    "args": [
+     "C(53)",
+     "D(54)",
+     "E(55)",
+     "F(56)",
+     "G(57)",
+     "H(58)",
+     "I(59)",
+     "J(60)"
+    ],
+    "attacks": [
+     [
+      "C",
+      "D"
+     ],
+     [
+      "D",
+      "E"
+     ],
+     [
+      "E",
+      "F"
+     ],
+     [
+      "E",
+      "I"
+     ],
+     [
+      "F",
+      "G"
+     ],
+     [
+      "F",
+      "I"
+     ],
+     [
+      "G",
+      "H"
+     ],
+     [
+      "H",
+      "C"
+     ],
+     [
+      "I",
+      "J"
+     ]
+    ]
+   }
+  ]
+ ],
+ "fig4_pct_readers": [
+  [
+   {
+    "af": "simple",
+    "arg": "A",
+    "accept": 58,
+    "reject": 15,
+    "undecided": 27
+   },
+   {
+    "af": "simple",
+    "arg": "B",
+    "accept": 4,
+    "reject": 78,
+    "undecided": 18
+   },
+   {
+    "af": "simple",
+    "arg": "C",
+    "accept": 69,
+    "reject": 0,
+    "undecided": 31
+   },
+   {
+    "af": "floating",
+    "arg": "A",
+    "accept": 83,
+    "reject": 2,
+    "undecided": 15
+   },
+   {
+    "af": "floating",
+    "arg": "B",
+    "accept": 2,
+    "reject": 93,
+    "undecided": 5
+   },
+   {
+    "af": "floating",
+    "arg": "C",
+    "accept": 7,
+    "reject": 13,
+    "undecided": 80
+   },
+   {
+    "af": "floating",
+    "arg": "D",
+    "accept": 23,
+    "reject": 0,
+    "undecided": 77
+   },
+   {
+    "af": "cycle3",
+    "arg": "A",
+    "accept": 52,
+    "reject": 40,
+    "undecided": 8
+   },
+   {
+    "af": "cycle3",
+    "arg": "B",
+    "accept": 24,
+    "reject": 60,
+    "undecided": 16
+   },
+   {
+    "af": "cycle3",
+    "arg": "C",
+    "accept": 32,
+    "reject": 8,
+    "undecided": 60
+   },
+   {
+    "af": "cycle3",
+    "arg": "D",
+    "accept": 16,
+    "reject": 24,
+    "undecided": 60
+   },
+   {
+    "af": "cycle3",
+    "arg": "E",
+    "accept": 44,
+    "reject": 8,
+    "undecided": 48
+   }
+  ],
+  [
+   {
+    "af": "simple",
+    "arg": "A",
+    "accept": 58,
+    "reject": 15,
+    "undecided": 27
+   },
+   {
+    "af": "simple",
+    "arg": "B",
+    "accept": 5,
+    "reject": 77,
+    "undecided": 18
+   },
+   {
+    "af": "simple",
+    "arg": "C",
+    "accept": 69,
+    "reject": 0,
+    "undecided": 31
+   },
+   {
+    "af": "floating",
+    "arg": "A",
+    "accept": 83,
+    "reject": 2,
+    "undecided": 15
+   },
+   {
+    "af": "floating",
+    "arg": "B",
+    "accept": 2,
+    "reject": 93,
+    "undecided": 5
+   },
+   {
+    "af": "floating",
+    "arg": "C",
+    "accept": 7,
+    "reject": 13,
+    "undecided": 80
+   },
+   {
+    "af": "floating",
+    "arg": "D",
+    "accept": 23,
+    "reject": 0,
+    "undecided": 77
+   },
+   {
+    "af": "cycle3",
+    "arg": "A",
+    "accept": 52,
+    "reject": 40,
+    "undecided": 8
+   },
+   {
+    "af": "cycle3",
+    "arg": "B",
+    "accept": 24,
+    "reject": 60,
+    "undecided": 16
+   },
+   {
+    "af": "cycle3",
+    "arg": "C",
+    "accept": 32,
+    "reject": 8,
+    "undecided": 60
+   },
+   {
+    "af": "cycle3",
+    "arg": "D",
+    "accept": 16,
+    "reject": 24,
+    "undecided": 60
+   },
+   {
+    "af": "cycle3",
+    "arg": "E",
+    "accept": 44,
+    "reject": 8,
+    "undecided": 48
+   }
+  ]
+ ],
+ "reconciliation": {
+  "fig2_discrepancies": [],
+  "af_discrepancies": [],
+  "fig4_discrepancies": [],
+  "summary": "(1) Fig. 2: programmatic diff of CG2019_MAJORITY (external_responses.py) against the three-reader majority vote shows zero differing cells across all 60 rows x 3 groups, and readers reported no contested cells. I additionally re-read the non-trivial rows from the crops myself: row 11 (black/grey/black = R U R), row 12 (grey/grey/white = U U A), row 42 (grey/white/white = U A A), rows 51-52 (U U R / U U A), row 59 ('all' square split black/grey = tie; coherent grey; nongrounded black = T U R), row 60 (U U A) -- all agree with the committed codes. Verdict: committed correct everywhere; no cell to list. (2) AFs: both reader derivations are attack-for-attack identical to CG2019 in external_afs.py (all 12 AFs, no attack present in one source and absent in another). I independently re-derived all 12 AFs from the appendix text (cg2019.txt, 'Islander X says that islander Y ... not trustworthy' => X attacks Y) with a parser and got an exact match for every AF, and the argument numbering (1..60) also matches the appendix. No reader derivation would break the Fig. 2 semantics-prediction cross-check because none differs from the committed file. (3) Fig. 4: only differences are within 1 point -- simple/A reject: committed 16 vs readers 15; simple/B accept: committed 4 vs reader1 5 (reader2 4), reject: committed 78 vs reader1 77 (reader2 78). No cell differs by more than 5 points and the majority category is unchanged in every cell (simple: A accept, B reject, C accept; floating: A accept, B reject, C undecided, D undecided; cycle3: A accept, B reject, C undecided, D undecided, E undecided). No transcription errors found in either committed file."
+ }
+}

@@ -81,8 +81,10 @@ synthetic study doubles as a calibration instrument for behavioural data.
 Fourth, applied to a published human judgement study under an adversarially
 audited protocol, no learned theory beats the best catalogue semantics (CF2)
 --- yet the learner recovers a legible acceptance policy outside the standard
-extension-based catalogue (committal reinstatement and cycle caution, plus a candidate distrust of
-heavily attacked arguments that the stimuli cannot yet decide), and a
+extension-based catalogue (cycle caution with downstream commitment, plus a candidate distrust of
+heavily attacked arguments that the stimuli cannot yet decide) --- a policy that, frozen, admits
+the majority labellings of two independent published studies where no catalogue semantics does,
+while remaining a poor point predictor --- and a
 directional,
 multiplicity-corrected test finds no graph condition whose own theory beats one
 shared policy --- with the pooled contrast significantly favouring the shared
@@ -184,8 +186,8 @@ mismatch.
 and~\ref{sec:humansem}). An adversarially audited re-analysis of the
 \citet{guillaume2022} human study: learned theories do not beat CF2 (confirming
 the original finding under a stronger test); the learner nevertheless recovers a
-legible human acceptance policy --- committal reinstatement and cycle
-caution, recurring in $15$--$20$ of $20$ cross-seed folds, plus a
+legible human acceptance policy --- cycle caution with downstream
+commitment, recurring in $15$--$20$ of $20$ cross-seed folds, plus a
 lower-stability candidate hedge (distrust of heavily attacked arguments)
 aligned with graded semantics --- whose audited principle profile matches no
 semantics in the extension-based catalogue;
@@ -1857,9 +1859,10 @@ argument\\
 (\texttt{violated :- reinstated(X), has\_many\_attackers(X)}) \hfill [5/20, aux.]
 \end{description}}}
 \caption{The human semantics $\sigma_H$ as learned. Rules 1--3 are
-near-textbook --- jointly, a \emph{committal} complete-like policy with cycle
-handling, though rule 1's escape clause tolerates conflict among accepted
-arguments (see the principle profile below). Rule 4 is a
+near-textbook --- jointly, a complete-like policy with cycle handling that
+commits outside cycles, though rule 1's escape clause tolerates conflict
+among accepted arguments and, with it, leaves reinstatement uncommitted (see
+the principle profile and the out-of-corpus check below). Rule 4 is a
 \emph{candidate} hedge: psychologically suggestive --- graded and
 ranking-based semantics posit exactly this attack-load sensitivity
 axiomatically~\citep{grossi2019graded,amgoud2013ranking,bonzon2016ranking}
@@ -1992,8 +1995,114 @@ observe, though not with its graded weakening, which $\sigma_H$'s
 attack-\emph{count} trigger cannot express; on any reinstatement graph whose
 reinstated argument has two or more attackers, $\sigma_H$ predicts
 \emph{blocked} reinstatement, diverging from every extension-based catalogue
-semantics. A pre-registered test of these two predictions on new behavioural
-data is the natural next step (Section~\ref{sec:concl}).
+semantics. Section~\ref{sec:zeroshot} tests both, frozen, on published
+stimuli collected by others: neither survives as stated, and the failures
+are diagnostic.
+
+\subsection{Out-of-corpus check: the frozen $\sigma_H$ on independent stimuli}
+\label{sec:zeroshot}
+
+$\sigma_H$ is executable, so the strongest test available without new
+participants is to apply it, frozen, to stimuli and responses collected by
+others. We froze the program --- the five rules with their feature and
+auxiliary backgrounds, reproduced verbatim from the learning code
+(\texttt{Real\_World\_Examples/zero\_shot/}) --- and tagged the repository
+commit before examining any external data; nothing below was tuned. Two
+published corpora provide three-valued judgements: the twelve frameworks of
+\citet{cramer2019jelia} ($60$ arguments, $3$--$8$ per framework, $61$
+participants, a fictional-island scenario designed to exclude world
+knowledge) and the three reinstatement frameworks of \citet{cramer2018}
+($130$ participants, three thematic contexts). Both come from the research
+group that collected the corpus of Section~\ref{sec:exp2}, with independent
+participants and materials; the 2018 frameworks have the same three shapes as
+the corpus's seven conditions, the 2019 ones are new shapes. The 2019 study
+publishes the majority response per argument for three participant groups
+(all; the $49$ ``coherent'' participants; the $27$ coherent participants who
+did not follow the grounded-leaning ``undecided whenever in doubt''
+strategy), the 2018 study per-argument percentages; we score against these,
+and against the catalogue semantics under the justification status those
+papers use (strongly accepted / strongly rejected / weakly undecided, i.e.\
+the skeptical projection). The frameworks were transcribed from the papers'
+natural-language stimuli and checked against their own semantics-prediction
+columns (all $60$ statuses agree); the majority responses were transcribed
+from the published figure by three independent readers with no disagreement.
+
+Table~\ref{tab:zeroshot} gives the result on the 2019 stimuli, and two levels
+must be kept apart. \emph{Per argument}, $\sigma_H$ is a poor point predictor:
+as a verifier it admits many labellings (on average $15.5\%$ of the $3^n$
+labellings of a framework, against $1$--$2\%$ for the catalogue), so its
+skeptical projection commits on only $3$ of the $55$ arguments on which it has
+a labelling at all (all three correctly) and otherwise answers undecided ---
+its three-valued agreement of $0.93$ is the all-undecided base rate on those
+arguments plus three hits, and Cohen's $\kappa$, which discounts the base
+rate, is $0.58$; grounded and CF2 --- the two semantics the authors found
+best --- score $0.92$ and $0.88$ against all participants ($\kappa$ $0.75$
+and $0.71$) and get $9$ and $11$ of the $11$ committed majority responses
+right, where $\sigma_H$ gets $3$ of the $7$ it can address; the credulous
+(plurality) projection the in-corpus comparison relies on collapses here
+($\kappa\approx0$), because a plurality over hundreds of admitted labellings
+commits almost everywhere. This is the learner-does-not-beat-CF2 result of
+Section~\ref{sec:act1}, reproduced out of corpus, and sharpened: the reading
+that made the learned theory competitive in corpus does not travel. \emph{Per labelling} ---
+the level at which the theory was learned, ``is this whole labelling
+admissible to a human?'' --- the picture inverts: the majority labelling of
+the coherent participants is a legal labelling of $\sigma_H$ on $10$ of the
+$12$ frameworks, a grounded (equivalently complete) labelling on $8$, a
+preferred labelling on $3$ and a CF2 labelling on none; for the coherent
+non-grounded participants the counts are $10$, $3$, $0$ and $0$. The pattern
+behind the catalogue's failures is the one $\sigma_H$ learned from the 2022
+corpus: participants leave a cycle undecided and still commit downstream ---
+accepting an argument whose only attacker they rejected, rejecting one
+attacked only by undecided arguments --- which no extension-based semantics
+admits and rules 1--3 do. Both failures of $\sigma_H$ (frameworks 1 and 7 in
+every group; 3 and 9 for all participants) are the same rule: 2b, ``outside
+cycles a defended argument must be accepted'', the least fold-stable of the
+core rules ($10/20$), fires because the majority left a reinstated argument
+undecided. Permissiveness is part of the explanation and we report it as
+such: a verifier admitting $15\%$ of the labelling space has an easier
+admission task than one admitting $1\%$, though $10$ of $12$ is well above
+that chance rate. The 2018 stimuli repeat both facts: the majority labelling
+(accept the reinstated argument, reject its attacker, leave the cycle
+undecided) is legal under $\sigma_H$ on all three frameworks and is a
+labelling of no catalogue semantics on the floating and 3-cycle ones, while
+per argument $\sigma_H$'s skeptical projection is undecided wherever the
+catalogue disagrees with itself.
+
+The two frozen predictions fare differently, and neither survives as
+printed. \emph{P1} (single-attacker reinstatement is committal): the only
+acyclic chain among the 2019 stimuli (framework 1) had its reinstated argument
+left undecided by every participant group, against every catalogue
+semantics; the 2018 simple-reinstatement argument was accepted by $58\%$;
+and on the graded scale of \citet{rahwan2010} and its replication by
+\citet{bezou2025}, reinstatement recovers most but not all of the lost
+confidence ($5.2$ against a baseline of $5.9$; $5.21$ against $5.61$).
+Reinstatement is real but not committal --- and, a correction to our own
+statement of P1, $\sigma_H$ never predicted otherwise: its legal set on a
+chain contains the conflict-tolerant labelling that rule~1's exception
+admits, so the skeptical projection of the frozen verifier is undecided on
+the reinstated argument; the committal gloss of Section~\ref{sec:theory} was
+read off rules 2a--2b rather than computed. \emph{P2} (reinstatement of a
+multiply-attacked argument is blocked): framework 7 --- one unattacked
+argument defeating all three attackers of a fifth --- is the direct test, and
+every participant group left the reinstated argument undecided while
+grounded, preferred and CF2 all accept it, so the hedge's direction holds
+against the whole catalogue. Its formalization overshoots: rule~4 fires on
+every labelling of that framework, because the argument counts as reinstated
+as soon as its defender is accepted, so $\sigma_H$ admits no labelling at all
+--- the totality failure of Table~\ref{tab:sigmah} realized on an external
+stimulus --- and with rule~4 removed the majority labelling is still rejected
+by rule 2b. What people did was neither full reinstatement nor rejection but
+suspension; a rule that suspends commitment for heavily attacked reinstated
+arguments, rather than forbidding their reinstatement, would admit it, and is
+the natural candidate for the pre-registered follow-up. Reinstatement that
+runs \emph{through} a cycle (floating reinstatement and arguments behind a
+cycle) lies outside both predictions and behaves differently: there the 2018
+majorities do commit ($83\%$ accept the floating-reinstated argument, $52\%$
+the one behind the 3-cycle) while $\sigma_H$'s skeptical projection stays
+undecided --- the same under-commitment as above, on the one structure where
+people do commit.
+
+\input{zero_shot_tab}
 
 \subsection{Auxiliary predicates: what closes the gap, and what does not}
 \label{sec:aux}
@@ -2327,9 +2436,11 @@ framework families, with self-attacking preferred the one identified boundary;
 and \emph{yes} --- on
 human data the calibrated learner both confirms the CF2 ceiling under a
 stronger-than-before test and returns what the catalogue cannot: a legible
-human acceptance policy --- committal reinstatement and cycle caution, plus
-a \emph{candidate} non-Dungian distrust of heavily attacked arguments --- and
-a principled rejection of per-graph semantics.
+human acceptance policy --- cycle caution with downstream commitment, plus
+a \emph{candidate} non-Dungian distrust of heavily attacked arguments ---
+that, frozen, admits the majority labellings of two independent studies where
+no catalogue semantics does, and a principled rejection of per-graph
+semantics.
 
 \paragraph{Limitations.} The synthetic envelope is mapped on random digraphs of
 moderate size ($n\le12$). Clean-label recovery reproduces across the sparse,
@@ -2367,14 +2478,20 @@ Section~\ref{sec:thmvaf}, but carries no learning experiments of its own
 here. $\sigma_H$ describes pooled behaviour on seven
 graphs; its stable core recurs in $15$--$20$ of $20$ cross-seed folds but its
 smoke/fire hedge in only $5$ of $20$, with an antecedent realized exactly
-once in the corpus --- a falsifiable candidate awaiting new stimuli; its
+once in the corpus --- a falsifiable candidate whose direction holds on one
+external stimulus while its formalization overshoots
+(Section~\ref{sec:zeroshot}); its
 auxiliary vocabulary was stress-tested by leave-one-condition-out
 re-selection --- the reinstatement family is re-chosen in $6$ of $7$ folds,
 but the in-corpus $+7.7$ gain does not transfer to held-out conditions
 (pooled $+2.6$ points, $p{=}.56$) --- so the vocabulary-level claims are
 in-corpus descriptions pending pre-registered replication, and the contextual-reasoning test is well-powered only for the
 cyclic condition G (the per-condition nulls elsewhere rest on $5$--$11$
-held-out cells each). Committed-only accuracy peaks in the mid-$60$s against a
+held-out cells each). The out-of-corpus check of Section~\ref{sec:zeroshot}
+scores the frozen $\sigma_H$ against published \emph{majority} responses from
+the same research group, not against per-participant data or an independent
+laboratory; a pre-registered test with participant-level data remains the
+decisive step. Committed-only accuracy peaks in the mid-$60$s against a
 CF2 ceiling near $80\%$: closing that residue likely requires per-participant
 modelling, not better features.
 
@@ -2689,6 +2806,12 @@ Persuasion in practical argument using value-based argumentation frameworks.
 \emph{Journal of Logic and Computation} 13(3):429--448, 2003.
 
 
+\bibitem[Bezou-Vrakatseli et al.(2025)]{bezou2025}
+E.~Bezou-Vrakatseli, H.~Prakken, C.~P.~Janssen.
+Experimental evaluation of gradual argument acceptability semantics: the
+case of reinstatement.
+\emph{Argument \& Computation}, 16(3):303--323, 2025.
+
 \bibitem[Bondarenko et al.(1997)]{bondarenko1997}
 A.~Bondarenko, P.~M. Dung, R.~A. Kowalski, F.~Toni.
 An abstract, argumentation-theoretic approach to default reasoning.
@@ -2736,6 +2859,12 @@ In \emph{Proc.\ IJCAI}, 1667--1673, 2020.
 M.~Cramer, M.~Guillaume.
 Empirical cognitive study on abstract argumentation semantics.
 In \emph{Proc.\ COMMA}, 413--424, 2018.
+
+\bibitem[Cramer and Guillaume(2019)]{cramer2019jelia}
+M.~Cramer, M.~Guillaume.
+Empirical study on human evaluation of complex argumentation frameworks.
+In \emph{Proc.\ JELIA}, LNCS 11468, 102--115, 2019. Technical report with
+the full stimulus set: arXiv:1902.10552.
 
 \bibitem[Cramer and van der Torre(2019)]{cramer2019scf2}
 M.~Cramer, L.~van~der Torre.

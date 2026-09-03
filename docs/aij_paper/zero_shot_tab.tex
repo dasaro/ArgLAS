@@ -1,0 +1,44 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\caption{Out-of-corpus check of the frozen $\sigma_H$ on the twelve stimulus
+frameworks ($60$ arguments) of \citet{cramer2019jelia}, against the published
+majority response of each participant group. Top, per argument: acc$_3$ is
+three-valued agreement (its all-undecided baseline is the share of
+``undecided'' majorities); ``committed'' is agreement on the arguments whose
+majority response is accept or reject ($n_c$ in the header); ``commits'' is the
+number of arguments on which the predictor itself commits, with its precision.
+Grounded and complete coincide.
+Catalogue semantics are read under the papers' own justification status
+(strongly accepted / strongly rejected / weakly undecided $=$ skeptical
+projection); $\sigma_H$ under the skeptical projection of its legal labellings
+and under the credulous (plurality) projection used in corpus. Argument~59 is
+tied among all participants and excluded there; on framework~7 $\sigma_H$
+admits no labelling at all and its five arguments are excluded from the
+$\sigma_H$ rows ($n{=}54$ or $55$). Bottom, per framework: is the whole-framework
+majority labelling admitted --- a legal labelling of $\sigma_H$, a grounded /
+preferred / CF2 labelling of the catalogue --- out of $12$ frameworks ($11$ for
+the all-participants group); ``space'' is the mean fraction of the $3^n$
+labellings a verifier admits.}
+\label{tab:zeroshot}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccccccc}
+\toprule
+& \multicolumn{3}{c}{all ($61$), $n_c{=}11$} & \multicolumn{3}{c}{coherent ($49$), $n_c{=}11$} & \multicolumn{3}{c}{coh.\ non-grounded ($27$), $n_c{=}21$}\\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+predictor & acc$_3$ & comm. & commits & acc$_3$ & comm. & commits & acc$_3$ & comm. & commits\\
+\midrule
+grounded & 0.92 & 0.82 & 12 (0.75) & 0.92 & 0.82 & 12 (0.75) & 0.75 & 0.43 & 12 (0.75)\\
+preferred & 0.78 & 0.91 & 22 (0.45) & 0.80 & 1.00 & 23 (0.48) & 0.77 & 0.71 & 23 (0.65)\\
+CF2 & 0.88 & 1.00 & 18 (0.61) & 0.88 & 1.00 & 18 (0.61) & 0.85 & 0.71 & 18 (0.83)\\
+$\sigma_H$, skeptical & 0.93 & 0.43 & 3 (1.00) & 0.93 & 0.43 & 3 (1.00) & 0.75 & 0.18 & 3 (1.00)\\
+$\sigma_H$, credulous & 0.09 & 0.57 & 53 (0.08) & 0.11 & 0.71 & 54 (0.09) & 0.20 & 0.59 & 54 (0.19)\\
+all-undecided baseline & 0.81 & 0.00 & 0 (--) & 0.82 & 0.00 & 0 (--) & 0.65 & 0.00 & 0 (--)\\
+\midrule
+\multicolumn{10}{l}{\emph{majority labelling admitted (out of 12 / 11 frameworks)}}\\
+grounded (space 1.0\%) & \multicolumn{3}{c}{6/11} & \multicolumn{3}{c}{8/12} & \multicolumn{3}{c}{3/12}\\
+preferred (space 1.5\%) & \multicolumn{3}{c}{2/11} & \multicolumn{3}{c}{3/12} & \multicolumn{3}{c}{0/12}\\
+CF2 (space 1.8\%) & \multicolumn{3}{c}{0/11} & \multicolumn{3}{c}{0/12} & \multicolumn{3}{c}{0/12}\\
+$\sigma_H$ (space 15.5\%) & \multicolumn{3}{c}{7/11} & \multicolumn{3}{c}{10/12} & \multicolumn{3}{c}{10/12}\\
+\bottomrule\end{tabular}}\end{table}
