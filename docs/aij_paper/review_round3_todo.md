@@ -112,9 +112,28 @@ strict order"; mention self-attacks in App A prelims.
 
 **REMAINING — other:** commit the ~14 MB of learned .lp models of the v2 grid that the four
 derived audits address by LEARNED_MODEL_FILENAME (the three targeted re-runs below already
-commit theirs under data/<name>/train_output); zero-shot Tier 1 (external data, 1–2 weeks,
-follow-up); release-commit pin — the LAST action at submission (tag + replace the one
+commit theirs under data/<name>/train_output); release-commit pin — the LAST action at submission (tag + replace the one
 remaining \todo).
+
+**DONE 2026-09-03 — zero-shot Tier 1 (out-of-corpus check of σ_H).** σ_H frozen as
+Real_World_Examples/zero_shot/sigma_h_frozen.lp (tag sigma-h-frozen-20260903, before any
+external data was scored); external stimuli/responses transcribed from Cramer & Guillaume 2019
+(12 AFs / 60 args, majority responses of 3 groups; AFs cross-checked against the paper's own
+semantics columns, responses re-transcribed by 3 blind readers, 0 discrepancies), Cramer &
+Guillaume 2018 (3 AFs, Fig. 4 percentages), Rahwan 2010 / Bezou-Vrakatseli 2025 (graded,
+directional only). Results (zero_shot_eval.py → zero_shot_results.json; tab:zeroshot,
+sec:zeroshot): per argument σ_H under-commits (3/60 commitments, at the all-undecided
+baseline) and does not beat grounded/CF2 (learner-does-not-beat-CF2 reproduced out of
+corpus); per LABELLING the coherent majority labelling is legal under σ_H on 10/12 AFs vs
+grounded 8, preferred 3, CF2 0 (non-grounded group: 10 / 3 / 0 / 0), both σ_H failures = rule
+2b (reinstated argument left undecided); permissiveness control 15.5% of 3^n vs 1–2%.
+Frozen predictions: P1 (committal reinstatement) NOT supported — humans leave reinstated
+arguments undecided (2019) or accept them imperfectly (2018: 58%; graded 5.2 vs 5.9), and
+σ_H's own skeptical projection never predicted committal reinstatement (the P1 text had been
+read off rules 2a–2b, not computed); P2 (blocked multi-attacker reinstatement): direction
+holds on AF7 (all groups undecided vs catalogue accept) but rule 4 empties σ_H's legal set
+there (totality failure realized). Paper: sec:zeroshot + tab:zeroshot, abstract/intro/
+conclusion "committal reinstatement" claims corrected, Limitations scoped.
 
 **DONE 2026-09-03 — the three targeted re-runs** (experiments/RERUNS.md, run unattended by
 experiments/supervise_reruns.sh; committed as data/self_prf_recap, data/baf_anchor, data/seedB;

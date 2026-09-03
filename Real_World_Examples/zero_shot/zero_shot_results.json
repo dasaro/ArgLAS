@@ -1,0 +1,3623 @@
+{
+ "note": "sigma_h/credulous is the plurality projection over all legal labellings (the in-corpus reading behind committed-only accuracy in the paper); on these frameworks sigma_H admits 10-550 labellings, so the plurality commits almost everywhere -- reported for honesty, not as a meaningful point predictor. Status 'none' = the predictor has no labelling/extension on that framework (excluded from every score, counted in n_no_prediction).",
+ "cg2019": {
+  "all|grounded": {
+   "acc3": 0.9152542372881356,
+   "kappa": 0.7461273666092944,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "all|complete": {
+   "acc3": 0.9152542372881356,
+   "kappa": 0.7461273666092944,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "all|preferred": {
+   "acc3": 0.7796610169491526,
+   "kappa": 0.516698172652804,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.9090909090909091,
+   "n_committed": 11,
+   "commit_precision": 0.45454545454545453,
+   "n_predictor_committed": 22
+  },
+  "all|stable": {
+   "acc3": 0.5952380952380952,
+   "kappa": 0.37913043478260866,
+   "n": 42,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 10,
+   "commit_precision": 0.37037037037037035,
+   "n_predictor_committed": 27
+  },
+  "all|cf2": {
+   "acc3": 0.8813559322033898,
+   "kappa": 0.7085391672547635,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.6111111111111112,
+   "n_predictor_committed": 18
+  },
+  "all|sigma_h/skeptical": {
+   "acc3": 0.9259259259259259,
+   "kappa": 0.5764705882352942,
+   "n": 54,
+   "n_no_prediction": 5,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 7,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 3
+  },
+  "all|sigma_h/credulous": {
+   "acc3": 0.09259259259259259,
+   "kappa": 0.01121076233183856,
+   "n": 54,
+   "n_no_prediction": 5,
+   "acc_committed": 0.5714285714285714,
+   "n_committed": 7,
+   "commit_precision": 0.07547169811320754,
+   "n_predictor_committed": 53
+  },
+  "coherent|grounded": {
+   "acc3": 0.9166666666666666,
+   "kappa": 0.7464074387151309,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "coherent|complete": {
+   "acc3": 0.9166666666666666,
+   "kappa": 0.7464074387151309,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "coherent|preferred": {
+   "acc3": 0.8,
+   "kappa": 0.5665261890427454,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.4782608695652174,
+   "n_predictor_committed": 23
+  },
+  "coherent|stable": {
+   "acc3": 0.6046511627906976,
+   "kappa": 0.3983539094650205,
+   "n": 43,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.39285714285714285,
+   "n_predictor_committed": 28
+  },
+  "coherent|cf2": {
+   "acc3": 0.8833333333333333,
+   "kappa": 0.709141274238227,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.6111111111111112,
+   "n_predictor_committed": 18
+  },
+  "coherent|sigma_h/skeptical": {
+   "acc3": 0.9272727272727272,
+   "kappa": 0.5744680851063828,
+   "n": 55,
+   "n_no_prediction": 5,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 7,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 3
+  },
+  "coherent|sigma_h/credulous": {
+   "acc3": 0.10909090909090909,
+   "kappa": 0.03577817531305904,
+   "n": 55,
+   "n_no_prediction": 5,
+   "acc_committed": 0.7142857142857143,
+   "n_committed": 7,
+   "commit_precision": 0.09259259259259259,
+   "n_predictor_committed": 54
+  },
+  "nongrounded|grounded": {
+   "acc3": 0.75,
+   "kappa": 0.438552713661884,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 21,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "nongrounded|complete": {
+   "acc3": 0.75,
+   "kappa": 0.438552713661884,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 21,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "nongrounded|preferred": {
+   "acc3": 0.7666666666666667,
+   "kappa": 0.5615866388308979,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.7142857142857143,
+   "n_committed": 21,
+   "commit_precision": 0.6521739130434783,
+   "n_predictor_committed": 23
+  },
+  "nongrounded|stable": {
+   "acc3": 0.6976744186046512,
+   "kappa": 0.5414273995077933,
+   "n": 43,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 15,
+   "commit_precision": 0.5357142857142857,
+   "n_predictor_committed": 28
+  },
+  "nongrounded|cf2": {
+   "acc3": 0.85,
+   "kappa": 0.6956031567080044,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.7142857142857143,
+   "n_committed": 21,
+   "commit_precision": 0.8333333333333334,
+   "n_predictor_committed": 18
+  },
+  "nongrounded|sigma_h/skeptical": {
+   "acc3": 0.7454545454545455,
+   "kappa": 0.24657534246575338,
+   "n": 55,
+   "n_no_prediction": 5,
+   "acc_committed": 0.17647058823529413,
+   "n_committed": 17,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 3
+  },
+  "nongrounded|sigma_h/credulous": {
+   "acc3": 0.2,
+   "kappa": 0.045364891518737696,
+   "n": 55,
+   "n_no_prediction": 5,
+   "acc_committed": 0.5882352941176471,
+   "n_committed": 17,
+   "commit_precision": 0.18518518518518517,
+   "n_predictor_committed": 54
+  }
+ },
+ "cg2019_predictions": {
+  "grounded": {
+   "1": "in",
+   "2": "out",
+   "3": "in",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "undec",
+   "9": "undec",
+   "10": "undec",
+   "11": "undec",
+   "12": "undec",
+   "13": "undec",
+   "14": "undec",
+   "15": "undec",
+   "16": "undec",
+   "17": "undec",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "undec",
+   "23": "undec",
+   "24": "undec",
+   "25": "undec",
+   "26": "undec",
+   "27": "undec",
+   "28": "undec",
+   "29": "undec",
+   "30": "undec",
+   "31": "in",
+   "32": "out",
+   "33": "out",
+   "34": "out",
+   "35": "in",
+   "36": "in",
+   "37": "out",
+   "38": "in",
+   "39": "undec",
+   "40": "undec",
+   "41": "undec",
+   "42": "undec",
+   "43": "undec",
+   "44": "undec",
+   "45": "undec",
+   "46": "undec",
+   "47": "undec",
+   "48": "undec",
+   "49": "undec",
+   "50": "undec",
+   "51": "undec",
+   "52": "undec",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "undec",
+   "60": "undec"
+  },
+  "complete": {
+   "1": "in",
+   "2": "out",
+   "3": "in",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "undec",
+   "9": "undec",
+   "10": "undec",
+   "11": "undec",
+   "12": "undec",
+   "13": "undec",
+   "14": "undec",
+   "15": "undec",
+   "16": "undec",
+   "17": "undec",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "undec",
+   "23": "undec",
+   "24": "undec",
+   "25": "undec",
+   "26": "undec",
+   "27": "undec",
+   "28": "undec",
+   "29": "undec",
+   "30": "undec",
+   "31": "in",
+   "32": "out",
+   "33": "out",
+   "34": "out",
+   "35": "in",
+   "36": "in",
+   "37": "out",
+   "38": "in",
+   "39": "undec",
+   "40": "undec",
+   "41": "undec",
+   "42": "undec",
+   "43": "undec",
+   "44": "undec",
+   "45": "undec",
+   "46": "undec",
+   "47": "undec",
+   "48": "undec",
+   "49": "undec",
+   "50": "undec",
+   "51": "undec",
+   "52": "undec",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "undec",
+   "60": "undec"
+  },
+  "preferred": {
+   "1": "in",
+   "2": "out",
+   "3": "in",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "undec",
+   "9": "undec",
+   "10": "undec",
+   "11": "undec",
+   "12": "undec",
+   "13": "out",
+   "14": "out",
+   "15": "in",
+   "16": "out",
+   "17": "in",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "out",
+   "23": "in",
+   "24": "undec",
+   "25": "undec",
+   "26": "undec",
+   "27": "undec",
+   "28": "undec",
+   "29": "undec",
+   "30": "undec",
+   "31": "in",
+   "32": "out",
+   "33": "out",
+   "34": "out",
+   "35": "in",
+   "36": "in",
+   "37": "out",
+   "38": "in",
+   "39": "undec",
+   "40": "undec",
+   "41": "out",
+   "42": "in",
+   "43": "undec",
+   "44": "undec",
+   "45": "undec",
+   "46": "undec",
+   "47": "undec",
+   "48": "undec",
+   "49": "undec",
+   "50": "undec",
+   "51": "undec",
+   "52": "undec",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "out",
+   "60": "in"
+  },
+  "stable": {
+   "1": "in",
+   "2": "out",
+   "3": "in",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "none",
+   "9": "none",
+   "10": "none",
+   "11": "none",
+   "12": "none",
+   "13": "out",
+   "14": "out",
+   "15": "in",
+   "16": "out",
+   "17": "in",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "out",
+   "23": "in",
+   "24": "none",
+   "25": "none",
+   "26": "none",
+   "27": "none",
+   "28": "none",
+   "29": "none",
+   "30": "none",
+   "31": "in",
+   "32": "out",
+   "33": "out",
+   "34": "out",
+   "35": "in",
+   "36": "in",
+   "37": "out",
+   "38": "in",
+   "39": "undec",
+   "40": "undec",
+   "41": "out",
+   "42": "in",
+   "43": "out",
+   "44": "in",
+   "45": "out",
+   "46": "in",
+   "47": "out",
+   "48": "none",
+   "49": "none",
+   "50": "none",
+   "51": "none",
+   "52": "none",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "out",
+   "60": "in"
+  },
+  "cf2": {
+   "1": "in",
+   "2": "out",
+   "3": "in",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "undec",
+   "9": "undec",
+   "10": "undec",
+   "11": "out",
+   "12": "in",
+   "13": "undec",
+   "14": "undec",
+   "15": "undec",
+   "16": "undec",
+   "17": "undec",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "out",
+   "23": "in",
+   "24": "undec",
+   "25": "undec",
+   "26": "undec",
+   "27": "undec",
+   "28": "undec",
+   "29": "undec",
+   "30": "undec",
+   "31": "in",
+   "32": "out",
+   "33": "out",
+   "34": "out",
+   "35": "in",
+   "36": "in",
+   "37": "out",
+   "38": "in",
+   "39": "undec",
+   "40": "undec",
+   "41": "out",
+   "42": "in",
+   "43": "undec",
+   "44": "undec",
+   "45": "undec",
+   "46": "undec",
+   "47": "undec",
+   "48": "undec",
+   "49": "undec",
+   "50": "undec",
+   "51": "undec",
+   "52": "undec",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "undec",
+   "60": "undec"
+  },
+  "sigma_h/skeptical": {
+   "1": "in",
+   "2": "undec",
+   "3": "undec",
+   "4": "in",
+   "5": "undec",
+   "6": "undec",
+   "7": "undec",
+   "8": "undec",
+   "9": "undec",
+   "10": "undec",
+   "11": "undec",
+   "12": "undec",
+   "13": "undec",
+   "14": "undec",
+   "15": "undec",
+   "16": "undec",
+   "17": "undec",
+   "18": "undec",
+   "19": "undec",
+   "20": "undec",
+   "21": "undec",
+   "22": "undec",
+   "23": "undec",
+   "24": "undec",
+   "25": "undec",
+   "26": "undec",
+   "27": "undec",
+   "28": "undec",
+   "29": "undec",
+   "30": "undec",
+   "31": "none",
+   "32": "none",
+   "33": "none",
+   "34": "none",
+   "35": "none",
+   "36": "in",
+   "37": "undec",
+   "38": "undec",
+   "39": "undec",
+   "40": "undec",
+   "41": "undec",
+   "42": "undec",
+   "43": "undec",
+   "44": "undec",
+   "45": "undec",
+   "46": "undec",
+   "47": "undec",
+   "48": "undec",
+   "49": "undec",
+   "50": "undec",
+   "51": "undec",
+   "52": "undec",
+   "53": "undec",
+   "54": "undec",
+   "55": "undec",
+   "56": "undec",
+   "57": "undec",
+   "58": "undec",
+   "59": "undec",
+   "60": "undec"
+  },
+  "sigma_h/credulous": {
+   "1": "in",
+   "2": "in",
+   "3": "in",
+   "4": "in",
+   "5": "out",
+   "6": "undec",
+   "7": "in",
+   "8": "out",
+   "9": "out",
+   "10": "out",
+   "11": "in",
+   "12": "in",
+   "13": "out",
+   "14": "out",
+   "15": "out",
+   "16": "in",
+   "17": "in",
+   "18": "out",
+   "19": "out",
+   "20": "out",
+   "21": "out",
+   "22": "in",
+   "23": "in",
+   "24": "out",
+   "25": "out",
+   "26": "out",
+   "27": "out",
+   "28": "out",
+   "29": "in",
+   "30": "in",
+   "31": "none",
+   "32": "none",
+   "33": "none",
+   "34": "none",
+   "35": "none",
+   "36": "in",
+   "37": "out",
+   "38": "out",
+   "39": "out",
+   "40": "out",
+   "41": "in",
+   "42": "in",
+   "43": "out",
+   "44": "out",
+   "45": "out",
+   "46": "out",
+   "47": "out",
+   "48": "out",
+   "49": "out",
+   "50": "out",
+   "51": "in",
+   "52": "in",
+   "53": "out",
+   "54": "out",
+   "55": "out",
+   "56": "out",
+   "57": "out",
+   "58": "out",
+   "59": "in",
+   "60": "in"
+  }
+ },
+ "cg2019_sigma_h_legal_count": {
+  "AF1": 3,
+  "AF2": 9,
+  "AF3": 41,
+  "AF4": 32,
+  "AF5": 95,
+  "AF6": 229,
+  "AF7": 0,
+  "AF8": 5,
+  "AF9": 17,
+  "AF10": 76,
+  "AF11": 39,
+  "AF12": 553
+ },
+ "cg2019_rules1to3": {
+  "all|grounded": {
+   "acc3": 0.9152542372881356,
+   "kappa": 0.7461273666092944,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "all|complete": {
+   "acc3": 0.9152542372881356,
+   "kappa": 0.7461273666092944,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "all|preferred": {
+   "acc3": 0.7796610169491526,
+   "kappa": 0.516698172652804,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.9090909090909091,
+   "n_committed": 11,
+   "commit_precision": 0.45454545454545453,
+   "n_predictor_committed": 22
+  },
+  "all|stable": {
+   "acc3": 0.5952380952380952,
+   "kappa": 0.37913043478260866,
+   "n": 42,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 10,
+   "commit_precision": 0.37037037037037035,
+   "n_predictor_committed": 27
+  },
+  "all|cf2": {
+   "acc3": 0.8813559322033898,
+   "kappa": 0.7085391672547635,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.6111111111111112,
+   "n_predictor_committed": 18
+  },
+  "all|sigma_h/skeptical": {
+   "acc3": 0.8813559322033898,
+   "kappa": 0.4993939393939394,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.36363636363636365,
+   "n_committed": 11,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 4
+  },
+  "all|sigma_h/credulous": {
+   "acc3": 0.1016949152542373,
+   "kappa": -0.009035172636334287,
+   "n": 59,
+   "n_no_prediction": 0,
+   "acc_committed": 0.45454545454545453,
+   "n_committed": 11,
+   "commit_precision": 0.08620689655172414,
+   "n_predictor_committed": 58
+  },
+  "coherent|grounded": {
+   "acc3": 0.9166666666666666,
+   "kappa": 0.7464074387151309,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "coherent|complete": {
+   "acc3": 0.9166666666666666,
+   "kappa": 0.7464074387151309,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.8181818181818182,
+   "n_committed": 11,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "coherent|preferred": {
+   "acc3": 0.8,
+   "kappa": 0.5665261890427454,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.4782608695652174,
+   "n_predictor_committed": 23
+  },
+  "coherent|stable": {
+   "acc3": 0.6046511627906976,
+   "kappa": 0.3983539094650205,
+   "n": 43,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.39285714285714285,
+   "n_predictor_committed": 28
+  },
+  "coherent|cf2": {
+   "acc3": 0.8833333333333333,
+   "kappa": 0.709141274238227,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 1.0,
+   "n_committed": 11,
+   "commit_precision": 0.6111111111111112,
+   "n_predictor_committed": 18
+  },
+  "coherent|sigma_h/skeptical": {
+   "acc3": 0.8833333333333333,
+   "kappa": 0.4976076555023922,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.36363636363636365,
+   "n_committed": 11,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 4
+  },
+  "coherent|sigma_h/credulous": {
+   "acc3": 0.11666666666666667,
+   "kappa": 0.013035381750465555,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.5454545454545454,
+   "n_committed": 11,
+   "commit_precision": 0.1016949152542373,
+   "n_predictor_committed": 59
+  },
+  "nongrounded|grounded": {
+   "acc3": 0.75,
+   "kappa": 0.438552713661884,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 21,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "nongrounded|complete": {
+   "acc3": 0.75,
+   "kappa": 0.438552713661884,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.42857142857142855,
+   "n_committed": 21,
+   "commit_precision": 0.75,
+   "n_predictor_committed": 12
+  },
+  "nongrounded|preferred": {
+   "acc3": 0.7666666666666667,
+   "kappa": 0.5615866388308979,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.7142857142857143,
+   "n_committed": 21,
+   "commit_precision": 0.6521739130434783,
+   "n_predictor_committed": 23
+  },
+  "nongrounded|stable": {
+   "acc3": 0.6976744186046512,
+   "kappa": 0.5414273995077933,
+   "n": 43,
+   "n_no_prediction": 17,
+   "acc_committed": 1.0,
+   "n_committed": 15,
+   "commit_precision": 0.5357142857142857,
+   "n_predictor_committed": 28
+  },
+  "nongrounded|cf2": {
+   "acc3": 0.85,
+   "kappa": 0.6956031567080044,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.7142857142857143,
+   "n_committed": 21,
+   "commit_precision": 0.8333333333333334,
+   "n_predictor_committed": 18
+  },
+  "nongrounded|sigma_h/skeptical": {
+   "acc3": 0.7166666666666667,
+   "kappa": 0.2587209302325582,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.19047619047619047,
+   "n_committed": 21,
+   "commit_precision": 1.0,
+   "n_predictor_committed": 4
+  },
+  "nongrounded|sigma_h/credulous": {
+   "acc3": 0.2,
+   "kappa": 0.019407558733401435,
+   "n": 60,
+   "n_no_prediction": 0,
+   "acc_committed": 0.5238095238095238,
+   "n_committed": 21,
+   "commit_precision": 0.1864406779661017,
+   "n_predictor_committed": 59
+  }
+ },
+ "cg2019_rules1to3_legal_count": {
+  "AF1": 3,
+  "AF2": 9,
+  "AF3": 41,
+  "AF4": 32,
+  "AF5": 95,
+  "AF6": 229,
+  "AF7": 15,
+  "AF8": 5,
+  "AF9": 17,
+  "AF10": 78,
+  "AF11": 39,
+  "AF12": 553
+ },
+ "cg2019_admission": [
+  {
+   "af": "AF1",
+   "group": "all",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF1",
+   "group": "coherent",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF1",
+   "group": "nongrounded",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "all",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "coherent",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "nongrounded",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "all",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "out",
+    "p": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "coherent",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "undec",
+    "p": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "nongrounded",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "out",
+    "p": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "all",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "coherent",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "nongrounded",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "all",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec",
+    "b": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "coherent",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec",
+    "b": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "nongrounded",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "out",
+    "b": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "all",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "coherent",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "nongrounded",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "out",
+    "i": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "all",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b",
+    "4"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "coherent",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b",
+    "4"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "nongrounded",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b",
+    "4"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "all",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "coherent",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "nongrounded",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "all",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "coherent",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "nongrounded",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "all",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "coherent",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "nongrounded",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "all",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "coherent",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "nongrounded",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "out",
+    "a": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF12",
+   "group": "all",
+   "labelling": "tie",
+   "legal": null,
+   "fires": null,
+   "grounded": null,
+   "complete": null,
+   "preferred": null,
+   "cf2": null
+  },
+  {
+   "af": "AF12",
+   "group": "coherent",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec",
+    "j": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF12",
+   "group": "nongrounded",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "out",
+    "j": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  }
+ ],
+ "cg2019_admission_rules1to3": [
+  {
+   "af": "AF1",
+   "group": "all",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF1",
+   "group": "coherent",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF1",
+   "group": "nongrounded",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "undec",
+    "j": "in"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "all",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "coherent",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF2",
+   "group": "nongrounded",
+   "labelling": {
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "all",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "out",
+    "p": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "coherent",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "undec",
+    "p": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF3",
+   "group": "nongrounded",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "undec",
+    "o": "out",
+    "p": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "all",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "coherent",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF4",
+   "group": "nongrounded",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "all",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec",
+    "b": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "coherent",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec",
+    "b": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF5",
+   "group": "nongrounded",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "out",
+    "b": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "all",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "coherent",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF6",
+   "group": "nongrounded",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "out",
+    "i": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "all",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "coherent",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF7",
+   "group": "nongrounded",
+   "labelling": {
+    "g": "in",
+    "h": "out",
+    "i": "out",
+    "j": "out",
+    "k": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "all",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "coherent",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF8",
+   "group": "nongrounded",
+   "labelling": {
+    "t": "in",
+    "u": "out",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "all",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "undec"
+   },
+   "legal": false,
+   "fires": [
+    "2b"
+   ],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "coherent",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF9",
+   "group": "nongrounded",
+   "labelling": {
+    "l": "undec",
+    "m": "undec",
+    "n": "out",
+    "o": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "all",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "coherent",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF10",
+   "group": "nongrounded",
+   "labelling": {
+    "r": "undec",
+    "s": "undec",
+    "t": "undec",
+    "u": "undec",
+    "v": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "all",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "coherent",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "undec",
+    "a": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": false
+  },
+  {
+   "af": "AF11",
+   "group": "nongrounded",
+   "labelling": {
+    "w": "undec",
+    "x": "undec",
+    "y": "undec",
+    "z": "out",
+    "a": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF12",
+   "group": "all",
+   "labelling": "tie",
+   "legal": null,
+   "fires": null,
+   "grounded": null,
+   "complete": null,
+   "preferred": null,
+   "cf2": null
+  },
+  {
+   "af": "AF12",
+   "group": "coherent",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "undec",
+    "j": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": false,
+   "cf2": false
+  },
+  {
+   "af": "AF12",
+   "group": "nongrounded",
+   "labelling": {
+    "c": "undec",
+    "d": "undec",
+    "e": "undec",
+    "f": "undec",
+    "g": "undec",
+    "h": "undec",
+    "i": "out",
+    "j": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  }
+ ],
+ "cg2019_permissiveness": {
+  "AF1": {
+   "n": 4,
+   "sigma_H": 3,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 1,
+   "cf2": 1
+  },
+  "AF2": {
+   "n": 3,
+   "sigma_H": 9,
+   "grounded": 1,
+   "complete": 3,
+   "preferred": 2,
+   "stable": 2,
+   "cf2": 2
+  },
+  "AF3": {
+   "n": 5,
+   "sigma_H": 41,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 0,
+   "cf2": 3
+  },
+  "AF4": {
+   "n": 5,
+   "sigma_H": 32,
+   "grounded": 1,
+   "complete": 2,
+   "preferred": 1,
+   "stable": 1,
+   "cf2": 3
+  },
+  "AF5": {
+   "n": 6,
+   "sigma_H": 95,
+   "grounded": 1,
+   "complete": 3,
+   "preferred": 2,
+   "stable": 2,
+   "cf2": 2
+  },
+  "AF6": {
+   "n": 7,
+   "sigma_H": 229,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 0,
+   "cf2": 5
+  },
+  "AF7": {
+   "n": 5,
+   "sigma_H": 0,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 1,
+   "cf2": 1
+  },
+  "AF8": {
+   "n": 3,
+   "sigma_H": 5,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 1,
+   "cf2": 1
+  },
+  "AF9": {
+   "n": 4,
+   "sigma_H": 17,
+   "grounded": 1,
+   "complete": 3,
+   "preferred": 2,
+   "stable": 2,
+   "cf2": 2
+  },
+  "AF10": {
+   "n": 5,
+   "sigma_H": 76,
+   "grounded": 1,
+   "complete": 3,
+   "preferred": 2,
+   "stable": 1,
+   "cf2": 4
+  },
+  "AF11": {
+   "n": 5,
+   "sigma_H": 39,
+   "grounded": 1,
+   "complete": 1,
+   "preferred": 1,
+   "stable": 0,
+   "cf2": 3
+  },
+  "AF12": {
+   "n": 8,
+   "sigma_H": 553,
+   "grounded": 1,
+   "complete": 3,
+   "preferred": 2,
+   "stable": 2,
+   "cf2": 5
+  }
+ },
+ "cg2019_all_undec_baseline": {
+  "all": 0.8135593220338984,
+  "coherent": 0.8166666666666667,
+  "nongrounded": 0.65
+ },
+ "frozen_predictions": [
+  {
+   "src": "CG2019",
+   "af": "AF1",
+   "arg": "I",
+   "kind": "P1 single-attacker chain",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 3,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF2",
+   "arg": "V",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 9,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF3",
+   "arg": "O",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "reject",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF3",
+   "arg": "P",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF4",
+   "arg": "U",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 32,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF4",
+   "arg": "V",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 32,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF5",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 95,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF5",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 95,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF6",
+   "arg": "H",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 229,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF6",
+   "arg": "I",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 229,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF7",
+   "arg": "K",
+   "kind": "P2 multi-attacker",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "none",
+    "credulous": "none"
+   },
+   "n_legal": 0,
+   "theory_inconsistent": true,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF9",
+   "arg": "N",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF9",
+   "arg": "O",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "accept",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF11",
+   "arg": "Z",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 39,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF11",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 39,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF12",
+   "arg": "I",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 553,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "tie",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF12",
+   "arg": "J",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 553,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "simple",
+   "arg": "A",
+   "kind": "P1 single-attacker chain",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 3,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 58,
+     "reject": 16,
+     "undecided": 27
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "floating",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 83,
+     "reject": 2,
+     "undecided": 15
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "floating",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "pct": {
+     "accept": 2,
+     "reject": 93,
+     "undecided": 5
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "cycle3",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 52,
+     "reject": 40,
+     "undecided": 8
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "cycle3",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "out"
+   },
+   "human": {
+    "pct": {
+     "accept": 24,
+     "reject": 60,
+     "undecided": 16
+    }
+   }
+  }
+ ],
+ "frozen_predictions_rules1to3": [
+  {
+   "src": "CG2019",
+   "af": "AF1",
+   "arg": "I",
+   "kind": "P1 single-attacker chain",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 3,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF2",
+   "arg": "V",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 9,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF3",
+   "arg": "O",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "reject",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF3",
+   "arg": "P",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF4",
+   "arg": "U",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 32,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF4",
+   "arg": "V",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 32,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF5",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 95,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF5",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 95,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF6",
+   "arg": "H",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 229,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF6",
+   "arg": "I",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 229,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF7",
+   "arg": "K",
+   "kind": "P2 multi-attacker",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 15,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "undecided"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF9",
+   "arg": "N",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "all": "reject",
+    "coherent": "reject",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF9",
+   "arg": "O",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "accept",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF11",
+   "arg": "Z",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 39,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF11",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 39,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF12",
+   "arg": "I",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 553,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "tie",
+    "coherent": "undecided",
+    "nongrounded": "reject"
+   }
+  },
+  {
+   "src": "CG2019",
+   "af": "AF12",
+   "arg": "J",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 553,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "undec"
+   },
+   "human": {
+    "all": "undecided",
+    "coherent": "undecided",
+    "nongrounded": "accept"
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "simple",
+   "arg": "A",
+   "kind": "P1 single-attacker chain",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": true,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 3,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 58,
+     "reject": 16,
+     "undecided": 27
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "floating",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 83,
+     "reject": 2,
+     "undecided": 15
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "floating",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 2,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 17,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   },
+   "human": {
+    "pct": {
+     "accept": 2,
+     "reject": 93,
+     "undecided": 5
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "cycle3",
+   "arg": "A",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 1,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "in"
+   },
+   "human": {
+    "pct": {
+     "accept": 52,
+     "reject": 40,
+     "undecided": 8
+    }
+   }
+  },
+  {
+   "src": "CG2018",
+   "af": "cycle3",
+   "arg": "B",
+   "kind": "floating/behind-cycle reinstatement (outside P1/P2)",
+   "n_attackers": 3,
+   "in_cycle": false,
+   "grounded_reinstated": false,
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "n_legal": 41,
+   "theory_inconsistent": false,
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "out"
+   },
+   "human": {
+    "pct": {
+     "accept": 24,
+     "reject": 60,
+     "undecided": 16
+    }
+   }
+  }
+ ],
+ "cg2018": {
+  "simple/A": {
+   "pct": {
+    "accept": 58,
+    "reject": 16,
+    "undecided": 27
+   },
+   "majority": "accept",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   }
+  },
+  "simple/B": {
+   "pct": {
+    "accept": 4,
+    "reject": 78,
+    "undecided": 18
+   },
+   "majority": "reject",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "out",
+    "preferred": "out",
+    "cf2": "out"
+   }
+  },
+  "simple/C": {
+   "pct": {
+    "accept": 69,
+    "reject": 0,
+    "undecided": 31
+   },
+   "majority": "accept",
+   "sigma_h": {
+    "skeptical": "in",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "in",
+    "preferred": "in",
+    "cf2": "in"
+   }
+  },
+  "simple/majority_labelling": {
+   "labelling": {
+    "a": "in",
+    "b": "out",
+    "c": "in"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": true,
+   "complete": true,
+   "preferred": true,
+   "cf2": true
+  },
+  "floating/A": {
+   "pct": {
+    "accept": 83,
+    "reject": 2,
+    "undecided": 15
+   },
+   "majority": "accept",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "in",
+    "cf2": "in"
+   }
+  },
+  "floating/B": {
+   "pct": {
+    "accept": 2,
+    "reject": 93,
+    "undecided": 5
+   },
+   "majority": "reject",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "out",
+    "cf2": "out"
+   }
+  },
+  "floating/C": {
+   "pct": {
+    "accept": 7,
+    "reject": 13,
+    "undecided": 80
+   },
+   "majority": "undecided",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "out"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   }
+  },
+  "floating/D": {
+   "pct": {
+    "accept": 23,
+    "reject": 0,
+    "undecided": 77
+   },
+   "majority": "undecided",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "out"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   }
+  },
+  "floating/majority_labelling": {
+   "labelling": {
+    "a": "in",
+    "b": "out",
+    "c": "undec",
+    "d": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  },
+  "cycle3/A": {
+   "pct": {
+    "accept": 52,
+    "reject": 40,
+    "undecided": 8
+   },
+   "majority": "accept",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "in"
+   }
+  },
+  "cycle3/B": {
+   "pct": {
+    "accept": 24,
+    "reject": 60,
+    "undecided": 16
+   },
+   "majority": "reject",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "in"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "out"
+   }
+  },
+  "cycle3/C": {
+   "pct": {
+    "accept": 32,
+    "reject": 8,
+    "undecided": 60
+   },
+   "majority": "undecided",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "out"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   }
+  },
+  "cycle3/D": {
+   "pct": {
+    "accept": 16,
+    "reject": 24,
+    "undecided": 60
+   },
+   "majority": "undecided",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "out"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   }
+  },
+  "cycle3/E": {
+   "pct": {
+    "accept": 44,
+    "reject": 8,
+    "undecided": 48
+   },
+   "majority": "undecided",
+   "sigma_h": {
+    "skeptical": "undec",
+    "credulous": "out"
+   },
+   "catalogue": {
+    "grounded": "undec",
+    "preferred": "undec",
+    "cf2": "undec"
+   }
+  },
+  "cycle3/majority_labelling": {
+   "labelling": {
+    "a": "in",
+    "b": "out",
+    "c": "undec",
+    "d": "undec",
+    "e": "undec"
+   },
+   "legal": true,
+   "fires": [],
+   "grounded": false,
+   "complete": false,
+   "preferred": false,
+   "cf2": false
+  }
+ }
+}
